@@ -76,6 +76,7 @@ GEM
     erubi (1.7.1)
     execjs (2.7.0)
     ffi (1.9.23)
+    ffi (1.9.23-x64-mingw32)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
     i18n (1.0.1)
@@ -101,11 +102,15 @@ GEM
     mini_portile2 (2.3.0)
     minitest (5.11.3)
     msgpack (1.2.4)
+    msgpack (1.2.4-x64-mingw32)
     multi_json (1.13.1)
     nio4r (2.3.1)
     nokogiri (1.8.2)
       mini_portile2 (~> 2.3.0)
+    nokogiri (1.8.2-x64-mingw32)
+      mini_portile2 (~> 2.3.0)
     pg (1.0.0)
+    pg (1.0.0-x64-mingw32)
     public_suffix (3.0.2)
     puma (3.11.4)
     rack (2.0.5)
@@ -175,6 +180,8 @@ GEM
     turbolinks-source (5.1.0)
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
+    tzinfo-data (1.2018.5)
+      tzinfo (>= 1.0.0)
     uglifier (4.1.10)
       execjs (>= 0.3.0, < 3)
     web-console (3.6.2)
@@ -190,6 +197,7 @@ GEM
 
 PLATFORMS
   ruby
+  x64-mingw32
 
 DEPENDENCIES
   bootsnap (>= 1.1.0)
@@ -212,7 +220,7 @@ DEPENDENCIES
   web-console (>= 3.3.0)
 
 RUBY VERSION
-   ruby 2.4.1p111
+   ruby 2.5.1p57
 
 BUNDLED WITH
    1.16.1

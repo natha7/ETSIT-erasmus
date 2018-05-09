@@ -23,7 +23,9 @@ default: &default
 
 development:
   <<: *default
-  database: loginappdevelopment
+  username: loginUser
+  database: loginappdev
+  password: password
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
@@ -81,5 +83,5 @@ test:
 production:
   <<: *default
   database: loginappproduction
-  username: loginuser
+  username: loginUser
   password: <%= ENV['LOGAPP_DATABASE_PASSWORD'] %>

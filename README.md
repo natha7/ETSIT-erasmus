@@ -1,24 +1,16 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+#WINDOWS
 
-Things you may want to cover:
+Download ruby version 2.5.1 for your system in https://rubyinstaller.org/downloads/
 
-* Ruby version
+Download postgres version 9.6 in https://www.postgresql.org/download/windows/
+Configure new role as in database.yml
 
-* System dependencies
+In the instalation folder do:
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+``
+bundle install
+bundle exec rake db:migrate
+rails s
+``
