@@ -1,7 +1,7 @@
 class AddStudentApplicationForm < ActiveRecord::Migration[5.2]
   def change
   	create_table :student_application_form do |t|
-  		t.number :step
+  		t.integer :step
 
   		#Personal Data
   		t.string :first_name
@@ -70,8 +70,6 @@ class AddStudentApplicationForm < ActiveRecord::Migration[5.2]
   		t.string :email
   		t.string :keycode
   	end
-
-  	add_index :nominated_user, unique: true
 
   end
 end
