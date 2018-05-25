@@ -24,12 +24,13 @@ ActiveRecord::Schema.define(version: 2018_05_23_122232) do
     t.index ["student_application_form_id"], name: "index_language_on_student_application_form_id"
   end
 
-  create_table "nominated_user", force: :cascade do |t|
+  create_table "nominated_users", force: :cascade do |t|
     t.string "name"
     t.string "university"
     t.string "period"
     t.string "email"
-    t.string "keycode"
+    t.string "registration_token"
+    t.index ["registration_token"], name: "index_nominated_users_on_registration_token", unique: true
   end
 
   create_table "student_application_form", force: :cascade do |t|
@@ -78,10 +79,23 @@ ActiveRecord::Schema.define(version: 2018_05_23_122232) do
     t.datetime "last_sign_in_at"
     t.inet "current_sign_in_ip"
     t.inet "last_sign_in_ip"
-    t.binary "motivation_letter"
-    t.binary "curriculum_vitae"
-    t.binary "transcript_of_records"
-    t.binary "learning_agreement"
+    t.string "motivation_letter_file_name"
+    t.string "motivation_letter_content_type"
+    t.integer "motivation_letter_file_size"
+    t.datetime "motivation_letter_updated_at"
+    t.string "curriculum_vitae_file_name"
+    t.string "curriculum_vitae_content_type"
+    t.integer "curriculum_vitae_file_size"
+    t.datetime "curriculum_vitae_updated_at"
+    t.string "transcript_of_records_file_name"
+    t.string "transcript_of_records_content_type"
+    t.integer "transcript_of_records_file_size"
+    t.datetime "transcript_of_records_updated_at"
+    t.string "learning_agreement_file_name"
+    t.string "learning_agreement_content_type"
+    t.integer "learning_agreement_file_size"
+    t.datetime "learning_agreement_updated_at"
+    t.integer "role"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true

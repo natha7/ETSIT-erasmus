@@ -63,13 +63,14 @@ class AddStudentApplicationForm < ActiveRecord::Migration[5.2]
   		t.string :country
   	end
 
-  	create_table :nominated_user do |t|
+  	create_table :nominated_users do |t|
   		t.string :name
   		t.string :university
   		t.string :period
   		t.string :email
-  		t.string :keycode
+  		t.string :registration_token
   	end
+    add_index :nominated_users, :registration_token, unique: true
 
   end
 end
