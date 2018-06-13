@@ -8,7 +8,7 @@
 </br>
 <div>Filtros</div>
 </br>
-<div>Nominated users</div>
+<h2>Nominated users</h2>
 <%= form_tag(create_nominee_path, :method=> :post) do %>
 	<%= email_field_tag 'email' %>
 	<%= submit_tag 'Save' %>
@@ -25,7 +25,36 @@
     <td><%= button_to "Resend email", resend_email_path(:id => nominee.id), :method=> :post, form_class: "button"  %></td> 
     <td><%= button_to "Delete nominee", delete_nominee_path(:id => nominee.id), :method=> :delete, form_class: "button" %></td>
   </tr>
+  <% end %>
+</table>
 
+<h2>Registered users</h2>
+<table style="width:100%">
+  <tr>
+    <th>Email</th>
+    <th>University</th> 
+    <th>Period</th>
+    <th>App Form</th>
+    <th>Mot Letter</th>
+    <th>CV</th>
+    <th>Trans. Rec.</th>
+    <th>LA</th>
+    <th>status</th>
+    <th> </th>
+  </tr>
+  <% users.each do |user| %>
+  <tr>
+    <td><%= user.email %></td>
+    <td><%= user.student_application_form.inst_sending_name %></td> 
+    <td><%= user.student_application_form.academic_year %></td>
+    <td><%= user.student_application_form.erasmus_code %></td>
+    <td><%= user.motivation_letter %></td>
+    <td><%= user.curriculum_vitae %></td>
+    <td><%= user.transcript_of_records %></td>
+    <td><%= user.learning_agreement %></td>
+    <td><%= user.status %></td>
+    <td><%= user.percentage %></td>
+  </tr>
   <% end %>
 </table>
 

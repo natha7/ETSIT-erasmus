@@ -13,8 +13,17 @@ class User < ApplicationRecord
   has_attached_file :transcript_of_records
   has_attached_file :learning_agreement
 
+
+  def percentage
+    return "0%"
+  end
+
+  private
+
   def set_default_role
     self.role ||= :user
   end
+
+
   
 end
