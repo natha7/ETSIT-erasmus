@@ -1,0 +1,2 @@
+class NomineeMailer < ApplicationMailer
+end

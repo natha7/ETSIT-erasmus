@@ -1,3 +1,33 @@
+<% users = User.all.reject{|t| t.role == "admin"} %>
+<% nominees = NominatedUser.all%>
+
 <h1> Admin Dashboard </h1>
+
+<div>Hi Admin</div></br>
+<div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed egestas ligula ultricies accumsan pharetra. Suspendisse vel eros ut tortor porta laoreet vel sed nulla. Vivamus nec enim vel eros efficitur consectetur quis eu lorem. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Donec a justo ligula. In hendrerit, nisi at porta ultrices, odio purus rutrum dolor, porttitor pulvinar justo massa ut ante. Donec mollis urna augue, et convallis tellus sollicitudin eu. Nunc ex neque, convallis sodales scelerisque eu, facilisis eget libero. In sagittis risus neque, non dignissim purus semper at. Pellentesque mattis velit in lobortis porttitor. Aliquam malesuada aliquam mauris, sit amet porta augue vestibulum quis.</div>
+</br>
+<div>Filtros</div>
+</br>
+<div>Nominated users</div>
+<%= form_tag(create_nominee_path, :method=> :post) do %>
+	<%= email_field_tag 'email' %>
+	<%= submit_tag 'Save' %>
+<%end%>
+<table style="width:100%">
+  <tr>
+    <th>Email</th>
+    <th>Resend email</th> 
+    <th>Erase</th>
+  </tr>
+  <% nominees.each do |nominee| %>
+  <tr>
+    <td><%= nominee.email %></td>
+    <td><%= button_to "Resend email", resend_email_path(:id => nominee.id), :method=> :post, form_class: "button"  %></td> 
+    <td><%= button_to "Delete nominee", delete_nominee_path(:id => nominee.id), :method=> :delete, form_class: "button" %></td>
+  </tr>
+
+  <% end %>
+</table>
+
 
 <%= button_to "Log out", destroy_user_session_path, :method=> :delete, form_class: "button"%>

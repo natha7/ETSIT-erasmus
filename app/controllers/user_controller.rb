@@ -4,8 +4,6 @@ class UserController < ApplicationController
 	def admin_dashboard
 		render "users/admin_dashboard"
 	end
-	def create_nominee
-	end
 
 	### USER
 	def user_dashboard
