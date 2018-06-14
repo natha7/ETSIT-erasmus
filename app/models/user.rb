@@ -4,9 +4,9 @@ class User < ApplicationRecord
   enum role: [:user, :admin]
   after_initialize :set_default_role, :if => :new_record?
 
-  devise :database_authenticatable, :registerable,
+  devise :database_authenticatable, #:registerable,
          :recoverable, :rememberable, :trackable, :validatable
-  has_one :student_application_form
+  has_one :student_application_form, :dependent => :destroy
 
   has_attached_file :motivation_letter
   has_attached_file :curriculum_vitae

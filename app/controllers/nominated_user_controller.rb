@@ -5,6 +5,7 @@ class NominatedUserController < ApplicationController
 			nominee.email = params[:email]
 			nominee.save!
 
+			NomineeMailer.user_creation_email(nominee)
 			redirect_to admin_dashboard_path
 		else
 			redirect_to root
