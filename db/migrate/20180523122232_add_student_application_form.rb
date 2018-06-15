@@ -4,16 +4,7 @@ class AddStudentApplicationForm < ActiveRecord::Migration[5.2]
   		t.integer :step
 
   		#Personal Data
-  		t.string :first_name
-  		t.string :family_name
-  		t.date :birth_date
-  		t.string :born_place
-  		t.string :nationality
-  		t.string :sex
-  		t.string :address
-  		t.string :permanent_adress
-  		t.string :telephone
-  		t.string :mobile_telephone
+
 
   		#Sending Institution
   		t.string :inst_sending_name

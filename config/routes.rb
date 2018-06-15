@@ -7,8 +7,13 @@ Rails.application.routes.draw do
   get "token_registration", to: "user#token_registration"
   post "token_registration", to: "user#create_user"
   get 'user_dashboard', to: "user#user_dashboard"
+  
   get 'admin_dashboard', to: "user#admin_dashboard"
+
+
   post 'create_nominee', to: "nominated_user#create_nominee"
   post 'resend_email', to: "nominated_user#resend_email"
   delete 'delete_nominee', to: "nominated_user#delete_nominee"
+
+  get 'register/:token_registration', to: "nominated_user#register"
 end

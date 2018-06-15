@@ -1,9 +1,9 @@
 class NomineeMailer < ApplicationMailer
-	default from: 'confirmation@etsit.upm.es'
+	default from: 'no-reply@eid4u.org'
 
 	def user_creation_email(nominee)
 		@nominee = nominee
-		@nominee_url = user_creation_path + @nominee.registration_token
-		 mail(to: @nominee.email, subject: 'You are nominated').deliver_now
+		@nominee_url = "localhost:3000/register/" + @nominee.registration_token
+		 mail(to: @nominee.email, subject: 'You are nominated', encrypt: true)
 	end
 end
