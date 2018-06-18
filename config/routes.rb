@@ -1,9 +1,13 @@
 Rails.application.routes.draw do
-  devise_for :users
+  
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root to: "home#index"
+  devise_for :users, skip: [:registrations]
+  devise_scope :user do
+    post 'sign_up', to: "registrations#create", :as => :user_registration
+  end
   get "digital_certificate", to: "user#digital_certificate"
-  post "digital_certificate", to: "user#create_user"
+  post "create_user", to: "user#create_user"
   get "token_registration", to: "user#token_registration"
   post "token_registration", to: "user#create_user"
   get 'user_dashboard', to: "user#user_dashboard"
@@ -16,4 +20,10 @@ Rails.application.routes.draw do
   delete 'delete_nominee', to: "nominated_user#delete_nominee"
 
   get 'register/:token_registration', to: "nominated_user#register"
+  post 'register_with_eidas', to: "user#register_with_eidas"
+  post 'register_with_email_and_password', to: "user#register_with_email_and_password"
+
+
+  post 'user/file_upload', to: "user#file_upload"
+  delete 'user/file_delete', to: "user#file_delete"
 end

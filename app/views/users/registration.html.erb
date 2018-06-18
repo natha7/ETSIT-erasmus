@@ -1,36 +1,37 @@
 <h2>Sign up</h2>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= devise_error_messages! %>
 
+<%= form_for(resource, as: resource_name,  url: user_registration_path) do |f| %>
+  <%= devise_error_messages! %>
+    <%= f.hidden_field :registration_token, {value: @nominated_user.registration_token}%>
   <div class="field">
     <%= f.label :first_name %><br />
-    <%= f.text :first_name, autofocus: true, autocomplete: "name" %>
+    <%= f.text_field :first_name, autofocus: true, autocomplete: "first_name" %>
   </div>
 
   <div class="field">
     <%= f.label :family_name %><br />
-    <%= f.text :family_name, autofocus: true, autocomplete: "name" %>
+    <%= f.text_field :family_name, autofocus: true, autocomplete: "family_name" %>
   </div>
 
   <div class="field">
     <%= f.label :birth_date %><br />
-    <%= f.text :birth_date, autofocus: true, autocomplete: "name" %>
+    <%= f.date_field :birth_date, autofocus: true, autocomplete: "birth_date" %>
   </div>
 
   <div class="field">
     <%= f.label :permanent_adress %><br />
-    <%= f.text :permanent_adress, autofocus: true, autocomplete: "name" %>
+    <%= f.text_field :permanent_adress, autofocus: true, autocomplete: "permanent_adress" %>
   </div>
 
   <div class="field">
     <%= f.label :nationality %><br />
-    <%= f.text :nationality, autofocus: true, autocomplete: "name" %>
+    <%= f.text_field :nationality, autofocus: true, autocomplete: "nationality" %>
   </div>
 
   <div class="field">
     <%= f.label :phone_number %><br />
-    <%= f.text :phone_number, autofocus: true, autocomplete: "name" %>
+    <%= f.telephone_field :phone_number, autofocus: true, autocomplete: "phone_number" %>
   </div>
 
   <div class="field">
@@ -56,4 +57,4 @@
   </div>
 <% end %>
 
-<%= render "devise/shared/links" %>
+<%#= render "devise/shared/links" %>

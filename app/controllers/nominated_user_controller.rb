@@ -35,20 +35,11 @@ class NominatedUserController < ApplicationController
 	end
 
 	def register
-		@nominated = NominatedUser.find_by(:registration_token => params[:token_registration])
-		if @nominated.blank?
+		@nominee = NominatedUser.find_by(:registration_token => params[:token_registration])
+		if @nominee.blank?
 			render status: :forbidden, text: 'You do not have access to this page.'
 		else  
 			render "users/register_choice"
 		end
-	end
-
-	def register_with_email_and_password
-		render "users/registration"
-	end
-
-	def register_with_eidas
-		#do things with eidas then render
-		render "users/registration"
 	end
 end

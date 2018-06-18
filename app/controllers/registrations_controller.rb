@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Users::RegistrationsController < Devise::RegistrationsController
+class RegistrationsController < Devise::RegistrationsController
   # before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
   before_action :has_token_or_certificate?, only: [:create]
@@ -11,9 +11,22 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # POST /resource
-  #def create
-  #  super
-  # end
+   def create
+    if params[:user][:registration_token]
+      @nominated_user = NominatedUser.find_by(registration_token: params[:user][:registration_token])
+      if @nominated_user != nil
+        @nominated_user.destroy!
+        params[:user].delete :registration_token
+        super    
+      else
+        flash[:error] = "Token does not exist"
+        redirect_to(:root)
+      end
+    else
+      redirect_to(:root)
+    end
+    
+   end
 
   # GET /resource/edit
   # def edit
@@ -66,4 +79,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # def after_inactive_sign_up_path_for(resource)
   #   super(resource)
   # end
+   private
+
+  # Notice the name of the method
+  def sign_up_params
+    params.require(:user).permit(:registration_token, :first_name, :family_name, :birth_date, :permanent_adress, :nationality, :phone_number,:email, :password, :password_confirmation)
+  end
 end

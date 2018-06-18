@@ -1,10 +1,8 @@
 class AddStudentApplicationForm < ActiveRecord::Migration[5.2]
   def change
   	create_table :student_application_form do |t|
+      t.belongs_to :user, index: true
   		t.integer :step
-
-  		#Personal Data
-
 
   		#Sending Institution
   		t.string :inst_sending_name
@@ -37,6 +35,8 @@ class AddStudentApplicationForm < ActiveRecord::Migration[5.2]
   		t.string :where_study_abroad
   		t.string :where_institution_abroad
   	end
+    add_foreign_key :users, :student_application_forms
+    add_foreign_key :student_application_forms, :users
 
   	create_table :language do |t|
   		t.belongs_to :student_application_form, index: true
