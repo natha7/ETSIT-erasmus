@@ -1,16 +1,17 @@
 class AddStudentApplicationForm < ActiveRecord::Migration[5.2]
   def change
-  	create_table :student_application_form do |t|
-      t.belongs_to :user, index: true
-  		t.integer :step
+  	create_table :student_application_forms do |t|
+  		t.integer :step, :default => 1
 
   		#Sending Institution
   		t.string :inst_sending_name
+      t.string :inst_adress
+      t.string :school_family_dpt
   		t.string :erasmus_code
-  		t.string :inst_or_dep_coord
-  		t.string :inst_adress
+  		t.string :dept_coordinator
+      
+      t.string :contact_person
   		t.string :inst_telephone
-  		t.string :inst_telephone2
   		t.string :inst_email
 
   		#Academic Year
@@ -21,10 +22,10 @@ class AddStudentApplicationForm < ActiveRecord::Migration[5.2]
   		#Purpose of Stay
   		t.string :project_work
   		t.string :under_grad_courses
-  		t.string :reasons_abroad
+  		t.string :graduate_courses
 
   		#Language Competence
-  		t.string :mother_tonge
+  		t.string :mother_tongue
   		t.string :language_instruction
 
   		#Previous And Current Studies
@@ -34,20 +35,23 @@ class AddStudentApplicationForm < ActiveRecord::Migration[5.2]
   		t.boolean :already_study_abroad
   		t.string :where_study_abroad
   		t.string :where_institution_abroad
-  	end
-    add_foreign_key :users, :student_application_forms
-    add_foreign_key :student_application_forms, :users
 
-  	create_table :language do |t|
-  		t.belongs_to :student_application_form, index: true
+
+      t.timestamps
+  	end
+    add_reference :student_application_forms, :user, index: true
+
+    #add_foreign_key :users, :student_application_forms
+    #add_foreign_key :student_application_forms, :users
+
+  	create_table :languages do |t|
   		t.string :name
   		t.boolean :currently_studying
   		t.boolean :able_follow_lectures
   		t.boolean :able_follow_lectures_extra_preparation
   	end
 
-  	create_table :work_experience do |t|
-  		t.belongs_to :student_application_form, index: true
+  	create_table :work_experiences do |t|
   		t.string :type
   		t.string :firm_organisation
   		t.string :dates

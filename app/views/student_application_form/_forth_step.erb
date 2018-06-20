@@ -1,0 +1,20 @@
+<h1>Language Competence</h1>
+
+<%= form_for@sap, url: student_application_form_path, :method => :post do |f| %>
+  
+
+  <div class="field">
+    <%= f.label :mother_tongue %><br />
+    <%= f.text_field :mother_tongue, autofocus: true, autocomplete: "mother_tongue" %>
+  </div>
+
+<div class="field">
+    <%= f.label :language_instruction %><br />
+    <%= f.text_field :language_instruction, autofocus: true, autocomplete: "language_instruction" %>
+  </div>
+
+  <h2>Other languages</h2>
+
+<%= f.submit "Save current page" %>
+
+<%end%>

@@ -1,0 +1,22 @@
+<h1>Purpose of stay</h1>
+
+<%= form_for@sap, url: student_application_form_path, :method => :post do |f| %>
+  
+  <div class="field">
+    <%= f.label :project_work %><br />
+    <%= f.text_field :project_work, autofocus: true, autocomplete: "project_work" %>
+  </div>
+
+<div class="field">
+    <%= f.label :under_grad_courses %><br />
+    <%= f.text_field :under_grad_courses, autofocus: true, autocomplete: "under_grad_courses" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :graduate_courses %><br />
+    <%= f.text_field :graduate_courses, autofocus: true, autocomplete: "graduate_courses" %>
+  </div>
+
+<%= f.submit "Save current page" %>
+
+<%end%>

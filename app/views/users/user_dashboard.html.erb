@@ -1,7 +1,8 @@
 <h1> User Dashboard </h1>
 <div>
 	<div>
-		<%#= link_to student_application_form_path(current_user)%>
+		<div><%= label_tag :student_application_form%></div>
+		<%= link_to "Student Application Form", student_application_form_path%>
 	</div>
 
 	<div>

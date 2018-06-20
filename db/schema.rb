@@ -15,13 +15,11 @@ ActiveRecord::Schema.define(version: 2018_05_23_122232) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "language", force: :cascade do |t|
-    t.bigint "student_application_form_id"
+  create_table "languages", force: :cascade do |t|
     t.string "name"
     t.boolean "currently_studying"
     t.boolean "able_follow_lectures"
     t.boolean "able_follow_lectures_extra_preparation"
-    t.index ["student_application_form_id"], name: "index_language_on_student_application_form_id"
   end
 
   create_table "nominated_users", force: :cascade do |t|
@@ -33,22 +31,23 @@ ActiveRecord::Schema.define(version: 2018_05_23_122232) do
     t.index ["registration_token"], name: "index_nominated_users_on_registration_token", unique: true
   end
 
-  create_table "student_application_form", force: :cascade do |t|
-    t.integer "step"
+  create_table "student_application_forms", force: :cascade do |t|
+    t.integer "step", default: 1
     t.string "inst_sending_name"
-    t.string "erasmus_code"
-    t.string "inst_or_dep_coord"
     t.string "inst_adress"
+    t.string "school_family_dpt"
+    t.string "erasmus_code"
+    t.string "dept_coordinator"
+    t.string "contact_person"
     t.string "inst_telephone"
-    t.string "inst_telephone2"
     t.string "inst_email"
     t.string "academic_year"
     t.string "programme"
     t.string "field_of_study"
     t.string "project_work"
     t.string "under_grad_courses"
-    t.string "reasons_abroad"
-    t.string "mother_tonge"
+    t.string "graduate_courses"
+    t.string "mother_tongue"
     t.string "language_instruction"
     t.string "current_diploma_degree"
     t.string "year_attended"
@@ -56,6 +55,10 @@ ActiveRecord::Schema.define(version: 2018_05_23_122232) do
     t.boolean "already_study_abroad"
     t.string "where_study_abroad"
     t.string "where_institution_abroad"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_student_application_forms_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -100,13 +103,11 @@ ActiveRecord::Schema.define(version: 2018_05_23_122232) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  create_table "work_experience", force: :cascade do |t|
-    t.bigint "student_application_form_id"
+  create_table "work_experiences", force: :cascade do |t|
     t.string "type"
     t.string "firm_organisation"
     t.string "dates"
     t.string "country"
-    t.index ["student_application_form_id"], name: "index_work_experience_on_student_application_form_id"
   end
 
 end

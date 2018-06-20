@@ -1,0 +1,11 @@
+<%= render partial: "student_application_form/#{toNumeral(@sap.step)}_step" %>
+
+<%if @sap.step - 1 > 0 %>
+	<%= link_to "<button> < </button>".html_safe, student_application_form_path + "/#{@sap.step - 1}"%>
+<%end%>
+<%= @sap.step.to_s + " / 6"%>
+<%if @sap.step + 1 < 7 %>
+	<%= link_to "<button> > </button>".html_safe, student_application_form_path + "/#{@sap.step + 1}"%>
+<%end%>
+</br>
+<%= link_to "<button> Back </button>".html_safe, user_dashboard_path %>

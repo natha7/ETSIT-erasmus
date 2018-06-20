@@ -23,7 +23,9 @@ Rails.application.routes.draw do
   post 'register_with_eidas', to: "user#register_with_eidas"
   post 'register_with_email_and_password', to: "user#register_with_email_and_password"
 
-
+  get 'student_application_form', to: "student_application_form#sap_page"
+  post 'student_application_form', to: "student_application_form#save"
+  get 'student_application_form/:step', to: "student_application_form#change_step"
   post 'user/file_upload', to: "user#file_upload"
   delete 'user/file_delete', to: "user#file_delete"
 end
