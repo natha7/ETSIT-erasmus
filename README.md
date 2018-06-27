@@ -21,6 +21,7 @@ git clone https://github.com/rbenv/ruby-build.git "$(rbenv root)"/plugins/ruby-b
 ```
 Reboot terminal
 ```
+sudo apt-get install -y libssl-dev libreadline-dev zlib1g-dev
 rbenv install 2.5.1
 rbenv use 
 ```
