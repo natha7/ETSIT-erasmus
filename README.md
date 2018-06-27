@@ -1,6 +1,31 @@
 # README
 
-#WINDOWS
+
+# LINUX
+
+```bash
+sudo apt-get install git
+```
+Install rbenv from https://github.com/rbenv/rbenv and ruby-build as plugin
+
+```
+git clone https://github.com/rbenv/rbenv.git ~/.rbenv
+echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
+~/.rbenv/bin/rbenv init
+echo 'eval "$(rbenv init -)"' >> ~/.bashrc
+```
+Reboot terminal
+```
+mkdir -p "$(rbenv root)"/plugins
+git clone https://github.com/rbenv/ruby-build.git "$(rbenv root)"/plugins/ruby-build
+```
+Reboot terminal
+```
+rbenv install 2.5.1
+rbenv use 
+```
+
+# WINDOWS
 
 Download ruby version 2.5.1 for your system in https://rubyinstaller.org/downloads/
 
