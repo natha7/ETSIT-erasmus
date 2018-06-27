@@ -24,6 +24,20 @@ Reboot terminal
 sudo apt-get install -y libssl-dev libreadline-dev zlib1g-dev
 rbenv install 2.5.1
 rbenv use 
+
+gem install bundler
+sudo apt-get install postgresql postgresql-contrib libpq-dev
+bundle install
+```
+Create user and give ownership as in config/database.yml
+
+**To purge database and recreate:**
+```
+rake db:drop db:create db:migrate db:populate
+```
+**To start rails:**
+```
+rails s
 ```
 
 # WINDOWS
