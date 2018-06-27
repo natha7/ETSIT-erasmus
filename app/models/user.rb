@@ -27,6 +27,38 @@ class User < ApplicationRecord
     "image/jpeg", "image/gif", "image/png", "image/jpg", "image/bmp"]
 
 
+  def status
+    stf = self.student_application_form
+    [
+      self.motivation_letter, 
+      self.curriculum_vitae, 
+      self.transcript_of_records, 
+      self.learning_agreement,
+      stf.inst_sending_name,
+      stf.inst_adress,
+      stf.school_family_dpt,
+      stf.erasmus_code,
+      stf.dept_coordinator,
+      stf.contact_person,
+      stf.inst_telephone,
+      stf.inst_email,
+      stf.academic_year,
+      stf.programme,
+      stf.field_of_study,
+      stf.project_work,
+      stf.under_grad_courses,
+      stf.graduate_courses,
+      stf.mother_tongue,
+      stf.language_instruction,
+      stf.current_diploma_degree,
+      stf.year_attended,
+      stf.specialization_area,
+      stf.already_study_abroad,
+      stf.where_study_abroad,
+      stf.where_institution_abroad
+    ].uniq.all?{|x| !x.nil?} ? "Finished" : "Not Finished"
+  end
+
   def percentage
     return "0%"
   end

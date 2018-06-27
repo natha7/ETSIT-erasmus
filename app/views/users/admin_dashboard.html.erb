@@ -39,8 +39,8 @@
     <th>CV</th>
     <th>Trans. Rec.</th>
     <th>LA</th>
-    <th>status</th>
-    <th> </th>
+    <th>Percentage</th>
+    <th>Status</th>
   </tr>
   <% users.each do |user| %>
   <tr>
@@ -48,12 +48,12 @@
     <td><%= user.student_application_form.inst_sending_name %></td> 
     <td><%= user.student_application_form.academic_year %></td>
     <td><%= user.student_application_form.erasmus_code %></td>
-    <td><%= user.motivation_letter %></td>
-    <td><%= user.curriculum_vitae %></td>
-    <td><%= user.transcript_of_records %></td>
-    <td><%= user.learning_agreement %></td>
-    <td><%= user.status %></td>
+    <td><%= user.motivation_letter.exists? %></td>
+    <td><%= user.curriculum_vitae.exists? %></td>
+    <td><%= user.transcript_of_records.exists? %></td>
+    <td><%= user.learning_agreement.exists? %></td>
     <td><%= user.percentage %></td>
+    <td><%= user.status %></td>
   </tr>
   <% end %>
 </table>
