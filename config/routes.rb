@@ -20,8 +20,8 @@ Rails.application.routes.draw do
   delete 'delete_nominee', to: "nominated_user#delete_nominee"
 
   get 'register/:token_registration', to: "nominated_user#register"
-  post 'register_with_eidas', to: "user#register_with_eidas"
-  post 'register_with_email_and_password', to: "user#register_with_email_and_password"
+  get 'register/:token_registration/register_with_eidas', to: "user#register_with_eidas"
+  get 'register/:token_registration/register_with_email_and_password', to: "user#register_with_email_and_password"
 
   get 'student_application_form', to: "student_application_form#sap_page"
   post 'student_application_form', to: "student_application_form#save"

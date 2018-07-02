@@ -20,6 +20,15 @@
   </div>
 
   <div class="field">
+  <%= f.label :sex %><br />
+  <%= f.select :sex, [
+    'Male',
+    'Female',
+    'Other'
+    ] %>
+</div>
+
+  <div class="field">
     <%= f.label :permanent_adress %><br />
     <%= f.text_field :permanent_adress, autofocus: true, autocomplete: "permanent_adress" %>
   </div>

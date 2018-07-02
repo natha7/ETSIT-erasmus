@@ -34,6 +34,15 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.2]
       t.attachment :curriculum_vitae
       t.attachment :transcript_of_records
       t.attachment :learning_agreement
+      t.attachment :valid_insurance_policy
+      t.attachment :ni_passport
+      t.attachment :photo
+
+      #Aditional
+      t.attachment :recommendation_letter_1
+      t.attachment :recommendation_letter_2
+      t.attachment :official_gpa
+      t.attachment :english_test_score
       ## Confirmable
       # t.string   :confirmation_token
       # t.datetime :confirmed_at

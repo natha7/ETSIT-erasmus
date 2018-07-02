@@ -1,2 +1,2 @@
-<td><%= button_to "Register with EIDAS", register_with_eidas_path, :params=>{:token_registration => @nominee.registration_token}, :method=> :post, form_class: "button"  %></td> 
-<td><%= button_to "Register with email and password", register_with_email_and_password_path, :params=>{:token_registration => @nominee.registration_token}, :method=> :post, form_class: "button"  %></td> 
+<td><%= button_to "Register with EIDAS", "/register/"+@nominee.registration_token+"/register_with_eidas", :method=> :get, form_class: "button"  %></td> 
+<td><%= button_to "Register with email and password", "/register/"+@nominee.registration_token+"/register_with_email_and_password", :method=> :get, form_class: "button"  %></td> 

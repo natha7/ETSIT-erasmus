@@ -13,6 +13,7 @@ namespace :db do
 		pupil.password = "demonstration"
 		pupil.first_name = "Demo"
 		pupil.family_name = "Family Name"
+		pupil.sex = "Male"
 		pupil.birth_date = Date.parse("Dec 8 1990")
 		pupil.permanent_adress = "Fake Street 123"
 		pupil.nationality = "Spain"

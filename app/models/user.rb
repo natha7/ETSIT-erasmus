@@ -14,18 +14,20 @@ class User < ApplicationRecord
   has_attached_file :curriculum_vitae
   has_attached_file :transcript_of_records
   has_attached_file :learning_agreement
+  has_attached_file :valid_insurance_policy
+  has_attached_file :photo
+  has_attached_file :ni_passport
+
 
   before_create :create_student_application_form
 
-  validates_attachment_content_type :motivation_letter, :content_type => ["application/pdf", "application/doc", "application/docx",
-    "image/jpeg", "image/gif", "image/png", "image/jpg", "image/bmp"]
-    validates_attachment_content_type :curriculum_vitae, :content_type => ["application/pdf", "application/doc", "application/docx",
-    "image/jpeg", "image/gif", "image/png", "image/jpg", "image/bmp"]
-    validates_attachment_content_type :transcript_of_records, :content_type => ["application/pdf", "application/doc", "application/docx",
-    "image/jpeg", "image/gif", "image/png", "image/jpg", "image/bmp"]
-    validates_attachment_content_type :learning_agreement, :content_type => ["application/pdf", "application/doc", "application/docx",
-    "image/jpeg", "image/gif", "image/png", "image/jpg", "image/bmp"]
-
+  validates_attachment_content_type :motivation_letter, :content_type => ["application/pdf", "application/doc", "application/docx", "image/jpeg", "image/gif", "image/png", "image/jpg", "image/bmp"]
+  validates_attachment_content_type :curriculum_vitae, :content_type => ["application/pdf", "application/doc", "application/docx", "image/jpeg", "image/gif", "image/png", "image/jpg", "image/bmp"]
+  validates_attachment_content_type :transcript_of_records, :content_type => ["application/pdf", "application/doc", "application/docx", "image/jpeg", "image/gif", "image/png", "image/jpg", "image/bmp"]
+  validates_attachment_content_type :learning_agreement, :content_type => ["application/pdf", "application/doc", "application/docx", "image/jpeg", "image/gif", "image/png", "image/jpg", "image/bmp"]
+  validates_attachment_content_type :valid_insurance_policy, :content_type => ["application/pdf", "application/doc", "application/docx", "image/jpeg", "image/gif", "image/png", "image/jpg", "image/bmp"]
+  validates_attachment_content_type :photo, :content_type => ["application/pdf", "application/doc", "application/docx", "image/jpeg", "image/gif", "image/png", "image/jpg", "image/bmp"]
+  validates_attachment_content_type :ni_passport, :content_type => ["application/pdf", "application/doc", "application/docx", "image/jpeg", "image/gif", "image/png", "image/jpg", "image/bmp"]
 
   def status
     stf = self.student_application_form

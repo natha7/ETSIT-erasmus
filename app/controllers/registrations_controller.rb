@@ -3,7 +3,7 @@
 class RegistrationsController < Devise::RegistrationsController
   # before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
-  before_action :has_token_or_certificate?, only: [:create]
+  before_action :has_token?, only: [:create]
 
   # GET /resource/sign_up
   #def new
@@ -12,20 +12,32 @@ class RegistrationsController < Devise::RegistrationsController
 
   # POST /resource
    def create
-    if params[:user][:registration_token]
-      @nominated_user = NominatedUser.find_by(registration_token: params[:user][:registration_token])
       if @nominated_user != nil
-        @nominated_user.destroy!
         params[:user].delete :registration_token
-        super    
+        build_resource(sign_up_params)
+        resource.save
+        yield resource if block_given?
+        if resource.persisted?
+          if resource.active_for_authentication?
+            @nominated_user.destroy!
+            set_flash_message! :notice, :signed_up
+            sign_up(resource_name, resource)
+            respond_with resource, location: after_sign_up_path_for(resource)
+          else
+            set_flash_message! :notice, :"signed_up_but_#{resource.inactive_message}"
+            expire_data_after_sign_in!
+            respond_with resource, location: after_inactive_sign_up_path_for(resource)
+          end
+        else
+          clean_up_passwords resource
+          set_minimum_password_length
+          append_errors
+          redirect_back fallback_location: root_path
+        end
       else
         flash[:error] = "Token does not exist"
         redirect_to(:root)
       end
-    else
-      redirect_to(:root)
-    end
-    
    end
 
   # GET /resource/edit
@@ -52,18 +64,22 @@ class RegistrationsController < Devise::RegistrationsController
   #   super
   # end
 
+  def append_errors
+  end
   # protected
-  def has_token_or_certificate?
-    if @nominated_user
+  def has_token?
+    if params[:user][:registration_token]
+      @nominated_user = NominatedUser.find_by(registration_token: params[:user][:registration_token])
       true
+    else
+      false
     end
-    false
   end
 
   # If you have extra params to permit, append them to the sanitizer.
-  # def configure_sign_up_params
-  #   devise_parameter_sanitizer.permit(:sign_up, keys: [:attribute])
-  # end
+  def configure_sign_up_params
+     devise_parameter_sanitizer.permit(:sign_up, keys: [:registration_token, :first_name, :family_name, :sex, :birth_date, :permanent_adress, :nationality, :phone_number,:email, :password, :password_confirmation])
+  end
 
   # If you have extra params to permit, append them to the sanitizer.
   # def configure_account_update_params
@@ -83,6 +99,6 @@ class RegistrationsController < Devise::RegistrationsController
 
   # Notice the name of the method
   def sign_up_params
-    params.require(:user).permit(:registration_token, :first_name, :family_name, :birth_date, :permanent_adress, :nationality, :phone_number,:email, :password, :password_confirmation)
+    params.require(:user).permit(:registration_token, :first_name, :family_name, :sex, :birth_date, :permanent_adress, :nationality, :phone_number,:email, :password, :password_confirmation)
   end
 end
