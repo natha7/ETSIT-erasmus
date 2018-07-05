@@ -9,11 +9,11 @@
 		<div><%= label_tag :motivation_letter%></div>
 		<%unless current_user.motivation_letter.blank? %>
 			<%= link_to current_user.motivation_letter_file_name, current_user.motivation_letter.url%>
-			<td><%= button_to "Delete motivation letter", user_file_delete_url(:id => current_user.id, :attachment => :motivation_letter), :method=> :delete, form_class: "button" %></td>
+			<td><%= button_to "Delete motivation letter", user_file_delete_url(:id => current_user.id, :attachment => :motivation_letter), :method=> :delete, :class => "custom-button" %></td>
 		<% else %>
 			<%= form_for current_user, url: user_file_upload_path, html: { multipart: true }, :method => :POST do |form| %>
 			  <%= form.file_field :motivation_letter %>
-			  <%= form.submit "Upload" %>
+			  <%= form.submit "Upload", :class => "custom-button" %>
 			<% end %>
 		<%end%>
 	</div>
@@ -21,11 +21,11 @@
 		<div><%= label_tag :curriculum_vitae%></div>
 		<%unless current_user.curriculum_vitae.blank? %>
 			<%= link_to current_user.curriculum_vitae_file_name, current_user.curriculum_vitae.url%>
-			<td><%= button_to "Delete CV", user_file_delete_url(:id => current_user.id, :attachment => :curriculum_vitae), :method=> :delete, form_class: "button" %></td>
+			<td><%= button_to "Delete CV", user_file_delete_url(:id => current_user.id, :attachment => :curriculum_vitae), :method=> :delete, :class => "custom-button" %></td>
 		<% else %>
 			<%= form_for current_user, url: user_file_upload_path, html: { multipart: true }, :method => :POST do |form| %>
 			  <%= form.file_field :curriculum_vitae %>
-			  <%= form.submit "Upload" %>
+			  <%= form.submit "Upload", :class => "custom-button" %>
 			<% end %>
 		<% end %>
 	</div>
@@ -33,11 +33,11 @@
 		<div><%= label_tag :transcript_of_records%></div>
 		<%unless current_user.transcript_of_records.blank? %>
 			<%= link_to current_user.transcript_of_records_file_name, current_user.transcript_of_records.url%>
-			<td><%= button_to "Delete transcript of records", user_file_delete_url(:id => current_user.id, :attachment => :transcript_of_records), :method=> :delete, form_class: "button" %></td>
+			<td><%= button_to "Delete transcript of records", user_file_delete_url(:id => current_user.id, :attachment => :transcript_of_records), :method=> :delete, :class => "custom-button" %></td>
 		<% else %>
 			<%= form_for current_user, url: user_file_upload_path, html: { multipart: true }, :method => :POST do |form| %>
 			  <%= form.file_field :transcript_of_records %>
-			  <%= form.submit "Upload" %>
+			  <%= form.submit "Upload", :class => "custom-button" %>
 			<% end %>
 		<% end %>
 	</div>
@@ -45,13 +45,13 @@
 		<div><%= label_tag :learning_agreement%></div>
 		<%unless current_user.learning_agreement.blank? %>
 			<%= link_to current_user.learning_agreement_file_name, current_user.learning_agreement.url%>
-			<td><%= button_to "Delete learning agreement", user_file_delete_url(:id => current_user.id, :attachment => :learning_agreement), :method=> :delete, form_class: "button" %></td>
+			<td><%= button_to "Delete learning agreement", user_file_delete_url(:id => current_user.id, :attachment => :learning_agreement), :method=> :delete, :class => "custom-button" %></td>
 		<% else %>
 			<%= form_for current_user, url: user_file_upload_path, html: { multipart: true }, :method => :POST do |form| %>
 			  <%= form.file_field :learning_agreement %>
-			  <%= form.submit "Upload" %>
+			  <%= form.submit "Upload", :class => "custom-button" %>
 			<% end %>
 		<% end %>
 	</div>
 </div>
-<%= button_to "Log out", destroy_user_session_path, :method=> :delete, form_class: "button"%>
+<%= button_to "Log out", destroy_user_session_path, :method=> :delete, :class => "custom-button"%>

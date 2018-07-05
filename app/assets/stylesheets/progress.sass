@@ -1,0 +1,27 @@
+.progress-bar
+	position: relative
+	display: inline-block
+	.progress-line
+		// border-bottom: 2px solid #4664A2
+		height: 2px
+		position: absolute
+		background-color: #4664A2
+		top: 50%
+		width: 100%
+		z-index: -1
+	.progress-ball
+		border: 1px solid white
+		background-color: #4664A2
+		border-radius: 50%
+		width: 10px
+		vertical-align: middle
+		height: 10px
+		margin: 0px 10px
+		display: inline-block
+		&.previous-step
+			height: 7px
+			width: 7px
+		&.future-step
+			background-color: white
+			border-color: #4664A2
+
