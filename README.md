@@ -53,8 +53,8 @@ gem install rails -v 5.2.0
 ```
 In the instalation folder do:
 
-``
+```
 bundle install
 bundle exec rake db:migrate
 rails s
-``
+```
