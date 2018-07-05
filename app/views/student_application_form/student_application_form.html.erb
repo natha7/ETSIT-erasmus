@@ -1,11 +1,31 @@
-<%= render partial: "student_application_form/#{toNumeral(@sap.step)}_step" %>
+<div class="student-application-form">
+	<h1>Student Application Form > </h1>
+	<%= render partial: "student_application_form/#{toNumeral(@sap.step)}_step" %>
 
-<%if @sap.step - 1 > 0 %>
-	<%= link_to "<button> < </button>".html_safe, student_application_form_path + "/#{@sap.step - 1}"%>
-<%end%>
-<%= @sap.step.to_s + " / 6"%>
-<%if @sap.step + 1 < 7 %>
-	<%= link_to "<button> > </button>".html_safe, student_application_form_path + "/#{@sap.step + 1}"%>
-<%end%>
-</br>
-<%= link_to "<button> Back </button>".html_safe, user_dashboard_path %>
+
+	<!--<%= @sap.step.to_s + " / 6"%>-->
+	<div class="progress-bar">
+		<div class="progress-line">
+		</div>
+		<% for i in 1..6 do %>
+			<%if @sap.step > i %>
+				<%= link_to "<span class='progress-ball previous-step'></span>".html_safe, student_application_form_path + "/#{i}"%>
+			<%end%>
+			<%if @sap.step === i %>
+				<%= link_to "<span class='progress-ball current-step'></span>".html_safe, student_application_form_path + "/#{i}"%>
+			<%end%>
+			<%if @sap.step < i %>
+				<%= link_to "<span class='progress-ball future-step'></span>".html_safe, student_application_form_path + "/#{i}"%>
+			<%end%>
+		<% end %>
+	</div>
+	<%if @sap.step - 1 > 0 %>
+		<%= link_to "<button  class='custom-button'> < Back</button>".html_safe, student_application_form_path + "/#{@sap.step - 1}"%>
+	<%end%>
+	<%if @sap.step + 1 < 7 %>
+		<%= link_to "<button  class='custom-button'> Next > </button>".html_safe, student_application_form_path + "/#{@sap.step + 1}"%>
+	<%end%>
+	</br>
+	<%= link_to "<button class='custom-button'> Back </button>".html_safe, user_dashboard_path %>
+
+</div>

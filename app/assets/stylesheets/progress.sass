@@ -1,0 +1,29 @@
+@import "_variables"
+
+.progress-bar
+	position: relative
+	display: inline-block
+	.progress-line
+		// border-bottom: 2px solid $etsit_blue
+		height: 2px
+		position: absolute
+		background-color: $etsit_blue
+		top: 50%
+		width: 100%
+		z-index: -1
+	.progress-ball
+		border: 1px solid white
+		background-color: $etsit_blue
+		border-radius: 50%
+		width: 10px
+		vertical-align: middle
+		height: 10px
+		margin: 0px 10px
+		display: inline-block
+		&.previous-step
+			height: 7px
+			width: 7px
+		&.future-step
+			background-color: white
+			border-color: $etsit_blue
+
