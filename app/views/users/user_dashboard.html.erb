@@ -1,4 +1,5 @@
-<h1> User Dashboard </h1>
+<div class="container">
+<h1 class="title"> User Dashboard </h1>
 <div>
 	<div>
 		<div><%= label_tag :student_application_form%></div>
@@ -55,3 +56,4 @@
 	</div>
 </div>
 <%= button_to "Log out", destroy_user_session_path, :method=> :delete, form_class: "button"%>
+</div>

@@ -1,0 +1,54 @@
+
+.navbar-etsit {
+  background-color: #4664A2;
+  color: #ffffff;
+  height: 100px;
+
+  .header {
+    float:left;
+    a {
+
+      color: white !important;
+      text-decoration: none;
+      .navbar-header {
+        font-family: inherit;
+        font-weight: 500;
+        line-height: 48px;
+        margin-bottom: 10px;
+        height: 11px;
+        display: block;
+
+        &.etsit-header {
+          font-size: 24px;
+          margin-top: 13px;
+          height: 10px;
+        }
+        &.upm-header {
+          font-size: 18px;
+          margin-top: 16px;
+
+        }
+      }
+    }
+
+  }
+
+  #navlogos {
+    float: left;
+    padding: 20px 0px 20px 0px;
+
+    .navbar-brand {
+        float: left;
+        height: 50px;
+        padding: 5px 15px;
+        font-size: 18px;
+        line-height: 20px;
+      img {
+        max-height: 40px;
+        display: block;
+        vertical-align: middle;
+        border: 0;
+      }
+    }
+  }
+}
