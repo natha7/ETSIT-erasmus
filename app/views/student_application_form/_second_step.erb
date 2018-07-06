@@ -1,4 +1,5 @@
-<h1>Purpose of stay</h1>
+<h2 class="form-subtitle">Purpose of stay</h2>
+<p class="intro-paragraph">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 
 <%= form_for@sap, url: student_application_form_path, :method => :post do |f| %>
   
@@ -17,6 +18,7 @@
     <%= f.text_field :graduate_courses, autofocus: true, autocomplete: "graduate_courses" %>
   </div>
 
-<%= f.submit "Save current page" %>
-
+  <div class="actions">
+    <%= f.submit "Save current page", label: false, :class => "custom-button" %>
+  </div>
 <%end%>

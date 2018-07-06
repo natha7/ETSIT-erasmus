@@ -1,28 +1,7 @@
+@import "_variables"
 *
 	font-family: 'Source Sans Pro', sans-serif
 
-
-.container
-	padding-right: 15px
-	padding-left: 15px
-	margin-right: auto
-	margin-left: auto
-@media (min-width: 768px)
-	.container
-		width: 750px
-
-@media (min-width: 992px)
-	.container
-		width: 970px
-
-@media (min-width: 1200px)
-	.container
-		width: 1170px
-
-
-
-.button
-	float: left
 
 body
 	padding: 0
@@ -36,4 +15,38 @@ body
 		font-family: inherit
 		font-weight: 500
 		line-height: 1.1
-		color: inherit
+	.hidden
+		display: none
+
+	.container
+		padding-right: 15px
+		padding-left: 15px
+		margin-right: auto
+		margin-left: auto
+		&.main
+			padding-top: 30px
+		p.intro-paragraph
+			color: #bbb
+		form
+			.field
+				label
+					line-height: 32px
+				input, select
+					border-radius: 0
+					border: 1px solid #333
+					height: 22px
+					padding: 5px
+				select
+					height: 34px
+				padding: 10px
+	@media (min-width: 768px)
+		.container
+			width: 750px
+
+	@media (min-width: 992px)
+		.container
+			width: 970px
+
+	@media (min-width: 1200px)
+		.container
+			width: 1170px

@@ -41,11 +41,32 @@ class UserController < ApplicationController
 		when "curriculum_vitae"
 			current_user.curriculum_vitae = nil
 			current_user.save!
+		when "valid_insurance_policy"
+			current_user.valid_insurance_policy = nil
+			current_user.save!
+		when "ni_passport"
+			current_user.ni_passport = nil
+			current_user.save!
 		when "transcript_of_records"			
 			current_user.transcript_of_records = nil
 			current_user.save!
 		when "learning_agreement"
 			current_user.learning_agreement = nil
+			current_user.save!
+		when "photo"
+			current_user.photo = nil
+			current_user.save!
+		when "recommendation_letter_1"
+			current_user.recommendation_letter_1 = nil
+			current_user.save!
+		when "recommendation_letter_2"			
+			current_user.recommendation_letter_2 = nil
+			current_user.save!
+		when "official_gpa"
+			current_user.official_gpa = nil
+			current_user.save!
+		when "english_test_score"
+			current_user.english_test_score = nil
 			current_user.save!
 		else
 			flash[:error] = "There was an error"
