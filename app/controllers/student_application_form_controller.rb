@@ -26,6 +26,8 @@ class StudentApplicationFormController < ApplicationController
 		      	:contact_person,
 		  		:inst_telephone,
 		  		:inst_email,
+		  		:languages,
+		  		:work_experiences,
 		  		:academic_year,
 		  		:programme,
 		  		:field_of_study,

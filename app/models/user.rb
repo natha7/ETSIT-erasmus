@@ -9,7 +9,6 @@ class User < ApplicationRecord
 
   has_one :student_application_form
   accepts_nested_attributes_for :student_application_form
-  
   has_attached_file :motivation_letter
   has_attached_file :curriculum_vitae
   has_attached_file :transcript_of_records
@@ -24,6 +23,7 @@ class User < ApplicationRecord
 
   before_create :create_student_application_form
 
+  #validations
   validates_attachment_content_type :motivation_letter, :content_type => ["application/pdf", "application/doc", "application/docx", "image/jpeg", "image/gif", "image/png", "image/jpg", "image/bmp"]
   validates_attachment_content_type :curriculum_vitae, :content_type => ["application/pdf", "application/doc", "application/docx", "image/jpeg", "image/gif", "image/png", "image/jpg", "image/bmp"]
   validates_attachment_content_type :transcript_of_records, :content_type => ["application/pdf", "application/doc", "application/docx", "image/jpeg", "image/gif", "image/png", "image/jpg", "image/bmp"]
@@ -36,6 +36,15 @@ class User < ApplicationRecord
   validates_attachment_content_type :official_gpa, :content_type => ["application/pdf", "application/doc", "application/docx", "image/jpeg", "image/gif", "image/png", "image/jpg", "image/bmp"]
   validates_attachment_content_type :english_test_score, :content_type => ["application/pdf", "application/doc", "application/docx", "image/jpeg", "image/gif", "image/png", "image/jpg", "image/bmp"]
 
+  validates_presence_of :first_name, message: 'You must provide your first name.', if: :not_admin?
+  validates_presence_of :family_name, message: 'You must provide your family name.', if: :not_admin?
+  validates_presence_of :birth_date, message: 'You must provide your birth date.', if: :not_admin?
+  validates_presence_of :born_place, message: 'You must provide your born place.', if: :not_admin?
+  validates_presence_of :nationality, message: 'You must provide your nationality.', if: :not_admin?
+  validates_presence_of :sex, message: 'You must provide your sex.', if: :not_admin?
+  validates_presence_of :permanent_adress, message: 'You must provide your permanent_adress.', if: :not_admin?
+  validates_presence_of :phone_number, message: 'You must provide your phone_number.', if: :not_admin?
+  
 
   def status
     stf = self.student_application_form
@@ -86,5 +95,8 @@ class User < ApplicationRecord
     end
   end
 
+  def not_admin?
+      role != "admin"
+  end
   
 end

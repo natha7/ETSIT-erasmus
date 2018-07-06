@@ -39,10 +39,9 @@ class AddStudentApplicationForm < ActiveRecord::Migration[5.2]
 
       t.timestamps
   	end
+    
     add_reference :student_application_forms, :user, index: true
 
-    #add_foreign_key :users, :student_application_forms
-    #add_foreign_key :student_application_forms, :users
 
   	create_table :languages do |t|
   		t.string :name
@@ -51,12 +50,16 @@ class AddStudentApplicationForm < ActiveRecord::Migration[5.2]
   		t.boolean :able_follow_lectures_extra_preparation
   	end
 
+    add_reference :languages, :user, index: true
+
   	create_table :work_experiences do |t|
   		t.string :type
   		t.string :firm_organisation
   		t.string :dates
   		t.string :country
   	end
+
+    add_reference :work_experiences, :user, index: true
 
   	create_table :nominated_users do |t|
   		t.string :name

@@ -1,5 +1,4 @@
 $(function() {
-
   $('#seekingDegreeCheckbox').click(
     function() {
       console.log(2);
