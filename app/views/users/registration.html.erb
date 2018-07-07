@@ -6,17 +6,17 @@
     <%= f.hidden_field :registration_token, {value: @nominated_user.registration_token}%>
   <div class="field">
     <%= f.label :first_name %><br />
-    <%= f.text_field :first_name, autofocus: true, autocomplete: "first_name" %>
+    <%= f.text_field :first_name, autofocus: true, autocomplete: "given-name" %>
   </div>
 
   <div class="field">
     <%= f.label :family_name %><br />
-    <%= f.text_field :family_name, autofocus: true, autocomplete: "family_name" %>
+    <%= f.text_field :family_name, autofocus: true, autocomplete: "family-name" %>
   </div>
 
   <div class="field">
     <%= f.label :birth_date %><br />
-    <%= f.date_field :birth_date, autofocus: true, autocomplete: "birth_date" %>
+    <%= f.date_field :birth_date, autofocus: true, autocomplete: "bday" %>
   </div>
 
   <div class="field">
@@ -25,27 +25,27 @@
     'Male',
     'Female',
     'Other'
-    ] %>
+    ] , autocomplete: "gender-identity"%>
 </div>
 
   <div class="field">
     <%= f.label :permanent_adress %><br />
-    <%= f.text_field :permanent_adress, autofocus: true, autocomplete: "permanent_adress" %>
+    <%= f.text_field :permanent_adress, autofocus: true, autocomplete: "street-address" %>
   </div>
 
   <div class="field">
     <%= f.label :nationality %><br />
-    <%= f.select :nationality, country_list %>
+    <%= f.select :nationality, country_list, autocomplete: "country-name" %>
   </div>
 
   <div class="field">
     <%= f.label :phone_number %><br />
-    <%= f.telephone_field :phone_number, autofocus: true, autocomplete: "phone_number" %>
+    <%= f.telephone_field :phone_number, autofocus: true, autocomplete: "tel" %>
   </div>
 
   <div class="field">
     <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+    <%= f.email_field :email, value: @nominated_user.email, autofocus: true, autocomplete: "email"  %>
   </div>
 
   <div class="field">
@@ -62,7 +62,7 @@
   </div>
 
   <div class="actions">
-    <%= f.submit "Sign up" %>
+    <%= f.submit "Sign up", :class => "custom-button" %>
   </div>
 <% end %>
 

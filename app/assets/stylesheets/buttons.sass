@@ -1,7 +1,7 @@
 @import "_variables"
 .button
     float: left
-    
+
 .custom-button
     border-radius: 5px
     color: $etsit_blue
@@ -31,3 +31,13 @@
     border-radius: 5px 0px 0px 5px !important
     border: 2px solid $etsit_blue !important
     // border-right: none
+.transparent-button
+    background: transparent
+    outline: none
+    border: none
+    cursor: pointer
+.action-button
+    font-size: 17px
+    transition: 0.2s all ease-in
+    &:hover
+        transform: scale(1.5)    

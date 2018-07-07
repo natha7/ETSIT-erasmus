@@ -23,33 +23,37 @@
 
       <span class="dashboard-section">Nominated users</span>
       <div class="right">
-        
+
         <%= form_tag(create_nominee_path, :method=> :post) do %>
-        
+
         <div class="field nominee-form">
           <%= email_field_tag 'email', nil, :placeholder =>  "Nominee e-mail", :class => "input-right"  %><%= submit_tag 'Save', :class => "right-addon"%>
         </div>
-        
+
         <%end%>
       </div>
       <br/><br/><br/>
       <div class="flex-table nominee-table">
         <div class="flex-table-header flex-table-cell flex-table-email-nominee">Email</div>
-        <div class="flex-table-header flex-table-cell flex-table-resend"> </div>
-        <div class="flex-table-header flex-table-cell flex-table-erase"> </div>
+        <div class="flex-table-header flex-table-cell flex-table-resend">Resend</div>
+        <div class="flex-table-header flex-table-cell flex-table-erase">Delete</div>
         <% nominees.each do |nominee| %>
         <div class="nominee-<%= nominee.id %>-id flex-table-cell flex-table-email-nominee">
           <span class="big-hidden">Email:</span><span class="email"><%= nominee.email %></span>
         </div>
         <div class="nominee-<%= nominee.id %>-id flex-table-cell flex-table-resend">
           <span class="dashboard-icon">
-            <%= button_to "Resend email", resend_email_path(:id => nominee.id), :method=> :post, form_class: "button", :class => "custom-button"  %>
-            <!-- <i class="mdi mdi-redo-variant done"></i> -->
+
+            <%= form_tag( resend_email_path(:id => nominee.id), :method=> :post) do %>
+              <button title="Resend email" class="transparent-button action-button"> <i class="mdi mdi-redo-variant dark"></i></button>
+            <% end %>
           </span>
         </div>
         <div class="nominee-<%= nominee.id %>-id flex-table-cell flex-table-erase">
           <span class="dashboard-icon">
-            <%= button_to "Delete nominee", delete_nominee_path(:id => nominee.id), :method=> :delete, form_class: "button", :class => "custom-button" %>
+            <%= form_tag( delete_nominee_path(:id => nominee.id), :method=> :post) do %>
+              <button title="Delete nominee" class="transparent-button action-button"> <i class="mdi mdi-close dark"></i></button>
+            <% end %>
           </span>
         </div>
         <% end %>
