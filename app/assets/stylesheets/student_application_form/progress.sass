@@ -4,7 +4,6 @@
 	position: relative
 	display: inline-block
 	.progress-line
-		// border-bottom: 2px solid $etsit_blue
 		height: 2px
 		position: absolute
 		background-color: $etsit_blue
@@ -28,3 +27,17 @@
 			border-color: $etsit_blue
 .progress-buttons
 		float: right
+@media (max-width: 628px)
+	.progress-bar	
+		.progress-line
+			height: 1px	
+		.progress-ball
+				width: 6px
+				height: 6px
+				margin: 0px 10px
+				&.previous-step
+					height: 4px
+					width: 4px
+@media (max-width: 500px)
+	.progress-bar
+		display: none	

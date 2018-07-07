@@ -1,62 +1,129 @@
 <% users = User.all.reject{|t| t.role == "admin"} %>
 <% nominees = NominatedUser.all%>
-
-<h1> Admin Dashboard </h1>
-
-<div>Hi Admin</div></br>
-<div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed egestas ligula ultricies accumsan pharetra. Suspendisse vel eros ut tortor porta laoreet vel sed nulla. Vivamus nec enim vel eros efficitur consectetur quis eu lorem. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Donec a justo ligula. In hendrerit, nisi at porta ultrices, odio purus rutrum dolor, porttitor pulvinar justo massa ut ante. Donec mollis urna augue, et convallis tellus sollicitudin eu. Nunc ex neque, convallis sodales scelerisque eu, facilisis eget libero. In sagittis risus neque, non dignissim purus semper at. Pellentesque mattis velit in lobortis porttitor. Aliquam malesuada aliquam mauris, sit amet porta augue vestibulum quis.</div>
+<%= button_to "Log out", destroy_user_session_path, :method=> :delete, :class => "custom-button right"%>
+<h1 class="title"> Hi Admin</h1>
+<p class="intro-paragraph">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+<br/>
+<div class="filters">
+  <p>Filters</p>
+  <form>
+    <div class="field">
+      <input placeholder="Type your query"></input>
+    </div>
+  </form>
+</div>
 </br>
-<div>Filtros</div>
-</br>
-<h2>Nominated users</h2>
-<%= form_tag(create_nominee_path, :method=> :post) do %>
-	<%= email_field_tag 'email' %>
-	<%= submit_tag 'Save' %>
-<%end%>
-<table style="width:100%">
-  <tr>
-    <th>Email</th>
-    <th>Resend email</th> 
-    <th>Erase</th>
-  </tr>
-  <% nominees.each do |nominee| %>
-  <tr>
-    <td><%= nominee.email %></td>
-    <td><%= button_to "Resend email", resend_email_path(:id => nominee.id), :method=> :post, form_class: "button"  %></td> 
-    <td><%= button_to "Delete nominee", delete_nominee_path(:id => nominee.id), :method=> :delete, form_class: "button" %></td>
-  </tr>
-  <% end %>
-</table>
+<div class="admin-dashboard  dashboard-container">
+  <div class="left-column">
+    <img class="picture" src="<%=current_user.photo %>"/>
+    <p>Administrator</p>
+  </div>
+  <div class="right-column">
+    <div class="row">
 
-<h2>Registered users</h2>
-<table style="width:100%">
-  <tr>
-    <th>Email</th>
-    <th>University</th> 
-    <th>Period</th>
-    <th>App Form</th>
-    <th>Mot Letter</th>
-    <th>CV</th>
-    <th>Trans. Rec.</th>
-    <th>LA</th>
-    <th>Percentage</th>
-    <th>Status</th>
-  </tr>
-  <% users.each do |user| %>
-  <tr>
-    <td><%= user.email %></td>
-    <td><%= user.student_application_form.inst_sending_name %></td> 
-    <td><%= user.student_application_form.academic_year %></td>
-    <td><%= user.student_application_form.erasmus_code %></td>
-    <td><%= user.motivation_letter.exists? %></td>
-    <td><%= user.curriculum_vitae.exists? %></td>
-    <td><%= user.transcript_of_records.exists? %></td>
-    <td><%= user.learning_agreement.exists? %></td>
-    <td><%= user.percentage %></td>
-    <td><%= user.status %></td>
-  </tr>
-  <% end %>
-</table>
+      <span class="dashboard-section">Nominated users</span>
+      <div class="right">
+        
+        <%= form_tag(create_nominee_path, :method=> :post) do %>
+        
+        <div class="field nominee-form">
+          <%= email_field_tag 'email', nil, :placeholder =>  "Nominee e-mail", :class => "input-right"  %><%= submit_tag 'Save', :class => "right-addon"%>
+        </div>
+        
+        <%end%>
+      </div>
+      <br/><br/><br/>
+      <div class="flex-table nominee-table">
+        <div class="flex-table-header flex-table-cell flex-table-email-nominee">Email</div>
+        <div class="flex-table-header flex-table-cell flex-table-resend"> </div>
+        <div class="flex-table-header flex-table-cell flex-table-erase"> </div>
+        <% nominees.each do |nominee| %>
+        <div class="nominee-<%= nominee.id %>-id flex-table-cell flex-table-email-nominee">
+          <span class="big-hidden">Email:</span><span class="email"><%= nominee.email %></span>
+        </div>
+        <div class="nominee-<%= nominee.id %>-id flex-table-cell flex-table-resend">
+          <span class="dashboard-icon">
+            <%= button_to "Resend email", resend_email_path(:id => nominee.id), :method=> :post, form_class: "button", :class => "custom-button"  %>
+            <!-- <i class="mdi mdi-redo-variant done"></i> -->
+          </span>
+        </div>
+        <div class="nominee-<%= nominee.id %>-id flex-table-cell flex-table-erase">
+          <span class="dashboard-icon">
+            <%= button_to "Delete nominee", delete_nominee_path(:id => nominee.id), :method=> :delete, form_class: "button", :class => "custom-button" %>
+          </span>
+        </div>
+        <% end %>
+      </div>
+    </div>
+    <br/><br/>
+    <div class="row">
+      <span class="dashboard-section">Registered users</span>
+      <br/><br/>
+      <div class="flex-table ">
+        <div class="flex-table-header flex-table-cell flex-table-email">Email</div>
+        <div class="flex-table-header flex-table-cell flex-table-univ">University</div>
+        <div class="flex-table-header flex-table-cell flex-table-period">Period</div>
+        <div class="flex-table-header flex-table-cell flex-table-app-form">App Form</div>
+        <div class="flex-table-header flex-table-cell flex-table-mot-letter">Mot. Letter</div>
+        <div class="flex-table-header flex-table-cell flex-table-cv">CV</div>
+        <div class="flex-table-header flex-table-cell flex-table-trans-rec">Trans. Rec</div>
+        <div class="flex-table-header flex-table-cell flex-table-la">LA</div>
+        <div class="flex-table-header flex-table-cell flex-table-status">Status</div>
+        <div class="flex-table-header flex-table-cell flex-table-pctg"> </div>
 
+        <% users.each do |user| %>
+        <div class="user-<%= user.id %>-id flex-table-cell flex-table-email">
+          <span class="big-hidden">Email:</span><span class="email"><%= user.email %></span>
+        </div>
+        <div class="user-<%= user.id %>-id flex-table-cell flex-table-univ">
+          <span class="big-hidden">University: </span>
+          <%= user.student_application_form.inst_sending_name %>
+        </div>
+        <div class="user-<%= user.id %>-id flex-table-cell flex-table-period">
+          <span class="big-hidden">Period: </span>
+          <%= user.student_application_form.academic_year %>
+        </div>
+        <div class="user-<%= user.id %>-id flex-table-cell flex-table-app-form">
+          <span class="big-hidden">App Form: </span>
+          <span class="dashboard-icon">
+            <i class="mdi mdi-clipboard-text app-form"></i>
+          </span>
+          <%= user.student_application_form.erasmus_code %>
+        </div>
+        <div class="user-<%= user.id %>-id flex-table-cell flex-table-mot-letter">
+          <span class="big-hidden">Mot. Letter: </span>
+          <span class="dashboard-icon">
+            <i class="mdi mdi-email <%=  'exists' if user.motivation_letter.exists?  %>"></i>
+          </span>
+        </div>
+        <div class="user-<%= user.id %>-id flex-table-cell flex-table-cv">
+          <span class="big-hidden">CV: </span>
+          <span class="dashboard-icon">
+            <i class="mdi mdi-account <%=  'exists' if user.curriculum_vitae.exists?  %>"></i>
+          </span>
+        </div>
+        <div class="user-<%= user.id %>-id flex-table-cell flex-table-trans-rec">
+          <span class="big-hidden">Trans. Rec: </span>
+          <span class="dashboard-icon">
+            <i class="mdi mdi-radiobox-marked <%=  'exists' if user.transcript_of_records.exists?  %>"></i>
+          </span>
+        </div>
+        <div class="user-<%= user.id %>-id flex-table-cell flex-table-la">
+          <span class="big-hidden">LA: </span>
+          <span class="dashboard-icon"><i class="mdi mdi-school <%=  'exists' if user.learning_agreement.exists?  %>"></i>
+          </span>
+        </div>
+        <div class="user-<%= user.id %>-id flex-table-cell flex-table-status">
+          <span class="big-hidden">Status: </span>
+          <%= user.status %>
+        </div>
+        <div class="user-<%= user.id %>-id flex-table-cell flex-table-pctg">
+          <span class="big-hidden">Progress: </span>
+          <%= user.percentage %>
+        </div>
+        <% end %><br/>
+      </div>
+    </div>
+  </div>
 
-<%= button_to "Log out", destroy_user_session_path, :method=> :delete, form_class: "button"%>
+  <br/><br/>

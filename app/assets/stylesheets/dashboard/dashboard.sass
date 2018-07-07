@@ -1,0 +1,36 @@
+.dashboard-container 
+	display: flex
+	.left-column
+		flex-grow: 1
+		flex-shrink: 0
+		text-align: center
+		padding-right: 15px
+		.picture
+			width: 90px
+			padding: 10px
+			border: 1px solid #333
+	.right-column
+		flex-grow: 7
+		.row
+			border-top: 1px solid #777
+			padding: 10px
+			min-height: 50px
+			.dashboard-section
+				font-size: 18px
+				font-weight: bold
+			.second-container
+				display: flex
+				.second-container-left
+					flex-grow: 1
+				.second-container-medium
+					flex-grow: 4
+					text-align: center
+				.second-container-right
+					flex-grow: 1
+					text-align: right
+			.check_mark
+				float: right
+
+@media (max-width: 768px)
+	.dashboard-container
+		flex-direction: column

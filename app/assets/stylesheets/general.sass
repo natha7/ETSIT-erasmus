@@ -6,7 +6,9 @@
 body
 	padding: 0
 	margin: 0
-
+	a
+		color: inherit
+		text-decoration: none
 	.title
 		color: #4664A2
 		font-size: 24px
@@ -17,7 +19,8 @@ body
 		line-height: 1.1
 	.hidden
 		display: none
-
+	.email
+		color: $etsit-blue
 	.container
 		padding-right: 15px
 		padding-left: 15px
@@ -31,14 +34,18 @@ body
 			.field
 				label
 					line-height: 32px
-				input, select
+				input:not([type=submit]), select
 					border-radius: 0
 					border: 1px solid #333
 					height: 22px
 					padding: 5px
 				select
 					height: 34px
+					vertical-align: middle
 				padding: 10px
+				input[type=submit]
+					cursor: pointer
+					
 	@media (min-width: 768px)
 		.container
 			width: 750px

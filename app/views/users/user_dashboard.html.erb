@@ -1,135 +1,168 @@
+<%= button_to "Log out", destroy_user_session_path, :method=> :delete, :class => "custom-button right"%>
 
-<h1 class="title"> User Dashboard </h1>
+<h1 class="title"> Hi  <%= current_user.first_name %></h1>
 
-<div>
-	<div>
-		<div><%= label_tag :student_application_form %></div>
-		<%= link_to "Student Application Form", student_application_form_path%>
+<p class="intro-paragraph">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+<br/>
+<div class="dashboard-container">
+	<div class="left-column">
+		<img class="picture" src="<%=current_user.photo %>"/>
+		<p><%= current_user.first_name %> <%= current_user.family_name %></p>
 	</div>
+	<div class="right-column">
+		<div class="row">
+			<div class="second-container">
+				<span class="second-container-left dashboard-section">
+					<%= link_to "Application Form", student_application_form_path%>
+				</span>
+				<div class="second-container-medium">
+					<div class="progress-bar">
+					    <div class="progress-line">
+					    </div>
+					    <% for i in 1..6 do %>
+					        <%= link_to "<span class='progress-ball future-step'></span>".html_safe, student_application_form_path + "/#{i}"%>
+					    <% end %>
+					</div>
+				</div>
+				<div class="second-container-right">
+					<span class="student-application-form-progress">25%</span>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<span class="dashboard-section"><%= label_tag :motivation_letter %></span>
+			<%unless current_user.motivation_letter.blank? %>
+				<span class="check_mark"><i class="mdi mdi-check"></i></span>
+				<%= link_to current_user.motivation_letter_file_name, current_user.motivation_letter.url%>
+				<td><%= button_to "Delete motivation letter", user_file_delete_url(:id => current_user.id, :attachment => :motivation_letter), :method=> :delete, :class => "custom-button" %></td>
+				
+			<% else %>
+				<%= form_for current_user, url: user_file_upload_path, html: { multipart: true }, :method => :POST do |form| %>
+				  <%= form.file_field :motivation_letter %>
+				  <%= form.submit "Upload", :class => "custom-button" %>
+				<% end %>
+			<%end%>
+		</div>
+		<div class="row">
+			<span class="dashboard-section"><%= label_tag :curriculum_vitae %></span>
+			<%unless current_user.curriculum_vitae.blank? %>
+				<span class="check_mark"><i class="mdi mdi-check"></i></span>
+				<%= link_to current_user.curriculum_vitae_file_name, current_user.curriculum_vitae.url%>
+				<td><%= button_to "Delete CV", user_file_delete_url(:id => current_user.id, :attachment => :curriculum_vitae), :method=> :delete, :class => "custom-button" %></td>
+			<% else %>
+				<%= form_for current_user, url: user_file_upload_path, html: { multipart: true }, :method => :POST do |form| %>
+				  <%= form.file_field :curriculum_vitae %>
+				  <%= form.submit "Upload", :class => "custom-button" %>
+				<% end %>
+			<% end %>
+		</div>
+		<div class="row">
+			<span class="dashboard-section"><%= label_tag :transcript_of_records %></span>
+			<%unless current_user.transcript_of_records.blank? %>
+				<span class="check_mark"><i class="mdi mdi-check"></i></span>
+				<%= link_to current_user.transcript_of_records_file_name, current_user.transcript_of_records.url%>
+				<td><%= button_to "Delete transcript of records", user_file_delete_url(:id => current_user.id, :attachment => :transcript_of_records), :method=> :delete, :class => "custom-button" %></td>
+			<% else %>
+				<%= form_for current_user, url: user_file_upload_path, html: { multipart: true }, :method => :POST do |form| %>
+				  <%= form.file_field :transcript_of_records %>
+				  <%= form.submit "Upload", :class => "custom-button" %>
+				<% end %>
+			<% end %>
+		</div>
+		<div class="row">
+			<span class="dashboard-section"><%= label_tag :learning_agreement %></span>
+			<%unless current_user.learning_agreement.blank? %>
+				<span class="check_mark"><i class="mdi mdi-check"></i></span>
+				<%= link_to current_user.learning_agreement_file_name, current_user.learning_agreement.url%>
+				<td><%= button_to "Delete learning agreement", user_file_delete_url(:id => current_user.id, :attachment => :learning_agreement), :method=> :delete, :class => "custom-button" %></td>
+			<% else %>
+				<%= form_for current_user, url: user_file_upload_path, html: { multipart: true }, :method => :POST do |form| %>
+				  <%= form.file_field :learning_agreement %>
+				  <%= form.submit "Upload", :class => "custom-button" %>
+				<% end %>
+			<% end %>
+		</div>
+		<div class="row">
+			<span class="dashboard-section"><%= label_tag :valid_insurance_policy %></span>
+			<%unless current_user.valid_insurance_policy.blank? %>
+				<span class="check_mark"><i class="mdi mdi-check"></i></span>
+				<%= link_to current_user.valid_insurance_policy_file_name, current_user.valid_insurance_policy.url%>
+				<td><%= button_to "Delete learning agreement", user_file_delete_url(:id => current_user.id, :attachment => :valid_insurance_policy), :method=> :delete, form_class: "button" %></td>
+			<% else %>
+				<%= form_for current_user, url: user_file_upload_path, html: { multipart: true }, :method => :POST do |form| %>
+				  <%= form.file_field :valid_insurance_policy %>
+				  <%= form.submit "Upload", :class => "custom-button" %>
+				<% end %>
+			<% end %>
+		</div>
+		<div class="row">
+			<span class="dashboard-section"><%= label_tag :ni_passport %></span>
+			<%unless current_user.ni_passport.blank? %>
+				<span class="check_mark"><i class="mdi mdi-check"></i></span>
+				<%= link_to current_user.ni_passport_file_name, current_user.ni_passport.url%>
+				<td><%= button_to "Delete learning agreement", user_file_delete_url(:id => current_user.id, :attachment => :ni_passport), :method=> :delete, form_class: "button" %></td>
+			<% else %>
+				<%= form_for current_user, url: user_file_upload_path, html: { multipart: true }, :method => :POST do |form| %>
+				  <%= form.file_field :ni_passport %>
+				  <%= form.submit "Upload", :class => "custom-button" %>
+				<% end %>
+			<% end %>
+		</div>
 
-	<div>
-		<div><%= label_tag :motivation_letter %></div>
-		<%unless current_user.motivation_letter.blank? %>
-			<%= link_to current_user.motivation_letter_file_name, current_user.motivation_letter.url%>
-			<td><%= button_to "Delete motivation letter", user_file_delete_url(:id => current_user.id, :attachment => :motivation_letter), :method=> :delete, :class => "custom-button" %></td>
-		<% else %>
-			<%= form_for current_user, url: user_file_upload_path, html: { multipart: true }, :method => :POST do |form| %>
-			  <%= form.file_field :motivation_letter %>
-			  <%= form.submit "Upload", :class => "custom-button" %>
+		<div class="row">Seeking degree <input type="checkbox" id="seekingDegreeCheckbox" /></div>
+		<div id="degree-seeking" class="hidden">
+		<div class="row">
+			<span class="dashboard-section"><%= label_tag :recommendation_letter_1 %></span>
+			<%unless current_user.recommendation_letter_1.blank? %>
+				<span class="check_mark"><i class="mdi mdi-check"></i></span>
+				<%= link_to current_user.recommendation_letter_1_file_name, current_user.recommendation_letter_1.url%>
+				<td><%= button_to "Delete learning agreement", user_file_delete_url(:id => current_user.id, :attachment => :recommendation_letter_1), :method=> :delete, form_class: "button" %></td>
+			<% else %>
+				<%= form_for current_user, url: user_file_upload_path, html: { multipart: true }, :method => :POST do |form| %>
+				  <%= form.file_field :recommendation_letter_1 %>
+				  <%= form.submit "Upload", :class => "custom-button" %>
+				<% end %>
 			<% end %>
-		<%end%>
-	</div>
-	<div>
-		<div><%= label_tag :curriculum_vitae %></div>
-		<%unless current_user.curriculum_vitae.blank? %>
-			<%= link_to current_user.curriculum_vitae_file_name, current_user.curriculum_vitae.url%>
-			<td><%= button_to "Delete CV", user_file_delete_url(:id => current_user.id, :attachment => :curriculum_vitae), :method=> :delete, :class => "custom-button" %></td>
-		<% else %>
-			<%= form_for current_user, url: user_file_upload_path, html: { multipart: true }, :method => :POST do |form| %>
-			  <%= form.file_field :curriculum_vitae %>
-			  <%= form.submit "Upload", :class => "custom-button" %>
+		</div>
+		<div class="row">
+			<span class="dashboard-section"><%= label_tag :recommendation_letter_2 %></span>
+			<%unless current_user.recommendation_letter_2.blank? %>
+				<span class="check_mark"><i class="mdi mdi-check"></i></span>
+				<%= link_to current_user.recommendation_letter_2_file_name, current_user.recommendation_letter_2.url%>
+				<td><%= button_to "Delete learning agreement", user_file_delete_url(:id => current_user.id, :attachment => :recommendation_letter_2), :method=> :delete, form_class: "button" %></td>
+			<% else %>
+				<%= form_for current_user, url: user_file_upload_path, html: { multipart: true }, :method => :POST do |form| %>
+				  <%= form.file_field :recommendation_letter_2 %>
+				  <%= form.submit "Upload", :class => "custom-button" %>
+				<% end %>
 			<% end %>
-		<% end %>
-	</div>
-	<div>
-		<div><%= label_tag :transcript_of_records %></div>
-		<%unless current_user.transcript_of_records.blank? %>
-			<%= link_to current_user.transcript_of_records_file_name, current_user.transcript_of_records.url%>
-			<td><%= button_to "Delete transcript of records", user_file_delete_url(:id => current_user.id, :attachment => :transcript_of_records), :method=> :delete, :class => "custom-button" %></td>
-		<% else %>
-			<%= form_for current_user, url: user_file_upload_path, html: { multipart: true }, :method => :POST do |form| %>
-			  <%= form.file_field :transcript_of_records %>
-			  <%= form.submit "Upload", :class => "custom-button" %>
+		</div>
+		<div class="row">
+			<span class="dashboard-section"><%= label_tag :official_gpa %></span>
+			<%unless current_user.official_gpa.blank? %>
+				<span class="check_mark"><i class="mdi mdi-check"></i></span>
+				<%= link_to current_user.official_gpa_file_name, current_user.official_gpa.url%>
+				<td><%= button_to "Delete learning agreement", user_file_delete_url(:id => current_user.id, :attachment => :official_gpa), :method=> :delete, form_class: "button" %></td>
+			<% else %>
+				<%= form_for current_user, url: user_file_upload_path, html: { multipart: true }, :method => :POST do |form| %>
+				  <%= form.file_field :official_gpa %>
+				  <%= form.submit "Upload", :class => "custom-button" %>
+				<% end %>
 			<% end %>
-		<% end %>
-	</div>
-	<div>
-		<div><%= label_tag :learning_agreement %></div>
-		<%unless current_user.learning_agreement.blank? %>
-			<%= link_to current_user.learning_agreement_file_name, current_user.learning_agreement.url%>
-			<td><%= button_to "Delete learning agreement", user_file_delete_url(:id => current_user.id, :attachment => :learning_agreement), :method=> :delete, :class => "custom-button" %></td>
-		<% else %>
-			<%= form_for current_user, url: user_file_upload_path, html: { multipart: true }, :method => :POST do |form| %>
-			  <%= form.file_field :learning_agreement %>
-			  <%= form.submit "Upload", :class => "custom-button" %>
+		</div>
+		<div class="row">
+			<span class="dashboard-section"><%= label_tag :english_test_score %></span>
+			<%unless current_user.english_test_score.blank? %>
+				<span class="check_mark"><i class="mdi mdi-check"></i></span>
+				<%= link_to current_user.english_test_score_file_name, current_user.english_test_score.url%>
+				<td><%= button_to "Delete learning agreement", user_file_delete_url(:id => current_user.id, :attachment => :english_test_score), :method=> :delete, form_class: "button" %></td>
+			<% else %>
+				<%= form_for current_user, url: user_file_upload_path, html: { multipart: true }, :method => :POST do |form| %>
+				  <%= form.file_field :english_test_score %>
+				  <%= form.submit "Upload", :class => "custom-button" %>
+				<% end %>
 			<% end %>
-		<% end %>
-	</div>
-	<div>
-		<div><%= label_tag :valid_insurance_policy %></div>
-		<%unless current_user.valid_insurance_policy.blank? %>
-			<%= link_to current_user.valid_insurance_policy_file_name, current_user.valid_insurance_policy.url%>
-			<td><%= button_to "Delete learning agreement", user_file_delete_url(:id => current_user.id, :attachment => :valid_insurance_policy), :method=> :delete, form_class: "button" %></td>
-		<% else %>
-			<%= form_for current_user, url: user_file_upload_path, html: { multipart: true }, :method => :POST do |form| %>
-			  <%= form.file_field :valid_insurance_policy %>
-			  <%= form.submit "Upload", :class => "custom-button" %>
-			<% end %>
-		<% end %>
-	</div>
-	<div>
-		<div><%= label_tag :ni_passport %></div>
-		<%unless current_user.ni_passport.blank? %>
-			<%= link_to current_user.ni_passport_file_name, current_user.ni_passport.url%>
-			<td><%= button_to "Delete learning agreement", user_file_delete_url(:id => current_user.id, :attachment => :ni_passport), :method=> :delete, form_class: "button" %></td>
-		<% else %>
-			<%= form_for current_user, url: user_file_upload_path, html: { multipart: true }, :method => :POST do |form| %>
-			  <%= form.file_field :ni_passport %>
-			  <%= form.submit "Upload", :class => "custom-button" %>
-			<% end %>
-		<% end %>
-	</div>
-
-	<div>Seeking degree <input type="checkbox" id="seekingDegreeCheckbox" /></div>
-	<div id="degree-seeking" class="hidden">
-	<div>
-		<div><%= label_tag :recommendation_letter_1 %></div>
-		<%unless current_user.recommendation_letter_1.blank? %>
-			<%= link_to current_user.recommendation_letter_1_file_name, current_user.recommendation_letter_1.url%>
-			<td><%= button_to "Delete learning agreement", user_file_delete_url(:id => current_user.id, :attachment => :recommendation_letter_1), :method=> :delete, form_class: "button" %></td>
-		<% else %>
-			<%= form_for current_user, url: user_file_upload_path, html: { multipart: true }, :method => :POST do |form| %>
-			  <%= form.file_field :recommendation_letter_1 %>
-			  <%= form.submit "Upload", :class => "custom-button" %>
-			<% end %>
-		<% end %>
-	</div>
-	<div>
-		<div><%= label_tag :recommendation_letter_2 %></div>
-		<%unless current_user.recommendation_letter_2.blank? %>
-			<%= link_to current_user.recommendation_letter_2_file_name, current_user.recommendation_letter_2.url%>
-			<td><%= button_to "Delete learning agreement", user_file_delete_url(:id => current_user.id, :attachment => :recommendation_letter_2), :method=> :delete, form_class: "button" %></td>
-		<% else %>
-			<%= form_for current_user, url: user_file_upload_path, html: { multipart: true }, :method => :POST do |form| %>
-			  <%= form.file_field :recommendation_letter_2 %>
-			  <%= form.submit "Upload", :class => "custom-button" %>
-			<% end %>
-		<% end %>
-	</div>
-	<div>
-		<div><%= label_tag :official_gpa %></div>
-		<%unless current_user.official_gpa.blank? %>
-			<%= link_to current_user.official_gpa_file_name, current_user.official_gpa.url%>
-			<td><%= button_to "Delete learning agreement", user_file_delete_url(:id => current_user.id, :attachment => :official_gpa), :method=> :delete, form_class: "button" %></td>
-		<% else %>
-			<%= form_for current_user, url: user_file_upload_path, html: { multipart: true }, :method => :POST do |form| %>
-			  <%= form.file_field :official_gpa %>
-			  <%= form.submit "Upload", :class => "custom-button" %>
-			<% end %>
-		<% end %>
-	</div>
-	<div>
-		<div><%= label_tag :english_test_score %></div>
-		<%unless current_user.english_test_score.blank? %>
-			<%= link_to current_user.english_test_score_file_name, current_user.english_test_score.url%>
-			<td><%= button_to "Delete learning agreement", user_file_delete_url(:id => current_user.id, :attachment => :english_test_score), :method=> :delete, form_class: "button" %></td>
-		<% else %>
-			<%= form_for current_user, url: user_file_upload_path, html: { multipart: true }, :method => :POST do |form| %>
-			  <%= form.file_field :english_test_score %>
-			  <%= form.submit "Upload", :class => "custom-button" %>
-			<% end %>
-		<% end %>
-	</div>
+		</div>
+	    </div>
     </div>
 </div>
-<%= button_to "Log out", destroy_user_session_path, :method=> :delete, :class => "custom-button"%>

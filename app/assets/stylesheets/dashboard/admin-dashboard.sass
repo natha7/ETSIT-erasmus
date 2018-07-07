@@ -1,0 +1,104 @@
+@import "_variables"
+
+.filters
+	background-color: #eee
+	padding: 15px
+	padding-top: 2px
+
+.admin-dashboard.dashboard-container
+		
+	.flex-table
+		display: flex
+		text-align: left
+		flex-wrap: wrap
+		// justify-content: center
+		.flex-table-cell
+			// flex-grow: 1
+			text-align: left
+			// border-right: 1px solid #ccc
+			border-top: 1px solid #ccc
+			overflow: hidden
+			padding: 4px
+			padding-left: 4px
+			box-sizing: border-box
+			color: #777
+			.dashboard-icon
+				width: 70%
+				text-align: center
+				display: inline-block
+				vertical-align: middle
+				margin: 5px
+				i
+					color: #bbb
+					&.exists
+						color: rgb(155, 205, 88)
+					&.app-form
+						color: rgb(247, 147, 30)
+			.big-hidden
+				display: none
+		.flex-table-header
+			font-weight: bold
+			border-top: none
+			color: #333
+		.flex-table-email
+			//order: 1
+			width: 23%
+			// flex-grow: 3
+		.flex-table-univ
+			//order: 2
+			width: 20%
+			// flex-grow: 3
+		.flex-table-period
+			//order: 3
+			width: 10%
+			// flex-grow: 1
+		.flex-table-app-form
+			width: 6%
+			//order: 4
+			// flex-grow: 1
+		.flex-table-mot-letter
+			width: 6%
+			// order: 5
+			// flex-grow: 1
+		.flex-table-cv
+			width: 6%
+			//order: 6
+			// flex-grow: 1
+		.flex-table-trans-rec
+			//order: 7
+			width: 6%
+			// flex-grow: 1
+		.flex-table-la
+			width: 6%
+			//order: 8
+			// flex-grow: 1
+		.flex-table-pctg
+			width: 4%
+			//order: 9
+			// flex-grow: 1
+		.flex-table-status
+			//order: 10
+			width: 12%
+			// flex-grow: 1
+			border-right: none
+		.flex-table-email-nominee
+			width: calc(100% - 320px)
+		.flex-table-resend
+			width: 150px
+		.flex-table-erase
+			width: 170px			
+		&.nominee-table
+			align-items: stretch
+			// justify-content: space-around
+
+			.flex-table-cell
+				min-height: 60px
+				vertical-align: middle
+				.dashboard-icon
+					text-align: left
+					padding-left: 2%
+					.custom-button
+						font-size: 14px
+			.flex-table-header
+				min-height: 30px		
+		&.user-table
