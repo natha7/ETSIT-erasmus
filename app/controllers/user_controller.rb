@@ -1,5 +1,6 @@
 class UserController < ApplicationController
 	before_action :authenticate_user!, except: [:digital_certificate, :token_registration, :create_user, :register_with_email_and_password, :register_with_eidas]
+
 	### ADMIN
 	def admin_dashboard
 		render "users/admin_dashboard"
@@ -25,8 +26,10 @@ class UserController < ApplicationController
 	def file_upload
 		unless params[:user].blank?
 			keys = params[:user].keys
-			current_user.update_attribute(keys[0], params[:user][keys[0]])
-			current_user.save!
+			current_user.assign_attributes({keys[0] => params[:user][keys[0]]})
+			unless current_user.save
+				flash[:error] = current_user.errors.full_messages.to_sentence
+			end
 		else 
 			flash[:error] = "File not valid"
 		end

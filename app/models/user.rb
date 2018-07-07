@@ -23,6 +23,7 @@ class User < ApplicationRecord
   has_attached_file :english_test_score
 
   before_create :create_student_application_form
+  after_validation :clean_paperclip_errors
 
   #validations
   validates_attachment_content_type :motivation_letter, :content_type => ["application/pdf", "application/doc", "application/docx", "image/jpeg", "image/gif", "image/png", "image/jpg", "image/bmp"]
@@ -36,6 +37,18 @@ class User < ApplicationRecord
   validates_attachment_content_type :recommendation_letter_2, :content_type => ["application/pdf", "application/doc", "application/docx", "image/jpeg", "image/gif", "image/png", "image/jpg", "image/bmp"]
   validates_attachment_content_type :official_gpa, :content_type => ["application/pdf", "application/doc", "application/docx", "image/jpeg", "image/gif", "image/png", "image/jpg", "image/bmp"]
   validates_attachment_content_type :english_test_score, :content_type => ["application/pdf", "application/doc", "application/docx", "image/jpeg", "image/gif", "image/png", "image/jpg", "image/bmp"]
+
+  validates_attachment_size :motivation_letter, :less_than => 4.megabytes
+  validates_attachment_size :curriculum_vitae, :less_than => 4.megabytes
+  validates_attachment_size :transcript_of_records, :less_than => 4.megabytes
+  validates_attachment_size :learning_agreement, :less_than => 4.megabytes
+  validates_attachment_size :valid_insurance_policy, :less_than => 4.megabytes
+  validates_attachment_size :photo, :less_than => 4.megabytes
+  validates_attachment_size :ni_passport, :less_than => 4.megabytes
+  validates_attachment_size :recommendation_letter_1, :less_than => 4.megabytes
+  validates_attachment_size :recommendation_letter_2, :less_than => 4.megabytes
+  validates_attachment_size :official_gpa, :less_than => 4.megabytes
+  validates_attachment_size :english_test_score, :less_than => 4.megabytes
 
   validates_presence_of :first_name, message: 'You must provide your first name.', if: :not_admin?
   validates_presence_of :family_name, message: 'You must provide your family name.', if: :not_admin?
@@ -98,6 +111,20 @@ class User < ApplicationRecord
 
   def not_admin?
       role != "admin"
+  end
+
+  def clean_paperclip_errors
+    errors.delete(:motivation_letter)
+    errors.delete(:curriculum_vitae)
+    errors.delete(:transcript_of_records)
+    errors.delete(:learning_agreement)
+    errors.delete(:valid_insurance_policy)
+    errors.delete(:photo)
+    errors.delete(:ni_passport)
+    errors.delete(:recommendation_letter_1)
+    errors.delete(:recommendation_letter_2)
+    errors.delete(:official_gpa)
+    errors.delete(:english_test_score)
   end
   
 end
