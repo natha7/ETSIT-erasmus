@@ -23,7 +23,7 @@ default: &default
 
 development:
   <<: *default
-  username: logUser
+  username: loguser
   database: logapp_dev
   password: password
 
@@ -60,8 +60,9 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
+  username: loguser
   database: logapp_test
-
+  password: password
 # As with config/secrets.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
 # ever seen by anyone, they now have access to your database.
@@ -84,5 +85,5 @@ test:
 production:
   <<: *default
   database: logapp_prod
-  username: logUser
-  password: <%= ENV['LOGAPP_DATABASE_PASSWORD'] %>
+  username: loguser
+  password: password
