@@ -25,6 +25,7 @@ class UserController < ApplicationController
 	def file_upload
 		unless params[:user].blank?
 			keys = params[:user].keys
+			puts keys
 			current_user.update_attribute(keys[0], params[:user][keys[0]])
 			current_user.save!
 		else 

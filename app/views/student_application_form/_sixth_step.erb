@@ -3,34 +3,46 @@
 
 <%= form_for @sap, url: student_application_form_path, :method => :post,:class => ""  do |f|%>
 
-  <div class="field">
+<div class="field">
+  <div class="flex-container">
     <%= f.label :current_diploma_degree %><br />
     <%= f.text_field :current_diploma_degree, autofocus: true, autocomplete: "current_diploma_degree" %>
   </div>
+</div>
 
-  <div class="field">
+<div class="field">
+  <div class="flex-container">
     <%= f.label :year_attended %><br />
     <%= f.text_field :year_attended, autofocus: true, autocomplete: "year_attended" %>
   </div>
+</div>
 
-  <div class="field">
+<div class="field">
+  <div class="flex-container">
     <%= f.label :specialization_area %><br />
     <%= f.text_field :specialization_area, autofocus: true, autocomplete: "specialization_area" %>
   </div>
-   <div class="field">
+</div>
+<div class="field">
+  <div class="flex-container">
     <%= f.label :already_study_abroad %><br />
     <%= f.text_field :already_study_abroad, autofocus: true, autocomplete: "already_study_abroad" %>
   </div>
-  	<div class="field">
+</div>
+<div class="field">
+  <div class="flex-container">
     <%= f.label :where_study_abroad %><br />
     <%= f.text_field :where_study_abroad, autofocus: true, autocomplete: "where_study_abroad" %>
   </div>
-  <div class="field">
+</div>
+<div class="field">
+  <div class="flex-container">
     <%= f.label :where_institution_abroad %><br />
     <%= f.text_field :where_institution_abroad, autofocus: true, autocomplete: "where_institution_abroad" %>
   </div>
+</div>
 
-  <div class="actions">
-    <%= f.submit "Save current page", label: false, :class => "custom-button" %>
-  </div>
+<div class="actions">
+  <%= f.submit "Save current page", label: false, :class => "custom-button" %>
+</div>
 <%end%>

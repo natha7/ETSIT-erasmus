@@ -1,3 +1,24 @@
+@import "../variables"
+#edit-picture-dialog
+	padding: 25px
+	display: none
+	canvas#canvas
+		width: 250px
+		height: 250px
+		display: none
+	.close
+		margin: -18px
+	.flex-container
+		display: flex
+		flex-wrap: wrap
+		.image-container
+			.picture
+				width: 250px
+		.image-edit-actions
+			padding: 10px
+			.input-file
+			.custom-button
+				margin: 10px
 .dashboard-container 
 	display: flex
 	.left-column
@@ -9,6 +30,19 @@
 			width: 90px
 			padding: 10px
 			border: 1px solid #333
+		.edit-picture
+			position: absolute
+			margin-left: -26px
+			margin-top: 4px
+			width: 22px
+			height: 22px
+			padding: 0
+			border: none
+			background-color: white
+			i
+				padding: 0
+				color: $etsit_blue
+				cursor: pointer
 	.right-column
 		flex-grow: 7
 		.row

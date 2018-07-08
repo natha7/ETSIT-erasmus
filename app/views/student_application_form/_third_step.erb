@@ -4,34 +4,40 @@
 <%= form_for@sap, url: student_application_form_path, :method => :post do |f| %>
 
 <div class="field">
-  <%= f.label :academic_year %><br />
-  <%= f.select :academic_year, [
-    '2018-2019: Fall Semester',
-    '2018-2019: Spring Semester',
-    '2018-2019: Academic Year',
-    '2019-2020: Fall Semester',
-    '2019-2020: Spring Semester',
-    '2019-2020: Academic Year',
-    ] %>
-</div>
+  <div class="flex-container">
+    <%= f.label :academic_year %><br />
+    <%= f.select :academic_year, [
+      '2018-2019: Fall Semester',
+      '2018-2019: Spring Semester',
+      '2018-2019: Academic Year',
+      '2019-2020: Fall Semester',
+      '2019-2020: Spring Semester',
+      '2019-2020: Academic Year',
+      ] %>
+    </div>
+  </div>
 
-<div class="field">
-  <%= f.label :programme %><br />
-  <%= f.select :programme, [
-    'Eramus+ Studies',
-    'Eramus+ Placement',
-    'Magalhães',
-    'Bilateral Agreement',
-    'Visiting Student',
-    'SICUE/SENECA',
-    ] %>
-</div>
+  <div class="field">
+    <div class="flex-container">
+      <%= f.label :programme %><br />
+      <%= f.select :programme, [
+        'Eramus+ Studies',
+        'Eramus+ Placement',
+        'Magalhães',
+        'Bilateral Agreement',
+        'Visiting Student',
+        'SICUE/SENECA',
+        ] %>
+      </div>
+    </div>
 
-<div class="field">
-  <%= f.label :field_of_study %><br />
-  <%= f.text_field :field_of_study, autofocus: true, autocomplete: "field_of_study", :value => "Telecommunication Engineering" %>
-</div>
-<div class="actions">
-    <%= f.submit "Save current page", label: false, :class => "custom-button" %>
-</div>
-<%end%>
+    <div class="field">
+      <div class="flex-container">
+        <%= f.label :field_of_study %><br />
+        <%= f.text_field :field_of_study, autofocus: true, autocomplete: "field_of_study", :value => "Telecommunication Engineering" %>
+      </div>
+    </div>
+    <div class="actions">
+      <%= f.submit "Save current page", label: false, :class => "custom-button" %>
+    </div>
+    <%end%>

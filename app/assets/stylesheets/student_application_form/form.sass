@@ -16,16 +16,20 @@
 	.back-to-dashboard
 		margin-top: 40px
 	form
+		&.edit_student_application_form
+			display: flex
+			flex-wrap: wrap
 		.field
 			display: inline-block
 			padding: 15px !important
 			padding-left: 0px !important
+			flex-grow: 1
 			.flex-container
 				display: flex
 				label
 					width: auto
 					padding-right: 12px
-				input
+				input, select
 					flex-grow: 1
 		.field_inst_sending_name
 			width: calc(50% - 25px)
@@ -43,3 +47,6 @@
 				height: 50px !important
 		.field_contact_person, .field_inst_telephone, .field_inst_email
 			width: calc(33% - 22px)
+		h2, .actions
+			display: block
+			width: 100%
