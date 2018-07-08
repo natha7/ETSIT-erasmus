@@ -1,10 +1,9 @@
-$(function() {
+$(document).on('turbolinks:load', function() {
   /**
    * Additional fields for double-degree seeking students
    **/
   $('#seekingDegreeCheckbox').click(
     function(e) {
-      console.log(2);
       $('#degree-seeking').toggleClass('hidden');
     }
   );
@@ -155,4 +154,5 @@ $(function() {
     // caret.toggleClass('mdi-rotate-180');
     // caret.toggleClass('mdi-menu-up');
   });
+
 });

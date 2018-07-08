@@ -2,6 +2,9 @@
 <% like_name = "%#{ params[:name]}%"    %>
 <% users = User.where("lower(email) LIKE ? and lower(first_name) LIKE ?", like_email.downcase, like_name.downcase).reject{|t| t.role == "admin"} %>
 <% nominees = NominatedUser.where("lower(email) LIKE ? ", like_email.downcase)%>
+<% unless current_user.role == 'admin'%>
+  <p class="no-results">You do not have permission to access this page</p>
+<% else %>
 
 <%= button_to "Log out", destroy_user_session_path, :method=> :delete, :class => "custom-button right"%>
 <h1 class="title"> Hi, Admin</h1>
@@ -95,7 +98,7 @@
         
         <% users.each do |user| %>
         <div class="user-<%= user.id %>-id flex-table-cell flex-table-email">
-          <span class="big-hidden">Email:</span><span class="email"><%= user.email %></span>
+          <span class="big-hidden">Email:</span><a href="/review_dashboard/<%=user.id%>"><span class="email"><%= user.email %></span></a>
         </div>
         <div class="user-<%= user.id %>-id flex-table-cell flex-table-univ">
           <span class="big-hidden">University: </span>
@@ -153,3 +156,4 @@
   </div>
 
   <br/><br/>
+  <% end %>

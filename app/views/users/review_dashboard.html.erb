@@ -1,4 +1,9 @@
 <%= button_to "Log out", destroy_user_session_path, :method=> :delete, :class => "custom-button right"%>
+<%= button_to "Back to Dashboard", admin_dashboard_path, :method=> :get, :class => "custom-button right"%>
+<% unless current_user.role == 'admin'%>
+<br/><br/>
+<p class="no-results">You do not have permission to access this page</p>
+<% else %>
 <% unless User.exists?(id: params[:user], role: "user")  %>
 <br/><br/>
 <p class="no-results">The selected user does not exist</p>
@@ -131,4 +136,5 @@
 
 		</div>
 
+<%end%>
 <%end%>
