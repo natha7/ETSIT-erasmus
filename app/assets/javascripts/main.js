@@ -16,6 +16,30 @@ $(function() {
       $(this).toggleClass('hidden');
     }
   )
+
+  function initCropper(){
+      var $image = $('#edit-picture-dialog-picture');
+      if ($image.attr('src') !== "/assets/placeholder.png") {
+        $image.cropper({
+          aspectRatio: 1,
+          minContainerWidth: 250,
+          maxContainerWidth: 250,
+          minContainerHeight: 250,
+          maxContainerHeight: 250,
+          minCanvasWidth: 250,
+          minCanvasHeight: 250,
+          minCropBoxWidth: 150,
+          maxCropBoxWidth: 150,
+          minCropBoxHeight: 150,
+          maxCropBoxHeight: 150,
+          background: false,
+          guides: false,
+          crop: function(event) {
+          }
+        });
+     }
+  }
+
  /**
    * Open picture modal
    **/
@@ -27,28 +51,10 @@ $(function() {
         modal:true, 
         minWidth: availWidth 
       });
-
       var $image = $('#edit-picture-dialog-picture');
-      $image.cropper({
-        aspectRatio: 1,
-        minContainerWidth: 250,
-        maxContainerWidth: 250,
-        minContainerHeight: 250,
-        maxContainerHeight: 250,
-        minCanvasWidth: 250,
-        minCanvasHeight: 250,
-        minCropBoxWidth: 150,
-        maxCropBoxWidth: 150,
-        minCropBoxHeight: 150,
-        maxCropBoxHeight: 150,
-        background: false,
-        guides: false,
-        crop: function(event) {
-        }
-      });
-
+      initCropper();
+      
       // Get the Cropper.js instance after initialized
-      var cropper = $image.data('cropper');
     }
   )
   /**
@@ -94,13 +100,13 @@ $(function() {
 
    
     // Download to check if the picture is OK
-    var a = document.createElement("a");
+    /*var a = document.createElement("a");
     document.body.appendChild(a);
     a.style = "display: none";
     a.href = url = window.URL.createObjectURL(photo);;
     a.download = "photo.png";
     a.click();
-
+*/
 
     oData.append("photo", photo, "photo.png");
     var oReq = new XMLHttpRequest();
@@ -108,9 +114,9 @@ $(function() {
     oReq.send(oData)
     oReq.onload = function(oEvent) {
     if (oReq.status == 200) {
-     console.log("Uploaded!");
+      console.log("Uploaded!");
     } else {
-      console.log("Error " + oReq.status + " occurred when trying to upload your file.<br \/>");
+      console.error("Error " + oReq.status + " occurred when trying to upload your file.");
     }
 
   };
@@ -123,28 +129,13 @@ $(function() {
   $(".image-edit-actions .input-file").change(function(e){
     if (e.target.files[0]) {
       console.log(2)
-      var $image = $('#edit-picture-dialog-picture');
+     
       var reader = new FileReader();
           reader.onload = function (ev) {
+                var $image = $('#edit-picture-dialog-picture');
                $image.attr('src', ev.target.result);
                $image.cropper('destroy')
-               $image.cropper({
-                 aspectRatio: 1,
-                 minContainerWidth: 250,
-                 maxContainerWidth: 250,
-                 minContainerHeight: 250,
-                 maxContainerHeight: 250,
-                 minCanvasWidth: 250,
-                 minCanvasHeight: 250,
-                 minCropBoxWidth: 150,
-                 maxCropBoxWidth: 150,
-                 minCropBoxHeight: 150,
-                 maxCropBoxHeight: 150,
-                 background: false,
-                 guides: false,
-                 crop: function(event) {
-                 }
-               });
+               initCropper();
           }
           reader.readAsDataURL(e.target.files[0]);
       
