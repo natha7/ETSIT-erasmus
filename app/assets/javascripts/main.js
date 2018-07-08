@@ -15,7 +15,7 @@ $(function() {
     function(e) {
       $(this).toggleClass('hidden');
     }
-  )
+  );
 
   function initCropper(){
       var $image = $('#edit-picture-dialog-picture');
@@ -49,14 +49,23 @@ $(function() {
       availWidth = availWidth > 900 ? 700 : (availWidth < 500 ? availWidth - 10 : availWidth*0.7)
       $('#edit-picture-dialog').dialog({ 
         modal:true, 
-        minWidth: availWidth 
+        minWidth: availWidth,
+        show: {
+                effect: "transfer",
+                duration: 200
+              },
+              hide: {
+                effect: "transfer",
+                duration: 200
+              }
       });
       var $image = $('#edit-picture-dialog-picture');
       initCropper();
       
       // Get the Cropper.js instance after initialized
-    }
-  )
+  });
+
+
   /**
     * Close picture modal
     */
@@ -66,8 +75,10 @@ $(function() {
     }
   )
 
+  /**
+    * Convert Base64 to Blob
+    */
   function dataURItoBlob(dataURI) {
-    // convert base64/URLEncoded data component to raw binary data held in a string
     var byteString;
     if (dataURI.split(',')[0].indexOf('base64') >= 0)
         byteString = atob(dataURI.split(',')[1]);
@@ -89,16 +100,12 @@ $(function() {
     * Generate cropped picture
     */
   $('#edit-picture-dialog form').submit(function() {
-    // DO STUFF...
-    console.log(3)
     var $image = $('#edit-picture-dialog-picture');
     var cropper = $image.data('cropper');
     var canvasr = cropper.getCroppedCanvas({width: 150, height: 150}).toDataURL()
     var oData = new FormData();
     var photo = dataURItoBlob(canvasr);
     
-
-   
     // Download to check if the picture is OK
     /*var a = document.createElement("a");
     document.body.appendChild(a);
@@ -106,7 +113,7 @@ $(function() {
     a.href = url = window.URL.createObjectURL(photo);;
     a.download = "photo.png";
     a.click();
-*/
+    */
 
     oData.append("photo", photo, "photo.png");
     var oReq = new XMLHttpRequest();
@@ -130,16 +137,22 @@ $(function() {
     if (e.target.files[0]) {
       var reader = new FileReader();
       reader.onload = function (ev) {
-            var $image = $('#edit-picture-dialog-picture');
-           $image.attr('src', ev.target.result);
-           $image.cropper('destroy')
-           initCropper();
+        var $image = $('#edit-picture-dialog-picture');
+        $image.attr('src', ev.target.result);
+        $image.cropper('destroy')
+        initCropper();
       }
       reader.readAsDataURL(e.target.files[0]);
     }
-  })
+  });
   $('.dashboard-section').click(function(e){
     var content= $(this).parents('.row').children('.collapsible')
-    content.toggleClass('show')
-  })
+    var caret= $(this).find('.caret')
+    console.log($(this), caret)
+    content.toggleClass('show');
+    caret.toggleClass('reverse');
+    caret.toggleClass('no-reverse');
+    // caret.toggleClass('mdi-rotate-180');
+    // caret.toggleClass('mdi-menu-up');
+  });
 });

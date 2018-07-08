@@ -4,9 +4,29 @@
 	background-color: #eee
 	padding: 15px
 	padding-top: 2px
+	.flex-filters
+		display: flex
+		flex-wrap: wrap
+		.filter
+			display: flex
+			flex-wrap: wrap
+			flex-grow: 1
+			label
+				padding-right: 15px
+			input
+				flex-grow: 1
+				padding-right: 5px
 
 .admin-dashboard.dashboard-container
-		
+	.nominee-form
+		margin-top: -30px
+		margin-right: -10px
+		button
+			cursor: pointer
+			i:before
+				transition: 0.2s all ease-in
+			i:hover:before
+				transform: scale(1.5)
 	.flex-table
 		display: flex
 		text-align: left
@@ -104,8 +124,3 @@
 			.flex-table-header
 				min-height: 30px		
 		&.user-table
-	.no-results
-		color: $etsit-blue
-		text-align: center
-		background-color: #f7f7f7
-		padding: 10px

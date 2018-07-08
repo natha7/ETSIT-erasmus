@@ -1,8 +1,10 @@
 <div class="row">
 	<span class="dashboard-section" id="motivation-letter-tab">
-		<%= label_tag name %>
+		<label for=<%=name%>>
+			<i class="caret mdi mdi-menu-down no-reverse"></i><%=label%>
+		</label>
 	</span>
-	<%unless  content.blank? %>
+	<%unless content.blank? %>
 		<span class="check_mark"><i class="mdi mdi-check green"></i></span>
 		<div class="collapsible">
 			<br/><br/>

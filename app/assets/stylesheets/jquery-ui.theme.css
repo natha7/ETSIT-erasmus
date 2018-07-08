@@ -433,9 +433,11 @@ a.ui-button:active,
 
 /* Overlays */
 .ui-widget-overlay {
-	background: #aaaaaa;
-	opacity: .3;
+	background: #333;
+	opacity: .5;
 	filter: Alpha(Opacity=30); /* support: IE8 */
+	backdrop-filter: blur(2px);
+
 }
 .ui-widget-shadow {
 	-webkit-box-shadow: 0px 0px 5px #666666;

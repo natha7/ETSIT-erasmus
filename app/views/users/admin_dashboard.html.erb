@@ -1,20 +1,27 @@
 <% like_email = "%#{ params[:email]}%"    %>
-<% users = User.where("email LIKE ?", like_email).reject{|t| t.role == "admin"} %>
-<% nominees = NominatedUser.where("email LIKE ?", like_email)%>
+<% like_name = "%#{ params[:name]}%"    %>
+<% users = User.where("lower(email) LIKE ? and lower(first_name) LIKE ?", like_email.downcase, like_name.downcase).reject{|t| t.role == "admin"} %>
+<% nominees = NominatedUser.where("lower(email) LIKE ? ", like_email.downcase)%>
 
 <%= button_to "Log out", destroy_user_session_path, :method=> :delete, :class => "custom-button right"%>
-<h1 class="title"> Hi Admin</h1>
+<h1 class="title"> Hi, Admin</h1>
 <p class="intro-paragraph">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 <br/>
 <div class="filters">
   <form action="/admin_dashboard" method="GET">
-      <input type="submit" class="custom-button right" value="SEARCH"></input>
+      <input type="submit" class="custom-button right" value="Search"></input>
   <h3>Filters</h3>
-    <div class="field"> 
+  <div class="flex-filters">
+    <div class="field filter"> 
       <label class="label">E-mail </label>
-      <input name="email" placeholder="Find by e-mail"></input>
-     
+      <input name="email" placeholder="Find by e-mail" value="<%=params[:email]%>"></input>
     </div>
+    <div class="field filter"> 
+      <label class="label">Name </label>
+      <input name="name" placeholder="Find by name" value="<%=params[:name]%>"></input>
+    </div>
+    <div class="field filter"></div> 
+  </div>
   </form>
 </div>
 </br>
@@ -32,12 +39,13 @@
         <%= form_tag(create_nominee_path, :method=> :post) do %>
 
         <div class="field nominee-form">
-          <%= email_field_tag 'email', nil, :placeholder =>  "Nominee e-mail", :class => "input-right"  %><%= submit_tag 'Save', :class => "right-addon"%>
+          <%= email_field_tag 'email', nil, :placeholder =>  "Nominee e-mail", :class => "input-right"  %>
+          <button type="submit" class="right-addon"><i class="mdi mdi-send"></i></button>
         </div>
 
         <%end%>
       </div>
-      <br/><br/><br/>
+      <br/><br/>
       <% unless nominees.empty? %>
       <div class="flex-table nominee-table">
         <div class="flex-table-header flex-table-cell flex-table-email-nominee">Email</div>
@@ -57,8 +65,8 @@
         </div>
         <div class="nominee-<%= nominee.id %>-id flex-table-cell flex-table-erase">
           <span class="dashboard-icon">
-            <%= form_tag( delete_nominee_path(:id => nominee.id), :method=> :post) do %>
-              <button title="Delete nominee" class="transparent-button action-button"> <i class="mdi mdi-close dark"></i></button>
+            <%= form_tag( delete_nominee_path(:id => nominee.id), :method=> :delete) do %>
+              <button type="submit" title="Delete nominee" class="transparent-button action-button"> <i class="mdi mdi-close dark"></i></button>
             <% end %>
           </span>
         </div>

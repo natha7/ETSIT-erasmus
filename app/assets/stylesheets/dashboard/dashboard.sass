@@ -6,13 +6,19 @@
 		width: 150px
 		height: 150px
 		display: none
+	.title
+		margin-top: 0
+		display: inline-block
 	.close
 		margin: -18px
 	.flex-container
 		.image-container
+			display: inline-block
 			.picture
 				width: 150px
 		.image-edit-actions
+			display: inline-block
+			vertical-align: top
 			padding: 10px
 			.input-file
 			.custom-button
@@ -54,6 +60,16 @@
 				display: block
 				label
 					cursor: pointer
+					.caret
+						color: #aaa
+						&:before
+						transition: 0.2s all ease-in
+						&.reverse:before
+							transition: 0.2s all ease-in
+							transform: rotate(180deg)
+						&.no-reverse:before
+							transition: 0.2s all ease-in
+							transform: rotate(0deg)
 			.second-container
 				display: flex
 				.second-container-left
@@ -77,8 +93,9 @@
 				overflow: hidden
 				&.show
 					display: block
-					height: 130px
-					//visibility: visible
+					height: 81px
+					&.big
+						height: 140px
 				.align-right
 					text-align: right
 					display: flex
