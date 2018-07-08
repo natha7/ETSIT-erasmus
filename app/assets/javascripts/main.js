@@ -128,18 +128,18 @@ $(function() {
     */
   $(".image-edit-actions .input-file").change(function(e){
     if (e.target.files[0]) {
-      console.log(2)
-     
       var reader = new FileReader();
-          reader.onload = function (ev) {
-                var $image = $('#edit-picture-dialog-picture');
-               $image.attr('src', ev.target.result);
-               $image.cropper('destroy')
-               initCropper();
-          }
-          reader.readAsDataURL(e.target.files[0]);
-      
+      reader.onload = function (ev) {
+            var $image = $('#edit-picture-dialog-picture');
+           $image.attr('src', ev.target.result);
+           $image.cropper('destroy')
+           initCropper();
+      }
+      reader.readAsDataURL(e.target.files[0]);
     }
   })
-
+  $('.dashboard-section').click(function(e){
+    var content= $(this).parents('.row').children('.collapsible')
+    content.toggleClass('show')
+  })
 });

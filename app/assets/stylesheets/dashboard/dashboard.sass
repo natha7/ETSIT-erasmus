@@ -50,6 +50,10 @@
 			.dashboard-section
 				font-size: 18px
 				font-weight: bold
+				cursor: pointer
+				display: block
+				label
+					cursor: pointer
 			.second-container
 				display: flex
 				.second-container-left
@@ -62,6 +66,35 @@
 					text-align: right
 			.check_mark
 				float: right
+				margin-top: -25px
+				.green
+					color: green
+			.collapsible
+				// display: none
+				height: 0
+				transition: 0.2s height ease-in
+				//transition: 0.2s opacity step-end
+				overflow: hidden
+				&.show
+					display: block
+					height: 130px
+					//visibility: visible
+				.align-right
+					text-align: right
+					display: flex
+					justify-content: flex-end
+					input, button
+						margin-right: 2px
+					form
+						display: inline-block
+					.file-name
+						flex-grow: 1
+						display: inline-block	
+						text-align: left
+						span:hover
+							text-decoration: underline
+						i
+							color: $etsit-blue
 
 @media (max-width: 768px)
 	.dashboard-container

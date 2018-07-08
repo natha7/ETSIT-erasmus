@@ -1,0 +1,28 @@
+<div class="row">
+	<span class="dashboard-section" id="motivation-letter-tab">
+		<%= label_tag name %>
+	</span>
+	<%unless  content.blank? %>
+		<span class="check_mark"><i class="mdi mdi-check green"></i></span>
+		<div class="collapsible">
+			<br/><br/>
+			<div class="align-right">
+				<div class="file-name"><i class="mdi mdi-file"></i> <span class=""> <%= link_to  file_name,  content.url %></span></div>
+				<%= button_to "Delete", user_file_delete_url(:id => current_user.id, :attachment => name), :method=> :delete, :class => "custom-button" %>	
+				<a href="<%=  content.url%>" download="<%=  file_name %>"><button class="custom-button">Download</button></a>				
+			</div>
+		</div>
+	<% else %>
+		<div class="collapsible">
+			<br/><br/>
+				<%= form_for current_user, url: user_file_upload_path, html: { multipart: true }, :method => :POST do |form| %>
+				<div class="align-right">
+					<div class="file-name">
+						<%= form.file_field name %>
+					</div>
+					<%= form.submit "Upload", :class => "custom-button" %>
+				</div>
+				<% end %>
+		</div>
+	<%end%>
+</div>
