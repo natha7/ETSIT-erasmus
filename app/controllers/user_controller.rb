@@ -28,6 +28,7 @@ class UserController < ApplicationController
 	end
 
 	def file_upload
+		puts params[:user]
 		unless params[:user].blank?
 			keys = params[:user].keys
 			current_user.assign_attributes({keys[0] => params[:user][keys[0]]})
@@ -39,7 +40,28 @@ class UserController < ApplicationController
 		end
 		redirect_to user_dashboard_path
 	end
+	def file_upload_ajax
+		puts params[:user]
+		url = current_user.photo
+		unless params[:user].blank?
+			keys = params[:user].keys
+			puts 222
+			puts keys[0]
+			current_user.assign_attributes({keys[0] => params[:user][keys[0]]})
+			unless current_user.save
+				head :forbidden
+				return
+			end
+			url = current_user.photo # current_user[keys[0]]
+		else 
+			head :forbidden
+			return
+		end
 
+		render :json => {:url => url }
+
+
+	end
 	def file_delete
 		case params[:attachment]
 		when "motivation_letter"

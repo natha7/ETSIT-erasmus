@@ -41,12 +41,12 @@ $(document).on('turbolinks:load', function() {
       if ($image.attr('src') !== "/assets/placeholder.png") {
         $image.cropper({
           aspectRatio: 1,
-          minContainerWidth: 250,
+          minContainerWidth: 150,
           maxContainerWidth: 250,
-          minContainerHeight: 250,
+          minContainerHeight: 150,
           maxContainerHeight: 250,
-          minCanvasWidth: 250,
-          minCanvasHeight: 250,
+          // minCanvasWidth: 250,
+          // minCanvasHeight: 250,
           minCropBoxWidth: 150,
           maxCropBoxWidth: 150,
           minCropBoxHeight: 150,
@@ -138,19 +138,37 @@ $(document).on('turbolinks:load', function() {
     //           .attr('value', canvasr)
     //           .appendTo('#edit-picture-dialog form');
 
-    oData.append("photo", photo, "photo.png");
-    var oReq = new XMLHttpRequest();
-    oReq.open("POST", "/user/file_upload");
-    oReq.send(oData)
-    oReq.onload = function(oEvent) {
-    if (oReq.status == 200) {
-      console.log("Uploaded!");
-    } else {
-      console.error("Error " + oReq.status + " occurred when trying to upload your file.");
-    }
+    oData.append("user[photo]", photo, "photo.png");
+    oData.append("authenticity_token", $('#edit-picture-dialog form input[name="authenticity_token"]').val());
 
-  };
-  return false;
+    var oReq = new XMLHttpRequest();
+    oReq.open("POST", "/user/file_upload_ajax");
+    oReq.send(oData)
+        $('#spinner').removeClass('hidden');
+
+    oReq.onload = function(oEvent) {
+      $('#spinner').addClass('hidden');
+      if (oReq.status == 200) {
+        console.log(oReq)
+        try {
+          var url = JSON.parse(oReq.response).url;
+          var $image = $('#edit-picture-dialog-picture');
+          $image.attr('src', url);
+          $image.cropper('destroy')
+          initCropper();
+          $('#actual-picture').attr('src', url);
+          $('.messages-from-server').append($('<p class="message-from-server notice">Uploaded correctly!</p>'));
+        } catch (e) {
+          console.error("An error ocurred when uploading the file", e)
+          $('.messages-from-server').append($('<p class="message-from-server alert">An error ocurred</p>'));
+        }
+      } else {
+        console.error("Error " + oReq.status + " occurred when trying to upload your file.");
+        $('.messages-from-server').append($('<p class="alert">An error ocurred</p>'));
+      }
+
+    };
+    return false;
   //  return true;
   });
 
@@ -266,13 +284,13 @@ $(document).on('turbolinks:load', function() {
   }
 
   /**
-    * Add callback to all delete buttons in language form
+    * Add callback to all delete buttons in work form
     */
   $('.delete-work-button').click(deleteWork);
 
 
   /**
-    * Add a new language
+    * Add a new work experience
     */
   $('#add-work').click(function(e){
     var $work = $('<div class="work"></div>');
@@ -307,7 +325,7 @@ $(document).on('turbolinks:load', function() {
 
 
   /**
-    * Intercept language form
+    * Intercept work form
     */
   $('#work-form').submit(function( ){
     var works = [];

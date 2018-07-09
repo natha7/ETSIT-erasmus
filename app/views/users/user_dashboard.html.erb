@@ -7,7 +7,7 @@
 <div class="dashboard-container">
 	<div class="left-column">
 		<button class="edit-picture "><i class="mdi mdi-camera"></i></button>
-		<img class="picture" src="<%=current_user.photo %>"/>
+		<img id="actual-picture" class="picture" src="<%=current_user.photo %>"/>
 		<p><%= current_user.first_name %> <%= current_user.family_name %></p>
 	</div>
 	<div class="right-column">
@@ -133,10 +133,14 @@
 				<canvas id="canvas"></canvas>
 				<div class="image-edit-actions">
 					<input class="input-file" type="file" name="photo2" accept="image/*"></input>
-					<%= form_for current_user, url: user_file_upload_path, html: { multipart: true }, :method => :POST do |form| %>
+					<%= form_for current_user, url: "/user/file_upload_ajax", html: { multipart: true }, :method => :POST do |form| %>
 					<br></br>
+					<div class="messages-from-server">
+						
+					</div>
 					<div class="align-right">
 						<%= form.submit "Upload", :class => "custom-button" %>
+						<img id="spinner" src="/assets/spinner.gif" class="hidden"/>
 					</div>
 					<% end %>
 				</div>

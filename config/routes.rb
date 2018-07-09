@@ -28,5 +28,6 @@ Rails.application.routes.draw do
   get 'student_application_form/:step', to: "student_application_form#change_step"
   get 'review_student_application_form/:user/:step', to:"student_application_form#review_step"
   post 'user/file_upload', to: "user#file_upload"
+  post 'user/file_upload_ajax', to: "user#file_upload_ajax"
   delete 'user/file_delete', to: "user#file_delete"
 end
