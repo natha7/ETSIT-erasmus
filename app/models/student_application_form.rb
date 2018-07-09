@@ -76,19 +76,13 @@ class StudentApplicationForm < ApplicationRecord
 	  		:language_instruction
   		]
 
-  		fifth = [
-	  		:current_diploma_degree,
-	  		:year_attended,
-	  		:specialization_area
-	  	]
-
-		[
-			first.reject{|element| self[element].blank?}.length == first.length, 
-			second.reject{|element| self[element].blank?}.length == second.length,
-			third.reject{|element| self[element].blank?}.length == third.length,
-			forth.reject{|element| self[element].blank?}.length == forth.length,
-			fifth.reject{|element| self[element].blank?}.length == fifth.length
-		]	
+	[
+		first.reject{|element| self[element].blank?}.length == first.length, 
+		second.reject{|element| self[element].blank?}.length == second.length,
+		third.reject{|element| self[element].blank?}.length == third.length,
+		forth.reject{|element| self[element].blank?}.length == forth.length,
+		fifth.reject{|element| self[element].blank?}.length == fifth.length
+	]	
 	end
 
 	def completed_percentage

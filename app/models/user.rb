@@ -103,7 +103,7 @@ class User < ApplicationRecord
      :official_gpa,
      :english_test_score
    ]
-   attach_value = attachment_values.map{|val| !self[val].blank? ? 1 : 0 }.reduce(0,:+) + self.student_application_form.completed_percentage_num/100
+   attach_value = attachment_values.map{|val| !self[val].blank? ? 1 : 0 }.reduce(0,:+) + self.student_application_form.completed_percentage_num.to_f/100
    ((attach_value.to_f * 100) /(attachment_values.length + 1)).round(2)
   end
   
