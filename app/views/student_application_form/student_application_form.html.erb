@@ -1,6 +1,6 @@
 <div class="student-application-form">
 	<h1>Student Application Form <span class="fake-arrow" > > </span>  </h1>
-	<%= render partial: "student_application_form/#{toNumeral(@sap.step)}_step" %>
+	<%= render partial: "student_application_form/#{toNumeral(@sap.step)}_step", :locals =>{ :sap => @sap, :review => false} %>
 
 
 	<!--<%= @sap.step.to_s + " / 6"%>-->

@@ -1,48 +1,49 @@
 <h2 class="form-subtitle">Previous and current studies</h2>
 <p class="intro-paragraph">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 
-<%= form_for @sap, url: student_application_form_path, :method => :post,:class => ""  do |f|%>
+<%= form_for sap, url: student_application_form_path, :method => :post,:class => ""  do |f|%>
 
 <div class="field">
   <div class="flex-container">
     <%= f.label :current_diploma_degree %><br />
-    <%= f.text_field :current_diploma_degree, autofocus: true, autocomplete: "current_diploma_degree" %>
+    <%= f.text_field :current_diploma_degree, autofocus: true, autocomplete: "current_diploma_degree", disabled: review %>
   </div>
 </div>
 
 <div class="field">
   <div class="flex-container">
     <%= f.label :year_attended %><br />
-    <%= f.text_field :year_attended, autofocus: true, autocomplete: "year_attended" %>
+    <%= f.text_field :year_attended, autofocus: true, autocomplete: "year_attended", disabled: review %>
   </div>
 </div>
 
 <div class="field">
   <div class="flex-container">
     <%= f.label :specialization_area %><br />
-    <%= f.text_field :specialization_area, autofocus: true, autocomplete: "specialization_area" %>
+    <%= f.text_field :specialization_area, autofocus: true, autocomplete: "specialization_area", disabled: review %>
   </div>
 </div>
 <div class="field">
   <div class="flex-container">
     <%= f.label :already_study_abroad %><br />
-    <%= f.text_field :already_study_abroad, autofocus: true, autocomplete: "already_study_abroad" %>
+    <%= f.check_box :already_study_abroad, autofocus: true, autocomplete: "already_study_abroad", disabled: review %>
   </div>
 </div>
 <div class="field">
   <div class="flex-container">
     <%= f.label :where_study_abroad %><br />
-    <%= f.text_field :where_study_abroad, autofocus: true, autocomplete: "where_study_abroad" %>
+    <%= f.text_field :where_study_abroad, autofocus: true, autocomplete: "where_study_abroad", disabled: review %>
   </div>
 </div>
 <div class="field">
   <div class="flex-container">
     <%= f.label :where_institution_abroad %><br />
-    <%= f.text_field :where_institution_abroad, autofocus: true, autocomplete: "where_institution_abroad" %>
+    <%= f.text_field :where_institution_abroad, autofocus: true, autocomplete: "where_institution_abroad", disabled: review %>
   </div>
 </div>
-
+<% unless review %>
 <div class="actions">
   <%= f.submit "Save current page", label: false, :class => "custom-button" %>
 </div>
+<%end%>
 <%end%>

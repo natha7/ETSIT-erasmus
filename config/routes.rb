@@ -26,6 +26,7 @@ Rails.application.routes.draw do
   get 'student_application_form', to: "student_application_form#sap_page"
   post 'student_application_form', to: "student_application_form#save"
   get 'student_application_form/:step', to: "student_application_form#change_step"
+  get 'review_student_application_form/:user/:step', to:"student_application_form#review_step"
   post 'user/file_upload', to: "user#file_upload"
   delete 'user/file_delete', to: "user#file_delete"
 end

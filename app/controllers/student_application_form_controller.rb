@@ -6,6 +6,15 @@ class StudentApplicationFormController < ApplicationController
 		render "student_application_form/student_application_form"
 	end
 
+	def review_step
+		user = User.find(params[:user])
+		if user.role == "admin"
+			redirect_back fallback_location: root_path
+		else
+			render "student_application_form/review_student_application_form"
+		end
+	end
+
 	def change_step
 		if !params[:step].blank?
 			@sap = current_user.student_application_form
@@ -33,8 +42,9 @@ class StudentApplicationFormController < ApplicationController
 		  		:field_of_study,
 		  		:project_work,
 		  		:under_grad_courses,
+		  		:graduate_courses,
 		  		:reasons_abroad,
-		  		:mother_tonge,
+		  		:mother_tongue,
 		  		:language_instruction,
 		  		:current_diploma_degree,
 		  		:year_attended,
@@ -47,37 +57,6 @@ class StudentApplicationFormController < ApplicationController
 		render "student_application_form/student_application_form"
 	end
 
-	def motivation_letter
-		user = current_user
-		if params[:motivation_letter]
-			user.motivation_letter = params[motivation_letter]
-			user.save!
-		end
-	end
-
-	def curriculum_vitae
-		user = current_user
-		if params[:curriculum_vitae]
-			user.curriculum_vitae = params[curriculum_vitae]
-			user.save!
-		end
-	end
-
-	def transcript_of_records
-		user = current_user
-		if params[:transcript_of_records]
-			user.transcript_of_records = params[transcript_of_records]
-			user.save!
-		end
-	end
-
-	def learning_agreement
-		user = current_user
-		if params[:learning_agreement]
-			user.learning_agreement = params[learning_agreement]
-			user.save!
-		end
-	end
 
 	private
 	def toNumeral(number)

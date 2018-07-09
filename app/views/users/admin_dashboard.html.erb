@@ -2,6 +2,7 @@
 <% like_name = "%#{ params[:name]}%"    %>
 <% users = User.where("lower(email) LIKE ? and lower(first_name) LIKE ?", like_email.downcase, like_name.downcase).reject{|t| t.role == "admin"} %>
 <% nominees = NominatedUser.where("lower(email) LIKE ? ", like_email.downcase)%>
+
 <% unless current_user.role == 'admin'%>
   <p class="no-results">You do not have permission to access this page</p>
 <% else %>
@@ -111,7 +112,9 @@
         <div class="user-<%= user.id %>-id flex-table-cell flex-table-app-form">
           <span class="big-hidden">App Form: </span>
           <span class="dashboard-icon">
-            <i class="mdi mdi-clipboard-text app-form"></i>
+            <a href="/review_student_application_form/<%=user.id%>/1">
+              <i  class="mdi mdi-clipboard-text app-form"></i>
+            </a>
           </span>
           <%= user.student_application_form.erasmus_code %>
         </div>

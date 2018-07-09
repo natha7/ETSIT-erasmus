@@ -1,36 +1,32 @@
 <div class="student-application-form">
 	<h1>Student Application Form <span class="fake-arrow" > > </span>  </h1>
-	<%= render partial: "student_application_form/#{toNumeral(@sap.step)}_step" %>
-
-
-	<!--<%= @sap.step.to_s + " / 6"%>-->
-
-
+    <%= render partial: "student_application_form/#{toNumeral(params[:step].to_i)}_step", :locals => { :sap => User.find(params[:user]).student_application_form, :review => true } %>
+	<!--<%#= @sap.step.to_s + " / 6"%>-->
   <div class="actions">
     <div class="progress-bar">
         <div class="progress-line">
         </div>
         <% for i in 1..6 do %>
-            <%if @sap.step > i %>
-                <%= link_to "<span class='progress-ball previous-step'></span>".html_safe, student_application_form_path + "/#{i}"%>
+            <%if params[:step].to_i > i %>
+                <%= link_to "<span class='progress-ball previous-step'></span>".html_safe, "review_student_application_form/#{params[:user]}" + "/#{i}"%>
             <%end%>
-            <%if @sap.step === i %>
-                <%= link_to "<span class='progress-ball current-step'></span>".html_safe, student_application_form_path + "/#{i}"%>
+            <%if params[:step].to_i === i %>
+                <%= link_to "<span class='progress-ball current-step'></span>".html_safe, "review_student_application_form/#{params[:user]}" + "/#{i}"%>
             <%end%>
-            <%if @sap.step < i %>
-                <%= link_to "<span class='progress-ball future-step'></span>".html_safe, student_application_form_path + "/#{i}"%>
+            <%if params[:step].to_i < i %>
+                <%= link_to "<span class='progress-ball future-step'></span>".html_safe, "review_student_application_form/#{params[:user]}" + "/#{i}"%>
             <%end%>
         <% end %>
     </div>
     <div class="progress-buttons">
-    <%if @sap.step - 1 > 0 %>
-        <%= link_to "<button  class='custom-button'> < Back</button>".html_safe, student_application_form_path + "/#{@sap.step - 1}"%>
+    <%if params[:step].to_i - 1 > 0 %>
+        <%= link_to "<button  class='custom-button'> < Back</button>".html_safe, "/review_student_application_form/#{params[:user]}" + "/#{params[:step].to_i - 1}"%>
     <%end%>
-    <%if @sap.step + 1 < 7 %>
-        <%= link_to "<button  class='custom-button'> Next > </button>".html_safe, student_application_form_path + "/#{@sap.step + 1}"%>
+    <%if params[:step].to_i + 1 < 7 %>
+        <%= link_to "<button  class='custom-button'> Next > </button>".html_safe, "/review_student_application_form/#{params[:user]}" + "/#{params[:step].to_i + 1}"%>
     <%end%>
     </div>
     </br>
-    <%= link_to "<button class='custom-button back-to-dashboard'> Back </button>".html_safe, user_dashboard_path %>
+    <%= link_to "<button class='custom-button back-to-dashboard'> Back </button>".html_safe, admin_dashboard_path %>
   </div>
 </div>
