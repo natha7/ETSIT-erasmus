@@ -7,13 +7,15 @@
 
     <% completed_steps_array =  @sap.completed_steps_array %>
     <% *prefix, last = completed_steps_array %>
+    <% puts completed_steps_array, prefix, last %>
     <% final_steps_array = [*prefix, true, last] %>
+    <% puts final_steps_array %>
   <div class="actions">
     <div class="progress-bar">
         <div class="progress-line">
         </div>
         <% for i in 1..6 do %>
-            <% classBall = final_steps_array[i] ? "done-step" :"todo-step " %>
+            <% classBall = final_steps_array[i-1] ? "done-step" :"todo-step " %>
             <%if @sap.step > i %>
                 <%= link_to "<span class='progress-ball previous-step #{classBall}'></span>".html_safe, student_application_form_path + "/#{i}"%>
             <%end%>
@@ -27,10 +29,10 @@
     </div>
     <div class="progress-buttons">
     <%if @sap.step - 1 > 0 %>
-        <%= link_to "<button  class='custom-button'> < Back</button>".html_safe, student_application_form_path + "/#{@sap.step - 1}"%>
+        <%= link_to "<button class='custom-button'> < Back</button>".html_safe, student_application_form_path + "/#{@sap.step - 1}"%>
     <%end%>
     <%if @sap.step + 1 < 7 %>
-        <%= link_to "<button  class='custom-button'> Next > </button>".html_safe, student_application_form_path + "/#{@sap.step + 1}"%>
+        <%= link_to "<button class='custom-button'> Next > </button>".html_safe, student_application_form_path + "/#{@sap.step + 1}"%>
     <%end%>
     </div>
     </br>

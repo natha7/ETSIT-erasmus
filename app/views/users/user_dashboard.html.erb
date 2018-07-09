@@ -26,7 +26,7 @@
 						<% *prefix, last = completed_steps_array %>
 						<% final_steps_array = [*prefix, true, last] %>
 						<% for i in 1..6 do %>
-							<% classBall = final_steps_array[i] ? "done-step" : "todo-step" %>
+							<% classBall = final_steps_array[i-1] ? "done-step" : "todo-step" %>
 							<% ball = "<span class='progress-ball  #{classBall}'></span>"%>
 							<%= link_to ball.html_safe, student_application_form_path + "/#{i}"%>
 						<% end %>
@@ -34,6 +34,9 @@
 				</div>
 				<div class="second-container-right">
 					<span class="student-application-form-progress"><%=current_user.student_application_form.completed_percentage%></span>
+					<%if current_user.student_application_form.completed_percentage === '100%'%>
+						<span class="check_mark" style="float: none;"><i class="mdi mdi-check green"></i></span>
+					<%end%>
 				</div>
 			</div>
 			<div class="collapsible big">

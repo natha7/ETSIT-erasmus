@@ -20,16 +20,17 @@ class StudentApplicationForm < ApplicationRecord
   		percentage = first.reject{|element| self[element].blank?}.length == first.length ? percentage + 20 : percentage
 
   		second = [
-	  		:academic_year,
-	  		:programme,
-	  		:field_of_study
+  			:project_work,
+	  		:under_grad_courses,
+	  		:graduate_courses
+	  		
   		]
   		percentage = second.reject{|element| self[element].blank?}.length == second.length ? percentage + 20 : percentage
   		#Purpose of Stay
   		third = [
-	  		:project_work,
-	  		:under_grad_courses,
-	  		:graduate_courses
+	  		:academic_year,
+	  		:programme,
+	  		:field_of_study
 		]
 		percentage = third.reject{|element| self[element].blank?}.length == third.length ? percentage + 20 : percentage
   		#Language Competence
@@ -60,16 +61,16 @@ class StudentApplicationForm < ApplicationRecord
   		]
 
   		second = [
-	  		:academic_year,
-	  		:programme,
-	  		:field_of_study
-  		]
-
-  		third = [
 	  		:project_work,
 	  		:under_grad_courses,
 	  		:graduate_courses
 		]
+
+  		third = [
+	  		:academic_year,
+	  		:programme,
+	  		:field_of_study
+  		]
 
 		fourth = [
 	  		:mother_tongue,
