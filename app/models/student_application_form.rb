@@ -76,6 +76,12 @@ class StudentApplicationForm < ApplicationRecord
 	  		:language_instruction
   		]
 
+  		fifth = [
+	  		:current_diploma_degree,
+	  		:year_attended,
+	  		:specialization_area
+	  	]
+
 	[
 		first.reject{|element| self[element].blank?}.length == first.length, 
 		second.reject{|element| self[element].blank?}.length == second.length,
