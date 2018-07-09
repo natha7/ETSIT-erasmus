@@ -38,7 +38,9 @@
 						<div class="progress-line">
 						</div>
 						<% for i in 1..6 do %>
-						<%= link_to "<span class='progress-ball future-step'></span>".html_safe, student_application_form_path + "/#{i}"%>
+						<%= link_to "<span class='progress-ball future-step'></span>".html_safe, 
+						"/review_student_application_form/#{current_user.id}" + "/#{i}"
+						 %>
 						<% end %>
 					</div>
 				</div>
@@ -50,7 +52,7 @@
 				<p class="intro-paragraph">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
 				<div class="align-right">
 					<button class="custom-button" disabled>Download</button>
-					<a href="<%=student_application_form_path%>"><button class="custom-button" >Review data</button></a>
+					<a href="<%="/review_student_application_form/#{current_user.id}/1"%>"><button class="custom-button" >Review data</button></a>
 
 				</div>
 
