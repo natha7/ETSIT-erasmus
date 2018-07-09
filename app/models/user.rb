@@ -108,7 +108,7 @@ class User < ApplicationRecord
   end
   
   def percentage
-    percentage_num + "%"
+    percentage_num.to_s + "%"
   end
 
   private
