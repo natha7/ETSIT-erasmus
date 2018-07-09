@@ -6,8 +6,8 @@
 <br/>
 <div class="dashboard-container">
 	<div class="left-column">
-		<img class="picture" src="<%=current_user.photo %>"/>
 		<button class="edit-picture "><i class="mdi mdi-camera"></i></button>
+		<img class="picture" src="<%=current_user.photo %>"/>
 		<p><%= current_user.first_name %> <%= current_user.family_name %></p>
 	</div>
 	<div class="right-column">
@@ -124,9 +124,9 @@
 				<div class="image-container"><img id="edit-picture-dialog-picture" class="picture" src="<%=current_user.photo %>"/></div>
 				<canvas id="canvas"></canvas>
 				<div class="image-edit-actions">
-					<input class="input-file" type="file" name="photo2" accept="image/*></input>
+					<input class="input-file" type="file" name="photo2" accept="image/*"></input>
 					<%= form_for current_user, url: user_file_upload_path, html: { multipart: true }, :method => :POST do |form| %>
-					<br/>
+					<br></br>
 					<div class="align-right">
 						<%= form.submit "Upload", :class => "custom-button" %>
 					</div>

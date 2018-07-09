@@ -50,11 +50,11 @@ $(document).on('turbolinks:load', function() {
         modal:true, 
         minWidth: availWidth,
         show: {
-                effect: "transfer",
+                effect: "scale",
                 duration: 200
               },
               hide: {
-                effect: "transfer",
+                effect: "explode",
                 duration: 200
               }
       });
@@ -104,7 +104,7 @@ $(document).on('turbolinks:load', function() {
     var canvasr = cropper.getCroppedCanvas({width: 150, height: 150}).toDataURL()
     var oData = new FormData();
     var photo = dataURItoBlob(canvasr);
-    
+    console.log(22)
     // Download to check if the picture is OK
     /*var a = document.createElement("a");
     document.body.appendChild(a);
@@ -113,6 +113,10 @@ $(document).on('turbolinks:load', function() {
     a.download = "photo.png";
     a.click();
     */
+    // $('<input />').attr('type', 'hidden')
+    //           .attr('name', "photo")
+    //           .attr('value', canvasr)
+    //           .appendTo('#edit-picture-dialog form');
 
     oData.append("photo", photo, "photo.png");
     var oReq = new XMLHttpRequest();
@@ -126,7 +130,8 @@ $(document).on('turbolinks:load', function() {
     }
 
   };
-    return false;
+  return false;
+  //  return true;
   });
 
   /**
@@ -151,8 +156,6 @@ $(document).on('turbolinks:load', function() {
     content.toggleClass('show');
     caret.toggleClass('reverse');
     caret.toggleClass('no-reverse');
-    // caret.toggleClass('mdi-rotate-180');
-    // caret.toggleClass('mdi-menu-up');
   });
 
 });
