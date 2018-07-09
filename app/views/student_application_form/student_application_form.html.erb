@@ -5,20 +5,23 @@
 
 	<!--<%= @sap.step.to_s + " / 6"%>-->
 
-
+    <% completed_steps_array =  @sap.completed_steps_array %>
+    <% *prefix, last = completed_steps_array %>
+    <% final_steps_array = [*prefix, true, last] %>
   <div class="actions">
     <div class="progress-bar">
         <div class="progress-line">
         </div>
         <% for i in 1..6 do %>
+            <% classBall = final_steps_array[i] ? "done-step" :"todo-step " %>
             <%if @sap.step > i %>
-                <%= link_to "<span class='progress-ball previous-step'></span>".html_safe, student_application_form_path + "/#{i}"%>
+                <%= link_to "<span class='progress-ball previous-step #{classBall}'></span>".html_safe, student_application_form_path + "/#{i}"%>
             <%end%>
             <%if @sap.step === i %>
-                <%= link_to "<span class='progress-ball current-step'></span>".html_safe, student_application_form_path + "/#{i}"%>
+                <%= link_to "<span class='progress-ball current-step #{classBall}'></span>".html_safe, student_application_form_path + "/#{i}"%>
             <%end%>
             <%if @sap.step < i %>
-                <%= link_to "<span class='progress-ball future-step'></span>".html_safe, student_application_form_path + "/#{i}"%>
+                <%= link_to "<span class='progress-ball future-step #{classBall}'></span>".html_safe, student_application_form_path + "/#{i}"%>
             <%end%>
         <% end %>
     </div>

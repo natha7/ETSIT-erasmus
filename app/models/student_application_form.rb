@@ -33,11 +33,11 @@ class StudentApplicationForm < ApplicationRecord
 		]
 		percentage = third.reject{|element| self[element].blank?}.length == third.length ? percentage + 20 : percentage
   		#Language Competence
-  		forth = [
+  		fourth = [
 	  		:mother_tongue,
 	  		:language_instruction
   		]
-  		percentage = forth.reject{|element| self[element].blank?}.length == forth.length ? percentage + 20 : percentage
+  		percentage = fourth.reject{|element| self[element].blank?}.length == fourth.length ? percentage + 20 : percentage
   		#Previous And Current Studies
   		fifth = [
 	  		:current_diploma_degree,
@@ -71,7 +71,7 @@ class StudentApplicationForm < ApplicationRecord
 	  		:graduate_courses
 		]
 
-		forth = [
+		fourth = [
 	  		:mother_tongue,
 	  		:language_instruction
   		]
@@ -80,7 +80,7 @@ class StudentApplicationForm < ApplicationRecord
 		first.reject{|element| self[element].blank?}.length == first.length, 
 		second.reject{|element| self[element].blank?}.length == second.length,
 		third.reject{|element| self[element].blank?}.length == third.length,
-		forth.reject{|element| self[element].blank?}.length == forth.length,
+		fourth.reject{|element| self[element].blank?}.length == fourth.length,
 		fifth.reject{|element| self[element].blank?}.length == fifth.length
 	]	
 	end
