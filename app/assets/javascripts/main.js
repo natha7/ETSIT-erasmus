@@ -11,6 +11,8 @@ $(document).on('turbolinks:load', function() {
     {key: "dates", label: "Dates", input: "text"},
     {key: "country", label: "Country", input: "text"},
   ];
+
+
   /**
    * Additional fields for double-degree seeking students
    **/
@@ -19,6 +21,8 @@ $(document).on('turbolinks:load', function() {
       $('#degree-seeking').toggleClass('hidden');
     }
   );
+
+
  /**
    * Close flash message
    **/
@@ -28,6 +32,10 @@ $(document).on('turbolinks:load', function() {
     }
   );
 
+
+  /**
+    * Initialize cropper
+    **/
   function initCropper(){
       var $image = $('#edit-picture-dialog-picture');
       if ($image.attr('src') !== "/assets/placeholder.png") {
@@ -50,6 +58,7 @@ $(document).on('turbolinks:load', function() {
         });
      }
   }
+
 
  /**
    * Open picture modal
@@ -323,7 +332,6 @@ $(document).on('turbolinks:load', function() {
                   .attr('id', "work-hidden")
                   .attr('value', JSON.stringify(works))
                   .appendTo('#work-form')
-
     return true;
   });
 });

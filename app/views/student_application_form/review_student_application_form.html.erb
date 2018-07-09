@@ -3,19 +3,24 @@
     <% user = User.find(params[:user]) %> 
     <%= render partial: "student_application_form/#{toNumeral(params[:step].to_i)}_step", :locals => { :name => "#{user.first_name}   #{user.family_name}", :sap => user.student_application_form, :review => true } %>
 	<!--<%#= @sap.step.to_s + " / 6"%>-->
+
+    <% completed_steps_array =  user.student_application_form.completed_steps_array %>
+    <% *prefix, last = completed_steps_array %>
+    <% final_steps_array = [*prefix, true, last] %>
   <div class="actions">
     <div class="progress-bar">
         <div class="progress-line">
         </div>
         <% for i in 1..6 do %>
+            <% classBall = final_steps_array[i-1] ? "done-step" :"todo-step " %>
             <%if params[:step].to_i > i %>
-                <%= link_to "<span class='progress-ball previous-step'></span>".html_safe, "/review_student_application_form/#{params[:user]}" + "/#{i}"%>
+                <%= link_to "<span class='progress-ball previous-step #{classBall}'></span>".html_safe, "/review_student_application_form/#{params[:user]}" + "/#{i}"%>
             <%end%>
             <%if params[:step].to_i === i %>
-                <%= link_to "<span class='progress-ball current-step'></span>".html_safe, "/review_student_application_form/#{params[:user]}" + "/#{i}"%>
+                <%= link_to "<span class='progress-ball current-step #{classBall}'></span>".html_safe, "/review_student_application_form/#{params[:user]}" + "/#{i}"%>
             <%end%>
             <%if params[:step].to_i < i %>
-                <%= link_to "<span class='progress-ball future-step'></span>".html_safe, "/review_student_application_form/#{params[:user]}" + "/#{i}"%>
+                <%= link_to "<span class='progress-ball future-step #{classBall}'></span>".html_safe, "/review_student_application_form/#{params[:user]}" + "/#{i}"%>
             <%end%>
         <% end %>
     </div>

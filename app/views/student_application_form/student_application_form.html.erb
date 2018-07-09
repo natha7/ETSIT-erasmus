@@ -2,14 +2,9 @@
 	<h1>Student Application Form <span class="fake-arrow" > > </span>  </h1>
 	<%= render partial: "student_application_form/#{toNumeral(@sap.step)}_step", :locals =>{ :sap => @sap, :review => false} %>
 
-
-	<!--<%= @sap.step.to_s + " / 6"%>-->
-
     <% completed_steps_array =  @sap.completed_steps_array %>
     <% *prefix, last = completed_steps_array %>
-    <% puts completed_steps_array, prefix, last %>
     <% final_steps_array = [*prefix, true, last] %>
-    <% puts final_steps_array %>
   <div class="actions">
     <div class="progress-bar">
         <div class="progress-line">
