@@ -86,7 +86,7 @@ class User < ApplicationRecord
       stf.current_diploma_degree,
       stf.year_attended,
       stf.specialization_area
-    ].uniq.all?{|x| !x.nil?} ? "Finished" : "Not Finished"
+    ].uniq.all?{|x| !x.blank?} ? "Finished" : "Not Finished"
   end
 
   def percentage_num
