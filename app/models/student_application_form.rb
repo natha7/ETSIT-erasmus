@@ -47,6 +47,50 @@ class StudentApplicationForm < ApplicationRecord
 	  	percentage = fifth.reject{|element| self[element].blank?}.length == fifth.length ? percentage + 20 : percentage
 	end
 
+	def completed_steps_array
+		first = [
+	  		:inst_sending_name,
+	      	:inst_adress,
+	     	:school_family_dpt,
+	  		:erasmus_code,
+	  		:dept_coordinator,
+	      	:contact_person,
+	  		:inst_telephone,
+	  		:inst_email
+  		]
+
+  		second = [
+	  		:academic_year,
+	  		:programme,
+	  		:field_of_study
+  		]
+
+  		third = [
+	  		:project_work,
+	  		:under_grad_courses,
+	  		:graduate_courses
+		]
+
+		forth = [
+	  		:mother_tongue,
+	  		:language_instruction
+  		]
+
+  		fifth = [
+	  		:current_diploma_degree,
+	  		:year_attended,
+	  		:specialization_area
+	  	]
+
+		[
+			first.reject{|element| self[element].blank?}.length == first.length, 
+			second.reject{|element| self[element].blank?}.length == second.length,
+			third.reject{|element| self[element].blank?}.length == third.length,
+			forth.reject{|element| self[element].blank?}.length == forth.length,
+			fifth.reject{|element| self[element].blank?}.length == fifth.length
+		]	
+	end
+
 	def completed_percentage
 		completed_percentage_num.to_s + "%"
 	end
