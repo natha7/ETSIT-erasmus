@@ -28,8 +28,6 @@ class UserController < ApplicationController
 	end
 
 	def file_upload
-		puts "2222222222222222"
-		puts params[:user]
 		unless params[:user].blank?
 			keys = params[:user].keys
 			current_user.assign_attributes({keys[0] => params[:user][keys[0]]})

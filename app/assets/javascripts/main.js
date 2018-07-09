@@ -1,4 +1,10 @@
 $(document).on('turbolinks:load', function() {
+  var lang_elements = [
+    {key: "value", label: "Language", input: "text"},
+    {key: "currently_studying", label: "Currently Studying", input: "checkbox"},
+    {key: "able_follow_lectures", label: "Able to follow lectures", input: "checkbox"},
+    {key: "able_follow_lectures_extra_preparation", label: "Able to follow lectures with extra preparation", input: "checkbox"},
+  ];
   /**
    * Additional fields for double-degree seeking students
    **/
@@ -152,10 +158,69 @@ $(document).on('turbolinks:load', function() {
   $('.dashboard-section').click(function(e){
     var content= $(this).parents('.row').children('.collapsible')
     var caret= $(this).find('.caret')
-    console.log($(this), caret)
     content.toggleClass('show');
     caret.toggleClass('reverse');
     caret.toggleClass('no-reverse');
   });
 
+  /**
+    * Add a new language
+    */
+  $('#add-lang').click(function(e){
+    var numLang = $(".language-input").length;
+    var $lang = $('<div class="lang"></div>');
+    var lang_elements = [
+      {key: "value", label: "Language", input: "text"},
+      {key: "currently_studying", label: "Currently Studying", input: "checkbox"},
+      {key: "able_follow_lectures", label: "Able to follow lectures", input: "checkbox"},
+      {key: "able_follow_lectures_extra_preparation", label: "Able to follow lectures with extra preparation", input: "checkbox"},
+    ];
+
+    for (var i in lang_elements) {
+      var element = lang_elements[i];
+      var el = element.key;
+      var $field = $('<div class="field"></div>');
+      var $container = $('<div class="flex-container"></div>');
+      var $label = $('<label/>').attr("for",el + numLang).text(element.label);
+      var $input = $('<input />').attr('type', element.input)
+              .attr('name', el + numLang)
+              .attr('class', "language-input");
+      $container.append($label);
+      $container.append($input);
+      $field.append($container);
+      $lang.append($field)
+
+    }
+    $('.lang-list').append($lang)
+
+  });
+
+  $('#lang-form').submit(function( ){
+    console.log(2222299)
+    var languages = [];
+
+    $('.lang-list .lang').each(function(l,lang){
+      $lang = $(lang);
+      var langObj = {};
+
+      for (var i in lang_elements) {
+        var language = lang_elements[i];
+        var el = language.key;
+        var $input = $lang.find('input[name="'+el+l+'"]');
+        console.log($input, 'input[name="'+el+l+'"]')
+        value = language.input === "checkbox" ? $input.prop("checked") : $input.val();
+        value = value ? value : !!value;
+        console.log(el,value);
+        langObj[el] = value;
+      }
+      languages.push(langObj);
+    });
+
+    $('<input />').attr('type', 'hidden')
+                  .attr('name', "languages")
+                  .attr('value', JSON.stringify(languages))
+                  .appendTo('#lang-form')
+
+    return true;
+  });
 });

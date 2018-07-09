@@ -1,6 +1,7 @@
 <div class="student-application-form">
 	<h1>Student Application Form <span class="fake-arrow" > > </span>  </h1>
-    <%= render partial: "student_application_form/#{toNumeral(params[:step].to_i)}_step", :locals => { :sap => User.find(params[:user]).student_application_form, :review => true } %>
+    <% user = User.find(params[:user]) %> 
+    <%= render partial: "student_application_form/#{toNumeral(params[:step].to_i)}_step", :locals => { :name => "#{user.first_name}   #{user.family_name}", :sap => user.student_application_form, :review => true } %>
 	<!--<%#= @sap.step.to_s + " / 6"%>-->
   <div class="actions">
     <div class="progress-bar">
