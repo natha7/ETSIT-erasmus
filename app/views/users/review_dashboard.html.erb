@@ -16,9 +16,14 @@
 <br/>
 <div class="dashboard-container">
 	<div class="left-column">
+		<div class="picture-container"> 
+		<img class="picture tiny" src="<%=current_user.photo %>"/>
+ 		<p> Admin</p>
+ 		</div>
+ 		<div class="picture-container"> 	
 		<img class="picture" src="<%=current_user.photo %>"/>
-		<button class="edit-picture "><i class="mdi mdi-camera"></i></button>
-		<p><%= current_user.first_name %> <%= current_user.family_name %></p>
+ 		<p><%= current_user.first_name %> <%= current_user.family_name %></p>
+ 		</div>
 	</div>
 	<div class="right-column">
 		<div class="row">
@@ -44,40 +49,45 @@
 			<div class="collapsible big">
 				<p class="intro-paragraph">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
 				<div class="align-right">
-					<button class="custom-button" disabled>Upload signed</button>
 					<button class="custom-button" disabled>Download</button>
-					<a href="<%=student_application_form_path%>"><button class="custom-button" >Edit data</button></a>
+					<a href="<%=student_application_form_path%>"><button class="custom-button" >Review data</button></a>
 
 				</div>
 
 			</div>
 		</div>
 		<%= render partial: "users/user_dashboard_panel", :locals => {
+			:admin => true,
 			:name => :motivation_letter, 
 			:content => current_user.motivation_letter, 
 			:file_name => current_user.motivation_letter_file_name, 
 			:label => "Motivation Letter" } %>
 		<%= render partial: "users/user_dashboard_panel", :locals => {
+			:admin => true,
 			:name => :curriculum_vitae, 
 			:content => current_user.curriculum_vitae, 
 			:file_name => current_user.curriculum_vitae_file_name, 
 			:label => "Curriculum Vitae"}  %>
 		<%= render partial: "users/user_dashboard_panel", :locals => {
+			:admin => true,
 			:name => :transcript_of_records, 
 			:content => current_user.transcript_of_records, 
 			:file_name => current_user.transcript_of_records_file_name, 
 			:label => "Transcript of Records"}  %>
 		<%= render partial: "users/user_dashboard_panel", :locals => {
+			:admin => true,
 			:name => :learning_agreement, 
 			:content => current_user.learning_agreement, 
 			:file_name => current_user.learning_agreement_file_name, 
 			:label => "Learning Agreement"}  %>
 		<%= render partial: "users/user_dashboard_panel", :locals => {
+			:admin => true,
 			:name => :valid_insurance_policy, 
 			:content => current_user.valid_insurance_policy, 
 			:file_name => current_user.valid_insurance_policy_file_name, 
 			:label => "Valid Insurance Policy"}  %>
 		<%= render partial: "users/user_dashboard_panel", :locals => {
+			:admin => true,
 			:name => :ni_passport, 
 			:content => current_user.ni_passport, 
 			:file_name => current_user.ni_passport_file_name, 
@@ -95,46 +105,32 @@
 		</div>
 		<div id="degree-seeking" class="hidden">
 			<%= render partial: "users/user_dashboard_panel", :locals => {
+				:admin => true,
 				:name => :recommendation_letter_1, 
 				:content => current_user.recommendation_letter_1, 
 				:file_name => current_user.recommendation_letter_1_file_name, 
 				:label => "Recommendation letter 1"}  %>
 			<%= render partial: "users/user_dashboard_panel", :locals => {
+				:admin => true,
 				:name => :recommendation_letter_2, 
 				:content => current_user.recommendation_letter_2, 
 				:file_name => current_user.recommendation_letter_2_file_name, 
 				:label => "Recommendation letter 2"}  %>
 			<%= render partial: "users/user_dashboard_panel", :locals => {
+				:admin => true,
 				:name => :official_gpa, 
 				:content => current_user.official_gpa, 
 				:file_name => current_user.official_gpa_file_name, 
 				:label => "Official GPA"}  %>
 			<%= render partial: "users/user_dashboard_panel", :locals => {
+				:admin => true,
 				:name => :english_test_score, 
 				:content => current_user.english_test_score, 
 				:file_name => current_user.english_test_score_file_name,
 				:label => "English Test Score"}  %>
 			</div>
 		</div>
-
-		<div id="edit-picture-dialog" > 
-			<h2 class="title">Edit your picture</h2>
-			<button class="transparent-button action-button right close" id="edit-picture-dialog-close"><i class="mdi mdi-close"></i></button>
-			<div class="flex-container">
-				<div class="image-container"><img id="edit-picture-dialog-picture" class="picture" src="<%=current_user.photo %>"/></div>
-				<canvas id="canvas"></canvas>
-				<div class="image-edit-actions">
-					<input class="input-file" type="file" name="photo2" accept="image/*></input>
-					<%= form_for current_user, url: user_file_upload_path, html: { multipart: true }, :method => :POST do |form| %>
-					<br/>
-					<div class="align-right">
-						<%= form.submit "Upload", :class => "custom-button" %>
-					</div>
-					<% end %>
-				</div>
-			</div>
-
-		</div>
+ 
 
 <%end%>
 <%end%>

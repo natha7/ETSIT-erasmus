@@ -43,31 +43,37 @@
 			</div>
 		</div>
 		<%= render partial: "users/user_dashboard_panel", :locals => {
+			:admin => false,
 			:name => :motivation_letter, 
 			:content => current_user.motivation_letter, 
 			:file_name => current_user.motivation_letter_file_name, 
 			:label => "Motivation Letter" } %>
 		<%= render partial: "users/user_dashboard_panel", :locals => {
+			:admin => false,
 			:name => :curriculum_vitae, 
 			:content => current_user.curriculum_vitae, 
 			:file_name => current_user.curriculum_vitae_file_name, 
 			:label => "Curriculum Vitae"}  %>
 		<%= render partial: "users/user_dashboard_panel", :locals => {
+			:admin => false,
 			:name => :transcript_of_records, 
 			:content => current_user.transcript_of_records, 
 			:file_name => current_user.transcript_of_records_file_name, 
 			:label => "Transcript of Records"}  %>
 		<%= render partial: "users/user_dashboard_panel", :locals => {
+			:admin => false,
 			:name => :learning_agreement, 
 			:content => current_user.learning_agreement, 
 			:file_name => current_user.learning_agreement_file_name, 
 			:label => "Learning Agreement"}  %>
 		<%= render partial: "users/user_dashboard_panel", :locals => {
+			:admin => false,
 			:name => :valid_insurance_policy, 
 			:content => current_user.valid_insurance_policy, 
 			:file_name => current_user.valid_insurance_policy_file_name, 
 			:label => "Valid Insurance Policy"}  %>
 		<%= render partial: "users/user_dashboard_panel", :locals => {
+			:admin => false,
 			:name => :ni_passport, 
 			:content => current_user.ni_passport, 
 			:file_name => current_user.ni_passport_file_name, 
@@ -85,21 +91,25 @@
 		</div>
 		<div id="degree-seeking" class="hidden">
 			<%= render partial: "users/user_dashboard_panel", :locals => {
+				:admin => false,
 				:name => :recommendation_letter_1, 
 				:content => current_user.recommendation_letter_1, 
 				:file_name => current_user.recommendation_letter_1_file_name, 
 				:label => "Recommendation letter 1"}  %>
 			<%= render partial: "users/user_dashboard_panel", :locals => {
+				:admin => false,
 				:name => :recommendation_letter_2, 
 				:content => current_user.recommendation_letter_2, 
 				:file_name => current_user.recommendation_letter_2_file_name, 
 				:label => "Recommendation letter 2"}  %>
 			<%= render partial: "users/user_dashboard_panel", :locals => {
+				:admin => false,
 				:name => :official_gpa, 
 				:content => current_user.official_gpa, 
 				:file_name => current_user.official_gpa_file_name, 
 				:label => "Official GPA"}  %>
 			<%= render partial: "users/user_dashboard_panel", :locals => {
+				:admin => false,
 				:name => :english_test_score, 
 				:content => current_user.english_test_score, 
 				:file_name => current_user.english_test_score_file_name,
