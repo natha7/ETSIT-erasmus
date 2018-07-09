@@ -85,15 +85,30 @@ class User < ApplicationRecord
       stf.language_instruction,
       stf.current_diploma_degree,
       stf.year_attended,
-      stf.specialization_area,
-      stf.already_study_abroad,
-      stf.where_study_abroad,
-      stf.where_institution_abroad
+      stf.specialization_area
     ].uniq.all?{|x| !x.nil?} ? "Finished" : "Not Finished"
   end
 
+  def percentage_num
+   attachment_values =  [
+     :motivation_letter,
+     :curriculum_vitae,
+     :transcript_of_records,
+     :learning_agreement,
+     :valid_insurance_policy,
+     :photo,
+     :ni_passport,
+     :recommendation_letter_1,
+     :recommendation_letter_2,
+     :official_gpa,
+     :english_test_score
+   ]
+   attach_value = attachment_values.map{|val| !self[val].blank? ? 1 : 0 }.reduce(0,:+) + self.student_application_form.completed_percentage_num/100
+   ((attach_value.to_f * 100) /(attachment_values.length + 1)).round(2)
+  end
+  
   def percentage
-    return "0%"
+    percentage_num + "%"
   end
 
   private
