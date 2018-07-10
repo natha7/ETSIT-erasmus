@@ -1,3 +1,5 @@
+require "prawn"
+
 class StudentApplicationFormController < ApplicationController
 	before_action :authenticate_user!
 
@@ -58,6 +60,12 @@ class StudentApplicationFormController < ApplicationController
 	end
 
 
+
+
+	def generate_pdf
+		send_data create_pdf(current_user), :filename => "application_form.pdf", :type => "application/pdf"
+	end
+
 	private
 	def toNumeral(number)
 		numeralhash = {1=>"first", 2=>"second", 3=>"third", 4=>"fourth",5=>"fifth",6=>"sixth",7=>"seventh"}
@@ -67,4 +75,106 @@ class StudentApplicationFormController < ApplicationController
 			"first"
 		end
 	end
+
+
+	private 
+	def create_pdf(user)
+	    Prawn::Document.new do
+	    	steps = user.student_application_form
+	    	def check_field(field)
+	    		fill_color "4664A2"
+				text (field.blank? ? "<em>Empty</em>" : field), :inline_format => true 
+	    		fill_color "000000"
+	    		move_down 10
+			end
+
+	    	def label(field)
+	    		fill_color "000000"
+				text ("<b>#{field}</b>"), :inline_format => true 
+				fill_color "000000"
+				move_down 2
+			end		
+
+			def title(field, size = 24)	
+				move_down 50
+				fill_color "4664A2"
+				text ("<b>#{field}</b>"), :inline_format => true, :size => size
+				move_down 10
+				fill_color "000000"
+			end
+
+			def header
+				fill_color "4664A2"
+				rectangle [-40, 760], 632, 60
+				fill
+				image Rails.root.join("app/assets/images/etsit2.jpg"), :width => 80, :at => [-10, 740]
+				fill_color "000000"
+			end
+
+			def subtitle(name)
+				fill_color "777777"
+				text ("<b>#{name}</b>"), :inline_format => true, :size => 18
+				fill_color "000000"
+			end
+
+			font_families.update(
+			 "SourceSansPro" => {
+			 	:normal => Rails.root.join("app/assets/fonts/SourceSansPro.ttf"),
+			 	:bold => Rails.root.join("app/assets/fonts/SourceSansPro-Bold.ttf"),
+			 	:italic => Rails.root.join("app/assets/fonts/SourceSansPro-Italic.ttf")
+			 }
+			)
+			font "SourceSansPro"
+
+			repeat(:all) do
+			  header
+			end
+
+			repeat(:all, :dynamic => true) do
+			 draw_text page_number, :at => [530, -10]
+			end
+
+
+
+			title("Application Form", 32)
+			subtitle(user.first_name + " " + user.family_name)
+	    	title("Sending Institution")
+	    	label("Name")
+	    	check_field(steps.inst_sending_name)
+	    	label("Erasmus Code")
+	    	check_field(steps.erasmus_code)
+	    	label("Dept. Coordinator")
+	    	check_field(steps.dept_coordinator)
+	    	label("School Family Dept")
+	    	check_field(steps.school_family_dpt)
+	    	label("Institution Address")
+	    	check_field(steps.inst_adress)
+	    	label("Contact person")
+	    	check_field(steps.contact_person)
+	    	label("Institution phone")
+	    	check_field(steps.inst_telephone)
+	    	label("Institution e-mail")
+	    	check_field(steps.inst_email)
+	    	start_new_page
+
+	    	title("Purpose of stay")
+	    	label("Project work")
+			check_field(steps.project_work)
+	    	label("Under Graduate Courses")
+			check_field(steps.under_grad_courses)
+	    	label("Graduate Courses")
+			check_field(steps.graduate_courses)
+			start_new_page
+
+			title("Study year")
+			label("Academic year")
+			check_field(steps.academic_year)
+			label("Programme")
+			check_field(steps.programme)
+			label("Field of study")
+			check_field(steps.field_of_study)
+
+	    end.render 
+	end
+
 end
