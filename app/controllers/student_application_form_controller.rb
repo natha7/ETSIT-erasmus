@@ -53,7 +53,7 @@ class StudentApplicationFormController < ApplicationController
 		  		:where_study_abroad,
 		  		:where_institution_abroad,
 		  		:languages => [
-		  			:value,
+		  			:name,
 		  			:currently_studying,
 		  			:able_follow_lectures,
 		  			:able_follow_lectures_extra_preparation
