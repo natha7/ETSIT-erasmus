@@ -286,15 +286,15 @@ $(document).on('turbolinks:load', function() {
         value = language.input === "checkbox" ? $input.prop("checked") : $input.val();
         value = value ? value : !!value;
         langObj[el] = value;
-        $work.remove();
+        $lang.remove();
       }
       languages.push(langObj);
     });
 
     $('<input/>').attr('type', 'hidden')
-                  .attr('name', "languages")
+                  .attr('name', "student_application_form[languages]")
                   .attr('id', "languages-hidden")
-                  .attr('value', JSON.stringify(languages))
+                  .attr('value', (languages))
                   .appendTo('#lang-form')
 
     return true;
@@ -366,11 +366,12 @@ $(document).on('turbolinks:load', function() {
       }
       works.push(workObj);
     });
+    console.log(works)
 
     $('<input/>').attr('type', 'hidden')
-                  .attr('name', "work_experiences")
+                  .attr('name', "student_application_form[work_experiences]")
                   .attr('id', "work-hidden")
-                  .attr('value', JSON.stringify(works))
+                  .attr('value', works)
                   .appendTo('#work-form')
     return true;
   });

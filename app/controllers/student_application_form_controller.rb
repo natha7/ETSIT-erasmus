@@ -27,6 +27,7 @@ class StudentApplicationFormController < ApplicationController
 
 	def save
 		@sap = current_user.student_application_form
+		puts params
 		@sap.update(params.require(:student_application_form).permit(
 				:inst_sending_name, 
 				:inst_adress,
