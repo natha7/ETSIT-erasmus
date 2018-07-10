@@ -16,22 +16,28 @@
 	<div class="work">
 		<div class="field">
 			<div class="flex-container">
-				<input type="text" name="type" class="work-input" disabled="review" value="<%=work.value%>"/>
+				<label for="type">Position</label>
+				<input type="text" name="type" class="work-input" <%=review ? "disabled" : ""%> value="<%=work.value%>"/>
 			</div>
 		</div>
 		<div class="field">
 			<div class="flex-container">
-				<input type="text" name="firm_organisation" class="work-input" disabled="review" value="<%=work.currently_studying%>"/>
+				<input type="text" name="firm_organisation" class="work-input" <%=review ? "disabled" : ""%> value="<%=work.currently_studying%>"/>
+				<label for="firm_organisation">Organisation</label>
 			</div>
 		</div>
 		<div class="field">
 			<div class="flex-container">
-				<input type="text" name="dates" class="work-input" disabled="review" value="<%=work.able_follow_lectures%>"/>
+				<input type="text" name="dates" class="work-input" <%=review ? "disabled" : ""%> value="<%=work.able_follow_lectures%>"/>
+				<label for="dates">Dates</label>
+
 			</div>
 		</div>
 		<div class="field">
 			<div class="flex-container">
-				<input type="text" name="country" class="language-input" disabled="review" value="<%=work.value%>"/>
+				<input type="text" name="country" class="language-input" <%=review ? "disabled" : ""%> value="<%=work.value%>"/>
+				<label for="country">Country</label>
+
 			</div>
 		</div>
 		<button type="button" class="delete-work-button transparent-button action-button">
