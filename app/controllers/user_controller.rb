@@ -62,20 +62,69 @@ class UserController < ApplicationController
 
 	end
 
+ 	
+
+
 	def generate_pdf
 		send_data create_pdf(current_user), :filename => "application_form.pdf", :type => "application/pdf"
 	end
+
+
 
 	private 
 	def create_pdf(user)
 	    Prawn::Document.new do
 	    	steps = user.student_application_form
 	    	puts steps
-	    	(1..10).each do |index|
-	    	 text "Page #{index}"
-	    	 start_new_page
-	    	end
-	        text "Hello Stackoverflow"
+	    	def check_field(field)
+				text (field.blank? ? "<em>Empty</em>" : field), :inline_format => true 
+			end
+
+	    	def label(field)
+				text ("<b>#{field}</b>"), :inline_format => true 
+			end		
+
+			def title(field)	
+				text ("<b>#{field}</b>"), :inline_format => true, :size => 24
+			end
+
+	    	title("Sending Institution")
+	    	label("Name")
+	    	check_field(steps.inst_sending_name)
+	    	label("Erasmus Code")
+	    	check_field(steps.erasmus_code)
+	    	label("Dept. Coordinator")
+	    	check_field(steps.dept_coordinator)
+	    	label("School Family Dept")
+	    	check_field(steps.school_family_dpt)
+	    	label("Institution Address")
+	    	check_field(steps.inst_adress)
+	    	label("Contact person")
+	    	check_field(steps.contact_person)
+	    	label("Institution phone")
+	    	check_field(steps.inst_telephone)
+	    	label("Institution e-mail")
+	    	check_field(steps.inst_email)
+	    	start_new_page
+
+
+	    	title("Purpose of stay")
+	    	label("Project work")
+			check_field(steps.project_work)
+	    	label("Under Graduate Courses")
+			check_field(steps.under_grad_courses)
+	    	label("Graduate Courses")
+			check_field(steps.graduate_courses)
+			start_new_page
+
+			title("Study year")
+			label("Academic year")
+			check_field(steps.academic_year)
+			label("Programme")
+			check_field(steps.programme)
+			label("Field of study")
+			check_field(steps.field_of_study)
+
 	    end.render 
 	end
 
