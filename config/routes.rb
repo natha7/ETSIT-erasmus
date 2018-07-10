@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   get "token_registration", to: "user#token_registration"
   post "token_registration", to: "user#create_user"
   get 'user_dashboard', to: "user#user_dashboard"
+  get 'generate_pdf', to: "user#generate_pdf"
   get 'review_dashboard/:user', to: "user#review_dashboard"
   get 'admin_dashboard', to: "user#admin_dashboard"
 

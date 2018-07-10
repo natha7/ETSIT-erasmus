@@ -1,3 +1,5 @@
+require "prawn"
+
 class UserController < ApplicationController
 	before_action :authenticate_user!, except: [:digital_certificate, :token_registration, :create_user, :register_with_email_and_password, :register_with_eidas]
 
@@ -55,11 +57,28 @@ class UserController < ApplicationController
 			head :forbidden
 			return
 		end
-
 		render :json => {:url => url }
 
 
 	end
+
+	def generate_pdf
+		send_data create_pdf(current_user), :filename => "application_form.pdf", :type => "application/pdf"
+	end
+
+	private 
+	def create_pdf(user)
+	    Prawn::Document.new do
+	    	steps = user.student_application_form
+	    	puts steps
+	    	(1..10).each do |index|
+	    	 text "Page #{index}"
+	    	 start_new_page
+	    	end
+	        text "Hello Stackoverflow"
+	    end.render 
+	end
+
 	def file_delete
 		case params[:attachment]
 		when "motivation_letter"
