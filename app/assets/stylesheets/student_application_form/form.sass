@@ -13,10 +13,9 @@
 		display: inline-block
 		font-size: 22px
 		color: $etsit_blue
-	.back-to-dashboard
-		margin-top: 40px
+
 	form
-		&.edit_student_application_form
+		.edit_student_application_flex
 			display: flex
 			flex-wrap: wrap
 		.other-languages, .other-work
@@ -49,6 +48,13 @@
 				height: 50px !important
 		.field_contact_person, .field_inst_telephone, .field_inst_email
 			width: calc(33% - 22px)
-		h2, .actions
+		.block, .actions 
 			display: block
 			width: 100%
+		.action-buttons
+			display: block
+			padding: 15px
+.back-to-dashboard
+	display: inline-block
+	width: 100%
+	margin-bottom: -30px
