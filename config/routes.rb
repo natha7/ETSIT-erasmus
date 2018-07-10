@@ -23,8 +23,8 @@ Rails.application.routes.draw do
   get 'register/:token_registration/register_with_eidas', to: "user#register_with_eidas"
   get 'register/:token_registration/register_with_email_and_password', to: "user#register_with_email_and_password"
 
-  get 'generate_pdf', to: "pdf#generate_pdf"
-  get 'generate_pdf/:user', to: "pdf#generate_pdf"
+  get 'generate_pdf', to: "student_application_form#generate_pdf"
+  get 'generate_pdf/:user', to: "student_application_form#generate_pdf"
 
   get 'student_application_form', to: "student_application_form#sap_page"
   post 'student_application_form', to: "student_application_form#save"

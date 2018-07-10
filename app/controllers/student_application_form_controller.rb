@@ -1,6 +1,7 @@
+require "prawn"
 class StudentApplicationFormController < ApplicationController
 	before_action :authenticate_user!
-
+	include PdfHelper
 	def sap_page
 		@sap = current_user.student_application_form
 		render "student_application_form/student_application_form"
@@ -56,6 +57,21 @@ class StudentApplicationFormController < ApplicationController
 		@sap.save!
 		render "student_application_form/student_application_form"
 	end
+
+
+	def generate_pdf
+		unless current_user.role === 'admin' 
+			send_data create_pdf(current_user), :filename => "application_form.pdf", :type => "application/pdf"
+		else
+			if User.exists?(params[:user])
+				user = User.find(params[:user])
+				send_data create_pdf(user), :filename => "application_form.pdf", :type => "application/pdf"
+			else
+				redirect_to admin_dashboard_path
+			end
+		end
+	end
+
 
 	private
 	def toNumeral(number)
