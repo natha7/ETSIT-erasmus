@@ -15,7 +15,7 @@ set :repo_url, 'https://github.com/abenitoc/eiD4U.git'
  set :rails_env,     "production"
  set :use_sudo,      false
 
-before "bundler:install", "custom:symlink"
+ append :linked_files, 'config/database.yml'
 
 # Default value for :format is :airbrussh.
 # set :format, :airbrussh
