@@ -290,11 +290,10 @@ $(document).on('turbolinks:load', function() {
       }
       languages.push(langObj);
     });
-
     $('<input/>').attr('type', 'hidden')
                   .attr('name', "student_application_form[languages]")
                   .attr('id', "languages-hidden")
-                  .attr('value', (languages))
+                  .attr('value', JSON.stringify(languages))
                   .appendTo('#lang-form')
 
     return true;
@@ -317,7 +316,6 @@ $(document).on('turbolinks:load', function() {
     */
   $('#add-work').click(function(e){
     var $work = $('<div class="work"></div>');
-
 
     for (var i in work_elements) {
       var element = work_elements[i];
@@ -371,7 +369,7 @@ $(document).on('turbolinks:load', function() {
     $('<input/>').attr('type', 'hidden')
                   .attr('name', "student_application_form[work_experiences]")
                   .attr('id', "work-hidden")
-                  .attr('value', works)
+                  .attr('value', JSON.stringify(works))
                   .appendTo('#work-form')
     return true;
   });
