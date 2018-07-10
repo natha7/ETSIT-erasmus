@@ -37,8 +37,6 @@ class StudentApplicationFormController < ApplicationController
 		      	:contact_person,
 		  		:inst_telephone,
 		  		:inst_email,
-		  		:languages,
-		  		:work_experiences,
 		  		:academic_year,
 		  		:programme,
 		  		:field_of_study,
@@ -54,6 +52,18 @@ class StudentApplicationFormController < ApplicationController
 		  		:already_study_abroad,
 		  		:where_study_abroad,
 		  		:where_institution_abroad,
+		  		:languages => [
+		  			:value,
+		  			:currently_studying,
+		  			:able_follow_lectures,
+		  			:able_follow_lectures_extra_preparation
+		  		],
+		  		:work_experiences => [
+	  				:type, 
+	  				:firm_organisation, 
+	  				:dates, 
+	  				:country,
+	  			]
 			))
 		@sap.save!
 		render "student_application_form/student_application_form"

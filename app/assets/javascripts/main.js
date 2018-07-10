@@ -243,7 +243,7 @@ $(document).on('turbolinks:load', function() {
       var $container = $('<div class="flex-container"></div>');
       var $label = $('<label/>').attr("for", el ).text(element.label);
       var $input = $('<input/>').attr('type', element.input)
-              .attr('name', el )
+              .attr('name',el)
               .attr('class', "language-input");
       if (element.input === "checkbox") {
         $container.append($input);
@@ -273,8 +273,7 @@ $(document).on('turbolinks:load', function() {
     * Intercept language form
     */
   $('#lang-form').submit(function( ){
-    var languages = [];
-    $('#languages-hidden').remove();
+    $('.languages-hidden').remove();
     $('.lang-list .lang').each(function(l,lang){
       $lang = $(lang);
       var langObj = {};
@@ -287,14 +286,15 @@ $(document).on('turbolinks:load', function() {
         value = value ? value : !!value;
         langObj[el] = value;
         $lang.remove();
+        $('<input/>').attr('type', 'hidden')
+                      .attr('name', "student_application_form[languages][]["+el+"]")
+                      .attr('class', "languages-hidden")
+                      .attr('value', value)
+                      .appendTo('#lang-form')
       }
-      languages.push(langObj);
+      
     });
-    $('<input/>').attr('type', 'hidden')
-                  .attr('name', "student_application_form[languages]")
-                  .attr('id', "languages-hidden")
-                  .attr('value', JSON.stringify(languages))
-                  .appendTo('#lang-form')
+    
 
     return true;
   });
@@ -324,7 +324,7 @@ $(document).on('turbolinks:load', function() {
       var $container = $('<div class="flex-container"></div>');
       var $label = $('<label/>').attr("for", el ).text(element.label);
       var $input = $('<input/>').attr('type', element.input)
-              .attr('name', el )
+              .attr('name',el)
               .attr('class', "work-input");
       $container.append($label);
       $container.append($input);
@@ -349,7 +349,7 @@ $(document).on('turbolinks:load', function() {
     */
   $('#work-form').submit(function( ){
     var works = [];
-    $('#work-hidden').remove();
+    $('.work-hidden').remove();
     $('.work-list .work').each(function(l,work){
       $work = $(work);
       var workObj = {};
@@ -361,16 +361,16 @@ $(document).on('turbolinks:load', function() {
         value = value ? value : !!value;
         workObj[el] = value;
         $work.remove();
+        console.log(value)
+        $('<input/>').attr('type', 'hidden')
+                      .attr('class', "work-hidden")
+                      .attr('name', "student_application_form[work_experiences][]["+el+"]")
+                      .attr('value', value)
+                      .appendTo('#work-form')
       }
-      works.push(workObj);
     });
-    console.log(works)
 
-    $('<input/>').attr('type', 'hidden')
-                  .attr('name', "student_application_form[work_experiences]")
-                  .attr('id', "work-hidden")
-                  .attr('value', JSON.stringify(works))
-                  .appendTo('#work-form')
     return true;
   });
+
 });
