@@ -27,7 +27,10 @@ class StudentApplicationFormController < ApplicationController
 
 	def save
 		@sap = current_user.student_application_form
-		puts params
+		step = params[:step].to_i
+		step = nil if (step.to_s != params[:step])
+		puts 22222222222
+		puts step
 		@sap.update(params.require(:student_application_form).permit(
 				:inst_sending_name, 
 				:inst_adress,
@@ -52,6 +55,7 @@ class StudentApplicationFormController < ApplicationController
 		  		:already_study_abroad,
 		  		:where_study_abroad,
 		  		:where_institution_abroad,
+		  		:no_work_experience,
 		  		:languages => [
 		  			:name,
 		  			:currently_studying,
@@ -66,7 +70,12 @@ class StudentApplicationFormController < ApplicationController
 	  			]
 			))
 		@sap.save!
-		render "student_application_form/student_application_form"
+		# render "student_application_form/student_application_form"
+		if !step.blank? and step.between?(1,6)
+			redirect_to "#{student_application_form_path}/#{step}"
+		else
+			redirect_to user_dashboard_path
+		end
 	end
 
 

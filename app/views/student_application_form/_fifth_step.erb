@@ -5,8 +5,12 @@
 <p class="intro-paragraph">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 
 <div class="edit_student_application_flex">
+<div class="block">
+<%= f.check_box :no_work_experience, autofocus: true, autocomplete: "no_work_experience", disabled: review, id: "no_work_experience_checkbox" %>
+<%= f.label :no_work_experience %><br /><br/>
+</div>
+<div class="<%=   sap.no_work_experience ? "other-work hidden" : "other-work" %>" style="">
 
-<div class="other-work" style="display:block; width:100%;">
 <% unless review %>
 	<button class="custom-button" id="add-work" type="button">Add a new work experience</button>
 <%end%>
@@ -50,8 +54,4 @@
 	</div>
 	</div>
 </div>
-	<% unless review %>
-	<div class="actions">
-	  <%= f.submit "Save current page", label: false, :class => "custom-button", disabled: review %>
-	</div>
-	<%end%>
+	 

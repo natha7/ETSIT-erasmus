@@ -26,9 +26,7 @@
 					<div class="progress-bar">
 						<div class="progress-line">
 						</div>
-						<% completed_steps_array = current_user.student_application_form.completed_steps_array %>
-						<% *prefix, last = completed_steps_array %>
-						<% final_steps_array = [*prefix, true, last] %>
+						<% final_steps_array = current_user.student_application_form.completed_steps_array %>
 						<% titles = ["Sending Institution", "Purpose of stay", "Study year", "Language Competence", "Work Experience", "Previous and current studies"] %>
 						<% for i in 1..6 do %>
 							<% classBall = final_steps_array[i-1] ? "done-step" : "todo-step" %>

@@ -26,8 +26,8 @@
 </div>
 <div class="field">
   <div class="flex-container">
-    <%= f.label :already_study_abroad %><br />
     <%= f.check_box :already_study_abroad, autofocus: true, autocomplete: "already_study_abroad", disabled: review %>
+    <%= f.label :already_study_abroad %><br />
   </div>
 </div>
 <div class="field">
@@ -43,8 +43,4 @@
   </div>
 </div>
 </div>
-<% unless review %>
-<div class="actions">
-  <%= f.submit "Save current page", label: false, :class => "custom-button" %>
-</div>
-<%end%>
+ 

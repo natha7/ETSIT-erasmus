@@ -35,8 +35,8 @@ class AddStudentApplicationForm < ActiveRecord::Migration[5.2]
   		t.boolean :already_study_abroad
   		t.string :where_study_abroad
   		t.string :where_institution_abroad
-
-
+      # Work Experience
+      t.boolean :no_work_experience
       t.timestamps
   	end
     

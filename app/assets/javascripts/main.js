@@ -13,13 +13,23 @@ $(document).on('turbolinks:load', function() {
   ];
 
   /**
-   * Additional fields for double-degree seeking students
+   * Additional fields for students with working experience
    **/
   $('#seekingDegreeCheckbox').click(
     function(e) {
       $('#degree-seeking').toggleClass('hidden');
     }
   );
+
+  /**
+   * Additional fields for double-degree seeking students
+   **/
+  $('#no_work_experience_checkbox').click(
+    function(e) {
+      $('.other-work ').toggleClass('hidden');
+    }
+  );
+
 
  /**
    * Close flash message

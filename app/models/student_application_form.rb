@@ -17,7 +17,7 @@ class StudentApplicationForm < ApplicationRecord
 	  		:inst_telephone,
 	  		:inst_email
   		]
-  		percentage = first.reject{|element| self[element].blank?}.length == first.length ? percentage + 20 : percentage
+  		percentage = first.reject{|element| self[element].blank?}.length == first.length ? percentage + 17 : percentage
 
   		second = [
   			:project_work,
@@ -25,27 +25,32 @@ class StudentApplicationForm < ApplicationRecord
 	  		:graduate_courses
 	  		
   		]
-  		percentage = second.reject{|element| self[element].blank?}.length == second.length ? percentage + 20 : percentage
+  		percentage = second.reject{|element| self[element].blank?}.length == second.length ? percentage + 17 : percentage
   		#Purpose of Stay
   		third = [
 	  		:academic_year,
 	  		:programme,
 	  		:field_of_study
 		]
-		percentage = third.reject{|element| self[element].blank?}.length == third.length ? percentage + 20 : percentage
+		percentage = third.reject{|element| self[element].blank?}.length == third.length ? percentage + 17 : percentage
   		#Language Competence
   		fourth = [
 	  		:mother_tongue,
 	  		:language_instruction
   		]
-  		percentage = fourth.reject{|element| self[element].blank?}.length == fourth.length ? percentage + 20 : percentage
+  		percentage = fourth.reject{|element| self[element].blank?}.length == fourth.length ? percentage + 16 : percentage
+  		# Work Experience
+  		fifth_complete = self[:work_experiences].blank? ? self[:no_work_experience] : false
+
+	  	percentage = fifth_complete ? percentage + 16 : percentage  		
+
   		#Previous And Current Studies
-  		fifth = [
+  		sixth = [
 	  		:current_diploma_degree,
 	  		:year_attended,
 	  		:specialization_area
 	  	]
-	  	percentage = fifth.reject{|element| self[element].blank?}.length == fifth.length ? percentage + 20 : percentage
+	  	percentage = sixth.reject{|element| self[element].blank?}.length == sixth.length ? percentage + 17 : percentage
 	end
 
 	def completed_steps_array
@@ -77,7 +82,11 @@ class StudentApplicationForm < ApplicationRecord
 	  		:language_instruction
   		]
 
-  		fifth = [
+  		fifth_complete = self[:work_experiences].blank? ? self[:no_work_experience] : false
+
+  		puts self[work_experiences]
+  		puts 222222
+	  	sixth = [
 	  		:current_diploma_degree,
 	  		:year_attended,
 	  		:specialization_area
@@ -88,7 +97,8 @@ class StudentApplicationForm < ApplicationRecord
 		second.reject{|element| self[element].blank?}.length == second.length,
 		third.reject{|element| self[element].blank?}.length == third.length,
 		fourth.reject{|element| self[element].blank?}.length == fourth.length,
-		fifth.reject{|element| self[element].blank?}.length == fifth.length
+		fifth_complete,
+		sixth.reject{|element| self[element].blank?}.length == sixth.length
 	]	
 	end
 

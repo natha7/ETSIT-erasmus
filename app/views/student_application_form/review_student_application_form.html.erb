@@ -7,9 +7,7 @@
         <%= render partial: "student_application_form/#{toNumeral(params[:step].to_i)}_step", :locals => { :f => f, :name => "#{user.first_name}   #{user.family_name}", :sap => user.student_application_form, :review => true } %>
     	<!--<%#= @sap.step.to_s + " / 6"%>-->
         <%end%>
-        <% completed_steps_array =  user.student_application_form.completed_steps_array %>
-        <% *prefix, last = completed_steps_array %>
-        <% final_steps_array = [*prefix, true, last] %>
+        <% final_steps_array = user.student_application_form.completed_steps_array  %>
         <div class="actions">
             <div class="progress-bar">
                 <div class="progress-line">
@@ -33,6 +31,9 @@
             <%end%>
             <%if params[:step].to_i + 1 < 7 %>
                 <%= link_to "<button  class='custom-button'> Next > </button>".html_safe, "/review_student_application_form/#{params[:user]}" + "/#{params[:step].to_i + 1}"%>
+            <%end%>
+            <%if params[:step].to_i == 6 %>
+                <%= link_to "<button  class='custom-button'> Finish </button>".html_safe, "/review_dashboard/#{params[:user]}" %>
             <%end%>
         </div>
         </br>

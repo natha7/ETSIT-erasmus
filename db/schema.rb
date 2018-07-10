@@ -57,6 +57,7 @@ ActiveRecord::Schema.define(version: 2018_05_23_122232) do
     t.boolean "already_study_abroad"
     t.string "where_study_abroad"
     t.string "where_institution_abroad"
+    t.boolean "no_work_experience"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id"
