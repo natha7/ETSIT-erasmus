@@ -12,7 +12,7 @@ set :repo_url, 'https://github.com/abenitoc/eiD4U.git'
  set :deploy_via, :remote_cache
  set :rbenv_ruby, '2.5.1'
 
-before  "bundler:install", "db:symlink"
+after  "bundler:install", "db:symlink"
 
 # Default value for :format is :airbrussh.
 # set :format, :airbrussh
