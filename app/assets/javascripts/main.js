@@ -144,9 +144,10 @@ $(document).on('turbolinks:load', function() {
     var oReq = new XMLHttpRequest();
     oReq.open("POST", "/user/file_upload_ajax");
     oReq.send(oData)
-        $('#spinner').removeClass('hidden');
-
+    $('#spinner').removeClass('hidden');
+    $('.messages-from-server').empty();
     oReq.onload = function(oEvent) {
+
       $('#spinner').addClass('hidden');
       if (oReq.status == 200) {
         console.log(oReq)
