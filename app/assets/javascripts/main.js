@@ -12,7 +12,6 @@ $(document).on('turbolinks:load', function() {
     {key: "country", label: "Country", input: "text"},
   ];
 
-
   /**
    * Additional fields for double-degree seeking students
    **/
@@ -21,7 +20,6 @@ $(document).on('turbolinks:load', function() {
       $('#degree-seeking').toggleClass('hidden');
     }
   );
-
 
  /**
    * Close flash message
@@ -32,6 +30,12 @@ $(document).on('turbolinks:load', function() {
     }
   );
 
+  /**
+    * Remove flash messages automatically
+    */
+  setTimeout(function(e){
+    $('.flash-message').addClass('hidden');
+  }, 4000);
 
   /**
     * Initialize cropper
@@ -59,7 +63,6 @@ $(document).on('turbolinks:load', function() {
      }
   }
 
-
  /**
    * Open picture modal
    **/
@@ -84,7 +87,6 @@ $(document).on('turbolinks:load', function() {
       
       // Get the Cropper.js instance after initialized
   });
-
 
   /**
     * Close picture modal
@@ -115,14 +117,20 @@ $(document).on('turbolinks:load', function() {
     }
 
     return new Blob([ia], {type:mimeString});
-}
+  }
+
   /**
     * Generate cropped picture
     */
   $('#edit-picture-dialog form').submit(function() {
     var $image = $('#edit-picture-dialog-picture');
     var cropper = $image.data('cropper');
-    var canvasr = cropper.getCroppedCanvas({width: 150, height: 150}).toDataURL()
+    var canvas = cropper.getCroppedCanvas({width: 150, height: 150})
+    if (!canvas) {
+      $('.messages-from-server').append($('<p class="message-from-server alert">An error ocurred</p>'));
+      return false;
+    }
+    var canvasr = canvas.toDataURL();
     var oData = new FormData();
     var photo = dataURItoBlob(canvasr);
     // Download to check if the picture is OK
@@ -150,7 +158,6 @@ $(document).on('turbolinks:load', function() {
 
       $('#spinner').addClass('hidden');
       if (oReq.status == 200) {
-        console.log(oReq)
         try {
           var url = JSON.parse(oReq.response).url;
           var $image = $('#edit-picture-dialog-picture');
@@ -158,7 +165,8 @@ $(document).on('turbolinks:load', function() {
           $image.cropper('destroy')
           initCropper();
           $('#actual-picture').attr('src', url);
-          $('.messages-from-server').append($('<p class="message-from-server notice">Uploaded correctly!</p>'));
+          // $('.messages-from-server').append($('<p class="message-from-server notice">Uploaded correctly!</p>'));
+          $('#edit-picture-dialog').dialog('close');
         } catch (e) {
           console.error("An error ocurred when uploading the file", e)
           $('.messages-from-server').append($('<p class="message-from-server alert">An error ocurred</p>'));
@@ -188,12 +196,23 @@ $(document).on('turbolinks:load', function() {
       reader.readAsDataURL(e.target.files[0]);
     }
   });
-  $('.dashboard-section').click(function(e){
-    var content= $(this).parents('.row').children('.collapsible')
-    var caret= $(this).find('.caret')
-    content.toggleClass('show');
-    caret.toggleClass('reverse');
-    caret.toggleClass('no-reverse');
+  
+  /**
+    * Collapse panels
+    */
+  $('.dashboard-section').click(function(e) {
+    var content= $(this).parents('.row').children('.collapsible');
+    var wasOpen = content.hasClass('show');
+
+    $('.collapsible.show').removeClass('show');
+    $('.caret').removeClass('reverse');
+    $('.caret').addClass('no-reverse');
+    if (!wasOpen) {
+      var caret= $(this).find('.caret');
+      content.toggleClass('show');
+      caret.toggleClass('reverse');
+      caret.toggleClass('no-reverse');
+    }
   });
 
   /**
@@ -224,10 +243,16 @@ $(document).on('turbolinks:load', function() {
       var $container = $('<div class="flex-container"></div>');
       var $label = $('<label/>').attr("for", el ).text(element.label);
       var $input = $('<input/>').attr('type', element.input)
-              .attr('name', el )
+              .attr('name',el)
               .attr('class', "language-input");
-      $container.append($label);
-      $container.append($input);
+      if (element.input === "checkbox") {
+        $container.append($input);
+        $container.append($label);
+      } else {
+        $container.append($label);
+        $container.append($input);
+      }
+      
       $field.append($container);
       $lang.append($field);
 
@@ -244,13 +269,11 @@ $(document).on('turbolinks:load', function() {
 
   });
 
-
   /**
     * Intercept language form
     */
   $('#lang-form').submit(function( ){
-    var languages = [];
-    $('#languages-hidden').remove();
+    $('.languages-hidden').remove();
     $('.lang-list .lang').each(function(l,lang){
       $lang = $(lang);
       var langObj = {};
@@ -262,20 +285,19 @@ $(document).on('turbolinks:load', function() {
         value = language.input === "checkbox" ? $input.prop("checked") : $input.val();
         value = value ? value : !!value;
         langObj[el] = value;
-        $work.remove();
+        $lang.remove();
+        $('<input/>').attr('type', 'hidden')
+                      .attr('name', "student_application_form[languages][]["+el+"]")
+                      .attr('class', "languages-hidden")
+                      .attr('value', value)
+                      .appendTo('#lang-form')
       }
-      languages.push(langObj);
+      
     });
-
-    $('<input/>').attr('type', 'hidden')
-                  .attr('name', "languages")
-                  .attr('id', "languages-hidden")
-                  .attr('value', JSON.stringify(languages))
-                  .appendTo('#lang-form')
+    
 
     return true;
   });
-
 
   /**
     * Delete work
@@ -289,13 +311,11 @@ $(document).on('turbolinks:load', function() {
     */
   $('.delete-work-button').click(deleteWork);
 
-
   /**
     * Add a new work experience
     */
   $('#add-work').click(function(e){
     var $work = $('<div class="work"></div>');
-
 
     for (var i in work_elements) {
       var element = work_elements[i];
@@ -304,7 +324,7 @@ $(document).on('turbolinks:load', function() {
       var $container = $('<div class="flex-container"></div>');
       var $label = $('<label/>').attr("for", el ).text(element.label);
       var $input = $('<input/>').attr('type', element.input)
-              .attr('name', el )
+              .attr('name',el)
               .attr('class', "work-input");
       $container.append($label);
       $container.append($input);
@@ -324,13 +344,12 @@ $(document).on('turbolinks:load', function() {
 
   });
 
-
   /**
     * Intercept work form
     */
   $('#work-form').submit(function( ){
     var works = [];
-    $('#work-hidden').remove();
+    $('.work-hidden').remove();
     $('.work-list .work').each(function(l,work){
       $work = $(work);
       var workObj = {};
@@ -342,15 +361,16 @@ $(document).on('turbolinks:load', function() {
         value = value ? value : !!value;
         workObj[el] = value;
         $work.remove();
+        console.log(value)
+        $('<input/>').attr('type', 'hidden')
+                      .attr('class', "work-hidden")
+                      .attr('name', "student_application_form[work_experiences][]["+el+"]")
+                      .attr('value', value)
+                      .appendTo('#work-form')
       }
-      works.push(workObj);
     });
 
-    $('<input/>').attr('type', 'hidden')
-                  .attr('name', "work_experiences")
-                  .attr('id', "work-hidden")
-                  .attr('value', JSON.stringify(works))
-                  .appendTo('#work-form')
     return true;
   });
+
 });

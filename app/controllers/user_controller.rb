@@ -40,6 +40,7 @@ class UserController < ApplicationController
 		end
 		redirect_to user_dashboard_path
 	end
+	
 	def file_upload_ajax
 		puts params[:user]
 		url = ""

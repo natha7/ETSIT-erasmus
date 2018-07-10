@@ -1,8 +1,7 @@
 require "prawn"
-
 class StudentApplicationFormController < ApplicationController
 	before_action :authenticate_user!
-
+	include PdfHelper
 	def sap_page
 		@sap = current_user.student_application_form
 		render "student_application_form/student_application_form"
@@ -28,6 +27,7 @@ class StudentApplicationFormController < ApplicationController
 
 	def save
 		@sap = current_user.student_application_form
+		puts params
 		@sap.update(params.require(:student_application_form).permit(
 				:inst_sending_name, 
 				:inst_adress,
@@ -37,8 +37,6 @@ class StudentApplicationFormController < ApplicationController
 		      	:contact_person,
 		  		:inst_telephone,
 		  		:inst_email,
-		  		:languages,
-		  		:work_experiences,
 		  		:academic_year,
 		  		:programme,
 		  		:field_of_study,
@@ -54,17 +52,37 @@ class StudentApplicationFormController < ApplicationController
 		  		:already_study_abroad,
 		  		:where_study_abroad,
 		  		:where_institution_abroad,
+		  		:languages => [
+		  			:value,
+		  			:currently_studying,
+		  			:able_follow_lectures,
+		  			:able_follow_lectures_extra_preparation
+		  		],
+		  		:work_experiences => [
+	  				:type, 
+	  				:firm_organisation, 
+	  				:dates, 
+	  				:country,
+	  			]
 			))
 		@sap.save!
 		render "student_application_form/student_application_form"
 	end
 
 
-
-
 	def generate_pdf
-		send_data create_pdf(current_user), :filename => "application_form.pdf", :type => "application/pdf"
+		unless current_user.role === 'admin' 
+			send_data create_pdf(current_user), :filename => "application_form.pdf", :type => "application/pdf"
+		else
+			if User.exists?(params[:user])
+				user = User.find(params[:user])
+				send_data create_pdf(user), :filename => "application_form.pdf", :type => "application/pdf"
+			else
+				redirect_to admin_dashboard_path
+			end
+		end
 	end
+
 
 	private
 	def toNumeral(number)
@@ -77,104 +95,6 @@ class StudentApplicationFormController < ApplicationController
 	end
 
 
-	private 
-	def create_pdf(user)
-	    Prawn::Document.new do
-	    	steps = user.student_application_form
-	    	def check_field(field)
-	    		fill_color "4664A2"
-				text (field.blank? ? "<em>Empty</em>" : field), :inline_format => true 
-	    		fill_color "000000"
-	    		move_down 10
-			end
 
-	    	def label(field)
-	    		fill_color "000000"
-				text ("<b>#{field}</b>"), :inline_format => true 
-				fill_color "000000"
-				move_down 2
-			end		
-
-			def title(field, size = 24)	
-				move_down 50
-				fill_color "4664A2"
-				text ("<b>#{field}</b>"), :inline_format => true, :size => size
-				move_down 10
-				fill_color "000000"
-			end
-
-			def header
-				fill_color "4664A2"
-				rectangle [-40, 760], 632, 60
-				fill
-				image Rails.root.join("app/assets/images/etsit2.jpg"), :width => 80, :at => [-10, 740]
-				fill_color "000000"
-			end
-
-			def subtitle(name)
-				fill_color "777777"
-				text ("<b>#{name}</b>"), :inline_format => true, :size => 18
-				fill_color "000000"
-			end
-
-			font_families.update(
-			 "SourceSansPro" => {
-			 	:normal => Rails.root.join("app/assets/fonts/SourceSansPro.ttf"),
-			 	:bold => Rails.root.join("app/assets/fonts/SourceSansPro-Bold.ttf"),
-			 	:italic => Rails.root.join("app/assets/fonts/SourceSansPro-Italic.ttf")
-			 }
-			)
-			font "SourceSansPro"
-
-			repeat(:all) do
-			  header
-			end
-
-			repeat(:all, :dynamic => true) do
-			 draw_text page_number, :at => [530, -10]
-			end
-
-
-
-			title("Application Form", 32)
-			subtitle(user.first_name + " " + user.family_name)
-	    	title("Sending Institution")
-	    	label("Name")
-	    	check_field(steps.inst_sending_name)
-	    	label("Erasmus Code")
-	    	check_field(steps.erasmus_code)
-	    	label("Dept. Coordinator")
-	    	check_field(steps.dept_coordinator)
-	    	label("School Family Dept")
-	    	check_field(steps.school_family_dpt)
-	    	label("Institution Address")
-	    	check_field(steps.inst_adress)
-	    	label("Contact person")
-	    	check_field(steps.contact_person)
-	    	label("Institution phone")
-	    	check_field(steps.inst_telephone)
-	    	label("Institution e-mail")
-	    	check_field(steps.inst_email)
-	    	start_new_page
-
-	    	title("Purpose of stay")
-	    	label("Project work")
-			check_field(steps.project_work)
-	    	label("Under Graduate Courses")
-			check_field(steps.under_grad_courses)
-	    	label("Graduate Courses")
-			check_field(steps.graduate_courses)
-			start_new_page
-
-			title("Study year")
-			label("Academic year")
-			check_field(steps.academic_year)
-			label("Programme")
-			check_field(steps.programme)
-			label("Field of study")
-			check_field(steps.field_of_study)
-
-	    end.render 
-	end
 
 end
