@@ -1,14 +1,18 @@
+<%= button_to "Log out", destroy_user_session_path, :method=> :delete, :class => "custom-button right"%>
+
 <% like_email = "%#{ params[:email]}%"    %>
 <% like_name = "%#{ params[:name]}%"    %>
 <% users = User.where("lower(email) LIKE ? and lower(first_name) LIKE ?", like_email.downcase, like_name.downcase).reject{|t| t.role == "admin"} %>
 <% nominees = NominatedUser.where("lower(email) LIKE ? ", like_email.downcase)%>
 
 <% unless current_user.role == 'admin'%>
+  <br/><br/>
   <p class="no-results">You do not have permission to access this page</p>
 <% else %>
 
-<%= button_to "Log out", destroy_user_session_path, :method=> :delete, :class => "custom-button right"%>
-<h1 class="title"> Hi, Admin</h1>
+
+<% admin_name = current_user.first_name.blank? ? "Administrator" : (current_user.first_name + " " + current_user.family_name) %>
+<h1 class="title"> Hi, <%=admin_name%></h1>
 <p class="intro-paragraph">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 <br/>
 <div class="filters">
@@ -31,8 +35,9 @@
 </br>
 <div class="admin-dashboard  dashboard-container">
   <div class="left-column">
-    <img class="picture" src="<%=current_user.photo %>"/>
-    <p>Administrator</p>
+    <button class="edit-picture "><i class="mdi mdi-camera"></i></button>
+    <img id="actual-picture" class="picture" src="<%=current_user.photo %>"/>
+    <p><%=admin_name%></p>
   </div>
   <div class="right-column">
     <div class="row">
@@ -157,6 +162,28 @@
           <p class="no-results">No results</p>
       <%end%>
     </div>
+  </div>
+  <div id="edit-picture-dialog" > 
+    <h2 class="title">Edit your picture</h2>
+    <button class="transparent-button action-button right close" id="edit-picture-dialog-close"><i class="mdi mdi-close"></i></button>
+    <div class="flex-container">
+      <div class="image-container"><img id="edit-picture-dialog-picture" class="picture" src="<%=current_user.photo %>"/></div>
+      <canvas id="canvas"></canvas>
+      <div class="image-edit-actions">
+        <input class="input-file" type="file" name="photo2" accept="image/*"></input>
+        <%= form_for current_user, url: "/user/file_upload_ajax", html: { multipart: true }, :method => :POST do |form| %>
+        <br></br>
+        <div class="messages-from-server">
+          
+        </div>
+        <div class="align-right">
+          <%= form.submit "Upload", :class => "custom-button" %>
+          <img id="spinner" src="/assets/spinner.gif" class="hidden"/>
+        </div>
+        <% end %>
+      </div>
+    </div>
+
   </div>
 
   <br/><br/>

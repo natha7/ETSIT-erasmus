@@ -12,7 +12,6 @@ $(document).on('turbolinks:load', function() {
     {key: "country", label: "Country", input: "text"},
   ];
 
-
   /**
    * Additional fields for double-degree seeking students
    **/
@@ -21,7 +20,6 @@ $(document).on('turbolinks:load', function() {
       $('#degree-seeking').toggleClass('hidden');
     }
   );
-
 
  /**
    * Close flash message
@@ -32,6 +30,12 @@ $(document).on('turbolinks:load', function() {
     }
   );
 
+  /**
+    * Remove flash messages automatically
+    */
+  setTimeout(function(e){
+    $('.flash-message').addClass('hidden');
+  }, 4000);
 
   /**
     * Initialize cropper
@@ -59,7 +63,6 @@ $(document).on('turbolinks:load', function() {
      }
   }
 
-
  /**
    * Open picture modal
    **/
@@ -84,7 +87,6 @@ $(document).on('turbolinks:load', function() {
       
       // Get the Cropper.js instance after initialized
   });
-
 
   /**
     * Close picture modal
@@ -115,14 +117,20 @@ $(document).on('turbolinks:load', function() {
     }
 
     return new Blob([ia], {type:mimeString});
-}
+  }
+
   /**
     * Generate cropped picture
     */
   $('#edit-picture-dialog form').submit(function() {
     var $image = $('#edit-picture-dialog-picture');
     var cropper = $image.data('cropper');
-    var canvasr = cropper.getCroppedCanvas({width: 150, height: 150}).toDataURL()
+    var canvas = cropper.getCroppedCanvas({width: 150, height: 150})
+    if (!canvas) {
+      $('.messages-from-server').append($('<p class="message-from-server alert">An error ocurred</p>'));
+      return false;
+    }
+    var canvasr = canvas.toDataURL();
     var oData = new FormData();
     var photo = dataURItoBlob(canvasr);
     // Download to check if the picture is OK
@@ -150,7 +158,6 @@ $(document).on('turbolinks:load', function() {
 
       $('#spinner').addClass('hidden');
       if (oReq.status == 200) {
-        console.log(oReq)
         try {
           var url = JSON.parse(oReq.response).url;
           var $image = $('#edit-picture-dialog-picture');
@@ -158,7 +165,8 @@ $(document).on('turbolinks:load', function() {
           $image.cropper('destroy')
           initCropper();
           $('#actual-picture').attr('src', url);
-          $('.messages-from-server').append($('<p class="message-from-server notice">Uploaded correctly!</p>'));
+          // $('.messages-from-server').append($('<p class="message-from-server notice">Uploaded correctly!</p>'));
+          $('#edit-picture-dialog').dialog('close');
         } catch (e) {
           console.error("An error ocurred when uploading the file", e)
           $('.messages-from-server').append($('<p class="message-from-server alert">An error ocurred</p>'));
@@ -188,12 +196,23 @@ $(document).on('turbolinks:load', function() {
       reader.readAsDataURL(e.target.files[0]);
     }
   });
-  $('.dashboard-section').click(function(e){
-    var content= $(this).parents('.row').children('.collapsible')
-    var caret= $(this).find('.caret')
-    content.toggleClass('show');
-    caret.toggleClass('reverse');
-    caret.toggleClass('no-reverse');
+  
+  /**
+    * Collapse panels
+    */
+  $('.dashboard-section').click(function(e) {
+    var content= $(this).parents('.row').children('.collapsible');
+    var wasOpen = content.hasClass('show');
+
+    $('.collapsible.show').removeClass('show');
+    $('.caret').removeClass('reverse');
+    $('.caret').addClass('no-reverse');
+    if (!wasOpen) {
+      var caret= $(this).find('.caret');
+      content.toggleClass('show');
+      caret.toggleClass('reverse');
+      caret.toggleClass('no-reverse');
+    }
   });
 
   /**
@@ -226,8 +245,14 @@ $(document).on('turbolinks:load', function() {
       var $input = $('<input/>').attr('type', element.input)
               .attr('name', el )
               .attr('class', "language-input");
-      $container.append($label);
-      $container.append($input);
+      if (element.input === "checkbox") {
+        $container.append($input);
+        $container.append($label);
+      } else {
+        $container.append($label);
+        $container.append($input);
+      }
+      
       $field.append($container);
       $lang.append($field);
 
@@ -243,7 +268,6 @@ $(document).on('turbolinks:load', function() {
     $('.lang-list').append($lang)
 
   });
-
 
   /**
     * Intercept language form
@@ -276,7 +300,6 @@ $(document).on('turbolinks:load', function() {
     return true;
   });
 
-
   /**
     * Delete work
     */
@@ -288,7 +311,6 @@ $(document).on('turbolinks:load', function() {
     * Add callback to all delete buttons in work form
     */
   $('.delete-work-button').click(deleteWork);
-
 
   /**
     * Add a new work experience
@@ -323,7 +345,6 @@ $(document).on('turbolinks:load', function() {
     $('.work-list').append($work)
 
   });
-
 
   /**
     * Intercept work form

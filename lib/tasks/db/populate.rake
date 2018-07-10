@@ -6,6 +6,8 @@ namespace :db do
 		user.email = "admin@eid4u.org"
 		user.password = "demonstration"
 		user.role = :admin
+		user.first_name = "Administrator"
+		user.family_name = "of the application"
 		user.save!
 
 		pupil = User.new

@@ -1,14 +1,19 @@
 module PdfHelper
     def create_pdf(user)
-        Prawn::Document.new do
+        Prawn::Document.new:page_size => 'A4' do
         	steps = user.student_application_form
 
         	# Blue box with logo
         	def header
         		fill_color "4664A2"
-        		rectangle [-40, 760], 632, 60
+        		rectangle [-40, 810], 632, 60
         		fill
-        		image Rails.root.join("app/assets/images/etsit2.jpg"), :width => 80, :at => [-10, 740]
+                image Rails.root.join("app/assets/images/etsit2.jpg"), :width => 80, :at => [30, 790]
+        		image Rails.root.join("app/assets/images/UPM.jpg"), :width => 31, :at => [-10, 790]
+                fill_color "FFFFFF"
+                move_up 16
+                text "Application Form" , :align => :right, :size => 16
+                move_down 16
         		fill_color "000000"
         	end
 

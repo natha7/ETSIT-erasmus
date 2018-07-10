@@ -8,7 +8,7 @@
 <br/><br/>
 <p class="no-results">The selected user does not exist</p>
 <%else%>
-
+<% admin = current_user %>
 <% current_user = User.find(params[:user]) %>
 <h1 class="title"> You are reviewing <%= current_user.first_name %>'s application</h1>
 
@@ -17,8 +17,8 @@
 <div class="dashboard-container">
 	<div class="left-column">
 		<div class="picture-container"> 
-		<img class="picture tiny" src="<%=current_user.photo %>"/>
- 		<p> Admin</p>
+		<img class="picture tiny" src="<%=admin.photo %>"/>
+ 		<p><%= admin.first_name.blank? ? "Administrator" : (admin.first_name + " " + admin.family_name) %></p>
  		</div>
  		<div class="picture-container"> 	
 		<img class="picture" src="<%=current_user.photo %>"/>
@@ -30,7 +30,7 @@
 			<div class="second-container">
 				<span class="second-container-left dashboard-section" id="application-form-tab">
 					<label> 
-						<i class="caret mdi mdi-menu-down no-reverse"></i>Application Form
+						Application Form<i class="caret mdi mdi-menu-down no-reverse"></i>
 					</label>
 				</span>
 				<div class="second-container-medium">
@@ -40,10 +40,11 @@
 						<% completed_steps_array = current_user.student_application_form.completed_steps_array %>
 						<% *prefix, last = completed_steps_array %>
 						<% final_steps_array = [*prefix, true, last] %>
+						<% titles = ["Sending Institution", "Purpose of stay", "Study year", "Language Competence", "Work Experience", "Previous and current studies"] %>
 						<% for i in 1..6 do %>
 							<% classBall = final_steps_array[i-1] ? "done-step" : "todo-step" %>
 							<% ball = "<span class='progress-ball  #{classBall}'></span>"%>
-							<%= link_to ball.html_safe, "/review_student_application_form/#{current_user.id}" + "/#{i}"%>
+							<%= link_to ball.html_safe, "/review_student_application_form/#{current_user.id}" + "/#{i}", :title => titles[i-1] %>
 						<% end %>
 					</div>
 				</div>
