@@ -1,6 +1,8 @@
 require "prawn"
 class StudentApplicationFormController < ApplicationController
 	before_action :authenticate_user!
+	before_action :validate_admin?, only: [:review_step]
+
 	include PdfHelper
 	def sap_page
 		@sap = current_user.student_application_form

@@ -1,9 +1,17 @@
 class UserController < ApplicationController
 	before_action :authenticate_user!, except: [:digital_certificate, :token_registration, :create_user, :register_with_email_and_password, :register_with_eidas]
+	
+	before_action :validate_admin?, only: [:admin_dashboard, :set_user_status, :review_dashboard]
 
 	### ADMIN
 	def admin_dashboard
 		render "users/admin_dashboard"
+	end
+	def set_user_status
+		user = User.find(params[:user][:id])
+		user.progress_status = params[:user][:progress_status]
+		user.save!
+		redirect_to admin_dashboard_path
 	end
 
 	### USER

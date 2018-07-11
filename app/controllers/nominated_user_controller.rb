@@ -1,6 +1,10 @@
 class NominatedUserController < ApplicationController
+	before_action :authenticate_user!, except: [:register]
+	before_action :validate_not_user?, only: [:register]
+	before_action :validate_admin?, only: [:create_nominee, :resend_email, :delete_nominee]
+
+
 	def create_nominee
-		if current_user.admin?
 			nominee = NominatedUser.new
 			nominee.email = params[:email]
 			unless nominee.save
@@ -10,28 +14,19 @@ class NominatedUserController < ApplicationController
 				NomineeMailer.user_creation_email(nominee).deliver_now
 				redirect_to admin_dashboard_path
 			end
-		else
-			redirect_to root
-		end
 	end
 
 	def resend_email
-		if current_user.admin?
 			nominee = NominatedUser.find_by :id => params[:id]
 			nominee.regenerate_registration_token
 			NomineeMailer.user_creation_email(nominee).deliver_now
-		end
 	end
 
 	def delete_nominee
-		if current_user.admin?
 			nominee = NominatedUser.find_by :id => params[:id]
 			nominee.destroy!
 
 			redirect_to admin_dashboard_path
-		else
-			redirect_to root
-		end
 	end
 
 	def register

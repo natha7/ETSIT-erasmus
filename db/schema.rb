@@ -129,6 +129,7 @@ ActiveRecord::Schema.define(version: 2018_05_23_122232) do
     t.integer "english_test_score_file_size"
     t.datetime "english_test_score_updated_at"
     t.integer "role"
+    t.integer "progress_status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true

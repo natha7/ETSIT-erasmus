@@ -2,7 +2,11 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   enum role: [:user, :admin]
+
+  enum progress_status: [:process, :finished, :rejected, :accepted, :renounce]
   after_initialize :set_default_role, :if => :new_record?
+  after_initialize :set_default_progress_status, :if => :new_record?
+  after_save :check_progress
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
@@ -14,8 +18,7 @@ class User < ApplicationRecord
   has_attached_file :transcript_of_records
   has_attached_file :learning_agreement
   has_attached_file :valid_insurance_policy
-  has_attached_file :photo,
-    :default_url  => '/assets/placeholder.png'
+  has_attached_file :photo, :default_url  => '/assets/placeholder.png'
   has_attached_file :ni_passport
   has_attached_file :recommendation_letter_1
   has_attached_file :recommendation_letter_2
@@ -61,32 +64,7 @@ class User < ApplicationRecord
   
 
   def status
-    stf = self.student_application_form
-    [
-      self.motivation_letter, 
-      self.curriculum_vitae, 
-      self.transcript_of_records, 
-      self.learning_agreement,
-      stf.inst_sending_name,
-      stf.inst_adress,
-      stf.school_family_dpt,
-      stf.erasmus_code,
-      stf.dept_coordinator,
-      stf.contact_person,
-      stf.inst_telephone,
-      stf.inst_email,
-      stf.academic_year,
-      stf.programme,
-      stf.field_of_study,
-      stf.project_work,
-      stf.under_grad_courses,
-      stf.graduate_courses,
-      stf.mother_tongue,
-      stf.language_instruction,
-      stf.current_diploma_degree,
-      stf.year_attended,
-      stf.specialization_area
-    ].uniq.all?{|x| !x.blank?} ? "Finished" : "Not Finished"
+    self.percentage_num.to_i == 100 ? "Finished" : "Not Finished"
   end
 
   def percentage_num
@@ -111,10 +89,24 @@ class User < ApplicationRecord
     percentage_num.to_s + "%"
   end
 
+  def admin?
+    role == "admin"
+  end
+
   private
+
+  def check_progress
+    if self.role == "user" && self.progress_status == "process" && percentage_num.to_i == 100
+      self.progress_status = :finished
+    end
+  end
 
   def set_default_role
     self.role ||= :user
+  end
+
+  def set_default_progress_status
+    self.progress_status ||= :process
   end
 
   def create_student_application_form
@@ -127,6 +119,8 @@ class User < ApplicationRecord
   def not_admin?
       role != "admin"
   end
+
+ 
 
   def clean_paperclip_errors
     errors.delete(:motivation_letter)

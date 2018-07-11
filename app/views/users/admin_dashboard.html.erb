@@ -5,12 +5,6 @@
 <% users = User.where("lower(email) LIKE ? and lower(first_name) LIKE ?", like_email.downcase, like_name.downcase).reject{|t| t.role == "admin"} %>
 <% nominees = NominatedUser.where("lower(email) LIKE ? ", like_email.downcase)%>
 
-<% unless current_user.role == 'admin'%>
-  <br/><br/>
-  <p class="no-results">You do not have permission to access this page</p>
-<% else %>
-
-
 <% admin_name = current_user.first_name.blank? ? "Administrator" : (current_user.first_name + " " + current_user.family_name) %>
 <h1 class="title"> Hi, <%=admin_name%></h1>
 <p class="intro-paragraph">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
@@ -149,7 +143,14 @@
         </div>
         <div class="user-<%= user.id %>-id flex-table-cell flex-table-status">
           <span class="big-hidden">Status: </span>
-          <%= user.status %>
+          <% if user.progress_status == "process" || user.progress_status == "renounce" %>
+            <%= user.progress_status %>
+            <% else %>
+              <%= form_for(user, url: set_user_status_path,  method: :post) do |f|%>
+                <%= f.select :progress_status, [:finished, :rejected, :accepted, :renounce], {}, {value: user.progress_status, class: 'form-control', onchange: 'this.form.submit();'}%>
+                <%= f.hidden_field :id, :value => user.id %>
+              <%end%>
+            <%end%>
         </div>
         <div class="user-<%= user.id %>-id flex-table-cell flex-table-pctg">
           <span class="big-hidden">Progress: </span>
@@ -187,4 +188,3 @@
   </div>
 
   <br/><br/>
-  <% end %>

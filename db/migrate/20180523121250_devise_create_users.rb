@@ -22,7 +22,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.2]
       t.string :sex
       t.string :permanent_adress
       t.string :phone_number
-      t.boolean :seeking_degree
+      t.boolean :seeking_degree 
 
       ## Trackable
       t.integer  :sign_in_count, default: 0, null: false
@@ -55,6 +55,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.2]
       # t.string   :unlock_token # Only if unlock strategy is :email or :both
       # t.datetime :locked_at
       t.integer :role
+      t.integer :progress_status
 
 
       t.timestamps null: false
