@@ -3,3 +3,55 @@
 		display: inline-block
 		padding-right: 5px
 	padding-top: 15px
+	
+.new_user
+	.signin-container
+		justify-content: center
+	.flex-left-new
+		flex: 1
+		text-align: right
+		padding-right: 20px
+		border-right: 1px solid black
+
+	.flex-right-new
+		flex: 1
+		padding-left: 20px
+		.flex-container
+			justify-content: center
+			flex-direction: column
+			height: 100%
+			a
+				margin: auto
+				margin-left: 15px
+	.field
+		display: block
+		padding: 11px  !important
+		padding-left: 0px !important
+		flex-grow: 1
+		.flex-container
+			justify-content: flex-end
+			input
+				min-width: 200px
+
+	.flex-container
+		display: flex
+		flex-direction: row
+		label
+			width: auto
+			padding-right: 12px
+		input, select
+	
+
+@media (max-width: 700px)
+	.new_user
+		.flex-container
+			flex-direction: column
+		.flex-left-new, .flex-right-new
+			text-align: left
+			border:none
+		.flex-left-new
+			border-right: none
+		.flex-right-new
+			.flex-container
+				input
+					margin-left: -10px !important

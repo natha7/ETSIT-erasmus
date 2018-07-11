@@ -114,7 +114,7 @@ class UserController < ApplicationController
 		users = User.all.reject{|t| t.role == "admin"}
 		emails = ""
 		users.each do |user|
-			emails += "#{user.email};"
+			emails += "#{user.email},"
 		end
 		redirect_to "mailto:?bcc=#{emails}&subject=ETSIT-UPM International Office&body=Dear Students,%0A%0a"
 	end

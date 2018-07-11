@@ -1,16 +1,19 @@
-<h1>Log in</h1>
+<h1 class="title"> Log in</h1>
+<p class="intro-paragraph">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptafite velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+<div class="flex-container signin-container">
+<div class="flex-left-new">
   <div class="field">
     <div class="flex-container">
-    <%= f.label :email %><br />
+    <%= f.label :email %> 
     <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
     </div>
   </div>
 
   <div class="field">
     <div class="flex-container">
-    <%= f.label :password %><br />
+    <%= f.label :password %> 
     <%= f.password_field :password, autocomplete: "off" %>
     </div>
   </div>
@@ -21,10 +24,18 @@
       <%= f.label :remember_me %>
     </div>
   <% end -%>
+</div>
+<div class="flex-right-new">
+ <div class="flex-container">
+  <%= link_to "I have a digital certificate", digital_certificate_path,  :class => "custom-button" %>
+ </div>
+</div>
+</div>
 
   <div class="actions">
     <%= f.submit "Log in", :class => "custom-button" %>
   </div>
+
 <% end %>
 
 <%= render "devise/shared/links"  %>
