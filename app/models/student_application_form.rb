@@ -84,8 +84,6 @@ class StudentApplicationForm < ApplicationRecord
 
   		fifth_complete = self[:work_experiences].blank? ? self[:no_work_experience] : false
 
-  		puts self[work_experiences]
-  		puts 222222
 	  	sixth = [
 	  		:current_diploma_degree,
 	  		:year_attended,

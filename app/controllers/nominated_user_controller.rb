@@ -3,12 +3,11 @@ class NominatedUserController < ApplicationController
 	before_action :validate_not_user?, only: [:register]
 	before_action :validate_admin?, only: [:create_nominee, :resend_email, :delete_nominee]
 
-
 	def create_nominee
 		nominee = NominatedUser.new
 		nominee.email = params[:email]
-		unless nominee.save
-			flash[:error] = "Email already registered"
+		unless !params[:email].blank? and nominee.save 
+			flash[:error] = nominee.errors.full_messages.to_sentence
 			redirect_to admin_dashboard_path
 		else
 			url = request.base_url
