@@ -29,8 +29,6 @@ class StudentApplicationFormController < ApplicationController
 		@sap = current_user.student_application_form
 		step = params[:step].to_i
 		step = nil if (step.to_s != params[:step])
-		puts 22222222222
-		puts step
 		@sap.update(params.require(:student_application_form).permit(
 				:inst_sending_name, 
 				:inst_adress,
