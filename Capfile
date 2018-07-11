@@ -20,6 +20,7 @@ require 'capistrano/rbenv_install'
 require 'capistrano/bundler'
 require 'capistrano/rails'
 require 'capistrano/puma'
+require 'capistrano/puma/nginx'
 
 # Include tasks from other gems included in your Gemfile
 #
