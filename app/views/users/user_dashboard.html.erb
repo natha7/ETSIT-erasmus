@@ -1,4 +1,5 @@
 <%= button_to "Log out", destroy_user_session_path, :method=> :delete, :class => "custom-button right"%>
+<a href="mailto:internacional@etsit.upm.es" class="right"><button class="custom-button">OI Contact</button></a>
 <% unless current_user.role != 'admin'%>
 	<br/><br/>
   <p class="no-results">You do not have permission to access this page</p>
