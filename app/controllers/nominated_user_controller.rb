@@ -7,7 +7,8 @@ class NominatedUserController < ApplicationController
 				flash[:error] = "Email already registered"
 				redirect_to admin_dashboard_path
 			else
-				NomineeMailer.user_creation_email(nominee).deliver_now
+				url = request.base_url
+				NomineeMailer.user_creation_email(nominee, url).deliver_now
 				redirect_to admin_dashboard_path
 			end
 		else
@@ -19,7 +20,8 @@ class NominatedUserController < ApplicationController
 		if current_user.admin?
 			nominee = NominatedUser.find_by :id => params[:id]
 			nominee.regenerate_registration_token
-			NomineeMailer.user_creation_email(nominee).deliver_now
+			url = request.base_url
+			NomineeMailer.user_creation_email(nominee, url).deliver_now
 		end
 	end
 

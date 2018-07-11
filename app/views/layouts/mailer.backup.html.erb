@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+      <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+    </head>
+    <body>
+    <header style="background-color: #4664A2;color:white; padding:15px; ">
+    <h1 style="font-size: 30px;">ETSIT-UPM</h1>
+    </header>
+    <article style=" padding:15px;">
+      <h2>Hi <%= @nominee.email %>,</h2>
+      <h3>You have been selected for the ETSIT UPM Erasmus Programme</h3>
+      <p>
+        In order to submit your application you must register in the ETSIT Erasmus platform.</p>
+        <p> Follow this link: <a style="color: #4664A2;" href="<%= @nominee_url %>"><%= @nominee_url %></a>.
+      </p>
+      <p>Thanks for joining and have a great day!</p>
+    </article>
+    <footer style="background-color: #eee; font-size: 10px; width: 100%; padding: 15px;">
+      <p>Oficina Internacional</p>
+      <address>
+      <p>Escuela Técnica Superior de Ingenieros de Telecomunicación</p>
+      <p>Av. Complutense, 30, 28040 Madrid</p>
+      <p>Spain</p>
+      </address>
+    </footer>
+    </style>
+  </body>
+</html>
