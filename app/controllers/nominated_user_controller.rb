@@ -5,25 +5,23 @@ class NominatedUserController < ApplicationController
 
 
 	def create_nominee
-			nominee = NominatedUser.new
-			nominee.email = params[:email]
-			unless nominee.save
-				flash[:error] = "Email already registered"
-				redirect_to admin_dashboard_path
-			else
-				url = request.base_url
-				NomineeMailer.user_creation_email(nominee, url).deliver_now
-				redirect_to admin_dashboard_path
-			end
+		nominee = NominatedUser.new
+		nominee.email = params[:email]
+		unless nominee.save
+			flash[:error] = "Email already registered"
+			redirect_to admin_dashboard_path
+		else
+			url = request.base_url
+			NomineeMailer.user_creation_email(nominee, url).deliver_now
+			redirect_to admin_dashboard_path
+		end
 	end
 
 	def resend_email
-			nominee = NominatedUser.find_by :id => params[:id]
-			nominee.regenerate_registration_token
-			url = request.base_url
-			NomineeMailer.user_creation_email(nominee, url).deliver_now
-		end
-
+		nominee = NominatedUser.find_by :id => params[:id]
+		nominee.regenerate_registration_token
+		url = request.base_url
+		NomineeMailer.user_creation_email(nominee, url).deliver_now
 	end
 
 	def delete_nominee
