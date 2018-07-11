@@ -30,17 +30,6 @@ set :repo_url, 'https://github.com/abenitoc/eiD4U.git'
  set :puma_worker_timeout, nil
  set :puma_init_active_record, true
 
- namespace :puma do
-  desc 'Create Directories for Puma Pids and Socket'
-  task :make_dirs do
-    on roles(:app) do
-      execute "mkdir #{shared_path}/tmp/sockets -p"
-      execute "mkdir #{shared_path}/tmp/pids -p"
-    end
-  end
-
-  before :start, :make_dirs
-end
 
 
 # Default value for :format is :airbrussh.
