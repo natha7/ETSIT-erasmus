@@ -7,4 +7,5 @@ class ApplicationController < ActionController::Base
   			user_dashboard_path
   		end
 	end
+
 end

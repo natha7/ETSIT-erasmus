@@ -22,6 +22,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.2]
       t.string :sex
       t.string :permanent_adress
       t.string :phone_number
+      t.boolean :seeking_degree
 
       ## Trackable
       t.integer  :sign_in_count, default: 0, null: false
