@@ -1,5 +1,7 @@
-<%= button_to "Log out", destroy_user_session_path, :method=> :delete, :class => "custom-button right"%>
-<a href="mailto:internacional@etsit.upm.es" class="right"><button class="custom-button">OI Contact</button></a>
+<div class="align-right">
+<a href="mailto:internacional@etsit.upm.es" class="inline"><button class="custom-button">OI Contact</button></a>
+<%= button_to "Log out", destroy_user_session_path, :method=> :delete, :class => "custom-button ", :form_class => "inline" %>
+</div>
 <% unless current_user.role != 'admin'%>
 	<br/><br/>
   <p class="no-results">You do not have permission to access this page</p>
@@ -27,6 +29,7 @@
 					<div class="progress-bar">
 						<div class="progress-line">
 						</div>
+						<div class="progress-balls">
 						<% final_steps_array = current_user.student_application_form.completed_steps_array %>
 						<% titles = ["Sending Institution", "Purpose of stay", "Study year", "Language Competence", "Work Experience", "Previous and current studies"] %>
 						<% for i in 1..6 do %>
@@ -34,6 +37,7 @@
 							<% ball = "<span class='progress-ball  #{classBall}'></span>"%>
 							<%= link_to ball.html_safe, student_application_form_path + "/#{i}", :title => titles[i-1] %>
 						<% end %>
+						</div>
 					</div>
 				</div>
 				<div class="second-container-right">

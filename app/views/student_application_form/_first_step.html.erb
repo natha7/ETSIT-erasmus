@@ -50,14 +50,14 @@
 <div class="field field_inst_telephone">
   <div class="flex-container">
     <%= f.label :inst_telephone %><br />
-    <%= f.text_field :inst_telephone, autofocus: true, autocomplete: "inst_telephone", disabled: review %>
+    <%= f.telephone_field :inst_telephone, autofocus: true, autocomplete: "inst_telephone", disabled: review %>
   </div>
 </div>
 
 <div class="field field_inst_email">
   <div class="flex-container">
     <%= f.label :inst_email %><br />
-    <%= f.text_field :inst_email, autofocus: true, autocomplete: "inst_telephone", disabled: review %>
+    <%= f.email_field :inst_email, autofocus: true, autocomplete: "inst_email", disabled: review %>
   </div>
 </div>
 </div>

@@ -1,4 +1,4 @@
-<a href="<%=user_dashboard_path%>" class="back-to-dashboard"><button class='custom-button  right'> Back to dashboard</button></a>
+<a href="<%=user_dashboard_path%>" class="back-to-dashboard"><button class='custom-button  right'>Dashboard</button></a>
 
 <div class="student-application-form">
     <%= form_for @sap, url: student_application_form_path, :method => :post do |f| %>
@@ -10,6 +10,8 @@
     <div class="progress-bar">
         <div class="progress-line">
         </div>
+        <div class="progress-balls">
+
         <% for i in 1..6 do %>
             <% classBall = final_steps_array[i-1] ? "done-step" :"todo-step " %>
             <%if @sap.step > i %>
@@ -22,6 +24,7 @@
                 <%= link_to "<span class='progress-ball future-step #{classBall}'></span>".html_safe, student_application_form_path + "/#{i}"%>
             <%end%>
         <% end %>
+        </div>
     </div>
     <div class="progress-buttons">
         <%if @sap.step - 1 > 0 %>

@@ -1,5 +1,7 @@
-<a href="<%="/review_dashboard/#{params[:user]}"%>" class="back-to-dashboard"><button class='custom-button  right'> Back to dashboard</button></a>
+<div class="align-right">
+<a href="<%="/review_dashboard/#{params[:user]}"%>" class="back-to-dashboard"><button class='custom-button '> Dashboard</button></a>
 
+</div>
 <div class="student-application-form">
     <% user = User.find(params[:user]) %> 
     	<%= form_for user.student_application_form, url: student_application_form_path, :method => :post do |f| %>
@@ -12,6 +14,7 @@
             <div class="progress-bar">
                 <div class="progress-line">
                 </div>
+                <div class="progress-balls">
                 <% for i in 1..6 do %>
                     <% classBall = final_steps_array[i-1] ? "done-step" :"todo-step " %>
                     <%if params[:step].to_i > i %>
@@ -24,6 +27,7 @@
                         <%= link_to "<span class='progress-ball future-step #{classBall}'></span>".html_safe, "/review_student_application_form/#{params[:user]}" + "/#{i}"%>
                     <%end%>
                 <% end %>
+                </div>
             </div>
         <div class="progress-buttons">
             <%if params[:step].to_i - 1 > 0 %>

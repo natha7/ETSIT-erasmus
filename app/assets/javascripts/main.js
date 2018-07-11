@@ -8,8 +8,8 @@ $(document).on('turbolinks:load', function() {
   var work_elements = [
     {key: "type", label: "Position", input: "text"},
     {key: "firm_organisation", label: "Organisation", input: "text"},
-    {key: "dates", label: "Dates", input: "text"},
-    {key: "country", label: "Country", input: "text"},
+    {key: "dates", label: "Dates", input: "daterange"},
+    {key: "country", label: "Country", input: "select"},
   ];
 
   /**
@@ -269,7 +269,7 @@ $(document).on('turbolinks:load', function() {
     }
     var $button = $('<button/>')
             .attr('type', "button")
-            .attr('class', "delete-lang-button transparent-button action-button");
+            .attr('class', "delete-lang-button transparent-button small-button");
     $button.click(deleteLang);
     var $icon = $('<i/>')
             .attr('class', "mdi mdi-close");
@@ -327,24 +327,41 @@ $(document).on('turbolinks:load', function() {
   $('#add-work').click(function(e){
     var $work = $('<div class="work"></div>');
 
+    work_elements[3].options = window.country_list;
+    console.log(work_elements[3].options)
     for (var i in work_elements) {
       var element = work_elements[i];
       var el = element.key;
       var $field = $('<div class="field"></div>');
       var $container = $('<div class="flex-container"></div>');
       var $label = $('<label/>').attr("for", el ).text(element.label);
+
       var $input = $('<input/>').attr('type', element.input)
               .attr('name',el)
               .attr('class', "work-input");
+
+      if(element.input === 'select' && element.options) {
+        $input = $('<select/>') 
+              .attr('name',el)
+              .attr('class', "work-input");
+        for (var opt in element.options) {
+          $option = $('<option/>') 
+              .attr('value', element.options[opt])
+              .text(element.options[opt])
+          $input.append($option)
+
+        }
+      }
       $container.append($label);
       $container.append($input);
+
       $field.append($container);
       $work.append($field);
 
     }
     var $button = $('<button/>')
             .attr('type', "button")
-            .attr('class', "delete-work-button transparent-button action-button");
+            .attr('class', "delete-work-button transparent-button small-button");
     $button.click(deleteWork);
     var $icon = $('<i/>')
             .attr('class', "mdi mdi-close");
@@ -358,6 +375,7 @@ $(document).on('turbolinks:load', function() {
     * Intercept work form
     */
   $('#work-form').submit(function( ){
+
     var works = [];
     $('.work-hidden').remove();
     $('.work-list .work').each(function(l,work){

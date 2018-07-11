@@ -21,27 +21,26 @@
 		<div class="field">
 			<div class="flex-container">
 				<label for="type">Position</label>
-				<input type="text" name="type" class="work-input" <%=review ? "disabled" : ""%> value="<%=work.value%>"/>
+				<input type="text" name="type" class="work-input" <%=review ? "disabled" : ""%> value="<%=work.type%>"/>
 			</div>
 		</div>
 		<div class="field">
 			<div class="flex-container">
-				<input type="text" name="firm_organisation" class="work-input" <%=review ? "disabled" : ""%> value="<%=work.currently_studying%>"/>
+				<input type="text" name="firm_organisation" class="work-input" <%=review ? "disabled" : ""%> value="<%=work.firm_organisation%>"/>
 				<label for="firm_organisation">Organisation</label>
 			</div>
 		</div>
 		<div class="field">
 			<div class="flex-container">
-				<input type="text" name="dates" class="work-input" <%=review ? "disabled" : ""%> value="<%=work.able_follow_lectures%>"/>
+				<input type="daterange" name="dates" class="work-input" <%=review ? "disabled" : ""%> value="<%=work.dates%>"/>
 				<label for="dates">Dates</label>
 
 			</div>
 		</div>
 		<div class="field">
 			<div class="flex-container">
-				<input type="text" name="country" class="language-input" <%=review ? "disabled" : ""%> value="<%=work.value%>"/>
-				<label for="country">Country</label>
-
+				<%= f.label :country %><br />
+				<%= f.select :country, country_list, autocomplete: "country-name" %>
 			</div>
 		</div>
 		<button type="button" class="delete-work-button transparent-button action-button">
@@ -54,4 +53,11 @@
 	</div>
 	</div>
 </div>
-	 
+<div id="hidden-countries" style="display:none;">
+
+	 <%=country_list%>
+</div>
+<script>
+	window.country_list = JSON.parse($('#hidden-countries').text());
+
+</script>

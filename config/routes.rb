@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   get 'user_dashboard', to: "user#user_dashboard"
   get 'review_dashboard/:user', to: "user#review_dashboard"
   get 'admin_dashboard', to: "user#admin_dashboard"
-
+  get 'massive_email', to: "user#massive_email"
 
   post 'create_nominee', to: "nominated_user#create_nominee"
   post 'resend_email', to: "nominated_user#resend_email"

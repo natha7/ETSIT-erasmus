@@ -3,33 +3,40 @@
 .progress-bar
 	position: relative
 	display: inline-block
+	z-index: 0
 	.progress-line
 		height: 2px
-		position: absolute
+		position: relative
 		background-color: $etsit_blue
+		
 		top: calc(50% + 1px)
 		width: 100%
 		z-index: -1
+	.progress-balls
+		z-index: 1
+		margin-top: -13px
 	.progress-ball
 		border: 1px solid white
 		background-color: $etsit_blue
 		border-radius: 50%
-		width: 10px
+		
 		vertical-align: middle
-		height: 10px
 		margin: 0px 20px
 		display: inline-block
+		height: 7px
+		width: 7px
 		&.previous-step
-			height: 7px
-			width: 7px
+			
 		&.future-step
-			 
+		&.current-step
+			width: 13px
+			height: 13px
 		&.todo-step
 			background-color: white
 			border-color: $etsit_blue
 		&.done-step
 			background-color: $etsit_blue
-			border-color: white
+			border-color: $etsit_blue
 .progress-buttons
 		float: right
 @media (max-width: 628px)
@@ -37,12 +44,12 @@
 		.progress-line
 			height: 1px	
 		.progress-ball
-				width: 6px
-				height: 6px
+				width: 5px
+				height: 5px
 				margin: 0px 10px
-				&.previous-step
-					height: 4px
-					width: 4px
+				&.current-step
+					height: 9px
+					width: 9px
 @media (max-width: 500px)
 	.progress-bar
 		display: none	

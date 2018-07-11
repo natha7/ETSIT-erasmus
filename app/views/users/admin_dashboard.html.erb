@@ -1,5 +1,7 @@
-<%= button_to "Log out", destroy_user_session_path, :method=> :delete, :class => "custom-button right"%>
-
+<div class="align-right">
+<%= button_to "Contact users", "/massive_email", :method=> :get, :class => "custom-button ", :form_class =>"inline"%>
+<%= button_to "Log out", destroy_user_session_path, :method=> :delete, :class => "custom-button ", :form_class =>"inline"%>
+</div>
 <% like_email = "%#{ params[:email]}%"    %>
 <% like_name = "%#{ params[:name]}%"    %>
 <% users = User.where("lower(email) LIKE ? and lower(first_name) LIKE ?", like_email.downcase, like_name.downcase).reject{|t| t.role == "admin"} %>
@@ -35,20 +37,26 @@
   </div>
   <div class="right-column">
     <div class="row">
+      <span class="dashboard-section"  >
+        <label> 
+        Nominated users
+          <i class="caret mdi mdi-menu-down no-reverse"></i>
+        </label>
+        <div class="right" style="margin-top:16px;">
 
-      <span class="dashboard-section">Nominated users</span>
-      <div class="right">
+          <%= form_tag(create_nominee_path, :method=> :post) do %>
 
-        <%= form_tag(create_nominee_path, :method=> :post) do %>
+          <div class="field nominee-form">
+            <%= email_field_tag 'email', nil, :placeholder =>  "Nominee e-mail", :class => "input-right"  %>
+            <button type="submit" class="right-addon"><i class="mdi mdi-send"></i></button>
+          </div>
 
-        <div class="field nominee-form">
-          <%= email_field_tag 'email', nil, :placeholder =>  "Nominee e-mail", :class => "input-right"  %>
-          <button type="submit" class="right-addon"><i class="mdi mdi-send"></i></button>
+          <%end%>
         </div>
+      </span>
+        <br/><br/>
 
-        <%end%>
-      </div>
-      <br/><br/>
+      <div class="collapsible big">
       <% unless nominees.empty? %>
       <div class="flex-table nominee-table">
         <div class="flex-table-header flex-table-cell flex-table-email-nominee">Email</div>
@@ -62,14 +70,14 @@
           <span class="dashboard-icon">
 
             <%= form_tag( resend_email_path(:id => nominee.id), :method=> :post) do %>
-              <button title="Resend email" class="transparent-button action-button"> <i class="mdi mdi-redo-variant dark"></i></button>
+              <button title="Resend email" class="transparent-button action-button small-button"> <i class="mdi mdi-redo-variant dark"></i></button>
             <% end %>
           </span>
         </div>
         <div class="nominee-<%= nominee.id %>-id flex-table-cell flex-table-erase">
           <span class="dashboard-icon">
             <%= form_tag( delete_nominee_path(:id => nominee.id), :method=> :delete) do %>
-              <button type="submit" title="Delete nominee" class="transparent-button action-button"> <i class="mdi mdi-close dark"></i></button>
+              <button type="submit" title="Delete nominee" class="transparent-button action-button small-button"> <i class="mdi mdi-close dark"></i></button>
             <% end %>
           </span>
         </div>
@@ -78,11 +86,20 @@
       <%else%>
         <p class="no-results">No results</p>
       <%end%>
+             <br/><br/>
+
+      </div>
     </div>
-    <br/><br/>
+   
     <div class="row">
-      <span class="dashboard-section">Registered users</span>
+      <span class="dashboard-section"  >
+             <label> 
+             Registered users
+               <i class="caret mdi mdi-menu-down no-reverse"></i>
+             </label>
+      </span>
       <br/><br/>
+      <div class="collapsible big">
       <% unless users.empty? %>
       <div class="flex-table ">
         <div class="flex-table-header flex-table-cell flex-table-email">Email</div>
@@ -162,6 +179,7 @@
       <%else%>
           <p class="no-results">No results</p>
       <%end%>
+    </div>
     </div>
   </div>
   <div id="edit-picture-dialog" > 

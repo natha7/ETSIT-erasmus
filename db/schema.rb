@@ -78,7 +78,7 @@ ActiveRecord::Schema.define(version: 2018_05_23_122232) do
     t.string "sex"
     t.string "permanent_adress"
     t.string "phone_number"
-    t.boolean "seeking_degree"
+    t.boolean "seeking_degree", default: false
     t.integer "sign_in_count", default: 0, null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
