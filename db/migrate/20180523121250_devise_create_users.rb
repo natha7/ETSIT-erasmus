@@ -31,6 +31,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.2]
       t.inet     :current_sign_in_ip
       t.inet     :last_sign_in_ip
 
+      t.attachment :signed_student_application_form
       t.attachment :motivation_letter
       t.attachment :curriculum_vitae
       t.attachment :transcript_of_records

@@ -15,6 +15,7 @@ class User < ApplicationRecord
 
   has_one :student_application_form
   accepts_nested_attributes_for :student_application_form
+  has_attached_file :signed_student_application_form
   has_attached_file :motivation_letter
   has_attached_file :curriculum_vitae
   has_attached_file :transcript_of_records
@@ -31,6 +32,7 @@ class User < ApplicationRecord
   after_validation :clean_paperclip_errors
 
   #validations
+  validates_attachment_content_type :signed_student_application_form, :content_type => ["application/pdf", "application/doc", "application/docx", "image/jpeg", "image/gif", "image/png", "image/jpg", "image/bmp"]
   validates_attachment_content_type :motivation_letter, :content_type => ["application/pdf", "application/doc", "application/docx", "image/jpeg", "image/gif", "image/png", "image/jpg", "image/bmp"]
   validates_attachment_content_type :curriculum_vitae, :content_type => ["application/pdf", "application/doc", "application/docx", "image/jpeg", "image/gif", "image/png", "image/jpg", "image/bmp"]
   validates_attachment_content_type :transcript_of_records, :content_type => ["application/pdf", "application/doc", "application/docx", "image/jpeg", "image/gif", "image/png", "image/jpg", "image/bmp"]
@@ -43,6 +45,7 @@ class User < ApplicationRecord
   validates_attachment_content_type :official_gpa, :content_type => ["application/pdf", "application/doc", "application/docx", "image/jpeg", "image/gif", "image/png", "image/jpg", "image/bmp"]
   validates_attachment_content_type :english_test_score, :content_type => ["application/pdf", "application/doc", "application/docx", "image/jpeg", "image/gif", "image/png", "image/jpg", "image/bmp"]
 
+  validates_attachment_size :signed_student_application_form, :less_than => 4.megabytes
   validates_attachment_size :motivation_letter, :less_than => 4.megabytes
   validates_attachment_size :curriculum_vitae, :less_than => 4.megabytes
   validates_attachment_size :transcript_of_records, :less_than => 4.megabytes
@@ -71,6 +74,7 @@ class User < ApplicationRecord
 
   def percentage_num
    attachment_values =  [
+     :signed_student_application_form,
      :motivation_letter,
      :curriculum_vitae,
      :transcript_of_records,
@@ -125,6 +129,7 @@ class User < ApplicationRecord
  
 
   def clean_paperclip_errors
+    errors.delete(:signed_student_application_form)
     errors.delete(:motivation_letter)
     errors.delete(:curriculum_vitae)
     errors.delete(:transcript_of_records)

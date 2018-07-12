@@ -70,6 +70,9 @@ class UserController < ApplicationController
 
 	def file_delete
 		case params[:attachment]
+		when "signed_student_application_form"
+			current_user.signed_student_application_form = nil
+			current_user.save!
 		when "motivation_letter"
 			current_user.motivation_letter = nil
 			current_user.save!
