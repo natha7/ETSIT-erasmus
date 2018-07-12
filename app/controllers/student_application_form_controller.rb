@@ -46,7 +46,8 @@ class StudentApplicationFormController < ApplicationController
 			end
 		end
 
-		if !params[:student_application_form][:work_experiences].blank?
+		if !params[:student_application_form][:work_experiences].blank? and params[:student_application_form][:no_work_experience] == "0"
+			binding.pry
 			@sap.work_experiences.destroy_all
 			wexes = params[:student_application_form][:work_experiences]
 			wexes.each do |wex|
