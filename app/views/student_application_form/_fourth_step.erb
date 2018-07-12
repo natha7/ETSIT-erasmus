@@ -37,23 +37,23 @@
 			</div>
 			<div class="field">
 				<div class="flex-container">
-					<input type="checkbox" name="currently_studying" class="language-input" <%=review ? "disabled" : ""%> checked="<%=language.currently_studying%>"/>
+					<input type="checkbox" name="currently_studying" class="language-input" <%=review ? "disabled" : ""%> <%=language.currently_studying ? "checked":"" %> />
 					<label for="currently_studying">Currently Studying</label>
 				</div>
 			</div>
 			<div class="field">
 				<div class="flex-container">
-					<input type="checkbox" name="able_follow_lectures" class="language-input" <%=review ? "disabled" : ""%> checked="<%=language.able_follow_lectures%>"/>
+					<input type="checkbox" name="able_follow_lectures" class="language-input" <%=review ? "disabled" : ""%> <%=language.able_follow_lectures ? "checked":"" %>/>
 					<label for="able_follow_lectures">Able to follow lectures</label>
 				</div>
 			</div>
 			<div class="field">
 				<div class="flex-container">
-					<input type="checkbox" name="able_follow_lectures_extra_preparation" class="language-input" <%=review ? "disabled" : ""%> checked="<%=language.able_follow_lectures_extra_preparation%>"/>
-					<label for="able_follow_lectures_extra_preparation">Able to follow lectures</label>
+					<input type="checkbox" name="able_follow_lectures_extra_preparation" class="language-input" <%=review ? "disabled" : ""%> <%=language.able_follow_lectures_extra_preparation ? "checked":"" %> />
+					<label for="able_follow_lectures_extra_preparation">Able to follow lectures with extra preparation</label>
 				</div>
 			</div>
-			<button type="button" class="delete-lang-button transparent-button action-button">
+			<button type="button" class="delete-lang-button transparent-button small-button">
 				<i class="mdi mdi-close"></i></button>
 			</div>
 		<% end %>

@@ -13,6 +13,7 @@
 
 <% unless review %>
 	<button class="custom-button" id="add-work" type="button">Add a new work experience</button>
+	<br/><br/>
 <%end%>
 <div class="work-list">
 <% if defined?(@sap.work_experiences) %>
@@ -26,31 +27,35 @@
 		</div>
 		<div class="field">
 			<div class="flex-container">
-				<input type="text" name="firm_organisation" class="work-input" <%=review ? "disabled" : ""%> value="<%=work.firm_organisation%>"/>
 				<label for="firm_organisation">Organisation</label>
+				<input type="text" name="firm_organisation" class="work-input" <%=review ? "disabled" : ""%> value="<%=work.firm_organisation%>"/>
 			</div>
 		</div>
 		<div class="field">
 			<div class="flex-container">
-				<input type="date" name="dates" class="work-input" <%=review ? "disabled" : ""%> value="<%=work.from%>"/>
 				<label for="dates">From</label>
+				<input type="date" name="from" class="work-input" <%=review ? "disabled" : ""%> value="<%=work.from%>"/>
 
 			</div>
 		</div>
 		<div class="field">
 			<div class="flex-container">
-				<input type="date" name="dates" class="work-input" <%=review ? "disabled" : ""%> value="<%=work.to%>"/>
 				<label for="dates">To</label>
+				<input type="date" name="to" class="work-input" <%=review ? "disabled" : ""%> value="<%=work.to%>"/>
 
 			</div>
 		</div>
 		<div class="field">
 			<div class="flex-container">
-				<%= f.label work[:country] %><br />
-				<%#= f.text_field work[:country], work_experience[index][:country],  autocomplete: "country-name" %>
+				<label for="dates">Country</label>
+				<select   name="country" class="work-input" <%=review ? "disabled" : ""%> value="<%=work.country%>">
+					<% for country in country_list %>
+						<option <%= work.country == country ? "selected" : "" %>><%= country%></option>
+					<% end %>
+				</select>
 			</div>
 		</div>
-		<button type="button" class="delete-work-button transparent-button action-button">
+		<button type="button" class="delete-work-button transparent-button small-button">
 			<i class="mdi mdi-close"></i></button>
 		</div>
 	<% end %>
@@ -65,6 +70,5 @@
 	 <%=country_list%>
 </div>
 <script>
-	window.country_list = JSON.parse($('#hidden-countries').text());
-
+	window.options = JSON.parse($('#hidden-countries').text());
 </script>

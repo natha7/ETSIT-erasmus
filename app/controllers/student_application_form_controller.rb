@@ -31,21 +31,22 @@ class StudentApplicationFormController < ApplicationController
 		@sap = current_user.student_application_form
 		step = params[:step].to_i
 		step = nil if (step.to_s != params[:step])
-
+		puts params[:student_application_form][:languages]
 		if !params[:student_application_form][:languages].blank?
 			@sap.languages.destroy_all
 			languages = params[:student_application_form][:languages]
 			languages.each do |language|
 				lan = Language.new
+				puts language
 				lan.name = language[:name]
-				lan.currently_studying = language[:currently_studying]
-				lan.able_follow_lectures = language[:able_follow_lectures]
-				lan.able_follow_lectures_extra_preparation = language[:able_follow_lectures_extra_preparation]
+				lan.currently_studying = language[:currently_studying].to_s == 'true' ? true : false 
+				lan.able_follow_lectures = language[:able_follow_lectures].to_s == 'true' ? true : false 
+				puts language[:able_follow_lectures_extra_preparation]
+				lan.able_follow_lectures_extra_preparation = language[:able_follow_lectures_extra_preparation].to_s == 'true' ? true : false 
 				@sap.languages << lan
 				lan.save!
 			end
 		end
-
 		if !params[:student_application_form][:work_experiences].blank? and params[:student_application_form][:no_work_experience] == "0"
 			
 			@sap.work_experiences.destroy_all
@@ -60,6 +61,8 @@ class StudentApplicationFormController < ApplicationController
 				@sap.work_experiences << we
 				we.save!
 			end
+		elsif params[:student_application_form][:no_work_experience] == "1" 
+			@sap.work_experiences.destroy_all
 		end
 		
 
