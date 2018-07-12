@@ -25,6 +25,7 @@
 						<i class="caret mdi mdi-menu-down no-reverse"></i>
 					</label>
 				</span>
+				<% finish_app_form = current_user.student_application_form.completed_percentage === '100%'%>
 				<div class="second-container-medium">
 					<div class="progress-bar">
 						<div class="progress-line">
@@ -42,7 +43,7 @@
 				</div>
 				<div class="second-container-right">
 					<span class="student-application-form-progress"><%=current_user.student_application_form.completed_percentage%></span>
-					<%if current_user.student_application_form.completed_percentage === '100%'%>
+					<%if finish_app_form %>
 						<span class="check_mark" style="float: none;"><i class="mdi mdi-check green"></i></span>
 					<%end%>
 				</div>
@@ -50,12 +51,23 @@
 			<div class="collapsible big">
 				<p class="intro-paragraph">Once you are done you must upload it signed by the home Institution Coordinator with the name and the code of the selected courses at ETSIT
 				</p>
+				<%= form_for current_user, url: user_file_upload_path, html: { multipart: true }, :method => :POST do |form| %>
+
+				<%if finish_app_form %>
+					<div class="align-right">
+						<div class="file-name">
+							<%= form.file_field "a" %>
+						</div>
+					</div>
+					<% end %>
 				<div class="align-right">
-					<button class="custom-button" disabled>Upload signed</button>
-					<a download="application_form.pdf" href="/generate_pdf"><button class="custom-button" >Download</button></a>
+					
+					<button class="custom-button" <%=finish_app_form ? "":"disabled" %> >Upload signed</button>
+					<a download="application_form.pdf" href="/generate_pdf"><button class="custom-button" <%=finish_app_form ? "":"disabled" %> >Download</button></a>
 					<a href="<%=student_application_form_path%>"><button class="custom-button" >Edit data</button></a>
 
-				</div>
+					</div>
+				<%end%>
 
 			</div>
 		</div>

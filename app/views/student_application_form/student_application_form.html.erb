@@ -1,7 +1,7 @@
 <a href="<%=user_dashboard_path%>" class="back-to-dashboard"><button class='custom-button  right'>Dashboard</button></a>
-
+<% id = "form-step-#{@sap.step}"   %>
 <div class="student-application-form">
-    <%= form_for @sap, url: student_application_form_path, :method => :post do |f| %>
+    <%= form_for @sap, url: student_application_form_path, :html => { :id => id}, :method => :post do |f| %>
     <h1>Student Application Form <span class="fake-arrow" > > </span>  </h1>
 
 	<%= render partial: "student_application_form/#{toNumeral(@sap.step)}_step", :locals =>{ :f=> f, :sap => @sap, :review => false} %>

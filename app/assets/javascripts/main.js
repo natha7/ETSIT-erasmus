@@ -282,7 +282,7 @@ $(document).on('turbolinks:load', function() {
   /**
     * Intercept language form
     */
-  $('#lang-form').submit(function( ){
+  $('#form-step-4').submit(function( ){
     $('.languages-hidden').remove();
     $('.lang-list .lang').each(function(l,lang){
       $lang = $(lang);
@@ -300,12 +300,11 @@ $(document).on('turbolinks:load', function() {
                       .attr('name', "student_application_form[languages][]["+el+"]")
                       .attr('class', "languages-hidden")
                       .attr('value', value)
-                      .appendTo('#lang-form')
+                      .appendTo('#form-step-4');
       }
       
     });
     
-
     return true;
   });
 
@@ -374,7 +373,7 @@ $(document).on('turbolinks:load', function() {
   /**
     * Intercept work form
     */
-  $('#work-form').submit(function( ){
+  $('#form-step-5').submit(function( ){
 
     var works = [];
     $('.work-hidden').remove();
@@ -394,7 +393,7 @@ $(document).on('turbolinks:load', function() {
                       .attr('class', "work-hidden")
                       .attr('name', "student_application_form[work_experiences][]["+el+"]")
                       .attr('value', value)
-                      .appendTo('#work-form')
+                      .appendTo('#form-step-5')
       }
     });
 
