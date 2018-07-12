@@ -26,30 +26,30 @@
 		<button class="custom-button" id="add-lang" type="button">Add a new language</button>
 	<%end%>
 	<div class="lang-list">
-	<% if defined?(languages) %>
-		<% languages.each_with_index do |language,index|%>
+	<% if defined?(@sap.languages) %>
+		<% @sap.languages.each_with_index do |language,index|%>
 		<div class="lang">
 			<div class="field">
 				<div class="flex-container">
 					<label for="name">Language</label>
-					<input type="text" name="value" class="language-input" <%=review ? "disabled" : ""%> value="<%=language.value%>"/>
+					<input type="text" name="name" class="language-input" <%=review ? "disabled" : ""%> value="<%=language.name%>"/>
 				</div>
 			</div>
 			<div class="field">
 				<div class="flex-container">
-					<input type="checkbox" name="currently_studying" class="language-input" <%=review ? "disabled" : ""%> value="<%=language.currently_studying%>"/>
+					<input type="checkbox" name="currently_studying" class="language-input" <%=review ? "disabled" : ""%> checked="<%=language.currently_studying%>"/>
 					<label for="currently_studying">Currently Studying</label>
 				</div>
 			</div>
 			<div class="field">
 				<div class="flex-container">
-					<input type="checkbox" name="able_follow_lectures" class="language-input" <%=review ? "disabled" : ""%> value="<%=language.able_follow_lectures%>"/>
+					<input type="checkbox" name="able_follow_lectures" class="language-input" <%=review ? "disabled" : ""%> checked="<%=language.able_follow_lectures%>"/>
 					<label for="able_follow_lectures">Able to follow lectures</label>
 				</div>
 			</div>
 			<div class="field">
 				<div class="flex-container">
-					<input type="checkbox" name="able_follow_lectures_extra_preparation" class="language-input" <%=review ? "disabled" : ""%> value="<%=language.value%>"/>
+					<input type="checkbox" name="able_follow_lectures_extra_preparation" class="language-input" <%=review ? "disabled" : ""%> checked="<%=language.able_follow_lectures_extra_preparation%>"/>
 					<label for="able_follow_lectures_extra_preparation">Able to follow lectures</label>
 				</div>
 			</div>

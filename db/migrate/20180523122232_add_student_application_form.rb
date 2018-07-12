@@ -53,7 +53,7 @@ class AddStudentApplicationForm < ActiveRecord::Migration[5.2]
     add_reference :languages, :student_application_form, index: true
 
   	create_table :work_experiences do |t|
-  		t.string :type
+  		t.string :work_kind
   		t.string :firm_organisation
   		t.date :from
       t.date :to

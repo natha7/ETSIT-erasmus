@@ -15,13 +15,13 @@
 	<button class="custom-button" id="add-work" type="button">Add a new work experience</button>
 <%end%>
 <div class="work-list">
-<% if defined?(work_experiences) %>
-	<% work_experiences.each_with_index do |work,index|%>
+<% if defined?(@sap.work_experiences) %>
+	<% @sap.work_experiences.each_with_index do |work,index|%>
 	<div class="work">
 		<div class="field">
 			<div class="flex-container">
-				<label for="type">Position</label>
-				<input type="text" name="type" class="work-input" <%=review ? "disabled" : ""%> value="<%=work.type%>"/>
+				<label for="work_kind">Position</label>
+				<input type="text" name="work_kind" class="work-input" <%=review ? "disabled" : ""%> value="<%=work.work_kind%>"/>
 			</div>
 		</div>
 		<div class="field">
@@ -32,15 +32,22 @@
 		</div>
 		<div class="field">
 			<div class="flex-container">
-				<input type="daterange" name="dates" class="work-input" <%=review ? "disabled" : ""%> value="<%=work.dates%>"/>
-				<label for="dates">Dates</label>
+				<input type="date" name="dates" class="work-input" <%=review ? "disabled" : ""%> value="<%=work.from%>"/>
+				<label for="dates">From</label>
 
 			</div>
 		</div>
 		<div class="field">
 			<div class="flex-container">
-				<%= f.label :country %><br />
-				<%= f.select :country, country_list, autocomplete: "country-name" %>
+				<input type="date" name="dates" class="work-input" <%=review ? "disabled" : ""%> value="<%=work.to%>"/>
+				<label for="dates">To</label>
+
+			</div>
+		</div>
+		<div class="field">
+			<div class="flex-container">
+				<%= f.label work[:country] %><br />
+				<%#= f.text_field work[:country], work_experience[index][:country],  autocomplete: "country-name" %>
 			</div>
 		</div>
 		<button type="button" class="delete-work-button transparent-button action-button">

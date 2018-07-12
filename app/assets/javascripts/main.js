@@ -6,9 +6,10 @@ $(document).on('turbolinks:load', function() {
     {key: "able_follow_lectures_extra_preparation", label: "Able to follow lectures with extra preparation", input: "checkbox"},
   ];
   var work_elements = [
-    {key: "type", label: "Position", input: "text"},
+    {key: "work_kind", label: "Position", input: "text"},
     {key: "firm_organisation", label: "Organisation", input: "text"},
-    {key: "dates", label: "Dates", input: "daterange"},
+    {key: "from", label: "From", input: "date"},
+    {key: "to", label: "To", input: "date"},
     {key: "country", label: "Country", input: "select"},
   ];
 

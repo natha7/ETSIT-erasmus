@@ -141,9 +141,10 @@ ActiveRecord::Schema.define(version: 2018_05_23_122232) do
   end
 
   create_table "work_experiences", force: :cascade do |t|
-    t.string "type"
+    t.string "work_kind"
     t.string "firm_organisation"
-    t.string "dates"
+    t.date "from"
+    t.date "to"
     t.string "country"
     t.bigint "student_application_form_id"
     t.index ["student_application_form_id"], name: "index_work_experiences_on_student_application_form_id"
