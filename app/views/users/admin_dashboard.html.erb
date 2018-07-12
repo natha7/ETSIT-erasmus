@@ -129,8 +129,9 @@
           <span class="big-hidden">App Form: </span>
           <span class="dashboard-icon">
             <a href="/review_student_application_form/<%=user.id%>/1">
-            <%="#{user.student_application_form.completed_percentage}" %>
-              <i  class="mdi mdi-clipboard-text app-form"></i>
+              <% pctg = user.student_application_form.completed_percentage(user.signed_student_application_form) %>
+            <%="#{pctg}" %>
+              <i  class="mdi mdi-clipboard-text app-form <%= 'green' if pctg === '100%' %>"></i>
             </a>
           </span>
          <!--  <%= user.student_application_form.erasmus_code %> -->
@@ -160,14 +161,16 @@
         </div>
         <div class="user-<%= user.id %>-id flex-table-cell flex-table-status">
           <span class="big-hidden">Status: </span>
-          <% if user.progress_status == "process" || user.progress_status == "renounce" %>
+          <% if (user.progress_status == "process" and user.percentage.to_i != 100) || user.progress_status == "renounce" %>
             <%= user.progress_status %>
-            <% else %>
-              <%= form_for(user, url: set_user_status_path,  method: :post) do |f|%>
-                <%= f.select :progress_status, [:finished, :rejected, :accepted, :renounce], {}, {value: user.progress_status, class: 'form-control', onchange: 'this.form.submit();'}%>
-                <%= f.hidden_field :id, :value => user.id %>
-              <%end%>
-            <%end%>
+          <% elsif user.progress_status == "process" and user.percentage.to_i === 100 %>
+            <%= form_for(user, url: set_user_status_path,  method: :post) do |f|%>
+              <%= f.select :progress_status, [:finished, :rejected, :accepted, :renounce], {}, {value: user.progress_status, class: 'form-control', onchange: 'this.form.submit();'}%>
+              <%= f.hidden_field :id, :value => user.id %>
+            <% end %>
+          <% else %>
+            <%= user.progress_status %>
+          <% end %>
         </div>
         <div class="user-<%= user.id %>-id flex-table-cell flex-table-pctg">
           <span class="big-hidden">Progress: </span>

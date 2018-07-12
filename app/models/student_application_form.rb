@@ -4,7 +4,7 @@ class StudentApplicationForm < ApplicationRecord
 	has_many :work_experiences
 	accepts_nested_attributes_for :languages, :work_experiences, allow_destroy: true
 
-	def completed_percentage_num
+	def completed_percentage_num(uploaded_signed = false)
 		percentage = 0
 		
 		first = [
@@ -50,10 +50,11 @@ class StudentApplicationForm < ApplicationRecord
 	  		:year_attended,
 	  		:specialization_area
 	  	]
-	  	percentage = sixth.reject{|element| self[element].blank?}.length == sixth.length ? percentage + 17 : percentage
+	  	percentage = sixth.reject{|element| self[element].blank?}.length == sixth.length ? percentage + 16 : percentage
+	  	percentage = uploaded_signed ? (percentage + 1) : percentage
 	end
 
-	def completed_steps_array
+	def completed_steps_array(uploaded_signed = false)
 		first = [
 	  		:inst_sending_name,
 	      	:inst_adress,
@@ -90,6 +91,8 @@ class StudentApplicationForm < ApplicationRecord
 	  		:specialization_area
 	  	]
 
+	  	 
+
 	[
 		first.reject{|element| self[element].blank?}.length == first.length, 
 		second.reject{|element| self[element].blank?}.length == second.length,
@@ -100,8 +103,8 @@ class StudentApplicationForm < ApplicationRecord
 	]	
 	end
 
-	def completed_percentage
-		completed_percentage_num.to_s + "%"
+	def completed_percentage(uploaded_signed = false)
+		completed_percentage_num(uploaded_signed).to_s + "%"
 	end
 
 end

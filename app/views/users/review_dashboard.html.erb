@@ -30,6 +30,10 @@
 			<p><%= current_user.first_name %> <%= current_user.family_name %></p>
 		</div>
 	</div>
+	<% sap = current_user.student_application_form %>
+	<% is_signed = !(current_user.signed_student_application_form_file_name.blank?) %>
+	<% finish_app_form = sap.completed_percentage(is_signed) === '99%'%>
+	<% finish_and_uploaded = sap.completed_percentage(is_signed) === '100%'%>
 	<div class="right-column">
 		<div class="row">
 			<div class="second-container">
@@ -43,7 +47,7 @@
 						<div class="progress-line">
 						</div>
 						<div class="progress-balls">
-							<% final_steps_array = current_user.student_application_form.completed_steps_array %>
+							<% final_steps_array = sap.completed_steps_array %>
 							<% titles = ["Sending Institution", "Purpose of stay", "Study year", "Language Competence", "Work Experience", "Previous and current studies"] %>
 							<% for i in 1..6 do %>
 							<% classBall = final_steps_array[i-1] ? "done-step" : "todo-step" %>
@@ -54,16 +58,20 @@
 					</div>
 				</div>
 				<div class="second-container-right">
-					<span class="student-application-form-progress"><%=current_user.student_application_form.completed_percentage%></span>
-					<%if current_user.student_application_form.completed_percentage === '100%'%>
-					<span class="check_mark" style="float: none;"><i class="mdi mdi-check green"></i></span>
+					<span class="student-application-form-progress"><%=sap.completed_percentage(is_signed)%></span>
+					<%if finish_app_form %>
+						<span class="check_mark" style="float: none;" title="User has not uploaded the application form signed"><i class="mdi mdi-help orange"></i></span>
+					<%end%>
+					<%if finish_and_uploaded %>
+						<span class="check_mark" style="float: none;"><i class="mdi mdi-check green"></i></span>
 					<%end%>
 				</div>
 			</div>
 			<div class="collapsible big">
 				<p class="intro-paragraph">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
 				<div class="align-right">
-					<a href="<%="/generate_pdf/#{current_user.id}"%>"><button class="custom-button">Download</button></a>
+					<a download="application_form.pdf" href="<%="/generate_pdf/#{current_user.id}"%>"><button class="custom-button">Download</button></a>
+					<a download="application_form.pdf" href="<%= current_user.signed_student_application_form.url %>"><button class="custom-button">Download signed</button></a>
 					<a href="<%="/review_student_application_form/#{current_user.id}/1"%>"><button class="custom-button" >Review data</button></a>
 
 				</div>
