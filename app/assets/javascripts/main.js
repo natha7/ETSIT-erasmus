@@ -306,7 +306,11 @@ $(document).on('turbolinks:load', function() {
       }
       
     });
-    
+    $('<input/>').attr('type', 'hidden')
+                  .attr('name', "student_application_form[other_languages]")
+                  .attr('class', "languages-hidden")
+                  .attr('value', 1)
+                  .appendTo('#form-step-4');
     return true;
   });
 

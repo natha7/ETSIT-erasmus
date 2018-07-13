@@ -32,38 +32,41 @@ class StudentApplicationFormController < ApplicationController
 		step = params[:step].to_i
 		step = nil if (step.to_s != params[:step])
 		puts params[:student_application_form][:languages]
-		if !params[:student_application_form][:languages].blank?
+		if !params[:student_application_form][:other_languages].blank?
 			@sap.languages.destroy_all
-			languages = params[:student_application_form][:languages]
-			languages.each do |language|
-				lan = Language.new
-				puts language
-				lan.name = language[:name]
-				lan.currently_studying = language[:currently_studying].to_s == 'true' ? true : false 
-				lan.able_follow_lectures = language[:able_follow_lectures].to_s == 'true' ? true : false 
-				puts language[:able_follow_lectures_extra_preparation]
-				lan.able_follow_lectures_extra_preparation = language[:able_follow_lectures_extra_preparation].to_s == 'true' ? true : false 
-				@sap.languages << lan
-				lan.save!
+			if !params[:student_application_form][:languages].blank?
+				languages = params[:student_application_form][:languages]
+				languages.each do |language|
+					lan = Language.new
+					puts language
+					lan.name = language[:name]
+					lan.currently_studying = language[:currently_studying].to_s == 'true' ? true : false 
+					lan.able_follow_lectures = language[:able_follow_lectures].to_s == 'true' ? true : false 
+					puts language[:able_follow_lectures_extra_preparation]
+					lan.able_follow_lectures_extra_preparation = language[:able_follow_lectures_extra_preparation].to_s == 'true' ? true : false 
+					@sap.languages << lan
+					lan.save!
+				end
 			end
 		end
-		if !params[:student_application_form][:work_experiences].blank? and params[:student_application_form][:no_work_experience] == "0"
+		if params[:student_application_form][:no_work_experience] == "0"
 			
 			@sap.work_experiences.destroy_all
-			wexes = params[:student_application_form][:work_experiences]
-			puts wexes, 33333333
-			wexes.each do |wex|
-				we = WorkExperience.new
-				we.work_kind = wex[:work_kind]
-				we.country = wex[:country]
-				we.firm_organisation = wex[:firm_organisation]
-				we.from = wex[:from]
-				we.to = wex[:to]
-				@sap.work_experiences << we
-				we.save!
+			if !params[:student_application_form][:work_experiences].blank? 
+				wexes = params[:student_application_form][:work_experiences]
+				wexes.each do |wex|
+					we = WorkExperience.new
+					we.work_kind = wex[:work_kind]
+					we.country = wex[:country]
+					we.firm_organisation = wex[:firm_organisation]
+					we.from = wex[:from]
+					we.to = wex[:to]
+					@sap.work_experiences << we
+					we.save!
+				end
 			end
 		elsif params[:student_application_form][:no_work_experience] == "1" 
-		 	@sap.work_experiences.destroy_all
+			@sap.work_experiences.destroy_all
 		end
 		
 

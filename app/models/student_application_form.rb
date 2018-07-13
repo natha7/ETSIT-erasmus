@@ -6,7 +6,6 @@ class StudentApplicationForm < ApplicationRecord
 
 	def completed_percentage_num(uploaded_signed = false)
 		percentage = 0
-		
 		first = [
 	  		:inst_sending_name,
 	      	:inst_adress,
@@ -26,6 +25,7 @@ class StudentApplicationForm < ApplicationRecord
 	  		
   		]
   		percentage = second.reject{|element| self[element].blank?}.length == second.length ? percentage + 17 : percentage
+  		
   		#Purpose of Stay
   		third = [
 	  		:academic_year,
@@ -33,19 +33,19 @@ class StudentApplicationForm < ApplicationRecord
 	  		:field_of_study
 		]
 		percentage = third.reject{|element| self[element].blank?}.length == third.length ? percentage + 17 : percentage
+  		
   		#Language Competence
   		fourth = [
 	  		:mother_tongue,
 	  		:language_instruction
   		]
   		percentage = fourth.reject{|element| self[element].blank?}.length == fourth.length ? percentage + 16 : percentage
+
   		# Work Experience
-
-  		fifth_complete = self[:work_experiences].blank? ? self[:no_work_experience] : false
-
+  		fifth_complete = self.work_experiences.blank? ? self.no_work_experience : true
 	  	percentage = fifth_complete ? percentage + 16 : percentage  		
 
-  		#Previous And Current Studies
+  		# Previous And Current Studies
   		sixth = [
 	  		:current_diploma_degree,
 	  		:year_attended,
@@ -56,6 +56,7 @@ class StudentApplicationForm < ApplicationRecord
 	end
 
 	def completed_steps_array(uploaded_signed = false)
+		
 		first = [
 	  		:inst_sending_name,
 	      	:inst_adress,
@@ -84,7 +85,7 @@ class StudentApplicationForm < ApplicationRecord
 	  		:language_instruction
   		]
 
-  		fifth_complete = self[:work_experiences].blank? ? self[:no_work_experience] : false
+  		fifth_complete = self.work_experiences.blank? ? self.no_work_experience : true
 	  	sixth = [
 	  		:current_diploma_degree,
 	  		:year_attended,
