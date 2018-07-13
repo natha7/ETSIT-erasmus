@@ -33,7 +33,11 @@
 				<div class="flex-container">
 					<% languages_list%>
 					<label for="name">Language</label>
-					<input type="text" name="name" class="language-input" <%=review ? "disabled" : ""%> value="<%=language.name%>"/>
+					<select type="text" name="name" class="language-input" <%=review ? "disabled" : ""%> value="<%=language.name%>">
+						<% languages_list.each do |lang| %>
+							<option value="<%=lang%>"><%=lang%></option>
+						<% end %>
+					</select>
 				</div>
 			</div>
 			<div class="field">
@@ -55,7 +59,8 @@
 				</div>
 			</div>
 			<button type="button" class="delete-lang-button transparent-button small-button">
-				<i class="mdi mdi-close"></i></button>
+				<i class="mdi mdi-close"></i>
+			</button>
 			</div>
 		<% end %>
 	<% else %>
@@ -65,3 +70,10 @@
 	</div>
 </div>
  
+<div id="hidden-langs" style="display:none;">
+
+	 <%=languages_list%>
+</div>
+<script>
+	window.options = JSON.parse($('#hidden-langs').text());
+</script>

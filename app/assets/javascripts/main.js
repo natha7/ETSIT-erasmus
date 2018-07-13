@@ -1,6 +1,6 @@
 $(document).on('turbolinks:load', function() {
   var lang_elements = [
-    {key: "name", label: "Language", input: "text"},
+    {key: "name", label: "Language", input: "select"},
     {key: "currently_studying", label: "Currently Studying", input: "checkbox"},
     {key: "able_follow_lectures", label: "Able to follow lectures", input: "checkbox"},
     {key: "able_follow_lectures_extra_preparation", label: "Able to follow lectures with extra preparation", input: "checkbox"},
@@ -256,11 +256,22 @@ $(document).on('turbolinks:load', function() {
       var $input = $('<input/>').attr('type', element.input)
               .attr('name',el)
               .attr('class', "language-input");
+      if(element.input === 'select' && window.options) {
+        $input = $('<select/>') 
+              .attr('name',el)
+              .attr('class', "language-input");
+        for (var opt in window.options) {
+          $option = $('<option/>') 
+              .attr('value', window.options[opt])
+              .text(window.options[opt])
+          $input.append($option)
+        }
+      }
       if (element.input === "checkbox") {
+        $label.attr("class", "checkBox")
         $container.append($input);
         $container.append($label);
       } else {
-
         $container.append($label);
         $container.append($input);
       }
