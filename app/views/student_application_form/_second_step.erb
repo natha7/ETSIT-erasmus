@@ -7,23 +7,23 @@
 
 <div class="field">
   <div class="flex-container">
-    <%= f.label :project_work %><br />
+    <%= f.label :project_work, "Project Work (areas of interest)" %><br />
     <%= f.text_field :project_work, autofocus: true, autocomplete: "project_work", disabled: review %>
   </div>
 </div>
-
+  <div class="field">
+    <div class="flex-container">
+      <%= f.label :graduate_courses, "Graduate Courses" %><br />
+      <%= f.text_field :graduate_courses, autofocus: true, autocomplete: "graduate_courses", disabled: review %>
+    </div>
+  </div>
 <div class="field">
   <div class="flex-container">
-    <%= f.label :under_grad_courses %><br />
+    <%= f.label :under_grad_courses, "Undergraduate Courses" %><br />
     <%= f.text_field :under_grad_courses, autofocus: true, autocomplete: "under_grad_courses", disabled: review %>
   </div>
 </div>
 
-<div class="field">
-  <div class="flex-container">
-    <%= f.label :graduate_courses %><br />
-    <%= f.text_field :graduate_courses, autofocus: true, autocomplete: "graduate_courses", disabled: review %>
-  </div>
-</div>
+
 </div>
  
