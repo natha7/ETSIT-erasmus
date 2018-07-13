@@ -20,8 +20,8 @@ ActiveRecord::Schema.define(version: 2018_05_23_122232) do
     t.boolean "currently_studying"
     t.boolean "able_follow_lectures"
     t.boolean "able_follow_lectures_extra_preparation"
-    t.bigint "user_id"
-    t.index ["user_id"], name: "index_languages_on_user_id"
+    t.bigint "student_application_form_id"
+    t.index ["student_application_form_id"], name: "index_languages_on_student_application_form_id"
   end
 
   create_table "nominated_users", force: :cascade do |t|
@@ -141,12 +141,13 @@ ActiveRecord::Schema.define(version: 2018_05_23_122232) do
   end
 
   create_table "work_experiences", force: :cascade do |t|
-    t.string "type"
+    t.string "work_kind"
     t.string "firm_organisation"
-    t.string "dates"
+    t.date "from"
+    t.date "to"
     t.string "country"
-    t.bigint "user_id"
-    t.index ["user_id"], name: "index_work_experiences_on_user_id"
+    t.bigint "student_application_form_id"
+    t.index ["student_application_form_id"], name: "index_work_experiences_on_student_application_form_id"
   end
 
 end

@@ -13,37 +13,49 @@
 
 <% unless review %>
 	<button class="custom-button" id="add-work" type="button">Add a new work experience</button>
+	<br/><br/>
 <%end%>
 <div class="work-list">
-<% if defined?(work_experiences) %>
-	<% work_experiences.each_with_index do |work,index|%>
+<% if defined?(@sap.work_experiences) %>
+	<% @sap.work_experiences.each_with_index do |work,index|%>
 	<div class="work">
 		<div class="field">
 			<div class="flex-container">
-				<label for="type">Position</label>
-				<input type="text" name="type" class="work-input" <%=review ? "disabled" : ""%> value="<%=work.type%>"/>
+				<label for="work_kind">Position</label>
+				<input type="text" name="work_kind" class="work-input" <%=review ? "disabled" : ""%> value="<%=work.work_kind%>"/>
 			</div>
 		</div>
 		<div class="field">
 			<div class="flex-container">
-				<input type="text" name="firm_organisation" class="work-input" <%=review ? "disabled" : ""%> value="<%=work.firm_organisation%>"/>
 				<label for="firm_organisation">Organisation</label>
+				<input type="text" name="firm_organisation" class="work-input" <%=review ? "disabled" : ""%> value="<%=work.firm_organisation%>"/>
 			</div>
 		</div>
 		<div class="field">
 			<div class="flex-container">
-				<input type="daterange" name="dates" class="work-input" <%=review ? "disabled" : ""%> value="<%=work.dates%>"/>
-				<label for="dates">Dates</label>
+				<label for="dates">From</label>
+				<input type="date" name="from" class="work-input" <%=review ? "disabled" : ""%> value="<%=work.from%>"/>
 
 			</div>
 		</div>
 		<div class="field">
 			<div class="flex-container">
-				<%= f.label :country %><br />
-				<%= f.select :country, country_list, autocomplete: "country-name" %>
+				<label for="dates">To</label>
+				<input type="date" name="to" class="work-input" <%=review ? "disabled" : ""%> value="<%=work.to%>"/>
+
 			</div>
 		</div>
-		<button type="button" class="delete-work-button transparent-button action-button">
+		<div class="field">
+			<div class="flex-container">
+				<label for="dates">Country</label>
+				<select   name="country" class="work-input" <%=review ? "disabled" : ""%> value="<%=work.country%>">
+					<% for country in country_list %>
+						<option <%= work.country == country ? "selected" : "" %>><%= country%></option>
+					<% end %>
+				</select>
+			</div>
+		</div>
+		<button type="button" class="delete-work-button transparent-button small-button">
 			<i class="mdi mdi-close"></i></button>
 		</div>
 	<% end %>
@@ -58,6 +70,5 @@
 	 <%=country_list%>
 </div>
 <script>
-	window.country_list = JSON.parse($('#hidden-countries').text());
-
+	window.options = JSON.parse($('#hidden-countries').text());
 </script>

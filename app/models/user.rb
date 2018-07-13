@@ -74,21 +74,28 @@ class User < ApplicationRecord
 
   def percentage_num
    attachment_values =  [
-     :signed_student_application_form,
-     :motivation_letter,
-     :curriculum_vitae,
-     :transcript_of_records,
-     :learning_agreement,
-     :valid_insurance_policy,
-     :photo,
-     :ni_passport,
-     :recommendation_letter_1,
-     :recommendation_letter_2,
-     :official_gpa,
-     :english_test_score
+     :motivation_letter_file_name,
+     :curriculum_vitae_file_name,
+     :transcript_of_records_file_name,
+     :learning_agreement_file_name,
+     :valid_insurance_policy_file_name,
+     :photo_file_name,
+     :ni_passport_file_name,
+
    ]
-   attach_value = attachment_values.map{|val| !self[val].blank? ? 1 : 0 }.reduce(0,:+) + self.student_application_form.completed_percentage_num.to_f/100
-   ((attach_value.to_f * 100) /(attachment_values.length + 1)).round(2)
+
+   if (self.seeking_degree) 
+     attachment_values.push(*[
+      :recommendation_letter_1_file_name,
+      :recommendation_letter_2_file_name,
+      :official_gpa_file_name,
+      :english_test_score_file_name
+      ])
+   end
+   app_form_pctg = self.student_application_form.completed_percentage_num(self.signed_student_application_form)
+   attach_value = attachment_values.map{|val| !self[val].blank? ? 1 : 0 }.reduce(0,:+) + app_form_pctg.to_f/100
+   attach_value = ((attach_value.to_f * 100) /(attachment_values.length + 1)).round(2)
+   return attach_value
   end
   
   def percentage

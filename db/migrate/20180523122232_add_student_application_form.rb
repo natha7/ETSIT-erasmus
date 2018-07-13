@@ -50,16 +50,17 @@ class AddStudentApplicationForm < ActiveRecord::Migration[5.2]
   		t.boolean :able_follow_lectures_extra_preparation
   	end
 
-    add_reference :languages, :user, index: true
+    add_reference :languages, :student_application_form, index: true
 
   	create_table :work_experiences do |t|
-  		t.string :type
+  		t.string :work_kind
   		t.string :firm_organisation
-  		t.string :dates
+  		t.date :from
+      t.date :to
   		t.string :country
   	end
 
-    add_reference :work_experiences, :user, index: true
+    add_reference :work_experiences, :student_application_form, index: true
 
   	create_table :nominated_users do |t|
   		t.string :name

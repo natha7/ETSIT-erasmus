@@ -25,13 +25,16 @@
 						<i class="caret mdi mdi-menu-down no-reverse"></i>
 					</label>
 				</span>
-				<% finish_app_form = current_user.student_application_form.completed_percentage === '100%'%>
+				<% sap = current_user.student_application_form %>
+				<% is_signed = !(current_user.signed_student_application_form_file_name.blank?) %>
+				<% finish_app_form = sap.completed_percentage(is_signed) === '99%'%>
+				<% finish_and_uploaded = sap.completed_percentage(is_signed) === '100%'%>
 				<div class="second-container-medium">
 					<div class="progress-bar">
 						<div class="progress-line">
 						</div>
 						<div class="progress-balls">
-						<% final_steps_array = current_user.student_application_form.completed_steps_array %>
+						<% final_steps_array = sap.completed_steps_array %>
 						<% titles = ["Sending Institution", "Purpose of stay", "Study year", "Language Competence", "Work Experience", "Previous and current studies"] %>
 						<% for i in 1..6 do %>
 							<% classBall = final_steps_array[i-1] ? "done-step" : "todo-step" %>
@@ -42,8 +45,11 @@
 					</div>
 				</div>
 				<div class="second-container-right">
-					<span class="student-application-form-progress"><%=current_user.student_application_form.completed_percentage%></span>
+					<span class="student-application-form-progress"><%=sap.completed_percentage(is_signed)%></span>
 					<%if finish_app_form %>
+						<span class="check_mark" style="float: none;" title="You must upload your applicatioon form signed in order to complete the progress"><i class="mdi mdi-help orange"></i></span>
+					<%end%>
+					<%if finish_and_uploaded %>
 						<span class="check_mark" style="float: none;"><i class="mdi mdi-check green"></i></span>
 					<%end%>
 				</div>
@@ -51,20 +57,32 @@
 			<div class="collapsible big">
 				<p class="intro-paragraph">Once you are done you must upload it signed by the home Institution Coordinator with the name and the code of the selected courses at ETSIT
 				</p>
-				<%= form_for current_user, url: user_file_upload_path, html: { multipart: true }, :method => :POST do |form| %>
-
-				<%if finish_app_form %>
-					<div class="align-right">
-						<div class="file-name">
-							<%= form.file_field :signed_student_application_form %>
-						</div>
-					</div>
-					<% end %>
+					<% url = finish_and_uploaded ? (user_file_delete_url(:id => current_user.id, :attachment => :signed_student_application_form)) : user_file_upload_path %>
+					<% method = finish_and_uploaded ? :delete : :POST %>
+					<%= form_for current_user, url: url,  html: { multipart: true }, :method=> method do |form| %>
 				<div class="align-right">
-					
-					<button class="custom-button" <%=finish_app_form ? "":"disabled" %> >Upload signed</button>
-					<a download="application_form.pdf" href="/generate_pdf"><button class="custom-button" <%=finish_app_form ? "":"disabled" %> >Download</button></a>
-					<a href="<%=student_application_form_path%>"><button class="custom-button" >Edit data</button></a>
+					<%if finish_app_form %>
+						
+							<div class="file-name">
+								<%= form.file_field :signed_student_application_form %>
+							</div>
+						
+					<% elsif finish_and_uploaded %>
+							<div class="file-name"><i class="mdi mdi-file"></i> <span class=""> <%= link_to  current_user.signed_student_application_form_file_name,  current_user.signed_student_application_form.url %></span></div>
+					<% end %>
+				</div>
+				<div class="align-right">
+					<% unless finish_and_uploaded %>
+						<button class="custom-button" type="submit" <%=finish_app_form ? "":"disabled" %> >Upload signed</button>
+					<% else %>
+						<%= button_to "Delete", user_file_delete_url(:id => current_user.id, :attachment => :signed_student_application_form_file_name), :method=> :delete, :class => "custom-button" %>
+					<% end %>
+					<a download="application_form.pdf" href=<%= finish_and_uploaded ? current_user.signed_student_application_form.url : "/generate_pdf" %>   >
+						<button type="button" class="custom-button" <%= (finish_app_form || finish_and_uploaded) ? "":"disabled"%>   >
+							Download
+						</button>
+					</a>
+					<a href="<%=student_application_form_path%>"><button class="custom-button" <%=finish_and_uploaded ? "disabled":"" %> >Edit data</button></a>
 
 					</div>
 				<%end%>

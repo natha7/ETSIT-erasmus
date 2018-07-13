@@ -6,9 +6,10 @@ $(document).on('turbolinks:load', function() {
     {key: "able_follow_lectures_extra_preparation", label: "Able to follow lectures with extra preparation", input: "checkbox"},
   ];
   var work_elements = [
-    {key: "type", label: "Position", input: "text"},
+    {key: "work_kind", label: "Position", input: "text"},
     {key: "firm_organisation", label: "Organisation", input: "text"},
-    {key: "dates", label: "Dates", input: "daterange"},
+    {key: "from", label: "From", input: "date"},
+    {key: "to", label: "To", input: "date"},
     {key: "country", label: "Country", input: "select"},
   ];
 
@@ -259,6 +260,7 @@ $(document).on('turbolinks:load', function() {
         $container.append($input);
         $container.append($label);
       } else {
+
         $container.append($label);
         $container.append($input);
       }
@@ -293,7 +295,7 @@ $(document).on('turbolinks:load', function() {
         var el = language.key;
         var $input = $lang.find('input[name="'+el+'"]');
         value = language.input === "checkbox" ? $input.prop("checked") : $input.val();
-        value = value ? value : !!value;
+        value = language.input === "checkbox" ? (value ? value : !!value) : value;
         langObj[el] = value;
         $lang.remove();
         $('<input/>').attr('type', 'hidden')
@@ -326,8 +328,6 @@ $(document).on('turbolinks:load', function() {
   $('#add-work').click(function(e){
     var $work = $('<div class="work"></div>');
 
-    work_elements[3].options = window.country_list;
-    console.log(work_elements[3].options)
     for (var i in work_elements) {
       var element = work_elements[i];
       var el = element.key;
@@ -339,14 +339,14 @@ $(document).on('turbolinks:load', function() {
               .attr('name',el)
               .attr('class', "work-input");
 
-      if(element.input === 'select' && element.options) {
+      if(element.input === 'select' && window.options) {
         $input = $('<select/>') 
               .attr('name',el)
               .attr('class', "work-input");
-        for (var opt in element.options) {
+        for (var opt in window.options) {
           $option = $('<option/>') 
-              .attr('value', element.options[opt])
-              .text(element.options[opt])
+              .attr('value', window.options[opt])
+              .text(window.options[opt])
           $input.append($option)
 
         }
@@ -383,9 +383,9 @@ $(document).on('turbolinks:load', function() {
       for (var i in work_elements) {
         var work = work_elements[i];
         var el = work.key;
-        var $input = $work.find('input[name="' + el + '"]');
+        var $input = work.input === "select" ? $work.find('select[name="' + el + '"]') : $work.find('input[name="' + el + '"]');
         value = work.input === "checkbox" ? $input.prop("checked") : $input.val();
-        value = value ? value : !!value;
+        value = work.input === "checkbox" ? (value ? value : !!value) : value;
         workObj[el] = value;
         $work.remove();
         console.log(value)

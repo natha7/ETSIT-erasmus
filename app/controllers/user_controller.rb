@@ -1,6 +1,6 @@
 class UserController < ApplicationController
 	before_action :authenticate_user!, except: [:digital_certificate, :token_registration, :create_user, :register_with_email_and_password, :register_with_eidas]
-	
+	before_action :validate_not_user?, only: [:register_with_email_and_password, :register_with_eidas]
 	before_action :validate_admin?, only: [:admin_dashboard, :set_user_status, :review_dashboard]
 
 	### ADMIN
