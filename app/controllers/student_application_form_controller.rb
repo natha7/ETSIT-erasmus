@@ -51,6 +51,7 @@ class StudentApplicationFormController < ApplicationController
 			
 			@sap.work_experiences.destroy_all
 			wexes = params[:student_application_form][:work_experiences]
+			puts wexes, 33333333
 			wexes.each do |wex|
 				we = WorkExperience.new
 				we.work_kind = wex[:work_kind]
@@ -62,7 +63,7 @@ class StudentApplicationFormController < ApplicationController
 				we.save!
 			end
 		elsif params[:student_application_form][:no_work_experience] == "1" 
-			@sap.work_experiences.destroy_all
+		 	@sap.work_experiences.destroy_all
 		end
 		
 

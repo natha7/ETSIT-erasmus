@@ -40,6 +40,7 @@ class StudentApplicationForm < ApplicationRecord
   		]
   		percentage = fourth.reject{|element| self[element].blank?}.length == fourth.length ? percentage + 16 : percentage
   		# Work Experience
+
   		fifth_complete = self[:work_experiences].blank? ? self[:no_work_experience] : false
 
 	  	percentage = fifth_complete ? percentage + 16 : percentage  		
@@ -84,7 +85,6 @@ class StudentApplicationForm < ApplicationRecord
   		]
 
   		fifth_complete = self[:work_experiences].blank? ? self[:no_work_experience] : false
-
 	  	sixth = [
 	  		:current_diploma_degree,
 	  		:year_attended,

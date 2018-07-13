@@ -63,8 +63,11 @@
 			background-color: white
 			i
 				padding: 0
-				color: $etsit_blue
+				color: $etsit_blue 
 				cursor: pointer
+			transition: 0.2s all ease-in
+			&:hover
+				transform: scale(0.9)
 	.right-column
 		flex-grow: 7
 		.row
@@ -139,3 +142,21 @@
 @media (max-width: 768px)
 	.dashboard-container
 		flex-direction: column
+		.right-column .row
+			.collapsible
+				&.show
+					display: block
+					height: 111px
+					&.big
+						height: 300px
+				.align-right
+					flex-direction: column
+					.file-name
+						margin-bottom: 5px
+					a
+						width: 100%
+					a .custom-button
+						margin: 0px
+						width: 100%
+						margin-top: 5px
+

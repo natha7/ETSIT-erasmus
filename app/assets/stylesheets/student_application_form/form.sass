@@ -69,8 +69,14 @@
 			align-items: center
 			.delete-lang-button, .delete-work-button
 				vertical-align: middle
+				transition: 0.2s all ease-in
+				&:hover
+					transform: scale(1.2)
 		.lang:last-child, .work:last-child
 			border-bottom: none
+		.work-list
+			.field:first-child, .field:nth-child(2)
+				width: 48%
 .back-to-dashboard
 	display: inline-block
 	width: 100%
@@ -112,9 +118,10 @@
 				.delete-lang-button, .delete-work-button
 					vertical-align: middle
 					align-self: flex-end
-			
+			.work-list
+				.field:first-child, .field:nth-child(2n)
+					width: 100%
+				.field
+					select
+						width: 100%
 
-@media (max-width: 1100px)
-	.work
-		.field:first-child
-			order: 5
