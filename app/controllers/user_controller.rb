@@ -36,7 +36,6 @@ class UserController < ApplicationController
 	end
 
 	def file_upload
-		puts params[:user]
 		unless params[:user].blank?
 			keys = params[:user].keys
 			current_user.assign_attributes({keys[0] => params[:user][keys[0]]})
@@ -50,7 +49,6 @@ class UserController < ApplicationController
 	end
 	
 	def file_upload_ajax
-		puts params[:user]
 		url = ""
 		unless params[:user].blank?
 			keys = params[:user].keys

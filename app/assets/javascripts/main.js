@@ -303,7 +303,6 @@ $(document).on('turbolinks:load', function() {
         var language = lang_elements[i];
         var el = language.key;
         var $input = language.input === "select" ? $lang.find('select[name="'+el+'"]'): $lang.find('input[name="'+el+'"]');
-        console.log($input.val())
         value = language.input === "checkbox" ? $input.prop("checked") : $input.val();
         value = language.input === "checkbox" ? (value ? value : !!value) : value;
         $lang.remove();
