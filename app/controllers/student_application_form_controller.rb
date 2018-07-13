@@ -38,7 +38,6 @@ class StudentApplicationFormController < ApplicationController
 				languages = params[:student_application_form][:languages]
 				languages.each do |language|
 					lan = Language.new
-					puts language
 					lan.name = language[:name]
 					lan.currently_studying = language[:currently_studying].to_s == 'true' ? true : false 
 					lan.able_follow_lectures = language[:able_follow_lectures].to_s == 'true' ? true : false 

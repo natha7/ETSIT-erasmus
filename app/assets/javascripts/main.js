@@ -299,15 +299,13 @@ $(document).on('turbolinks:load', function() {
     $('.languages-hidden').remove();
     $('.lang-list .lang').each(function(l,lang){
       $lang = $(lang);
-      var langObj = {};
-
       for (var i in lang_elements) {
         var language = lang_elements[i];
         var el = language.key;
-        var $input = $lang.find('input[name="'+el+'"]');
+        var $input = language.input === "select" ? $lang.find('select[name="'+el+'"]'): $lang.find('input[name="'+el+'"]');
+        console.log($input.val())
         value = language.input === "checkbox" ? $input.prop("checked") : $input.val();
         value = language.input === "checkbox" ? (value ? value : !!value) : value;
-        langObj[el] = value;
         $lang.remove();
         $('<input/>').attr('type', 'hidden')
                       .attr('name', "student_application_form[languages][]["+el+"]")
@@ -403,7 +401,6 @@ $(document).on('turbolinks:load', function() {
         value = work.input === "checkbox" ? (value ? value : !!value) : value;
         workObj[el] = value;
         $work.remove();
-        console.log(value)
         $('<input/>').attr('type', 'hidden')
                       .attr('class', "work-hidden")
                       .attr('name', "student_application_form[work_experiences][]["+el+"]")

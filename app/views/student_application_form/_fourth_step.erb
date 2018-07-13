@@ -8,14 +8,14 @@
 	<div class="field">
 	  <div class="flex-container">
 	    <%= f.label :mother_tongue %><br />
-	    <%= f.text_field :mother_tongue, autofocus: true, autocomplete: "mother_tongue", disabled: review %>
+	    <%= f.select :mother_tongue, languages_list, autocomplete: "mother_tongue", disabled: review %>
 	  </div>
 	</div>
 
 	<div class="field">
 	  <div class="flex-container">
 	    <%= f.label :language_instruction %><br />
-	    <%= f.text_field :language_instruction, autofocus: true, autocomplete: "language_instruction", disabled: review %>
+	     <%= f.select :language_instruction, languages_list, autocomplete: "language_instruction", disabled: review %>
 	  </div>
 	</div>
 	<br/>
@@ -31,11 +31,13 @@
 		<div class="lang">
 			<div class="field">
 				<div class="flex-container">
-					<% languages_list%>
 					<label for="name">Language</label>
-					<select type="text" name="name" class="language-input" <%=review ? "disabled" : ""%> value="<%=language.name%>">
+					<%= puts 222222, language.name%>
+					<select  name="name" class="language-input" <%=review ? "disabled" : ""%>  >
+						<% selected_lang = language.name.to_s || "English" %>
 						<% languages_list.each do |lang| %>
-							<option value="<%=lang%>"><%=lang%></option>
+							<option <%= selected_lang == lang ? "selected" : "" %>><%=lang%></option>
+
 						<% end %>
 					</select>
 				</div>

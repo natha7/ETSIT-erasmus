@@ -148,8 +148,6 @@ module PdfHelper
     		check_field(steps.graduate_courses)
     		start_new_page
 
-    		
-
             # Step 4
             title("Language Competence")
             label("Mother Tongue")
