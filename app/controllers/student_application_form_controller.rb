@@ -9,6 +9,11 @@ class StudentApplicationFormController < ApplicationController
 		render "student_application_form/student_application_form"
 	end
 
+	def personal_data
+		@user = current_user
+		render "student_application_form/personal_data_step"
+	end
+
 	def review_step
 		user = User.find(params[:user])
 		if user.role == "admin"

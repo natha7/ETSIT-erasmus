@@ -7,7 +7,7 @@ class User < ApplicationRecord
   after_initialize :set_default_role, :if => :new_record?
   after_initialize :set_default_progress_status, :if => :new_record?
   after_save :check_progress
-  validate :email_uniqueness?, :on=> :create
+  #validate :email_uniqueness?, :on=> :create
   validates :email, uniqueness: true, presence: true, allow_blank: false
 
   devise :database_authenticatable, :registerable,

@@ -20,6 +20,7 @@ class RegistrationsController < Devise::RegistrationsController
         yield resource if block_given?
         if resource.persisted?
           if resource.active_for_authentication?
+            #binding.pry
             @nominated_user.destroy!
             set_flash_message! :notice, :signed_up
             sign_up(resource_name, resource)
@@ -28,6 +29,7 @@ class RegistrationsController < Devise::RegistrationsController
             set_flash_message! :notice, :"signed_up_but_#{resource.inactive_message}"
             expire_data_after_sign_in!
             respond_with resource, location: after_inactive_sign_up_path_for(resource)
+            #binding.pry
           end
         else
           #binding.pry
