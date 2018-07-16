@@ -61,6 +61,7 @@
 			border-radius: 5px
 			border: 2px solid #4664A2
 			background-color: white
+			cursor: pointer
 			i
 				padding: 0
 				color: $etsit_blue 
@@ -112,15 +113,17 @@
 					color: orange
 			.collapsible
 				// display: none
-				height: 0
-				transition: 0.2s height ease-in
+				// height: auto
+				max-height: 0
+				transition: max-height 0.2s ease-out
 				//transition: 0.2s opacity step-end
 				overflow: hidden
 				&.show
-					display: block
-					height: 91px
-					&.big
-						height: 140px
+					// display: block
+					max-height: 1191px
+					transition: max-height 0.9s ease-in
+					// &.big
+					// 	max-height: 140px
 				.align-right
 					text-align: right
 					display: flex
@@ -145,10 +148,10 @@
 		.right-column .row
 			.collapsible
 				&.show
-					display: block
-					height: 111px
+					// display: block
+					// height: 111px
 					&.big
-						height: 300px
+						// height: 300px
 				.align-right
 					flex-direction: column
 					.file-name

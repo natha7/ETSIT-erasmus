@@ -5,6 +5,8 @@
 	padding-top: 15px
 	
 .new_user
+	display: flex
+	flex-flow: column
 	.signin-container
 		justify-content: center
 	.flex-left-new
@@ -24,22 +26,27 @@
 				margin: auto
 				margin-left: 15px
 	.field
-		display: block
+		display: flex
 		padding: 11px  !important
 		padding-left: 0px !important
 		flex-grow: 1
 		.flex-container
 			justify-content: flex-end
-			input
-				min-width: 200px
+
+		label
+			width: 200px
+			text-align: right
+			margin-right: 15px
+		input[type="text"],input[type="email"],input[type="password"]
+			min-width: 250px
+		.checkBox
+			width: auto
+			text-align: left
 
 	.flex-container
 		display: flex
 		flex-direction: row
-		label
-			width: auto
-			padding-right: 12px
-		input, select
+
 	
 
 @media (max-width: 700px)

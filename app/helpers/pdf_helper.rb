@@ -52,6 +52,7 @@ module PdfHelper
     		end
 
             def checkbox(label, flag, x_position = 0, y_position = cursor  )
+               line_width(1)
                draw_text label , :at => [x_position + 16 , y_position-10], :size => 9
                bounding_box([x_position, y_position], width: 12, height: 12) do
                 stroke_bounds
