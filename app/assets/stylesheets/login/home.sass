@@ -1,3 +1,4 @@
+@import "../mixins"
 .buttons
 	form
 		display: inline-block
@@ -5,7 +6,7 @@
 	padding-top: 15px
 	
 .new_user
-	display: flex
+	@include flexBoxVendor
 	flex-flow: column
 	.signin-container
 		justify-content: center
@@ -26,7 +27,7 @@
 				margin: auto
 				margin-left: 15px
 	.field
-		display: flex
+		@include flexBoxVendor
 		padding: 11px  !important
 		padding-left: 0px !important
 		flex-grow: 1
@@ -44,7 +45,7 @@
 			text-align: left
 
 	.flex-container
-		display: flex
+		@include flexBoxVendor
 		flex-direction: row
 
 	
