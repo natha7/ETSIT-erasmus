@@ -59,7 +59,7 @@
 				</p>
 					<% url = finish_and_uploaded ? (user_file_delete_url(:id => current_user.id, :attachment => :signed_student_application_form)) : user_file_upload_path %>
 					<% method = finish_and_uploaded ? :delete : :POST %>
-					<%= form_for current_user, url: url,  html: { multipart: true }, :method=> method do |form| %>
+					<%= form_for current_user, url: url,  html: { multipart: true, class: finish_and_uploaded ? "deletion":""}, :method=> method do |form| %>
 				<div class="align-right">
 					<%if finish_app_form %>
 						
