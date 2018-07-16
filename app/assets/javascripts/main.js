@@ -421,4 +421,8 @@ $(document).on('turbolinks:load', function() {
     }
   });
 
+  $('.deletion').submit(function(e){
+     return confirm("Are you sure you want to delete this file?");
+  })
+
 });
