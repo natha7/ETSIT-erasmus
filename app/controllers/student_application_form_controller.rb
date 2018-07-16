@@ -23,6 +23,15 @@ class StudentApplicationFormController < ApplicationController
 		end
 	end
 
+	def review_personal_data_step
+		user = User.find(params[:user])
+		if user.role == "admin"
+			redirect_back fallback_location: root_path
+		else
+			render "student_application_form/review_personal_data_step"
+		end
+	end
+
 	def change_step
 		if !params[:step].blank?
 			@sap = current_user.student_application_form
@@ -34,9 +43,12 @@ class StudentApplicationFormController < ApplicationController
 
 	def save
 		@sap = current_user.student_application_form
-		step = params[:step].to_i
-		step = nil if (step.to_s != params[:step])
-		puts params[:student_application_form][:languages]
+		unless params[:step] == "personal_data"
+			step = params[:step].to_i
+			step = nil if (step.to_s != params[:step])
+		else
+			step = 1
+		end
 		if !params[:student_application_form][:other_languages].blank?
 			@sap.languages.destroy_all
 			if !params[:student_application_form][:languages].blank?
@@ -103,7 +115,9 @@ class StudentApplicationFormController < ApplicationController
 
 		@sap.save!
 		# render "student_application_form/student_application_form"
-		if !step.blank? and step.between?(1,6)
+		if params[:step] == "personal_data"
+			redirect_to student_application_form_personal_data_step_path
+		elsif !step.blank? and step.between?(1,6)
 			redirect_to "#{student_application_form_path}/#{step}"
 		else
 			redirect_to user_dashboard_path

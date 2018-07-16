@@ -15,6 +15,7 @@
                 <div class="progress-line">
                 </div>
                 <div class="progress-balls">
+                 <a href=<%="/review_student_application_form/#{params[:user]}/personal_data_step"%>><span class='progress-ball previous-step done-step'></span></a>
                 <% for i in 1..6 do %>
                     <% classBall = final_steps_array[i-1] ? "done-step" :"todo-step " %>
                     <%if params[:step].to_i > i %>
@@ -30,6 +31,9 @@
                 </div>
             </div>
         <div class="progress-buttons">
+            <% if params[:step].to_i == 1 %>
+                <%= link_to "<button  class='custom-button'> < Back</button>".html_safe, "/review_student_application_form/#{params[:user]}" + "/personal_data_step"%>
+            <% end %>
             <%if params[:step].to_i - 1 > 0 %>
                 <%= link_to "<button  class='custom-button'> < Back</button>".html_safe, "/review_student_application_form/#{params[:user]}" + "/#{params[:step].to_i - 1}"%>
             <%end%>

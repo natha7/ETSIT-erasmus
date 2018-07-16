@@ -1,55 +1,76 @@
-<h2>Sign up</h2>
+<div class="align-right">
+<a href="<%=user_dashboard_path%>" class="back-to-dashboard"><button class='custom-button primary right'>Dashboard</button></a>
 
-
-<%= form_for(@user, as: resource_name,  url: "") do |f| %>
-  <%= devise_error_messages! %>
-  <div class="field">
-    <%= f.label :first_name %><br />
-    <%= f.text_field :first_name, autofocus: true, autocomplete: "given-name" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :family_name %><br />
-    <%= f.text_field :family_name, autofocus: true, autocomplete: "family-name" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :birth_date %><br />
-    <%= f.date_field :birth_date, autofocus: true, autocomplete: "bday" %>
-  </div>
-
-  <div class="field">
-  <%= f.label :sex %><br />
-  <%= f.select :sex, [
-    'Male',
-    'Female',
-    'Other'
-    ] , autocomplete: "gender-identity"%>
 </div>
+<div class="student-application-form">
 
-  <div class="field">
-    <%= f.label :permanent_adress %><br />
-    <%= f.text_field :permanent_adress, autofocus: true, autocomplete: "street-address" %>
+  <%= form_for(@user, url: student_application_form_personal_data_path, method: :post) do |f| %>
+   <h1>Student Application Form <span class="fake-arrow" > > </span>  </h1><h2 class="form-subtitle">Personal data</h2></br>
+    <%= devise_error_messages! %>
+    <div class="field">
+      <%= f.label :first_name %><br />
+      <%= f.text_field :first_name, autofocus: true, autocomplete: "given-name" %>
+    </div>
+
+    <div class="field">
+      <%= f.label :family_name %><br />
+      <%= f.text_field :family_name, autofocus: true, autocomplete: "family-name" %>
+    </div>
+
+    <div class="field">
+      <%= f.label :birth_date %><br />
+      <%= f.date_field :birth_date, autofocus: true, autocomplete: "bday" %>
+    </div>
+
+    <div class="field">
+    <%= f.label :sex %><br />
+    <%= f.select :sex, [
+      'Male',
+      'Female',
+      'Other'
+      ] , autocomplete: "gender-identity"%>
   </div>
 
-  <div class="field">
-    <%= f.label :nationality %><br />
-    <%= f.select :nationality, country_list, autocomplete: "country-name" %>
-  </div>
+    <div class="field">
+      <%= f.label :permanent_adress %><br />
+      <%= f.text_field :permanent_adress, autofocus: true, autocomplete: "street-address" %>
+    </div>
 
-  <div class="field">
-    <%= f.label :phone_number %><br />
-    <%= f.telephone_field :phone_number, autofocus: true, autocomplete: "tel" %>
-  </div>
+    <div class="field">
+      <%= f.label :nationality %><br />
+      <%= f.select :nationality, country_list, autocomplete: "country-name" %>
+    </div>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, value: @user.email, autofocus: true, autocomplete: "email", disabled: true  %>
-  </div>
+    <div class="field">
+      <%= f.label :phone_number %><br />
+      <%= f.telephone_field :phone_number, autofocus: true, autocomplete: "tel" %>
+    </div>
 
-  <div class="actions">
-    <%= f.submit "Sign up", :class => "custom-button" %>
-  </div>
-<% end %>
+    <div class="field">
+      <%= f.label :email %><br />
+      <%= f.email_field :email, value: @user.email, autofocus: true, autocomplete: "email", disabled: true  %>
+    </div>
 
+   <div class="action-buttons">
+    <div class="progress-bar">
+        <div class="progress-line">
+        </div>
+        <div class="progress-balls">
+          <% final_steps_array = @user.student_application_form.completed_steps_array  %>
+          <a href="/student_application_form/personal_data_step"><span class='progress-ball current-step done-step'></span></a>
+        <% for i in 1..6 do %>
+            <% classBall = final_steps_array[i-1] ? "done-step" :"todo-step " %>
+                <%= link_to "<span class='progress-ball future-step #{classBall}'></span>".html_safe, student_application_form_path + "/#{i}"%>
+        <% end %>
+        </div>
+    </div>
+    <div class="progress-buttons">
+        <%= f.submit "Next", :class => "custom-button" %>
+    </div>
+    </br>
+    </br>
+    </br>
+  </div>
+  <% end %>
+</div>
 <%#= render "devise/shared/links" %>

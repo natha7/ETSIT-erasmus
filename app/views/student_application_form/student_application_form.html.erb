@@ -11,7 +11,7 @@
         <div class="progress-line">
         </div>
         <div class="progress-balls">
-
+        <a href="/student_application_form/personal_data_step"><span class='progress-ball previous-step done-step'></span></a>
         <% for i in 1..6 do %>
             <% classBall = final_steps_array[i-1] ? "done-step" :"todo-step " %>
             <%if @sap.step > i %>
@@ -27,6 +27,9 @@
         </div>
     </div>
     <div class="progress-buttons">
+        <% if @sap.step.to_i == 1 %>
+            <button type="submit" value="personal_data" name="step"  class='custom-button'> < Back</button>
+        <% end %>
         <%if @sap.step - 1 > 0 %>
                 <button type="submit" value="<%=@sap.step - 1%>" name="step"  class='custom-button'> < Back</button>
         <%end%>

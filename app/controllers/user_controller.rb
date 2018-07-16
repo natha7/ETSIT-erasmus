@@ -35,6 +35,28 @@ class UserController < ApplicationController
 		render "users/registration"
 	end
 
+	def update_personal_data
+		current_user.assign_attributes(params.require(:user).permit(
+				:first_name,
+			     :family_name,
+			     :birth_date,
+			     :born_place,
+			     :nationality,
+			     :sex,
+			     :permanent_adress,
+			     :phone_number,
+			    :seeking_degree
+			))
+		current_user.student_application_form.step = 1
+		if current_user.save
+			redirect_to student_application_form_path
+		else
+			flash[:error] = current_user.errors.full_messages.to_sentence
+			redirect_back fallback_location: root_path
+		end
+		
+	end
+
 	def file_upload
 		unless params[:user].blank?
 			keys = params[:user].keys
