@@ -13,7 +13,7 @@
 				<%unless admin === true  %>
 				<%= button_to "Delete", user_file_delete_url(:id => current_user.id, :attachment => name), :method=> :delete, :class => "custom-button" %>	
 				<%end%>
-				<a href="<%=  content.url%>" download="<%=  file_name %>"><button class="custom-button">Download</button></a>				
+				<a href="<%=  content.url%>" download="<%=  file_name %>"><button class="custom-button primary">Download</button></a>
 			</div>
 		</div>
 	<% else %>
