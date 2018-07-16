@@ -6,7 +6,7 @@
 <div class="edit_student_application_flex">
 <div class="field">
   <div class="flex-container">
-    <%= f.label :current_diploma_degree %><br />
+    <%= f.label :current_diploma_degree, "Currently studying Diploma/Degree" %><br />
     <%= f.text_field :current_diploma_degree, autofocus: true, autocomplete: "current_diploma_degree", disabled: review %>
   </div>
 </div>
@@ -20,25 +20,25 @@
 
 <div class="field">
   <div class="flex-container">
-    <%= f.label :specialization_area %><br />
+    <%= f.label :specialization_area, "Area of specialization" %><br />
     <%= f.text_field :specialization_area, autofocus: true, autocomplete: "specialization_area", disabled: review %>
   </div>
 </div>
 <div class="field">
   <div class="flex-container">
     <%= f.check_box :already_study_abroad, autofocus: true, autocomplete: "already_study_abroad", disabled: review %>
-    <%= f.label :already_study_abroad, class: "checkBox" %><br />
+    <%= f.label :already_study_abroad, "Already been studying abroad?",class: "checkBox" %><br />
   </div>
 </div>
 <div class="field">
   <div class="flex-container">
-    <%= f.label :where_study_abroad %><br />
+    <%= f.label :where_study_abroad , "When do you study abroad?"%><br />
     <%= f.text_field :where_study_abroad, autofocus: true, autocomplete: "where_study_abroad", disabled: review %>
   </div>
 </div>
 <div class="field">
   <div class="flex-container">
-    <%= f.label :where_institution_abroad %><br />
+    <%= f.label :where_institution_abroad, "At which institution?" %><br />
     <%= f.text_field :where_institution_abroad, autofocus: true, autocomplete: "where_institution_abroad", disabled: review %>
   </div>
 </div>
