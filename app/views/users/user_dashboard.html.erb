@@ -1,5 +1,5 @@
 <div class="align-right">
-<a href="mailto:internacional@etsit.upm.es" class="inline"><button class="custom-button">OI Contact</button></a>
+<a href="mailto:internacional@etsit.upm.es" class="inline"><button class="custom-button primary">OI Contact</button></a>
 <%= button_to "Log out", destroy_user_session_path, :method=> :delete, :class => "custom-button ", :form_class => "inline" %>
 </div>
 <% unless current_user.role != 'admin'%>
@@ -78,7 +78,7 @@
 						<%= button_to "Delete", user_file_delete_url(:id => current_user.id, :attachment => :signed_student_application_form_file_name), :method=> :delete, :class => "custom-button" %>
 					<% end %>
 					<a download="application_form.pdf" href=<%= finish_and_uploaded ? current_user.signed_student_application_form.url : "/generate_pdf" %>   >
-						<button type="button" class="custom-button" <%= (finish_app_form || finish_and_uploaded) ? "":"disabled"%>   >
+						<button type="button" class="custom-button primary" <%= (finish_app_form || finish_and_uploaded) ? "":"disabled"%>   >
 							Download
 						</button>
 					</a>
