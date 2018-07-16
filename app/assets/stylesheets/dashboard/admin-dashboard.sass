@@ -1,14 +1,16 @@
 @import "_variables"
+@import "_mixins"
 
 .filters
 	background-color: #eee
 	padding: 35px
 	padding-top: 12px
 	.flex-filters
-		display: flex
+		@include flexBoxVendor
 		flex-wrap: wrap
+
 		.filter
-			display: flex
+			@include flexBoxVendor
 			flex-wrap: wrap
 			flex-grow: 1
 			label
@@ -18,6 +20,8 @@
 				padding-right: 5px
 
 .admin-dashboard.dashboard-container
+	.collapsible
+		font-size: 14px
 	.nominee-form
 		margin-top: -30px
 		margin-right: -10px
@@ -28,7 +32,7 @@
 			i:hover:before
 				transform: scale(1.5)
 	.flex-table
-		display: flex
+		@include flexBoxVendor
 		text-align: left
 		flex-wrap: wrap
 		// justify-content: center
@@ -81,7 +85,7 @@
 			//order: 4
 			// flex-grow: 1
 			a
-				display: flex
+				@include flexBoxVendor
 				justify-content: flex-end
 				i
 					margin-left: 2px

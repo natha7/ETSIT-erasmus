@@ -1,4 +1,5 @@
 @import "../variables"
+@import "../mixins"
 #edit-picture-dialog
 	padding: 25px
 	display: none
@@ -37,7 +38,7 @@
 				&.hidden
 					display: none
 .dashboard-container 
-	display: flex
+	@include flexBoxVendor
 	.left-column
 		flex-grow: 1
 		text-align: center
@@ -93,7 +94,7 @@
 							transition: 0.2s all ease-in
 							transform: rotate(0deg)
 			.second-container
-				display: flex
+				@include flexBoxVendor
 				.second-container-left
 					flex-grow: 1
 				.second-container-medium
@@ -126,7 +127,7 @@
 					// 	max-height: 140px
 				.align-right
 					text-align: right
-					display: flex
+					@include flexBoxVendor
 					justify-content: flex-end
 					input, button
 						margin-right: 2px
