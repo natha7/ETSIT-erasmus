@@ -411,4 +411,14 @@ $(document).on('turbolinks:load', function() {
     return true;
   });
 
+  $('#user_signed_student_application_form').change(function(e){ 
+    if (e.target.files.length > 0) {
+        // quitar disabled
+        $('#upload-signed').prop('disabled', false)
+    } else {
+        // poner disabled
+        $('#upload-signed').prop('disabled', true)
+    }
+  });
+
 });
