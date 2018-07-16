@@ -33,7 +33,7 @@ class NominatedUserController < ApplicationController
 	def register
 		@nominee = NominatedUser.find_by(:registration_token => params[:token_registration])
 		if @nominee.blank?
-			render status: :forbidden, text: 'You do not have access to this page.'
+			raise_forbidden
 		else  
 			render "users/register_choice"
 		end
