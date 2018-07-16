@@ -1,7 +1,9 @@
+
 module PdfHelper
     def create_pdf(user)
         Prawn::Document.new(:page_size => 'A4') do
         	steps = user.student_application_form
+            require 'active_support'
 
         	# Blue box with logo
         	def header
@@ -95,7 +97,8 @@ module PdfHelper
             label("Last Name")
             check_field(user.family_name)
             label("Date of birth")
-            check_field(user.birth_date.to_s)
+            day = user.birth_date.blank? ? "" : user.birth_date.strftime("%b, #{user.birth_date.day.ordinalize} %Y")
+            check_field(day)
             label("Gender")
             check_field(user.sex)
             label("Address")
@@ -183,9 +186,11 @@ module PdfHelper
                     label("Organisation")
                     check_field work.firm_organisation
                     label("From")
-                    check_field work.from.to_s
+                    day = work.from.blank? ? "" : work.from.strftime("%b, #{work.from.day.ordinalize} %Y")
+                    check_field(day)
                     label("To")
-                    check_field work.to.to_s
+                    day = work.to.blank? ? "" : work.to.strftime("%b, #{work.to.day.ordinalize} %Y")
+                    check_field(day)
                     label("Country")
                     check_field work.country
                     # checkbox("Currently Studying" , lang.currently_studying, 0, cursor )  
