@@ -5,8 +5,11 @@
 <div class="student-application-form">
 
   <%= form_for(@user, url: student_application_form_personal_data_path, method: :post) do |f| %>
+
    <h1>Student Application Form <span class="fake-arrow" > > </span>  </h1><h2 class="form-subtitle">Personal data</h2></br>
+    <p class="intro-paragraph">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
     <%= devise_error_messages! %>
+    <div class="edit_student_application_flex">
     <div class="field">
       <%= f.label :first_name %><br />
       <%= f.text_field :first_name, autofocus: true, autocomplete: "given-name" %>
@@ -50,7 +53,7 @@
       <%= f.label :email %><br />
       <%= f.email_field :email, value: @user.email, autofocus: true, autocomplete: "email", disabled: true  %>
     </div>
-
+    </div>
    <div class="action-buttons">
     <div class="progress-bar">
         <div class="progress-line">
@@ -65,7 +68,7 @@
         </div>
     </div>
     <div class="progress-buttons">
-        <%= f.submit "Next", :class => "custom-button" %>
+        <%= f.submit "Next >", :class => "custom-button" %>
     </div>
     </br>
     </br>

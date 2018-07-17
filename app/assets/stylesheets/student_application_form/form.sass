@@ -71,11 +71,20 @@
 			display: block
 			padding: 15px
 		.lang, .work
-			padding-bottom: 10px
 			border-bottom: 1px solid grey
 			display: flex
 			flex-wrap: wrap
 			align-items: center
+			background-color: #edf2f6
+			padding: 0 15px 0 0
+			.field
+				input:not([type="submit"])
+					width: auto
+				select
+					width: 230px
+				label
+					width: 80px
+
 			.delete-lang-button, .delete-work-button
 				vertical-align: middle
 				transition: 0.2s all ease-in
@@ -85,7 +94,9 @@
 			border-bottom: none
 		.work-list
 			.field:first-child, .field:nth-child(2)
-				width: 48%
+				width: 40%
+		.lang-list
+			margin: 20px 0
 .back-to-dashboard
 	display: inline-block
 	width: 100%

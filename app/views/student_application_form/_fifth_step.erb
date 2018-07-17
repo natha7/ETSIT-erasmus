@@ -12,7 +12,7 @@
 <div class="<%=   sap.no_work_experience ? "other-work hidden" : "other-work" %>" style="">
 
 <% unless review %>
-	<button class="custom-button" id="add-work" type="button">Add a new work experience</button>
+	<button class="custom-button primary" id="add-work" type="button">Add a new work experience</button>
 	<br/><br/>
 <%end%>
 <div class="work-list">
@@ -21,7 +21,7 @@
 	<div class="work">
 		<div class="field">
 			<div class="flex-container">
-				<label for="work_kind">Position</label>
+				<label for="work_kind">Type of work</label>
 				<input type="text" name="work_kind" class="work-input" <%=review ? "disabled" : ""%> value="<%=work.work_kind%>"/>
 			</div>
 		</div>
@@ -37,14 +37,14 @@
 				<input type="date" name="from" class="work-input" <%=review ? "disabled" : ""%> value="<%=work.from%>"/>
 
 			</div>
-		</div>
-		<div class="field">
+			<br>
 			<div class="flex-container">
 				<label for="dates">To</label>
 				<input type="date" name="to" class="work-input" <%=review ? "disabled" : ""%> value="<%=work.to%>"/>
 
 			</div>
 		</div>
+
 		<div class="field">
 			<div class="flex-container">
 				<label for="dates">Country</label>
