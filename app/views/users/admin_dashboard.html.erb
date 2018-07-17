@@ -173,7 +173,7 @@
                 <%= user.progress_status %>
               <% elsif user.progress_status == "process" and user.percentage.to_i === 100 %>
                 <%= form_for(user, url: set_user_status_path,  method: :post) do |f|%>
-                  <%= f.select :progress_status, [:finished, :rejected, :accepted, :renounce], {}, {value: user.progress_status, class: 'form-control', onchange: 'this.form.submit();'}%>
+                  <%= f.select :progress_status, [:finished, :rejected, :accepted], {}, {value: user.progress_status, class: 'form-control', onchange: 'this.form.submit();'}%>
                   <%= f.hidden_field :id, :value => user.id %>
                 <% end %>
               <% else %>

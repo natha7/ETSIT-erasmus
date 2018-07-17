@@ -27,7 +27,7 @@
       'Male',
       'Female',
       'Other'
-      ] , autocomplete: "gender-identity", disabled: true%>
+      ] , {}, {disabled: true}%>
     </div>
 
     <div class="field">
@@ -37,12 +37,19 @@
 
     <div class="field">
       <%= f.label :nationality %><br />
-      <%= f.select :nationality, country_list, autocomplete: "country-name", disabled: true %>
+      <%= f.select :nationality, country_list, {}, {disabled: true} %>
     </div>
 
     <div class="field">
       <%= f.label :phone_number %><br />
       <%= f.telephone_field :phone_number, autofocus: true, autocomplete: "tel", disabled: true %>
+    </div>
+
+    <div class="field">
+      <%= f.label :seeking_degree, "I am seeking double degree", :value => true  %>
+      <%= f.radio_button :seeking_degree, true, :checked => user.seeking_degree, disabled: true %>
+      <%= f.label :seeking_degree, "I am not seeking double degree", :value => false %>
+      <%= f.radio_button :seeking_degree, false, :checked => !user.seeking_degree, disabled: true%>
     </div>
 
     <div class="field">

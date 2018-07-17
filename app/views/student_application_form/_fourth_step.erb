@@ -8,14 +8,14 @@
 	<div class="field">
 	  <div class="flex-container">
 	    <%= f.label :mother_tongue %><br />
-	    <%= f.select :mother_tongue, languages_list, autocomplete: "mother_tongue", disabled: review %>
+	    <%= f.select :mother_tongue, languages_list, {}, {disabled: review} %>
 	  </div>
 	</div>
 
 	<div class="field">
 	  <div class="flex-container">
 	    <%= f.label :language_instruction %><br />
-	     <%= f.select :language_instruction, languages_list, autocomplete: "language_instruction", disabled: review %>
+	     <%= f.select :language_instruction, languages_list, {}, {disabled: review} %>
 	  </div>
 	</div>
 	<br/>

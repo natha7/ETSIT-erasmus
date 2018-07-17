@@ -115,43 +115,33 @@
 								:file_name => current_user.ni_passport_file_name, 
 								:label => "NI Passport"}  %>
 
-								<div class="row">
-									<label>
-										Seeking degree  
-									</label>
-									<label class="switch">
-										<input id="seekingDegreeCheckbox" type="checkbox">
-										<span class="slider round"></span>
-									</label>
-
-								</div>
+								<%if current_user.seeking_degree %>
 								<div id="degree-seeking" class="hidden">
 									<%= render partial: "users/user_dashboard_panel", :locals => {
+									:admin => true,
+									:name => :recommendation_letter_1, 
+									:content => current_user.recommendation_letter_1, 
+									:file_name => current_user.recommendation_letter_1_file_name, 
+									:label => "Recommendation letter 1"}  %>
+									<%= render partial: "users/user_dashboard_panel", :locals => {
 										:admin => true,
-										:name => :recommendation_letter_1, 
-										:content => current_user.recommendation_letter_1, 
-										:file_name => current_user.recommendation_letter_1_file_name, 
-										:label => "Recommendation letter 1"}  %>
-										<%= render partial: "users/user_dashboard_panel", :locals => {
-											:admin => true,
-											:name => :recommendation_letter_2, 
-											:content => current_user.recommendation_letter_2, 
-											:file_name => current_user.recommendation_letter_2_file_name, 
-											:label => "Recommendation letter 2"}  %>
-											<%= render partial: "users/user_dashboard_panel", :locals => {
-												:admin => true,
-												:name => :official_gpa, 
-												:content => current_user.official_gpa, 
-												:file_name => current_user.official_gpa_file_name, 
-												:label => "Official GPA"}  %>
-												<%= render partial: "users/user_dashboard_panel", :locals => {
-													:admin => true,
-													:name => :english_test_score, 
-													:content => current_user.english_test_score, 
-													:file_name => current_user.english_test_score_file_name,
-													:label => "English Test Score"}  %>
-												</div>
-											</div>
-
-
-											<%end%>
+										:name => :recommendation_letter_2, 
+										:content => current_user.recommendation_letter_2, 
+										:file_name => current_user.recommendation_letter_2_file_name, 
+										:label => "Recommendation letter 2"}  %>
+									<%= render partial: "users/user_dashboard_panel", :locals => {
+										:admin => true,
+										:name => :official_gpa, 
+										:content => current_user.official_gpa, 
+										:file_name => current_user.official_gpa_file_name, 
+										:label => "Official GPA"}  %>
+									<%= render partial: "users/user_dashboard_panel", :locals => {
+										:admin => true,
+										:name => :english_test_score, 
+										:content => current_user.english_test_score, 
+										:file_name => current_user.english_test_score_file_name,
+										:label => "English Test Score"}  %>
+									</div>
+									<% end %>
+									</div>
+								<%end%>
