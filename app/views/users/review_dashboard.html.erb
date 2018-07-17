@@ -1,6 +1,6 @@
 <% unless User.exists?(id: params[:user], role: "user")  %>
 <div class="align-right">
-	<%= button_to "Dashboard", admin_dashboard_path, :method=> :get, :class => "custom-button",:form_class =>"inline"%>
+	<%= button_to "Dashboard", admin_dashboard_path, :method=> :get, :class => "custom-button primary",:form_class =>"inline"%>
 	<%= button_to "Log out", destroy_user_session_path, :method=> :delete, :class => "custom-button", :form_class =>"inline"%>
 </div>
 <br/><br/>
@@ -9,8 +9,8 @@
 <% admin = current_user %>
 <% current_user = User.find(params[:user]) %>
 <div class="align-right">
-	<%= button_to "User Contact", "mailto:"+current_user.email , :method=> :get, :class => "custom-button",:form_class =>"inline"%>
-	<%= button_to "Dashboard", admin_dashboard_path, :method=> :get, :class => "custom-button",:form_class =>"inline"%>
+	<%= button_to "User Contact", "mailto:"+current_user.email , :method=> :get, :class => "custom-button primary",:form_class =>"inline"%>
+	<%= button_to "Dashboard", admin_dashboard_path, :method=> :get, :class => "custom-button primary",:form_class =>"inline"%>
 	<%= button_to "Log out", destroy_user_session_path, :method=> :delete, :class => "custom-button", :form_class =>"inline"%>
 </div>
 
@@ -71,7 +71,7 @@
 				<p class="intro-paragraph">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
 				<div class="align-right">
 					<a download="application_form.pdf" href="<%="/generate_pdf/#{current_user.id}"%>"><button class="custom-button">Download</button></a>
-					<a download="application_form.pdf" href="<%= current_user.signed_student_application_form.url %>"><button class="custom-button">Download signed</button></a>
+					<a download="application_form.pdf" href="<%= current_user.signed_student_application_form.url %>"><button class="custom-button primary">Download signed</button></a>
 					<a href="<%="/review_student_application_form/#{current_user.id}/1"%>"><button class="custom-button" >Review data</button></a>
 
 				</div>

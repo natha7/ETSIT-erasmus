@@ -13,6 +13,7 @@
     font-size: 1em
     margin: 2px
     transition: 0.2s all ease-in
+    max-height: 40px
     &:disabled
         color: grey
         cursor: not-allowed
@@ -21,14 +22,6 @@
             transform: scale(1)
     &:hover
         transform: scale(1.07)
-
-.primary
-    color: white
-    background-color: $etsit_blue
-    &:disabled
-        background-color: white
-        color: #9fa8b0
-        border-color: #9fa8b0
 
 
 .actions
@@ -40,17 +33,19 @@
     border-radius: 0px 5px 5px 0px
     border: 2px solid $etsit_blue
     border-left: none
-    height: 36px
-    padding: 6px
+    height: 39px
     background-color: white
     outline: none
     text-transform: uppercase
+    transition: 0.2s all ease-in
     color: $etsit_blue
     margin-left: -3px
+    &:hover
+        transform: scale(1.07)
 .input-right
     border-radius: 5px 0px 0px 5px !important
     border: 2px solid $etsit_blue !important
-    // border-right: none
+
 .transparent-button
     background: transparent
     outline: none
@@ -60,11 +55,23 @@
     font-size: 17px
     transition: 0.2s all ease-in
     &:hover
-        transform: scale(1.5)    
+        transform: scale(1.07)
 .small-button
     width: 31px 
     height: 31px 
     border-radius: 5px
+    padding: 3px
+    background-color: $etsit_blue
     border: 2px solid $etsit_blue
+    i.dark
+        color: white !important
 .mdi-help
     cursor: help
+
+.primary
+    color: white
+    background-color: $etsit_blue
+    &:disabled
+        background-color: white
+        color: #9fa8b0
+        border-color: #9fa8b0

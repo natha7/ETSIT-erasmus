@@ -1,4 +1,5 @@
 @import "../mixins"
+@import "_variables"
 .buttons
 	form
 		display: inline-block
@@ -10,12 +11,12 @@
 	flex-flow: column
 	.signin-container
 		justify-content: center
+		padding: 40px
 	.flex-left-new
 		flex: 1
 		text-align: right
-		padding-right: 20px
-		border-right: 1px solid black
-
+		border-right: 1px solid $etsit_blue
+		padding-right: 15px
 	.flex-right-new
 		flex: 1
 		padding-left: 20px
@@ -24,13 +25,13 @@
 			flex-direction: column
 			height: 100%
 			a
-				margin: auto
-				margin-left: 15px
+				width: auto
+				max-width: 190px
+				text-align: center
 	.field
 		@include flexBoxVendor
-		padding: 11px  !important
-		padding-left: 0px !important
 		flex-grow: 1
+		justify-content: flex-end
 		.flex-container
 			justify-content: flex-end
 
@@ -48,18 +49,30 @@
 		@include flexBoxVendor
 		flex-direction: row
 
-	
-
-@media (max-width: 700px)
+@media (max-width: 800px)
 	.new_user
+		.field
+			label
+				width: 50px
+			input[type=email],input[type=password]
+				min-width: 200px !important
+
+@media (max-width: 600px)
+	.new_user
+		.field
+			justify-content: center
+			padding: 0 !important
+			label
+				width: auto
+				text-align: left
 		.flex-container
 			flex-direction: column
+			padding: 0
+			width: 100%
+			a
+				margin: 0 auto !important
 		.flex-left-new, .flex-right-new
-			text-align: left
-			border:none
-		.flex-left-new
-			border-right: none
-		.flex-right-new
-			.flex-container
-				input
-					margin-left: -10px !important
+			text-align: center
+			padding: 0
+			border: none
+			margin: 20px 0

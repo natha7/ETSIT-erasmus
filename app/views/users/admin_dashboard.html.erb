@@ -1,5 +1,5 @@
 <div class="align-right">
-<%= button_to "Contact users", "/massive_email", :method=> :get, :class => "custom-button ", :form_class =>"inline"%>
+<%= button_to "Contact users", "/massive_email", :method=> :get, :class => "custom-button primary", :form_class =>"inline"%>
 <%= button_to "Log out", destroy_user_session_path, :method=> :delete, :class => "custom-button ", :form_class =>"inline"%>
 </div>
 <% like_email = "%#{ params[:email]}%"    %>
@@ -13,19 +13,20 @@
 <br/>
 <div class="filters">
   <form action="/admin_dashboard" method="GET">
-      <input type="submit" class="custom-button right" value="Search"></input>
-  <h3>Filters</h3>
-  <div class="flex-filters">
-    <div class="field filter"> 
-      <label class="label">E-mail </label>
-      <input name="email" placeholder="Find by e-mail" value="<%=params[:email]%>"></input>
+    <h2>Filters</h2>
+    <div class="flex-filters">
+      <div class="field filter">
+        <label class="label">E-mail </label>
+        <input name="email" placeholder="Find by e-mail" value="<%=params[:email]%>"/>
+      </div>
+      <div class="field filter">
+        <label class="label">Name </label>
+        <input name="name" placeholder="Find by name" value="<%=params[:name]%>"/>
+      </div>
+
+      <input type="submit" class="custom-button primary" value="Search"/>
+
     </div>
-    <div class="field filter"> 
-      <label class="label">Name </label>
-      <input name="name" placeholder="Find by name" value="<%=params[:name]%>"></input>
-    </div>
-    <div class="field filter"></div> 
-  </div>
   </form>
 </div>
 </br>
@@ -42,13 +43,13 @@
         Nominated users
           <i class="caret mdi mdi-menu-down no-reverse"></i>
         </label>
-        <div class="right" style="margin-top:16px;">
+        <div class="right">
 
           <%= form_tag(create_nominee_path, :method=> :post) do %>
 
           <div class="field nominee-form">
             <%= email_field_tag 'email', nil, :placeholder =>  "Nominee e-mail", :class => "input-right"  %>
-            <button type="submit" class="right-addon"><i class="mdi mdi-send"></i></button>
+            <button type="submit" class="right-addon primary"><i class="mdi mdi-send"></i></button>
           </div>
 
           <%end%>
@@ -59,27 +60,31 @@
       <div class="collapsible big">
       <% unless nominees.empty? %>
       <div class="flex-table nominee-table">
-        <div class="flex-table-header flex-table-cell flex-table-email-nominee">Email</div>
-        <div class="flex-table-header flex-table-cell flex-table-resend">Resend</div>
-        <div class="flex-table-header flex-table-cell flex-table-erase">Delete</div>
+        <div class="table-header">
+          <div class="flex-table-header flex-table-cell flex-table-email-nominee">Email</div>
+          <div class="flex-table-header flex-table-cell flex-table-resend">Resend</div>
+          <div class="flex-table-header flex-table-cell flex-table-erase">Delete</div>
+        </div>
         <% nominees.each do |nominee| %>
-        <div class="nominee-<%= nominee.id %>-id flex-table-cell flex-table-email-nominee">
-          <span class="big-hidden">Email:</span><span class="email"><%= nominee.email %></span>
-        </div>
-        <div class="nominee-<%= nominee.id %>-id flex-table-cell flex-table-resend">
-          <span class="dashboard-icon">
+        <div class="nominee-item">
+          <div class="nominee-<%= nominee.id %>-id flex-table-cell flex-table-email-nominee">
+            <span class="big-hidden">Email:</span><span class="email"><%= nominee.email %></span>
+          </div>
+          <div class="nominee-<%= nominee.id %>-id flex-table-cell flex-table-resend">
+            <span class="dashboard-icon">
 
-            <%= form_tag( resend_email_path(:id => nominee.id), :method=> :post) do %>
-              <button title="Resend email" class="transparent-button action-button small-button"> <i class="mdi mdi-redo-variant dark"></i></button>
-            <% end %>
-          </span>
-        </div>
-        <div class="nominee-<%= nominee.id %>-id flex-table-cell flex-table-erase">
-          <span class="dashboard-icon">
-            <%= form_tag( delete_nominee_path(:id => nominee.id), :method=> :delete) do %>
-              <button type="submit" title="Delete nominee" class="transparent-button action-button small-button"> <i class="mdi mdi-close dark"></i></button>
-            <% end %>
-          </span>
+              <%= form_tag( resend_email_path(:id => nominee.id), :method=> :post) do %>
+                <button title="Resend email" class="transparent-button action-button small-button"> <i class="mdi mdi-redo-variant dark"></i></button>
+              <% end %>
+            </span>
+          </div>
+          <div class="nominee-<%= nominee.id %>-id flex-table-cell flex-table-erase">
+            <span class="dashboard-icon">
+              <%= form_tag( delete_nominee_path(:id => nominee.id), :method=> :delete) do %>
+                <button type="submit" title="Delete nominee" class="transparent-button action-button small-button"> <i class="mdi mdi-close dark"></i></button>
+              <% end %>
+            </span>
+          </div>
         </div>
         <% end %>
       </div>
@@ -102,80 +107,84 @@
       <div class="collapsible big">
       <% unless users.empty? %>
       <div class="flex-table ">
-        <div class="flex-table-header flex-table-cell flex-table-email">Email</div>
-        <div class="flex-table-header flex-table-cell flex-table-univ">University</div>
-        <div class="flex-table-header flex-table-cell flex-table-period">Period</div>
-        <div class="flex-table-header flex-table-cell flex-table-app-form">App Form</div>
-        <div class="flex-table-header flex-table-cell flex-table-mot-letter">Mot. Letter</div>
-        <div class="flex-table-header flex-table-cell flex-table-cv">CV</div>
-        <div class="flex-table-header flex-table-cell flex-table-trans-rec">Trans. Rec</div>
-        <div class="flex-table-header flex-table-cell flex-table-la">LA</div>
-        <div class="flex-table-header flex-table-cell flex-table-status">Status</div>
-        <div class="flex-table-header flex-table-cell flex-table-pctg"> </div>
+        <div class="table-header">
+          <div class="flex-table-header flex-table-cell flex-table-email">Email</div>
+          <div class="flex-table-header flex-table-cell flex-table-univ">University</div>
+          <div class="flex-table-header flex-table-cell flex-table-period">Period</div>
+          <div class="flex-table-header flex-table-cell flex-table-app-form">Form</div>
+          <div class="flex-table-header flex-table-cell flex-table-mot-letter">Letter</div>
+          <div class="flex-table-header flex-table-cell flex-table-cv">CV</div>
+          <div class="flex-table-header flex-table-cell flex-table-trans-rec">TR</div>
+          <div class="flex-table-header flex-table-cell flex-table-la">LA</div>
+          <div class="flex-table-header flex-table-cell flex-table-status">Status</div>
+          <div class="flex-table-header flex-table-cell flex-table-pctg"> </div>
+        </div>
         
         <% users.each do |user| %>
-        <div class="user-<%= user.id %>-id flex-table-cell flex-table-email">
-          <span class="big-hidden">Email:</span><a href="/review_dashboard/<%=user.id%>"><span class="email"><%= user.email %></span></a>
-        </div>
-        <div class="user-<%= user.id %>-id flex-table-cell flex-table-univ">
-          <span class="big-hidden">University: </span>
-          <%= user.student_application_form.inst_sending_name %>
-        </div>
-        <div class="user-<%= user.id %>-id flex-table-cell flex-table-period">
-          <span class="big-hidden">Period: </span>
-          <%= user.student_application_form.academic_year %>
-        </div>
-        <div class="user-<%= user.id %>-id flex-table-cell flex-table-app-form">
-          <span class="big-hidden">App Form: </span>
-          <span class="dashboard-icon">
-            <a href="/review_student_application_form/<%=user.id%>/1">
-              <% pctg = user.student_application_form.completed_percentage(user.signed_student_application_form) %>
-            <%="#{pctg}" %>
-              <i  class="mdi mdi-clipboard-text app-form <%= 'green' if pctg === '100%' %>"></i>
-            </a>
-          </span>
-         <!--  <%= user.student_application_form.erasmus_code %> -->
-        </div>
-        <div class="user-<%= user.id %>-id flex-table-cell flex-table-mot-letter">
-          <span class="big-hidden">Mot. Letter: </span>
-          <span class="dashboard-icon">
-            <i class="mdi mdi-email <%=  'exists' if user.motivation_letter.exists?  %>"></i>
-          </span>
-        </div>
-        <div class="user-<%= user.id %>-id flex-table-cell flex-table-cv">
-          <span class="big-hidden">CV: </span>
-          <span class="dashboard-icon">
-            <i class="mdi mdi-account <%=  'exists' if user.curriculum_vitae.exists?  %>"></i>
-          </span>
-        </div>
-        <div class="user-<%= user.id %>-id flex-table-cell flex-table-trans-rec">
-          <span class="big-hidden">Trans. Rec: </span>
-          <span class="dashboard-icon">
-            <i class="mdi mdi-radiobox-marked <%=  'exists' if user.transcript_of_records.exists?  %>"></i>
-          </span>
-        </div>
-        <div class="user-<%= user.id %>-id flex-table-cell flex-table-la">
-          <span class="big-hidden">LA: </span>
-          <span class="dashboard-icon"><i class="mdi mdi-school <%=  'exists' if user.learning_agreement.exists?  %>"></i>
-          </span>
-        </div>
-        <div class="user-<%= user.id %>-id flex-table-cell flex-table-status">
-          <span class="big-hidden">Status: </span>
-          <% if (user.progress_status == "process" and user.percentage.to_i != 100) || user.progress_status == "renounce" %>
-            <%= user.progress_status %>
-          <% elsif user.progress_status == "process" and user.percentage.to_i === 100 %>
-            <%= form_for(user, url: set_user_status_path,  method: :post) do |f|%>
-              <%= f.select :progress_status, [:finished, :rejected, :accepted, :renounce], {}, {value: user.progress_status, class: 'form-control', onchange: 'this.form.submit();'}%>
-              <%= f.hidden_field :id, :value => user.id %>
-            <% end %>
-          <% else %>
-            <%= user.progress_status %>
-          <% end %>
-        </div>
-        <div class="user-<%= user.id %>-id flex-table-cell flex-table-pctg">
-          <span class="big-hidden">Progress: </span>
-          <%= "#{user.percentage}" %>
-        </div>
+          <div class="registered-item">
+            <div class="user-<%= user.id %>-id flex-table-cell flex-table-email">
+              <span class="big-hidden">Email:</span><a href="/review_dashboard/<%=user.id%>"><span class="email"><%= user.email %></span></a>
+            </div>
+            <div class="user-<%= user.id %>-id flex-table-cell flex-table-univ">
+              <span class="big-hidden">University: </span>
+              <%= user.student_application_form.inst_sending_name %>
+            </div>
+            <div class="user-<%= user.id %>-id flex-table-cell flex-table-period">
+              <span class="big-hidden">Period: </span>
+              <%= user.student_application_form.academic_year %>
+            </div>
+            <div class="user-<%= user.id %>-id flex-table-cell flex-table-app-form">
+              <span class="big-hidden">App Form: </span>
+              <span class="dashboard-icon">
+                <a href="/review_student_application_form/<%=user.id%>/1">
+                  <% pctg = user.student_application_form.completed_percentage(user.signed_student_application_form) %>
+                <%="#{pctg}" %>
+                  <i  class="mdi mdi-clipboard-text app-form <%= 'green' if pctg === '100%' %>"></i>
+                </a>
+              </span>
+             <!--  <%= user.student_application_form.erasmus_code %> -->
+            </div>
+            <div class="user-<%= user.id %>-id flex-table-cell flex-table-mot-letter">
+              <span class="big-hidden">Mot. Letter: </span>
+              <span class="dashboard-icon">
+                <i class="mdi mdi-email <%=  'exists' if user.motivation_letter.exists?  %>"></i>
+              </span>
+            </div>
+            <div class="user-<%= user.id %>-id flex-table-cell flex-table-cv">
+              <span class="big-hidden">CV: </span>
+              <span class="dashboard-icon">
+                <i class="mdi mdi-account <%=  'exists' if user.curriculum_vitae.exists?  %>"></i>
+              </span>
+            </div>
+            <div class="user-<%= user.id %>-id flex-table-cell flex-table-trans-rec">
+              <span class="big-hidden">Trans. Rec: </span>
+              <span class="dashboard-icon">
+                <i class="mdi mdi-radiobox-marked <%=  'exists' if user.transcript_of_records.exists?  %>"></i>
+              </span>
+            </div>
+            <div class="user-<%= user.id %>-id flex-table-cell flex-table-la">
+              <span class="big-hidden">LA: </span>
+              <span class="dashboard-icon"><i class="mdi mdi-school <%=  'exists' if user.learning_agreement.exists?  %>"></i>
+              </span>
+            </div>
+            <div class="user-<%= user.id %>-id flex-table-cell flex-table-status">
+              <span class="big-hidden">Status: </span>
+              <% if (user.progress_status == "process" and user.percentage.to_i != 100) || user.progress_status == "renounce" %>
+                <%= user.progress_status %>
+              <% elsif user.progress_status == "process" and user.percentage.to_i === 100 %>
+                <%= form_for(user, url: set_user_status_path,  method: :post) do |f|%>
+                  <%= f.select :progress_status, [:finished, :rejected, :accepted, :renounce], {}, {value: user.progress_status, class: 'form-control', onchange: 'this.form.submit();'}%>
+                  <%= f.hidden_field :id, :value => user.id %>
+                <% end %>
+              <% else %>
+                <%= user.progress_status %>
+              <% end %>
+            </div>
+            <div class="user-<%= user.id %>-id flex-table-cell flex-table-pctg">
+              <span class="big-hidden">Progress: </span>
+              <%= "#{user.percentage}" %>
+            </div>
+          </div>
         <% end %><br/>
         
       </div>

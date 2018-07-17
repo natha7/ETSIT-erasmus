@@ -24,6 +24,14 @@
       <%= f.label :remember_me, class: "checkBox" %>
     </div>
   <% end -%>
+  <div class="field">
+    <div class="actions">
+      <%= render "devise/shared/links"  %>
+
+    </div>
+    <%= f.submit "Log in", :class => "custom-button primary" %>
+  </div>
+
 </div>
 <div class="flex-right-new">
  <div class="flex-container">
@@ -32,10 +40,8 @@
 </div>
 </div>
 
-  <div class="actions">
-    <%= f.submit "Log in", :class => "custom-button primary" %>
-  </div>
+
 
 <% end %>
 
-<%= render "devise/shared/links"  %>
+
