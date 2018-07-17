@@ -7,14 +7,28 @@
     outline: none
     border: 2px solid $etsit_blue
     padding: 10px
-    &::after
-        display: inline-block
-        content: '✖'
-        color: #92c400
-        float: right
     &.notice
         background-color: #ebffb0
         border: 2px solid #92c400
         color: #92c400
+        &::after
+            display: inline-block
+            content: '✖'
+            color: #92c400
+            float: right
+    &.error
+        background-color: #fbb2b2
+        border: 2px solid #ff0000
+        color: #ff0000
+        &::after
+            display: inline-block
+            content: '✖'
+            color: #ff0000
+            float: right
     &.alert
         background-color: rgba(255,218,144,0.15)
+        &::after
+            display: inline-block
+            content: '✖'
+            color: #92c400
+            float: right

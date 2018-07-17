@@ -43,8 +43,10 @@
     <%= f.telephone_field :phone_number, autofocus: true, autocomplete: "tel" %>
   </div>
   <div class="field">
-    <%= f.label :seeking_degree %><br />
-    <%= f.telephone_field :checkbox, autofocus: true %>
+    <%= f.label :seeking_degree, "I am seeking double degree", :value => true  %>
+    <%= f.radio_button :seeking_degree, true%>
+    <%= f.label :seeking_degree, "I am not seeking double degree", :value => false %>
+    <%= f.radio_button :seeking_degree, false, :checked => true %>
   </div>
 
 

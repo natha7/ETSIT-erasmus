@@ -47,6 +47,13 @@
     </div>
 
     <div class="field">
+      <%= f.label :seeking_degree, "I am seeking double degree", :value => true  %>
+      <%= f.radio_button :seeking_degree, true%>
+      <%= f.label :seeking_degree, "I am not seeking double degree", :value => false %>
+      <%= f.radio_button :seeking_degree, false, :checked => true %>
+    </div>
+
+    <div class="field">
       <%= f.label :email %><br />
       <%= f.email_field :email, value: @user.email, autofocus: true, autocomplete: "email", disabled: true  %>
     </div>

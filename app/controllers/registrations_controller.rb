@@ -53,7 +53,7 @@ class RegistrationsController < Devise::RegistrationsController
 
   # If you have extra params to permit, append them to the sanitizer.
   def configure_sign_up_params
-     devise_parameter_sanitizer.permit(:sign_up, keys: [:registration_token, :first_name, :family_name, :sex, :birth_date, :permanent_adress, :nationality, :phone_number,:email, :password, :password_confirmation])
+     devise_parameter_sanitizer.permit(:sign_up, keys: [:registration_token, :first_name, :family_name, :sex, :birth_date, :permanent_adress, :nationality, :phone_number, :seeking_degree, :email, :password, :password_confirmation])
   end
 
   # If you have extra params to permit, append them to the sanitizer.
@@ -74,6 +74,6 @@ class RegistrationsController < Devise::RegistrationsController
 
   # Notice the name of the method
   def sign_up_params
-    params.require(:user).permit(:registration_token, :first_name, :family_name, :sex, :birth_date, :permanent_adress, :nationality, :phone_number,:email, :password, :password_confirmation)
+    params.require(:user).permit(:registration_token, :first_name, :family_name, :sex, :birth_date, :permanent_adress, :nationality, :phone_number, :seeking_degree, :email, :password, :password_confirmation)
   end
 end

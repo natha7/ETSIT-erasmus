@@ -45,7 +45,7 @@ class UserController < ApplicationController
 			     :sex,
 			     :permanent_adress,
 			     :phone_number,
-			    :seeking_degree
+			     :seeking_degree
 			))
 		current_user.student_application_form.step = 1
 		if current_user.save
