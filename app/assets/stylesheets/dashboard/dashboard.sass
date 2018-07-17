@@ -74,9 +74,9 @@
 	.right-column
 		flex-grow: 7
 		.row
-			border-top: 1px solid #777
-			padding: 10px
-			min-height: 50px
+			border-top: 1px solid $etsit_blue
+			padding: 20px
+			min-height: 30px
 			.dashboard-section
 				font-size: 18px
 				font-weight: bold
@@ -84,6 +84,7 @@
 				display: block
 				label
 					cursor: pointer
+					color: $etsit_blue
 					.caret
 						color: #aaa
 						&:before
@@ -132,11 +133,16 @@
 						flex-grow: 1
 						display: inline-block	
 						text-align: left
-						padding-left: 15px
+						padding: 8px
+						border-radius: 3px
+						border: 1px solid $etsit_blue
+						margin: 3px
+						height: 20px
+						background-color: #edf2f6
+						color: $etsit_blue
 						span:hover
 							text-decoration: underline
-						i
-							color: $etsit-blue
+
 
 @media (max-width: 768px)
 	.dashboard-container

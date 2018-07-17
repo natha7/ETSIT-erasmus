@@ -63,25 +63,24 @@
 					<% url = finish_and_uploaded ? (user_file_delete_url(:id => current_user.id, :attachment => :signed_student_application_form)) : user_file_upload_path %>
 					<% method = finish_and_uploaded ? :delete : :POST %>
 					<%= form_for current_user, url: url,  html: { multipart: true, class: finish_and_uploaded ? "deletion":""}, :method=> method do |form| %>
+
 				<div class="align-right">
-					<%if finish_app_form %>
-						
-							<div class="file-name">
-								<%= form.file_field :signed_student_application_form %>
-							</div>
-						
-					<% elsif finish_and_uploaded %>
-							<div class="file-name"><i class="mdi mdi-file"></i> <span class=""> <%= link_to  current_user.signed_student_application_form_file_name,  current_user.signed_student_application_form.url %></span></div>
-					<% end %>
-				</div>
-				<div class="align-right">
+          <%if finish_app_form %>
+
+            <div class="file-name">
+              <%= form.file_field :signed_student_application_form %>
+            </div>
+
+          <% elsif finish_and_uploaded %>
+            <div class="file-name"><i class="mdi mdi-file"></i> <span class=""> <%= link_to  current_user.signed_student_application_form_file_name,  current_user.signed_student_application_form.url %></span></div>
+          <% end %>
 					<% unless finish_and_uploaded %>
-						<button class="custom-button" type="submit" <%="disabled" %> id="upload-signed">Upload signed</button>
+						<button class="custom-button primary" type="submit" <%="disabled" %> id="upload-signed">Upload signed</button>
 					<% else %>
 						<%= button_to "Delete", user_file_delete_url(:id => current_user.id, :attachment => :signed_student_application_form_file_name), :method=> :delete, :class => "custom-button" %>
 					<% end %>
 					<a download="application_form.pdf" href=<%= finish_and_uploaded ? current_user.signed_student_application_form.url : "/generate_pdf" %>   >
-						<button type="button" class="custom-button primary" <%= (finish_app_form || finish_and_uploaded) ? "":"disabled"%>   >
+						<button type="button" class="custom-button" <%= (finish_app_form || finish_and_uploaded) ? "":"disabled"%>   >
 							Download
 						</button>
 					</a>
