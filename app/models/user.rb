@@ -28,7 +28,7 @@ class User < ApplicationRecord
   has_attached_file :official_gpa
   has_attached_file :english_test_score
 
-  before_create :create_student_application_form
+  before_create :create_student_application_form, if: :not_admin?
   after_validation :clean_paperclip_errors
 
   #validations
