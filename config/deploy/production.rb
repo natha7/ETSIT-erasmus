@@ -58,3 +58,11 @@
      auth_methods: %w(publickey password)
 #    # password: "please use keys"
    }
+
+   namespace :rake do
+   	desc "Invoke rake task"
+   	task :invoke do
+   		run "cd #/u/apps/eid4u/current"
+   		run "bundle exec rake ##{ENV['task']} RAILS_ENV=#{rails_env}"
+   	end
+   end
