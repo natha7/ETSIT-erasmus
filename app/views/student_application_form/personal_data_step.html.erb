@@ -50,10 +50,11 @@
     </div>
 
     <div class="field">
-      <%= f.label :seeking_degree, "I am seeking double degree", :value => true  %>
+
       <%= f.radio_button :seeking_degree, true, :checked => @user.seeking_degree %>
-      <%= f.label :seeking_degree, "I am not seeking double degree", :value => false %>
+      <%= f.label :seeking_degree, "I am seeking double degree", :value => true  %>
       <%= f.radio_button :seeking_degree, false, :checked => !@user.seeking_degree %>
+      <%= f.label :seeking_degree, "I am not seeking double degree", :value => false %>
     </div>
 
     <div class="field">
