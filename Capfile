@@ -23,7 +23,6 @@ require 'capistrano/puma'
 install_plugin Capistrano::Puma
 require 'capistrano/puma/nginx'
 install_plugin Capistrano::Puma::Nginx
-require "capistrano/remote"
 
 # Include tasks from other gems included in your Gemfile
 #
