@@ -1,7 +1,7 @@
 <h1 class="title">Complete your personal data</h1>
 
 
-<%= form_for(resource, as: resource_name,  url: user_registration_path) do |f| %>
+<%= form_for(resource, as: resource_name,  :html => {:class => 'new_user register'}, url: user_registration_path) do |f| %>
   <%= devise_error_messages! %>
     <%= f.hidden_field :registration_token, {value: @nominated_user.registration_token}%>
   <div class="field">
@@ -43,10 +43,11 @@
     <%= f.telephone_field :phone_number, autofocus: true, autocomplete: "tel" %>
   </div>
   <div class="field">
-    <%= f.label :seeking_degree, "I am seeking double degree", :value => true  %>
+
     <%= f.radio_button :seeking_degree, true%>
-    <%= f.label :seeking_degree, "I am not seeking double degree", :value => false %>
+    <%= f.label :seeking_degree, "I am seeking double degree", :value => true  %>
     <%= f.radio_button :seeking_degree, false, :checked => true %>
+    <%= f.label :seeking_degree, "I am not seeking double degree", :value => false %>
   </div>
 
 
