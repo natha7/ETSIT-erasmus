@@ -2,6 +2,8 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   enum role: [:user, :admin]
+  attr_accessor :signed_student_application_form_name, :signed_student_application_form_content_type, :signed_student_application_form_file_size, :isigned_student_application_form_updated_at
+
 
   enum progress_status: [:process, :finished, :rejected, :accepted, :renounce]
   after_save :set_default_role, :if => :new_record?
@@ -28,7 +30,7 @@ class User < ApplicationRecord
   has_attached_file :official_gpa
   has_attached_file :english_test_score
 
-  before_create :create_student_application_form, if: :not_admin?
+  before_create :create_student_application_form
   after_validation :clean_paperclip_errors
 
   #validations
