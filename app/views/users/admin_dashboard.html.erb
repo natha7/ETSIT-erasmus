@@ -57,7 +57,7 @@
           <%end%>
         </div>
       </span>
-        <br/><br/>
+
 
       <div class="collapsible big">
       <% unless nominees.empty? %>
@@ -93,7 +93,7 @@
       <%else%>
         <p class="no-results">No results</p>
       <%end%>
-             <br/><br/>
+
 
       </div>
     </div>
@@ -105,12 +105,12 @@
                <i class="caret mdi mdi-menu-down no-reverse"></i>
              </label>
       </span>
-      <br/><br/>
+
       <div class="collapsible big">
       <% unless users.empty? %>
       <div class="flex-table ">
         <div class="table-header">
-          <div class="flex-table-header flex-table-cell flex-table-email">Email</div>
+          <div class="flex-table-header flex-table-cell flex-table-email">Student Name</div>
           <div class="flex-table-header flex-table-cell flex-table-univ">University</div>
           <div class="flex-table-header flex-table-cell flex-table-period">Period</div>
           <div class="flex-table-header flex-table-cell flex-table-app-form">Form</div>
@@ -125,7 +125,7 @@
         <% users.each do |user| %>
           <div class="registered-item">
             <div class="user-<%= user.id %>-id flex-table-cell flex-table-email">
-              <span class="big-hidden">Email:</span><a href="/review_dashboard/<%=user.id%>"><span class="email"><%= user.email %></span></a>
+              <span class="big-hidden">Email:</span><a href="/review_dashboard/<%=user.id%>"><span class="email"><%= user.family_name %>, <%= user.first_name %> </span></a>
             </div>
             <div class="user-<%= user.id %>-id flex-table-cell flex-table-univ">
               <span class="big-hidden">University: </span>
