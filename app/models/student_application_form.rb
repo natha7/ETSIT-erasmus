@@ -6,7 +6,16 @@ class StudentApplicationForm < ApplicationRecord
 
 	def completed_percentage_num(uploaded_signed = false)
 		percentage = 0
-		first = [
+		
+		#Purpose of Stay
+  		first = [
+	  		:academic_year,
+	  		:programme,
+	  		:field_of_study
+		]
+		percentage = first.reject{|element| self[element].blank?}.length == first.length ? percentage + 17 : percentage
+
+		second = [
 	  		:inst_sending_name,
 	      	:inst_adress,
 	     	:school_family_dpt,
@@ -16,23 +25,17 @@ class StudentApplicationForm < ApplicationRecord
 	  		:inst_telephone,
 	  		:inst_email
   		]
-  		percentage = first.reject{|element| self[element].blank?}.length == first.length ? percentage + 17 : percentage
+  		percentage = second.reject{|element| self[element].blank?}.length == second.length ? percentage + 17 : percentage
 
-  		second = [
+  		third = [
   			:project_work,
 	  		:under_grad_courses,
 	  		:graduate_courses
 	  		
   		]
-  		percentage = second.reject{|element| self[element].blank?}.length == second.length ? percentage + 17 : percentage
+  		percentage = third.reject{|element| self[element].blank?}.length == third.length ? percentage + 17 : percentage
   		
-  		#Purpose of Stay
-  		third = [
-	  		:academic_year,
-	  		:programme,
-	  		:field_of_study
-		]
-		percentage = third.reject{|element| self[element].blank?}.length == third.length ? percentage + 17 : percentage
+  		
   		
   		#Language Competence
   		fourth = [
@@ -58,6 +61,12 @@ class StudentApplicationForm < ApplicationRecord
 	def completed_steps_array(uploaded_signed = false)
 		
 		first = [
+	  		:academic_year,
+	  		:programme,
+	  		:field_of_study
+  		]
+
+		second = [
 	  		:inst_sending_name,
 	      	:inst_adress,
 	     	:school_family_dpt,
@@ -68,17 +77,11 @@ class StudentApplicationForm < ApplicationRecord
 	  		:inst_email
   		]
 
-  		second = [
+  		third = [
 	  		:project_work,
 	  		:under_grad_courses,
 	  		:graduate_courses
 		]
-
-  		third = [
-	  		:academic_year,
-	  		:programme,
-	  		:field_of_study
-  		]
 
 		fourth = [
 	  		:mother_tongue,
