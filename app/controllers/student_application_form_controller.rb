@@ -84,6 +84,14 @@ class StudentApplicationFormController < ApplicationController
 			@sap.work_experiences.destroy_all
 		end
 		
+	
+	    #//:seeking_degree
+	    if params[:student_application_form][:seeking_degree]
+	    	user = @sap.user
+	    	user.seeking_degree = params[:student_application_form][:seeking_degree] == "true"
+	    	user.save!
+	    	params[:student_application_form].delete :seeking_degree
+		end
 
 		@sap.assign_attributes(params.require(:student_application_form).permit(
 				:inst_sending_name, 

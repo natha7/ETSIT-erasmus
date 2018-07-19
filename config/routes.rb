@@ -33,6 +33,7 @@ Rails.application.routes.draw do
   post 'student_application_form/personal_data', to: "user#update_personal_data"
   get 'review_student_application_form/:user/personal_data_step', to:"student_application_form#review_personal_data_step"
   get 'review_student_application_form/:user/:step', to:"student_application_form#review_step"
+  post 'user/finish_application_form', to: "user#finish_app_form"
   post 'user/file_upload', to: "user#file_upload"
   post 'set_user_status', to: "user#set_user_status"
   post 'user/file_upload_ajax', to: "user#file_upload_ajax"

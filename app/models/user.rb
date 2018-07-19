@@ -8,7 +8,7 @@ class User < ApplicationRecord
   enum progress_status: [:process, :finished, :rejected, :accepted, :renounce]
   after_save :set_default_role, :if => :new_record?
   after_save :set_default_progress_status, :if => :new_record?
-  after_save :check_progress
+
   #validate :email_uniqueness?, :on=> :create
   validates :email, uniqueness: true, presence: true, allow_blank: false
 
@@ -110,11 +110,6 @@ class User < ApplicationRecord
 
   private
 
-  def check_progress
-    if self.role == "user" && self.progress_status == "process" && percentage_num.to_i == 100
-      self.progress_status = :finished
-    end
-  end
 
   def set_default_role
     self.role ||= :user

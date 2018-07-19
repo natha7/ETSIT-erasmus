@@ -35,6 +35,15 @@ class UserController < ApplicationController
 		render "users/registration"
 	end
 
+	def finish_app_form
+		user = current_user
+	    if user.role == "user" && user.progress_status == "process" && user.percentage_num.to_i == 100
+	      user.progress_status = :finished
+	      user.save!
+	    end
+	    redirect_to student_application_form_path
+  	end
+
 	def update_personal_data
 		current_user.assign_attributes(params.require(:user).permit(
 				:first_name,
@@ -44,9 +53,9 @@ class UserController < ApplicationController
 			     :nationality,
 			     :sex,
 			     :permanent_adress,
-			     :phone_number,
-			     :seeking_degree
+			     :phone_number
 			))
+		
 		current_user.student_application_form.step = 1
 		if current_user.save
 			redirect_to student_application_form_path
