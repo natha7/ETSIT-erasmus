@@ -7,31 +7,38 @@ module PdfHelper
 
         	# Blue box with logo
         	def header
-        		fill_color "4664A2"
+        		fill_color "FFFFFF"
         		rectangle [-40, 810], 632, 60
         		fill
-                image Rails.root.join("app/assets/images/etsit2.jpg"), :width => 80, :at => [30, 790]
-        		image Rails.root.join("app/assets/images/UPM.jpg"), :width => 31, :at => [-10, 790]
-                fill_color "FFFFFF"
-                move_up 16
-                text "Application Form" , :align => :right, :size => 16
-                move_down 16
-        		fill_color "000000"
+                image Rails.root.join("app/assets/images/logoescuela.jpg"), :width => 130, :at => [400, 790]
+        		image Rails.root.join("app/assets/images/logoUPM.jpg"), :width => 50, :at => [-10, 790]
+                fill_color "4664A2"
+                move_down 56
+                text "UNIVERSIDAD POLITÉCNICA DE MADRID" , :align => :center, :size => 14
+                text "ESCUELA TÉCNICA SUPERIOR DE INGENIEROS DE TELECOMUNICACIÓN" , :align => :center, :size => 14
+
+        		fill_color "4664A2"
         	end
 
         	# Section title
-        	def title(field, size = 24)	
-        		move_down 50
+        	def title(field, size = 22)
+        		move_down 30
         		fill_color "4664A2"
-        		text ("<b>#{field}</b>"), :inline_format => true, :size => size
+        		text ("<b>#{field}</b>"), :inline_format => true, :align => :center,:size => size
         		move_down 10
         		fill_color "000000"
         	end
-
+          def section(field, size = 16)
+            move_down 30
+            fill_color "4664A2"
+            text ("<b>#{field}</b>"), :inline_format => true, :size => size
+            move_down 10
+            fill_color "000000"
+          end
         	# Subtitle (user name)
         	def subtitle(name)
         		fill_color "777777"
-        		text ("<b>#{name}</b>"), :inline_format => true, :size => 18
+        		text ("<b>#{name}</b>"), :inline_format => true, :align => :center,:size => 18
         		fill_color "000000"
         	end
 
@@ -60,7 +67,14 @@ module PdfHelper
               end
             end
 
-    		# Use Source Sans Pro Font
+          # Form plain text
+          def plain_text(field)
+            fill_color "000000"
+            text ("#{field}"), :inline_format => true, :size => 9, :leading => 5
+            fill_color "000000"
+            move_down 2
+          end
+          # Use Source Sans Pro Font
     		font_families.update(
     		 "SourceSansPro" => {
     		 	:normal => Rails.root.join("app/assets/fonts/SourceSansPro.ttf"),
@@ -78,21 +92,34 @@ module PdfHelper
     		# Add page number to all pages
     		repeat(:all, :dynamic => true) do
     		 draw_text page_number, :at => [530, -10]
-             draw_text "Universidad Politécnica de Madrid", :at => [-10,-13]
+             draw_text "ETSIT-UPM Application form", :at => [-10,-13]
     		end
 
     		# Cover
-    		title("Application Form", 32)
+    		title("Student Application Form", 20)
     		subtitle(user.first_name + " " + user.family_name)
-            line_width(2)
+
+            # Step 3
+            section("Study year")
+            line_width(1)
             stroke_color "999999"
-            move_down 36
             horizontal_line(bounds.left, bounds.right-10)
-            move_down -26
             stroke
+            move_down 5
+            label("Academic year")
+            check_field(steps.academic_year)
+            label("Programme")
+            check_field(steps.programme)
+            label("Field of study")
+            check_field(steps.field_of_study)
 
             # Personal data
-            title("Student data")
+            section("Student data")
+            line_width(1)
+            stroke_color "999999"
+            horizontal_line(bounds.left, bounds.right-10)
+            stroke
+            move_down 5
             label("Name")
             check_field(user.first_name)
             label("Last Name")
@@ -110,20 +137,17 @@ module PdfHelper
             check_field(user.phone_number)
             label("E-mail")
             check_field(user.email)
-            # start_new_page
-
-            # Step 3
-            title("Study year")
-            label("Academic year")
-            check_field(steps.academic_year)
-            label("Programme")
-            check_field(steps.programme)
-            label("Field of study")
-            check_field(steps.field_of_study)
             start_new_page
 
+
             # Step 1
-        	title("Sending Institution")
+          move_down 80
+        	section("Sending Institution")
+          line_width(1)
+          stroke_color "999999"
+          horizontal_line(bounds.left, bounds.right-10)
+          stroke
+          move_down 5
         	label("Name")
         	check_field(steps.inst_sending_name)
         	label("Erasmus Code")
@@ -140,20 +164,30 @@ module PdfHelper
         	check_field(steps.inst_telephone)
         	label("Institution e-mail")
         	check_field(steps.inst_email)
-        	# start_new_page
 
         	# Step 2
-        	title("Purpose of stay")
+        	section("Purpose of stay")
+          line_width(1)
+          stroke_color "999999"
+          horizontal_line(bounds.left, bounds.right-10)
+          stroke
+          move_down 5
         	label("Project work")
-    		check_field(steps.project_work)
+    		  check_field(steps.project_work)
         	label("Under Graduate Courses")
-    		check_field(steps.under_grad_courses)
+    		  check_field(steps.under_grad_courses)
         	label("Graduate Courses")
-    		check_field(steps.graduate_courses)
-    		start_new_page
+    		  check_field(steps.graduate_courses)
+    		  start_new_page
 
             # Step 4
-            title("Language Competence")
+            move_down 80
+            section("Language Competence")
+          line_width(1)
+          stroke_color "999999"
+          horizontal_line(bounds.left, bounds.right-10)
+          stroke
+          move_down 5
             label("Mother Tongue")
             check_field(steps.mother_tongue)
             label("Language Instruction")
@@ -174,11 +208,16 @@ module PdfHelper
             else
                 check_field("No other languages")
             end
-            start_new_page
+
 
             # Step 5
-            title("Work Experience related to current study")
-            move_down -5
+            section("Work Experience related to current study")
+          line_width(1)
+          stroke_color "999999"
+          horizontal_line(bounds.left, bounds.right-10)
+          stroke
+          move_down 5
+
             if !steps.work_experiences.blank?
                 move_down 5
                 steps.work_experiences.each do |work|
@@ -209,7 +248,13 @@ module PdfHelper
             start_new_page
 
             # Step 6
-            title("Previous and current studies")
+            move_down 80
+            section("Previous and current studies")
+            line_width(1)
+            stroke_color "999999"
+            horizontal_line(bounds.left, bounds.right-10)
+            stroke
+            move_down 5
             label("Current Diploma Degree")
             check_field(steps.current_diploma_degree)
             label("Year Attended")
@@ -222,6 +267,17 @@ module PdfHelper
             check_field(steps.where_study_abroad)
             label("Where Institution Abroad")
             check_field(steps.where_institution_abroad)
+
+          # Final text
+          move_down 10
+          line_width(1)
+          stroke_color "999999"
+          horizontal_line(bounds.left, bounds.right-10)
+          stroke
+          move_down 20
+          plain_text("Other documents to send along with this form: Curriculum Vitae, Motivation letter, Official Transcript of Records, Valid Insurance Policy, Copy of national identity card or passport, Two additional Photographs")
+          plain_text("Additional documentation for degree-seeking students: Two recommendation letters, Official GPA, English Test Score (B2)")
+          plain_text("I hereby give my consent to send this form along with a copy of my Transcript of Records and a letter of presentation to host institution, and I declare that all the information given is correct and complete.")
         end.render 
     end
 end
