@@ -1,5 +1,7 @@
 @import "../variables"
-
+.finish_app
+	margin: 0 0 20px 0
+	float: right
 .student-application-form
 
 	h1
@@ -19,8 +21,22 @@
 		.edit_student_application_flex
 			display: flex
 			flex-wrap: wrap
-			min-height: 400px
+			min-height: 500px
 			align-content: start
+		.personal_data, .study_year, .sending_institution, .purpose_stay, .languages, .work_experience, .studies
+			padding: 20px
+			.field
+				flex: 0 0 auto
+				padding: 10px !important
+			.field25
+				flex: 1 0 23%
+			.field50
+				flex: 1 0 48%
+			.field100
+				flex: 1 0 100%
+				input
+					width: 98%
+
 		.other-languages, .other-work
 			padding: 10px
 		.other-work
@@ -81,7 +97,7 @@
 				input:not([type="submit"])
 					width: auto
 				select
-					width: 230px
+					width: 220px
 				label
 					width: 80px
 

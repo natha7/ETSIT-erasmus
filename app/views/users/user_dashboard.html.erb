@@ -165,7 +165,7 @@
 			</div>
 		<% end %>
 		<% if current_user.role == "user" && current_user.progress_status == "process" && current_user.percentage_num.to_i == 100 %>
-			<%= button_to "Finish Application", user_finish_application_form_path, :method=> :post, :class => "custom-button primary", :form_class => "inline" %>
+			<%= button_to "Finish Application", user_finish_application_form_path, :method=> :post, :class => "custom-button primary right", :form_class => "finish_app" %>
 		<% end %>
 		<div id="edit-picture-dialog" > 
 			<h2 class="title">Edit your picture</h2>
