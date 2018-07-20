@@ -109,6 +109,36 @@ $(document).on('turbolinks:load', function() {
   )
 
   /**
+    * Open multiple nominees modal
+    */
+  $('#multiple-nominees-button').click(function(e){
+    e.stopPropagation();
+    let availWidth = $('html').width();
+    availWidth = availWidth > 900 ? 700 : (availWidth < 500 ? availWidth - 10 : availWidth*0.7)
+    $('#several-nominee-dialog').dialog({ 
+      modal:true, 
+      minWidth: availWidth,
+      show: {
+              effect: "scale",
+              duration: 200
+            },
+            hide: {
+              effect: "explode",
+              duration: 200
+            }
+    });
+
+  });
+  /**
+    * Close multiple nominees modal
+    */
+  $('#several-nominee-dialog-close').click(
+    function(e) {
+        $('#several-nominee-dialog').dialog('close');
+    }
+  ) 
+
+  /**
     * Convert Base64 to Blob
     */
   function dataURItoBlob(dataURI) {
