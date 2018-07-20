@@ -4,7 +4,7 @@ class AddStudentApplicationForm < ActiveRecord::Migration[5.2]
   		t.integer :step, :default => 1
 
   		#Sending Institution
-  		t.string :inst_sending_name
+  		t.string :inst_sending_name, :default => ""
       t.string :inst_adress
       t.string :school_family_dpt
   		t.string :erasmus_code
@@ -15,7 +15,7 @@ class AddStudentApplicationForm < ActiveRecord::Migration[5.2]
   		t.string :inst_email
 
   		#Academic Year
-  		t.string :academic_year
+  		t.string :academic_year, :default => ""
   		t.string :programme
   		t.string :field_of_study
 

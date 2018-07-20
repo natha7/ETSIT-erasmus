@@ -6,8 +6,8 @@ class User < ApplicationRecord
 
 
   enum progress_status: [:process, :finished, :rejected, :accepted, :renounce]
-  after_commit :set_default_role, on: :create
-  after_commit :set_default_progress_status, on: :create
+  before_create :set_default_role
+  before_create :set_default_progress_status
 
   #validate :email_uniqueness?, :on=> :create
   validates :email, uniqueness: true, presence: true, allow_blank: false

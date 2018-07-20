@@ -6,9 +6,13 @@
 <% like_name = "%#{ params[:name]}%"    %>
 <% like_period = "%#{ params[:period]}%"    %>
 <% like_university = "%#{ params[:university]}%"    %>
-<% like_state = "%#{ params[:progress_state]}%"    %>
 
-<% users = User.where("lower(email) LIKE ? and lower(first_name) LIKE ?", like_email.downcase, like_name.downcase).reject{|t| t.role == "admin"} %>
+
+<% users = User.where("lower(email) LIKE ? and lower(first_name) LIKE ?", like_email.downcase, like_name.downcase).joins(:student_application_form).merge( StudentApplicationForm.where("lower(academic_year) LIKE ? and lower(inst_sending_name) LIKE ?", like_period.downcase, like_university.downcase)).reject{|t| t.role == "admin"} %>
+<% unless params[:progress_state].blank? %>
+
+  <%users.reject!{|t| t.progress_status_before_type_cast != params[:progress_state].to_i}%>
+<% end %>
 <% nominees = NominatedUser.where("lower(email) LIKE ? ", like_email.downcase)%>
 
 <% admin_name = current_user.first_name.blank? ? "Administrator" : (current_user.first_name + " " + current_user.family_name) %>
@@ -31,7 +35,8 @@
       </div>
       <div class="field filter">
         <label class="label">Progress State </label>
-        <input name="progress_state" placeholder="Find by name" value="<%=params[:progress_state]%>"/>
+        <%= select_tag "progress_state", options_for_select([["",""]] + User.progress_statuses.map{|k,v| [k.humanize.capitalize, v]}, params[:progress_state]) %>
+        
       </div>
       <div class="field filter">
         <label class="label">Name </label>
