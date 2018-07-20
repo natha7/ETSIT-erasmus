@@ -7,17 +7,17 @@
   <%= form_for(@user, url: student_application_form_personal_data_path, method: :post) do |f| %>
 
    <h1>Student Application Form <span class="fake-arrow" > > </span>  </h1><h2 class="form-subtitle">Personal data</h2></br>
-    <p class="intro-paragraph">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+<!--    <p class="intro-paragraph">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>-->
     <%= devise_error_messages! %>
-    <div class="edit_student_application_flex">
-    <div class="field">
+    <div class="edit_student_application_flex personal_data">
+    <div class="field field50">
       <%= f.label :first_name %><br />
-      <%= f.text_field :first_name, autofocus: true, autocomplete: "given-name" %>
+      <%= f.text_field :first_name, autofocus: true, autocomplete: "given-name", class: "width100" %>
     </div>
 
-    <div class="field">
+    <div class="field field50">
       <%= f.label :family_name %><br />
-      <%= f.text_field :family_name, autofocus: true, autocomplete: "family-name" %>
+      <%= f.text_field :family_name, autofocus: true, autocomplete: "family-name", class: "width100" %>
     </div>
 
     <div class="field">
@@ -26,32 +26,30 @@
     </div>
 
     <div class="field">
-    <%= f.label :sex %><br />
-    <%= f.select :sex, [
-      'Male',
-      'Female',
-      'Other'
-      ] , autocomplete: "gender-identity"%>
-  </div>
-
+      <%= f.label :nationality %><br />
+      <%= f.select :nationality, country_list, autocomplete: "country-name" %>
+    </div>
     <div class="field">
+        <%= f.label :sex %><br />
+        <%= f.select :sex, [
+            'Male',
+            'Female',
+            'Other'
+        ] , autocomplete: "gender-identity"%>
+    </div>
+    <div class="field field100">
       <%= f.label :permanent_adress %><br />
       <%= f.text_field :permanent_adress, autofocus: true, autocomplete: "street-address" %>
     </div>
 
-    <div class="field">
-      <%= f.label :nationality %><br />
-      <%= f.select :nationality, country_list, autocomplete: "country-name" %>
-    </div>
-
-    <div class="field">
+    <div class="field field50">
       <%= f.label :phone_number %><br />
-      <%= f.telephone_field :phone_number, autofocus: true, autocomplete: "tel" %>
+      <%= f.telephone_field :phone_number, autofocus: true, autocomplete: "tel", class: "width100" %>
     </div>
 
-    <div class="field">
+    <div class="field field50">
       <%= f.label :email %><br />
-      <%= f.email_field :email, value: @user.email, autofocus: true, autocomplete: "email", disabled: true  %>
+      <%= f.email_field :email, value: @user.email, autofocus: true, autocomplete: "email", disabled: true, class: "width100"  %>
     </div>
     </div>
    <div class="action-buttons">

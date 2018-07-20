@@ -11,9 +11,34 @@ class NominatedUserController < ApplicationController
 			redirect_to admin_dashboard_path
 		else
 			url = request.base_url
-			NomineeMailer.user_creation_email(nominee, url).deliver_now
+			begin  
+			   NomineeMailer.user_creation_email(nominee, url).deliver_now
+			rescue  
+				flash[:error] = "E-mail to #{nominee.email} could not be sent"
+			end  
 			redirect_to admin_dashboard_path
+
 		end
+	end
+
+	def create_nominee_multiple
+		# sonsoleslp@gmail.com;sonsoleslp@hotmail.com;slopez@dit.upm.es
+		emails = params[:email].split(/[\s,\n;]/).reject { |c| c.empty? or !c.include? "@" }
+		emails.each do |email|
+			nominee = NominatedUser.new
+			nominee.email = email
+			unless !email.blank? and nominee.save 
+				flash[:error] = (flash[:error].blank? ?  "" : (flash[:error] + "\n" )) + nominee.errors.full_messages.to_sentence
+			else
+				url = request.base_url
+				begin  
+				   NomineeMailer.user_creation_email(nominee, url).deliver_now
+				rescue  
+					flash[:error] = (flash[:error].blank? ?  "" : (flash[:error] + "\n" )) + "E-mail to #{email} could not be sent"
+				end  
+			end
+		end
+		redirect_to admin_dashboard_path
 	end
 
 	def resend_email

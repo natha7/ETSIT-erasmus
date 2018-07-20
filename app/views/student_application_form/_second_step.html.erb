@@ -3,19 +3,24 @@
 <h3><%=name%></h3>
 <%end%>
 
-<p class="intro-paragraph">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptafite velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+<!--<p class="intro-paragraph">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptafite velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>-->
 
-<div class="edit_student_application_flex">
+<div class="edit_student_application_flex sending_institution">
 
 
-<div class="field field_inst_sending_name">
+<div class="field field25">
   <div class="flex-container">
     <%= f.label :inst_sending_name, "Institution's name" %><br />
     <%= f.text_field :inst_sending_name, autofocus: true, autocomplete: "inst_sending_name", disabled: review %>
   </div>
 </div>
-
-<div class="field field_erasmus_code">
+  <div class="field field25">
+    <div class="flex-container">
+      <%= f.label :school_family_dpt, "School / faculty" %><br />
+      <%= f.text_field :school_family_dpt, autofocus: true, autocomplete: "school_family_dpt", disabled: review %>
+    </div>
+  </div>
+<div class="field ">
  <div class="flex-container">
   <%= f.label :erasmus_code, "Erasmus Code"%><br />
   <%= f.text_field :erasmus_code, autofocus: true, autocomplete: "erasmus_code", disabled: review %>
@@ -29,33 +34,29 @@
   </div>
 </div>
 
-<div class="field field_dept_coordinator">
+
+<div class="field field50">
   <div class="flex-container">
     <%= f.label :dept_coordinator, "Dept. Coordinator" %><br />
     <%= f.text_field :dept_coordinator, autofocus: true, autocomplete: "dept_coordinator", disabled: review %>
   </div>
 </div>
-<div class="field field_school_family_dpt">
- <div class="flex-container">
-  <%= f.label :school_family_dpt, "School / faculty" %><br />
-  <%= f.text_field :school_family_dpt, autofocus: true, autocomplete: "school_family_dpt", disabled: review %>
-</div>
-</div>
 
-<div class="field field_contact_person">
+
+<div class="field field50">
  <div class="flex-container">
   <%= f.label :contact_person %><br />
   <%= f.text_field :contact_person, autofocus: true, autocomplete: "contact_person", disabled: review %>
 </div>
 </div>
-<div class="field field_inst_telephone">
+<div class="field ">
   <div class="flex-container">
     <%= f.label :inst_telephone, "Telephone" %><br />
     <%= f.telephone_field :inst_telephone, autofocus: true, autocomplete: "inst_telephone", disabled: review, pattern: "\+\d*", placeholder: "Include country code (e.g. +34...)", required: true %>
   </div>
 </div>
 
-<div class="field field_inst_email">
+<div class="field field50">
   <div class="flex-container">
     <%= f.label :inst_email, "E-mail" %><br />
     <%= f.email_field :inst_email, autofocus: true, autocomplete: "inst_email", disabled: review %>

@@ -2,9 +2,9 @@
 <%if review%>
 <h3><%=name%></h3>
 <%end%>
-<p class="intro-paragraph">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+<!--<p class="intro-paragraph">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>-->
 
-<div class="edit_student_application_flex">
+<div class="edit_student_application_flex work_experience">
 <div class="block">
 <%= f.check_box :no_work_experience, autofocus: true, autocomplete: "no_work_experience", disabled: review, id: "no_work_experience_checkbox" %>
 <%= f.label :no_work_experience %><br /><br/>
@@ -19,25 +19,26 @@
 <% if defined?(@sap.work_experiences) %>
 	<% @sap.work_experiences.each_with_index do |work,index|%>
 	<div class="work">
-		<div class="field">
+		<div class="field field50">
 			<div class="flex-container">
 				<label for="work_kind">Type of work</label>
 				<input type="text" name="work_kind" class="work-input" <%=review ? "disabled" : ""%> value="<%=work.work_kind%>"/>
 			</div>
 		</div>
-		<div class="field">
+		<div class="field field50">
 			<div class="flex-container">
 				<label for="firm_organisation">Organisation</label>
 				<input type="text" name="firm_organisation" class="work-input" <%=review ? "disabled" : ""%> value="<%=work.firm_organisation%>"/>
 			</div>
 		</div>
-		<div class="field">
+		<div class="field ">
 			<div class="flex-container">
 				<label for="dates">From</label>
 				<input type="date" name="from" class="work-input" <%=review ? "disabled" : ""%> value="<%=work.from%>"/>
 
 			</div>
-			<br>
+		</div>
+		<div class="field">
 			<div class="flex-container">
 				<label for="dates">To</label>
 				<input type="date" name="to" class="work-input" <%=review ? "disabled" : ""%> value="<%=work.to%>"/>
@@ -45,7 +46,7 @@
 			</div>
 		</div>
 
-		<div class="field">
+		<div class="field field50">
 			<div class="flex-container">
 				<label for="dates">Country</label>
 				<select   name="country" class="work-input" <%=review ? "disabled" : ""%> value="<%=work.country%>">

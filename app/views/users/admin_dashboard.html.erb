@@ -17,8 +17,8 @@
 
 <% admin_name = current_user.first_name.blank? ? "Administrator" : (current_user.first_name + " " + current_user.family_name) %>
 <h1 class="title"> Hi, <%=admin_name%></h1>
-<p class="intro-paragraph">Reamind that the deadline to receive application packages is <span class="red"><strong>June, 1st</strong></span> for the fall
-  semester or academic year 2018-19 and <span class="red"><strong>December, 1st</strong></span> for the second semester. Please <u>check registered users, documents required in pdf, and application packages before the
+<p class="intro-paragraph">Keep in mind that the deadline to receive application packages is <span class="red"><strong>June, 1st</strong></span> for the fall
+  semester or academic year 2018-19, and <span class="red"><strong>December, 1st</strong></span> for the second semester. Please <u>check registered users, documents required in pdf, and application packages before the
   deadline</u> .</p>
 <br/>
 <div class="filters">
@@ -73,6 +73,9 @@
           <div class="field nominee-form">
             <%= email_field_tag 'email', nil, :placeholder =>  "Nominee e-mail", :class => "input-right"  %>
             <button type="submit" class="right-addon primary"><i class="mdi mdi-send"></i></button>
+            <button type="button" id="multiple-nominees-button" class="custom-button primary"><i class="mdi mdi-account-multiple-plus
+"></i></button>
+
           </div>
 
           <%end%>
@@ -241,22 +244,19 @@
   </div>
 
 <div id="several-nominee-dialog" > 
-      <h2 class="title">Several Nomination</h2>
+      <h2 class="title">Nominate several students</h2>
       <button class="transparent-button action-button right close" id="several-nominee-dialog-close"><i class="mdi mdi-close"></i></button>
-      <div class="flex-container">
-        <canvas id="canvas"></canvas>
         <div class="several-nominee-actions">
-          <%= form_tag "/user/file_upload_ajax", :method => :POST do |form| %>
-          <br></br>
-          <div class="messages-from-server">
-            
-          </div>
+          <%= form_tag(create_nominee_multiple_path, :method=> :post) do %>
+          <p class="intro-paragraph">Here you can type or paste the e-mail addresses of multiple students. They can be separated by a comma (,), a colon (;), or a new line (enter)</p>
+            <textarea autoFocus name="email"></textarea>
           <div class="align-right">
-            <%= submit_tag "Send", :class => "custom-button" %>
+            <button type="submit" class="custom-button primary">
+                Send   <i class="mdi mdi-send"></i> 
+            </button>
             <img id="spinner" src="/assets/spinner.gif" class="hidden"/>
           </div>
           <% end %>
-        </div>
       </div>
 
     </div>

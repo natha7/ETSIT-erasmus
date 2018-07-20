@@ -3,7 +3,7 @@ class ApplicationRecord < ActiveRecord::Base
 
   def email_uniqueness?
       if !User.find_by(:email=> email).blank? or !NominatedUser.find_by(:email=> email).blank?
-      	errors.add(email, "Email already taken")
+      	errors.add(email, "e-mail already taken")
       end
   end
 
