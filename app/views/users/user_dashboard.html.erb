@@ -13,17 +13,20 @@
     <p class="intro-paragraph">We remind you that the deadline to receive your application package is <span class="red"><strong>June, 1st</strong></span> for the fall
       semester or academic year 2018-19 and <span class="red"><strong>December, 1st</strong></span> for the second semester. Please <u>complete your application package before the
       deadline</u> with the documents required in pdf.</p>
+		<p class="intro-paragraph"><span class="red">*</span> Required</p>
 <br/>
 <div class="dashboard-container">
 	<div class="left-column">
+		<span class="red">*</span>
 		<button class="edit-picture "><i class="mdi mdi-camera"></i></button>
-		<img id="actual-picture" class="picture" src="<%=current_user.photo %>"/>
+		<img id="actual-picture" class="picture" src="<%=current_user.photo %>" alt="User image"/>
 		<p><%= current_user.first_name %> <%= current_user.family_name %></p>
 	</div>
 	<div class="right-column">
 		<div class="row">
 			<div class="second-container">
 				<span class="second-container-left dashboard-section" id="application-form-tab">
+					<span class="red">*</span>
 					<label> 
 					Application Form
 						<i class="caret mdi mdi-menu-down no-reverse"></i>
@@ -62,7 +65,7 @@
 				</div>
 			</div>
 			<div class="collapsible big">
-				<p class="intro-paragraph">Once you are done you must upload it signed by the home Institution Coordinator with the name and the code of the selected courses at ETSIT
+				<p class="intro-paragraph"><span class="red">*</span> Once you are done you must upload it signed by the home Institution Coordinator with the name and the code of the selected courses at ETSIT
 				</p>
 					<% url = finish_and_uploaded ? (user_file_delete_url(:id => current_user.id, :attachment => :signed_student_application_form)) : user_file_upload_path %>
 					<% method = finish_and_uploaded ? :delete : :POST %>

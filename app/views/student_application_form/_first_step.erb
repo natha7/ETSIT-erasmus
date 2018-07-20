@@ -44,7 +44,7 @@
 
     <div class="field">
       <div class="flex-container">
-      <%= f.radio_button :seeking_degree, true, :checked => sap.user.seeking_degree %>
+      <%= f.radio_button :seeking_degree, true, :checked => sap.user.seeking_degree , class: "checkBox" %>
       <%= f.label :seeking_degree, "I am seeking double degree", :value => true  %>
       <%= f.radio_button :seeking_degree, false, :checked => !sap.user.seeking_degree %>
       <%= f.label :seeking_degree, "I am not seeking double degree", :value => false %>
