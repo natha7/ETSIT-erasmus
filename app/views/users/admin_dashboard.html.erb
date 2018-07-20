@@ -163,7 +163,7 @@
               <span class="big-hidden">App Form: </span>
               <span class="dashboard-icon">
                 <a href="/review_student_application_form/<%=user.id%>/1">
-                  <% pctg = user.student_application_form.completed_percentage(user.signed_student_application_form) %>
+                  <% pctg = user.student_application_form.completed_percentage(!user.signed_student_application_form.blank?) %>
                 <%="#{pctg}" %>
                   <i  class="mdi mdi-clipboard-text app-form <%= 'green' if pctg === '100%' %>"></i>
                 </a>
