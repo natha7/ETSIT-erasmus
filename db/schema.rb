@@ -35,7 +35,7 @@ ActiveRecord::Schema.define(version: 2018_05_23_122232) do
 
   create_table "student_application_forms", force: :cascade do |t|
     t.integer "step", default: 1
-    t.string "inst_sending_name"
+    t.string "inst_sending_name", default: ""
     t.string "inst_adress"
     t.string "school_family_dpt"
     t.string "erasmus_code"
@@ -43,7 +43,7 @@ ActiveRecord::Schema.define(version: 2018_05_23_122232) do
     t.string "contact_person"
     t.string "inst_telephone"
     t.string "inst_email"
-    t.string "academic_year"
+    t.string "academic_year", default: ""
     t.string "programme"
     t.string "field_of_study"
     t.string "project_work"
