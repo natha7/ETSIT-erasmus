@@ -27,7 +27,21 @@
     <div class="flex-filters">
       <div class="field filter">
         <label class="label">Period </label>
-        <input name="period" placeholder="Find by name" value="<%=params[:period]%>"/>
+        <!-- <input name="period" placeholder="Find by name" value="<%=params[:period]%>"/> -->
+        <% period_options = [
+          "2018-2019: Fall Semester",
+          "2018-2019: Spring Semester",
+          "2018-2019: Academic Year",
+          "2019-2020: Fall Semester",
+          "2019-2020: Spring Semester",
+          "2019-2020: Academic Year",
+        ] %>
+        <select name="period" value="<%=params[:period]%>">
+            <option value="" <%=params[:period].blank? ? "selected":""%>>Any</option>
+          <% period_options.each do |period| %>
+            <option <%= (period == params[:period]) ? "selected" : "" %>><%=period %></option>
+          <% end %>
+        </select>
       </div>
       <div class="field filter">
         <label class="label">University </label>
