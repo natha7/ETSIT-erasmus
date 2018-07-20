@@ -56,6 +56,7 @@ class StudentApplicationForm < ApplicationRecord
 	  	]
 	  	percentage = sixth.reject{|element| self[element].blank?}.length == sixth.length ? percentage + 16 : percentage
 	  	percentage = uploaded_signed ? (percentage + 1) : percentage
+	  	return percentage
 	end
 
 	def completed_steps_array(uploaded_signed = false)

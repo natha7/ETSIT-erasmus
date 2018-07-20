@@ -32,7 +32,6 @@
 			<div class="field">
 				<div class="flex-container">
 					<label for="name">Language</label>
-					<%= puts 222222, language.name%>
 					<select  name="name" class="language-input" <%=review ? "disabled" : ""%>  >
 						<% selected_lang = language.name.to_s || "English" %>
 						<% languages_list.each do |lang| %>

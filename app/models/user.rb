@@ -94,7 +94,7 @@ class User < ApplicationRecord
       :english_test_score_file_name
       ])
    end
-   app_form_pctg = self.student_application_form.completed_percentage_num(self.signed_student_application_form)
+   app_form_pctg = self.student_application_form.completed_percentage_num(!self.signed_student_application_form.blank?)
    attach_value = attachment_values.map{|val| !self[val].blank? ? 1 : 0 }.reduce(0,:+) + app_form_pctg.to_f/100
    attach_value = ((attach_value.to_f * 100) /(attachment_values.length + 1)).round(2)
    return attach_value

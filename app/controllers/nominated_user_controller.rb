@@ -45,7 +45,11 @@ class NominatedUserController < ApplicationController
 		nominee = NominatedUser.find_by :id => params[:id]
 		nominee.regenerate_registration_token
 		url = request.base_url
-		NomineeMailer.user_creation_email(nominee, url).deliver_now
+		begin  
+		   NomineeMailer.user_creation_email(nominee, url).deliver_now
+		rescue  
+			flash[:error] = "E-mail to #{nominee.email} could not be sent"
+		end  
 	end
 
 	def delete_nominee
