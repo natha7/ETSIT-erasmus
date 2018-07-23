@@ -127,6 +127,8 @@ module PdfHelper
             label("Date of birth")
             day = user.birth_date.blank? ? "" : user.birth_date.strftime("%b, #{user.birth_date.day.ordinalize} %Y")
             check_field(day)
+            label("Place of birth")
+            check_field(user.born_place)
             label("Gender")
             check_field(user.sex)
             label("Address")

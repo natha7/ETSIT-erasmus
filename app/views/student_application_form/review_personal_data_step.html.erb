@@ -21,6 +21,12 @@
         <%= f.label :birth_date %><br />
         <%= f.date_field :birth_date, autofocus: true, autocomplete: "bday", disabled: true %>
       </div>
+
+      <div class="field">
+        <%= f.label :born_place %><br />
+        <%= f.text_field :born_place, autofocus: true, autocomplete: "bornplace", disabled: true %>
+      </div>
+
       <div class="field">
         <%= f.label :nationality %><br />
         <%= f.select :nationality, country_list, {}, {disabled: true} %>

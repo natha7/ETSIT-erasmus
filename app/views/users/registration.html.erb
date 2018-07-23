@@ -20,6 +20,11 @@
   </div>
 
   <div class="field">
+    <%= f.label :born_place %><br />
+    <%= f.text_field :born_place, autofocus: true, autocomplete: "bornplace" %>
+  </div>
+
+  <div class="field">
   <%= f.label :sex %><br />
   <%= f.select :sex, [
     'Male',
