@@ -5,7 +5,7 @@ class User < ApplicationRecord
   attr_accessor :signed_student_application_form_name, :signed_student_application_form_content_type, :signed_student_application_form_file_size, :isigned_student_application_form_updated_at
 
 
-  enum progress_status: [:process, :finished, :rejected, :accepted, :renounce]
+  enum progress_status: [:in_process, :finished, :rejected, :accepted, :renounce]
   before_create :set_default_role
   before_create :set_default_progress_status
 
@@ -116,7 +116,7 @@ class User < ApplicationRecord
   end
 
   def set_default_progress_status
-    self.progress_status ||= :process
+    self.progress_status ||= :in_process
   end
 
   def create_student_application_form
