@@ -40,10 +40,9 @@ html
 			margin-left: auto
 			&.main
 				background-color: white
-				padding-top: 30px
+				padding: 30px
 				min-height: calc(100% - 134px)
-				padding-left: 35px
-				padding-right: 35px
+
 				.student-application-form
 					height: 100%
 					position: relative
@@ -101,3 +100,11 @@ html
 			text-align: right
 		form.inline
 			display: inline-block
+
+
+@media (max-width: 600px)
+	html
+		body
+			.container
+				&.main
+					padding: 15px

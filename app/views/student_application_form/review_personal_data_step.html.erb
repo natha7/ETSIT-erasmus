@@ -6,57 +6,58 @@
  <% user = User.find(params[:user]) %> 
   <%= form_for(user, url: student_application_form_personal_data_path, method: :post) do |f| %>
    <h1>Student Application Form <span class="fake-arrow" > > </span>  </h1><h2 class="form-subtitle">Personal data</h2></br>
-    <div class="field">
-      <%= f.label :first_name %><br />
-      <%= f.text_field :first_name, autofocus: true, autocomplete: "given-name", disabled: true %>
+    <div class="edit_student_application_flex personal_data">
+      <div class="field">
+        <%= f.label :first_name %><br />
+        <%= f.text_field :first_name, autofocus: true, autocomplete: "given-name", disabled: true %>
+      </div>
+
+      <div class="field">
+        <%= f.label :family_name %><br />
+        <%= f.text_field :family_name, autofocus: true, autocomplete: "family-name", disabled: true %>
+      </div>
+
+      <div class="field">
+        <%= f.label :birth_date %><br />
+        <%= f.date_field :birth_date, autofocus: true, autocomplete: "bday", disabled: true %>
+      </div>
+
+      <div class="field">
+      <%= f.label :sex %><br />
+      <%= f.select :sex, [
+        'Male',
+        'Female',
+        'Other'
+        ] , {}, {disabled: true}%>
+      </div>
+
+      <div class="field">
+        <%= f.label :permanent_adress %><br />
+        <%= f.text_field :permanent_adress, autofocus: true, autocomplete: "street-address", disabled: true %>
+      </div>
+
+      <div class="field">
+        <%= f.label :nationality %><br />
+        <%= f.select :nationality, country_list, {}, {disabled: true} %>
+      </div>
+
+      <div class="field">
+        <%= f.label :phone_number %><br />
+        <%= f.telephone_field :phone_number, autofocus: true, autocomplete: "tel", disabled: true %>
+      </div>
+
+  <!--    <div class="field">
+        <%#= f.label :seeking_degree, "I am seeking double degree", :value => true  %>
+        <%#= f.radio_button :seeking_degree, true, :checked => user.seeking_degree, disabled: true %>
+        <%#= f.label :seeking_degree, "I am not seeking double degree", :value => false %>
+        <%#= f.radio_button :seeking_degree, false, :checked => !user.seeking_degree, disabled: true%>
+      </div>-->
+
+      <div class="field">
+        <%= f.label :email %><br />
+        <%= f.email_field :email, value: user.email, autofocus: true, autocomplete: "email", disabled: true  %>
+      </div>
     </div>
-
-    <div class="field">
-      <%= f.label :family_name %><br />
-      <%= f.text_field :family_name, autofocus: true, autocomplete: "family-name", disabled: true %>
-    </div>
-
-    <div class="field">
-      <%= f.label :birth_date %><br />
-      <%= f.date_field :birth_date, autofocus: true, autocomplete: "bday", disabled: true %>
-    </div>
-
-    <div class="field">
-    <%= f.label :sex %><br />
-    <%= f.select :sex, [
-      'Male',
-      'Female',
-      'Other'
-      ] , {}, {disabled: true}%>
-    </div>
-
-    <div class="field">
-      <%= f.label :permanent_adress %><br />
-      <%= f.text_field :permanent_adress, autofocus: true, autocomplete: "street-address", disabled: true %>
-    </div>
-
-    <div class="field">
-      <%= f.label :nationality %><br />
-      <%= f.select :nationality, country_list, {}, {disabled: true} %>
-    </div>
-
-    <div class="field">
-      <%= f.label :phone_number %><br />
-      <%= f.telephone_field :phone_number, autofocus: true, autocomplete: "tel", disabled: true %>
-    </div>
-
-<!--    <div class="field">
-      <%#= f.label :seeking_degree, "I am seeking double degree", :value => true  %>
-      <%#= f.radio_button :seeking_degree, true, :checked => user.seeking_degree, disabled: true %>
-      <%#= f.label :seeking_degree, "I am not seeking double degree", :value => false %>
-      <%#= f.radio_button :seeking_degree, false, :checked => !user.seeking_degree, disabled: true%>
-    </div>-->
-
-    <div class="field">
-      <%= f.label :email %><br />
-      <%= f.email_field :email, value: user.email, autofocus: true, autocomplete: "email", disabled: true  %>
-    </div>
-
         <% final_steps_array = user.student_application_form.completed_steps_array  %>
         <div class="actions">
             <div class="progress-bar">

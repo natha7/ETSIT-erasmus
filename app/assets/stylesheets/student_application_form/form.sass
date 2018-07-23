@@ -21,8 +21,10 @@
 		.edit_student_application_flex
 			display: flex
 			flex-wrap: wrap
-			min-height: 500px
+			min-height: 450px
 			align-content: start
+		.personal_data
+			min-height: 500px
 		.personal_data, .study_year, .sending_institution, .purpose_stay, .languages, .work_experience, .studies
 			padding: 20px
 			.field
@@ -34,8 +36,10 @@
 				flex: 1 0 48%
 			.field100
 				flex: 1 0 100%
-				input
+				input, textarea
 					width: 98%
+					resize: none
+
 
 		.other-languages, .other-work
 			padding: 10px
@@ -117,6 +121,36 @@
 	display: inline-block
 	width: 100%
 	margin-bottom: -10px
+@media (max-width: 600px)
+	.student-application-form
+		form
+			.edit_student_application_flex
+				padding: 0
+			.languages
+				.field
+					padding: 0 !important
+				.main_lang
+					.flex-container
+						flex-direction: column
+						select
+							max-width: 300px
+
+
+			.personal_data, .study_year, .sending_institution, .purpose_stay, .languages, .work_experience, .studies
+				.flex-container
+					align-items: left
+					label
+						text-align: left
+						align-self: flex-start
+
+						padding: 10px
+					input, select
+						width: 100%
+
+			.lang
+				padding: 10px
+				.field
+					width: auto !important
 
 @media (max-width: 800px)
 	.student-application-form
@@ -135,6 +169,7 @@
 			color: $etsit_blue
 			margin: 0
 		form
+
 			.field_inst_sending_name
 				width: 100%
 			.field_erasmus_code
