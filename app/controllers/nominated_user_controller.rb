@@ -8,7 +8,7 @@ class NominatedUserController < ApplicationController
 		nominee.email = params[:email]
 		unless !params[:email].blank? and nominee.save 
 			flash[:error] = nominee.errors.full_messages.to_sentence
-			redirect_to admin_dashboard_path
+			redirect_to admin_dashboard_path + "?nominees=true"
 		else
 			url = request.base_url
 			begin  
@@ -16,7 +16,7 @@ class NominatedUserController < ApplicationController
 			rescue  
 				flash[:error] = "E-mail to #{nominee.email} could not be sent"
 			end  
-			redirect_to admin_dashboard_path
+			redirect_to admin_dashboard_path + "?nominees=true"
 
 		end
 	end
@@ -38,7 +38,7 @@ class NominatedUserController < ApplicationController
 				end  
 			end
 		end
-		redirect_to admin_dashboard_path
+		redirect_to admin_dashboard_path + "?nominees=true"
 	end
 
 	def resend_email
@@ -56,7 +56,7 @@ class NominatedUserController < ApplicationController
 			nominee = NominatedUser.find_by :id => params[:id]
 			nominee.destroy!
 
-			redirect_to admin_dashboard_path
+			redirect_to admin_dashboard_path + "?nominees=true"
 	end
 
 	def register
