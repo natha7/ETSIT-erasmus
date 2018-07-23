@@ -24,7 +24,7 @@
 	.collapsible
 		font-size: 14px
 	.nominee-form
-		display: flex
+		@include flexBoxVendor
 		padding: 0
 		button
 			cursor: pointer
@@ -122,12 +122,12 @@
 
 .nominee-item
 	background-color: #edf2f6
-	display: flex
+	@include flexBoxVendor
 .registered-item
 	background-color: white
-	display: flex
+	@include flexBoxVendor
 .table-header
-	display: flex
+	@include flexBoxVendor
 #several-nominee-dialog
 	.several-nominee-actions
 		form
