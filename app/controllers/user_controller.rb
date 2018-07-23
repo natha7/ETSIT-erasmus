@@ -37,7 +37,7 @@ class UserController < ApplicationController
 
 	def finish_app_form
 		user = current_user
-	    if user.role == "user" && user.progress_status == "process" && user.percentage_num.to_i == 100
+	    if user.role == "user" && user.progress_status == "in_process" && user.percentage_num.to_i == 100
 	      user.progress_status = :finished
 	      user.save!
 	    end

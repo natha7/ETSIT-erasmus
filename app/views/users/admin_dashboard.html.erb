@@ -210,14 +210,15 @@
             <div class="user-<%= user.id %>-id flex-table-cell flex-table-status">
               <span class="big-hidden">Status: </span>
               <% if (user.progress_status != "finished" and user.percentage.to_i != 100) %>
-                <%= user.progress_status %>
+                <%= user.progress_status.humanize.capitalize %>
               <% elsif user.progress_status == "finished"  %>
                 <%= form_for(user, url: set_user_status_path,  method: :post) do |f|%>
-                  <%= f.select :progress_status, [:finished, :process, :accepted, :rejected], {}, {value: user.progress_status, class: 'form-control', onchange: 'this.form.submit();'}%>
+                  <%= f.select :progress_status, User.progress_statuses.map{|k,v| [k.humanize.capitalize, k]}, {}, {value: user.progress_status, class: 'form-control', onchange: 'this.form.submit();'}%>
+
                   <%= f.hidden_field :id, :value => user.id %>
                 <% end %>
               <% else %>
-                <%= user.progress_status %>
+                <%= user.progress_status.humanize.capitalize %>
               <% end %>
             </div>
             <div class="user-<%= user.id %>-id flex-table-cell flex-table-pctg">

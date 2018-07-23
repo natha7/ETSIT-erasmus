@@ -9,7 +9,7 @@
 <% else %>
 <h1 class="title"> Hi, <%= current_user.first_name %></h1>
 
-<% if current_user.progress_status == "process" %>
+<% if current_user.progress_status == "in_process" %>
     <p class="intro-paragraph">We remind you that the deadline to receive your application package is <span class="red"><strong>June, 1st</strong></span> for the fall
       semester or academic year 2018-19 and <span class="red"><strong>December, 1st</strong></span> for the second semester. Please <u>complete your application package before the
       deadline</u> with the documents required in pdf.</p>
@@ -164,7 +164,7 @@
 				</div>
 			</div>
 		<% end %>
-		<% if current_user.role == "user" && current_user.progress_status == "process" && current_user.percentage_num.to_i == 100 %>
+		<% if current_user.role == "user" && current_user.progress_status == "in_process" && current_user.percentage_num.to_i == 100 %>
 			<%= button_to "Finish Application", user_finish_application_form_path, :method=> :post, :class => "custom-button primary right", :form_class => "finish_app" %>
 		<% end %>
 		<div id="edit-picture-dialog" > 
