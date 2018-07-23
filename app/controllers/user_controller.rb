@@ -41,7 +41,7 @@ class UserController < ApplicationController
 	      user.progress_status = :finished
 	      user.save!
 	    end
-	    redirect_to student_application_form_path
+	    redirect_to user_dashboard_path
   	end
 
 	def update_personal_data
