@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
   
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  root to: "home#index"
   devise_for :users, skip: [:registrations]
   devise_scope :user do
+    root to: "devise/sessions#new"
     post 'sign_up', to: "registrations#create", :as => :user_registration
   end
   get "digital_certificate", to: "user#digital_certificate"
