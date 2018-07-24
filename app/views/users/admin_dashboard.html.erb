@@ -85,7 +85,7 @@
           <%= form_tag(create_nominee_path, :method=> :post) do %>
 
           <div class="field nominee-form"  onclick="event.stopPropagation();">
-            <%= email_field_tag 'email', nil, :placeholder =>  "Nominee e-mail", :class => "input-right"  %>
+            <%= email_field_tag 'email', nil, :placeholder =>  "Nominee e-mail", :class => "input-right" , :required => true %>
             <button type="submit" class="right-addon primary"><i class="mdi mdi-send"></i></button>
             <button type="button" id="multiple-nominees-button" class="custom-button primary"><i class="mdi mdi-account-multiple-plus
 "></i></button>
