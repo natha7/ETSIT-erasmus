@@ -1,4 +1,11 @@
-<a href="<%=user_dashboard_path%>" class="back-to-dashboard"><button class='custom-button primary right'>Dashboard</button></a>
+<div class="align-right">
+<a href="<%=user_dashboard_path%>" class="back-save-dashboard">
+  <button class='custom-button right'>Close</button>
+</a>
+<a href="<%=user_dashboard_path%>" class="back-save-dashboard">
+  <button class='custom-button primary right'>Save & Close</button>
+</a>
+</div>
 <% id = "form-step-#{@sap.step}"   %>
 <div class="student-application-form">
     <%= form_for @sap, url: student_application_form_path, :html => { :id => id}, :method => :post do |f| %>
