@@ -4,8 +4,8 @@ class StudentApplicationForm < ApplicationRecord
 	has_many :work_experiences
 	accepts_nested_attributes_for :languages, :work_experiences, allow_destroy: true
 
-	def completed_percentage_num(uploaded_signed = false)
-		percentage = 0
+	def completed_percentage_num(uploaded_signed = false, personal_data = true)
+		percentage = personal_data ? 15 : 0
 		
 		#Purpose of Stay
   		first = [
@@ -13,7 +13,7 @@ class StudentApplicationForm < ApplicationRecord
 	  		:programme,
 	  		:field_of_study
 		]
-		percentage = first.reject{|element| self[element].blank?}.length == first.length ? percentage + 17 : percentage
+		percentage = first.reject{|element| self[element].blank?}.length == first.length ? percentage + 14 : percentage
 
 		second = [
 	  		:inst_sending_name,
@@ -25,7 +25,7 @@ class StudentApplicationForm < ApplicationRecord
 	  		:inst_telephone,
 	  		:inst_email
   		]
-  		percentage = second.reject{|element| self[element].blank?}.length == second.length ? percentage + 17 : percentage
+  		percentage = second.reject{|element| self[element].blank?}.length == second.length ? percentage + 14 : percentage
 
   		third = [
   			:project_work,
@@ -33,7 +33,7 @@ class StudentApplicationForm < ApplicationRecord
 	  		:graduate_courses
 	  		
   		]
-  		percentage = third.reject{|element| self[element].blank?}.length == third.length ? percentage + 17 : percentage
+  		percentage = third.reject{|element| self[element].blank?}.length == third.length ? percentage + 14 : percentage
   		
   		
   		
@@ -42,11 +42,11 @@ class StudentApplicationForm < ApplicationRecord
 	  		:mother_tongue,
 	  		:language_instruction
   		]
-  		percentage = fourth.reject{|element| self[element].blank?}.length == fourth.length ? percentage + 16 : percentage
+  		percentage = fourth.reject{|element| self[element].blank?}.length == fourth.length ? percentage + 14 : percentage
 
   		# Work Experience
   		fifth_complete = self.work_experiences.blank? ? self.no_work_experience : true
-	  	percentage = fifth_complete ? percentage + 16 : percentage  		
+	  	percentage = fifth_complete ? percentage + 14 : percentage  		
 
   		# Previous And Current Studies
   		sixth = [
@@ -54,7 +54,7 @@ class StudentApplicationForm < ApplicationRecord
 	  		:year_attended,
 	  		:specialization_area
 	  	]
-	  	percentage = sixth.reject{|element| self[element].blank?}.length == sixth.length ? percentage + 16 : percentage
+	  	percentage = sixth.reject{|element| self[element].blank?}.length == sixth.length ? percentage + 14 : percentage
 	  	percentage = uploaded_signed ? (percentage + 1) : percentage
 	  	return percentage
 	end
@@ -108,8 +108,8 @@ class StudentApplicationForm < ApplicationRecord
 	]	
 	end
 
-	def completed_percentage(uploaded_signed = false)
-		completed_percentage_num(uploaded_signed).to_s + "%"
+	def completed_percentage(uploaded_signed = false, personal_data = true)
+		completed_percentage_num(uploaded_signed, personal_data).to_s + "%"
 	end
 
 end
