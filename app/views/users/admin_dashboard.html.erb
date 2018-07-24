@@ -2,18 +2,18 @@
 <%= button_to "Contact users", "/massive_email", :method=> :get, :class => "custom-button primary", :form_class =>"inline"%>
 <%= button_to "Log out", destroy_user_session_path, :method=> :delete, :class => "custom-button ", :form_class =>"inline"%>
 </div>
-<% like_email = "%#{ params[:email]}%"    %>
+<%# like_email = "%#{ params[:email]}%"    %>
 <% like_name = "%#{ params[:name]}%"    %>
 <% like_period = "%#{ params[:period]}%"    %>
 <% like_university = "%#{ params[:university]}%"    %>
 
 
-<% users = User.where("lower(email) LIKE ? and lower(first_name) LIKE ?", like_email.downcase, like_name.downcase).joins(:student_application_form).merge( StudentApplicationForm.where("lower(academic_year) LIKE ? and lower(inst_sending_name) LIKE ?", like_period.downcase, like_university.downcase)).reject{|t| t.role == "admin"} %>
+<% users = User.where("lower(first_name) LIKE ?", like_name.downcase).joins(:student_application_form).merge( StudentApplicationForm.where("lower(academic_year) LIKE ? and lower(inst_sending_name) LIKE ?", like_period.downcase, like_university.downcase)).reject{|t| t.role == "admin"} %>
+<% binding.pry %>
 <% unless params[:progress_state].blank? %>
-
   <%users.reject!{|t| t.progress_status_before_type_cast != params[:progress_state].to_i}%>
 <% end %>
-<% nominees = NominatedUser.where("lower(email) LIKE ? ", like_email.downcase)%>
+<% nominees = NominatedUser.all%> <%#where("lower(email) LIKE ? ", like_email.downcase %>
 
 <% admin_name = current_user.first_name.blank? ? "Administrator" : (current_user.first_name + " " + current_user.family_name) %>
 <h1 class="title"> Hi, <%=admin_name%></h1>
