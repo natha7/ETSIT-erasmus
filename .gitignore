@@ -25,6 +25,9 @@
 .byebug_history
 
 # Ignore master key for decrypting credentials and more.
+/config/attribute-map.yml
+/config/config.yml
+
 /config/master.key
 /config/database.yml
 .idea

@@ -10,12 +10,12 @@ module PdfHelper
         		fill_color "FFFFFF"
         		rectangle [-40, 810], 632, 60
         		fill
-                image Rails.root.join("app/assets/images/logoescuela.jpg"), :width => 130, :at => [400, 790]
+            image Rails.root.join("app/assets/images/logoescuela.jpg"), :width => 130, :at => [400, 790]
         		image Rails.root.join("app/assets/images/logoUPM.jpg"), :width => 50, :at => [-10, 790]
-                fill_color "4664A2"
-                move_down 56
-                text "UNIVERSIDAD POLITÉCNICA DE MADRID" , :align => :center, :size => 14
-                text "ESCUELA TÉCNICA SUPERIOR DE INGENIEROS DE TELECOMUNICACIÓN" , :align => :center, :size => 14
+            fill_color "4664A2"
+            move_down 56
+            text "UNIVERSIDAD POLITÉCNICA DE MADRID" , :align => :center, :size => 14
+            text "ESCUELA TÉCNICA SUPERIOR DE INGENIEROS DE TELECOMUNICACIÓN" , :align => :center, :size => 14
 
         		fill_color "4664A2"
         	end
@@ -45,15 +45,15 @@ module PdfHelper
         	# Form field label
         	def label(field)
         		fill_color "000000"
-    			text ("<b>#{field}</b>"), :inline_format => true 
-    			fill_color "000000"
-    			move_down 2
+    			  text ("<b>#{field}</b>"), :inline_format => true
+    			  fill_color "000000"
+    			  move_down 4
     		end	
 
     		# Form field value
         	def check_field(field, period=true)
         		fill_color "4664A2"
-    			text (field.blank? ? "<em>Empty</em>" : field), :inline_format => true 
+    			  text (field.blank? ? "<em>Empty</em>" : field), :inline_format => true
         		fill_color "000000"
         		move_down 10 if period
     		end
@@ -91,8 +91,8 @@ module PdfHelper
 
     		# Add page number to all pages
     		repeat(:all, :dynamic => true) do
-    		 draw_text page_number, :at => [530, -10]
-             draw_text "ETSIT-UPM Application form", :at => [-10,-13]
+    		 draw_text page_number, :at => [530, -10], :size => 9
+             draw_text "ETSIT-UPM Application form", :at => [-10,-13], :size => 9
     		end
 
     		# Cover
@@ -127,6 +127,8 @@ module PdfHelper
             label("Date of birth")
             day = user.birth_date.blank? ? "" : user.birth_date.strftime("%b, #{user.birth_date.day.ordinalize} %Y")
             check_field(day)
+            label("Place of birth")
+            check_field(user.born_place)
             label("Gender")
             check_field(user.sex)
             label("Address")
@@ -278,6 +280,12 @@ module PdfHelper
           plain_text("Other documents to send along with this form: Curriculum Vitae, Motivation letter, Official Transcript of Records, Valid Insurance Policy, Copy of national identity card or passport, Two additional Photographs")
           plain_text("Additional documentation for degree-seeking students: Two recommendation letters, Official GPA, English Test Score (B2)")
           plain_text("I hereby give my consent to send this form along with a copy of my Transcript of Records and a letter of presentation to host institution, and I declare that all the information given is correct and complete.")
+          move_down 40
+          draw_text "Applicant's signature", :at => [30, 30], :size => 9
+          draw_text "Place and date:", :at => [200, 30], :size => 9
+          #text ("Applicant's signature"), :inline_format => true, :size => 9, :leading => 5, :at => [400, 790]
+
+
         end.render 
     end
 end

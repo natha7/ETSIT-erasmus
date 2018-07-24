@@ -17,6 +17,7 @@ namespace :db do
 		pupil.family_name = "Family Name"
 		pupil.sex = "Male"
 		pupil.birth_date = Date.parse("Dec 8 1990")
+		pupil.born_place = "Madrid"
 		pupil.permanent_adress = "Fake Street 123"
 		pupil.nationality = "Spain"
 		pupil.phone_number = "636363636"

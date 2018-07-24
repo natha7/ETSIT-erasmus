@@ -63,7 +63,7 @@ class User < ApplicationRecord
   validates_presence_of :first_name, message: 'You must provide your first name.', if: :not_admin?
   validates_presence_of :family_name, message: 'You must provide your family name.', if: :not_admin?
   validates_presence_of :birth_date, message: 'You must provide your birth date.', if: :not_admin?
-  #validates_presence_of :born_place, message: 'You must provide your born place.', if: :not_admin?
+  validates_presence_of :born_place, message: 'You must provide your born place.', if: :not_admin?
   validates_presence_of :nationality, message: 'You must provide your nationality.', if: :not_admin?
   validates_presence_of :sex, message: 'You must provide your sex.', if: :not_admin?
   validates_presence_of :permanent_adress, message: 'You must provide your permanent_adress.', if: :not_admin?
