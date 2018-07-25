@@ -49,7 +49,7 @@
       </div>
       <div class="field filter">
         <label class="label">Progress State </label>
-        <%= select_tag "progress_state", options_for_select([["",""]] + User.progress_statuses.map{|k,v| [k.humanize.capitalize, v]}, params[:progress_state]) %>
+        <%= select_tag "progress_state", options_for_select([["Any",""]] + User.progress_statuses.map{|k,v| [k.humanize.capitalize, v]}, params[:progress_state]) %>
         
       </div>
       <div class="field filter">
