@@ -33,7 +33,7 @@
 					</label>
 				</span>
 				<% sap = current_user.student_application_form %>
-				<% is_signed = !(current_user.signed_student_application_form_file_name.blank?) %>
+				<% is_signed = !(current_user.signed_student_application_form.blank?) %>
 				<% finish_app_form = sap.completed_percentage(is_signed) === '99%'%>
 				<% finish_and_uploaded = sap.completed_percentage(is_signed) === '100%'%>
 				<div class="second-container-medium">

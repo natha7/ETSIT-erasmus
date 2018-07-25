@@ -2,6 +2,7 @@
 
 class DeviseCreateUsers < ActiveRecord::Migration[5.2]
   def change
+    enable_extension 'unaccent'
     create_table :users do |t|
       ## Database authenticatable
       t.string :email,              null: false, default: ""
