@@ -12,7 +12,7 @@ class User < ApplicationRecord
   #validate :email_uniqueness?, :on=> :create
   validates :email, uniqueness: true, presence: true, allow_blank: false
 
-  devise :database_authenticatable,  :registerable, #:saml_authenticatable,
+  devise :database_authenticatable,  :registerable, :saml_authenticatable,
          :recoverable, :rememberable, :trackable, :validatable
 
   has_one :student_application_form

@@ -1,17 +1,17 @@
 Rails.application.routes.draw do
   
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  devise_for :users, skip: [:registrations]
+  devise_for :users, skip: [:registrations, :saml_authenticatable]
   devise_scope :user do
     root to: "devise/sessions#new"
     post 'sign_up', to: "registrations#create", :as => :user_registration
-    #scope "users", controller: 'saml_sessions' do
-    #  get :new, path: "saml/sign_in", as: :new_user_sso_session
-    #  post :create, path: "saml/auth", as: :user_sso_session
-    #  get :destroy, path: "sign_out", as: :destroy_user_sso_session
-    #  get :metadata, path: "saml/metadata", as: :metadata_user_sso_session
-    #  match :idp_sign_out, path: "saml/idp_sign_out", via: [:get, :post]
-    #end
+    scope "users", controller: 'saml_sessions' do
+      get :new, path: "saml/sign_in", as: :new_user_sso_session
+      post :create, path: "saml/auth", as: :user_sso_session
+      get :destroy, path: "sign_out", as: :destroy_user_sso_session
+      get :metadata, path: "saml/metadata", as: :metadata_user_sso_session
+      match :idp_sign_out, path: "saml/idp_sign_out", via: [:get, :post]
+    end
   end
   get "digital_certificate", to: "user#digital_certificate"
   post "create_user", to: "user#create_user"
