@@ -3,6 +3,8 @@ class StudentApplicationFormController < ApplicationController
 	before_action :authenticate_user!
 	before_action :validate_admin?, only: [:review_step]
 
+	@from_ball = :from_ball
+
 	include PdfHelper
 	def sap_page
 		@sap = current_user.student_application_form
@@ -166,7 +168,6 @@ class StudentApplicationFormController < ApplicationController
 			"first"
 		end
 	end
-
 
 
 

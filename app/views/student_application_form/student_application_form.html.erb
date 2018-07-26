@@ -1,17 +1,23 @@
 <div class="align-right">
-<a href="<%=user_dashboard_path%>" class="back-save-dashboard">
-  <button class='custom-button right'>Close</button>
-</a>
-<a href="<%=user_dashboard_path%>" class="back-save-dashboard">
-  <button class='custom-button primary right'>Save & Close</button>
-</a>
+  <% if @from_ball.blank? %>
+    <a href="<%=user_dashboard_path%>" class="back-save-dashboard">
+      <button class='custom-button primary right'>Dashboard</button>
+    </a>
+  <% else %>
+    <a href="<%=user_dashboard_path%>" class="back-save-dashboard">
+      <button class='custom-button right'>Close</button>
+    </a>
+    <a href="<%=user_dashboard_path%>" class="back-save-dashboard">
+      <button class='custom-button primary right'>Save & Close</button>
+    </a>
+  <% end %>
 </div>
 <% id = "form-step-#{@sap.step}"   %>
 <div class="student-application-form">
     <%= form_for @sap, url: student_application_form_path, :html => { :id => id}, :method => :post do |f| %>
     <h1>Student Application Form <span class="fake-arrow" > > </span>  </h1>
 
-	<%= render partial: "student_application_form/#{toNumeral(@sap.step)}_step", :locals =>{ :f=> f, :sap => @sap, :review => false} %>
+	  <%= render partial: "student_application_form/#{toNumeral(@sap.step)}_step", :locals =>{ :f=> f, :sap => @sap, :review => false} %>
     <% final_steps_array = @sap.completed_steps_array  %>
   <div class="action-buttons">
     <div class="progress-bar">
@@ -22,13 +28,13 @@
         <% for i in 1..6 do %>
             <% classBall = final_steps_array[i-1] ? "done-step" :"todo-step " %>
             <%if @sap.step > i %>
-                <%= link_to "<span class='progress-ball previous-step #{classBall}'></span>".html_safe, student_application_form_path + "/#{i}"%>
+                <%= link_to "<span class='progress-ball previous-step #{classBall}'></span>".html_safe, student_application_form_path + "/#{i}" %>
             <%end%>
             <%if @sap.step === i %>
-                <%= link_to "<span class='progress-ball current-step #{classBall}'></span>".html_safe, student_application_form_path + "/#{i}"%>
+                <%= link_to "<span class='progress-ball current-step #{classBall}'></span>".html_safe, student_application_form_path + "/#{i}" %>
             <%end%>
             <%if @sap.step < i %>
-                <%= link_to "<span class='progress-ball future-step #{classBall}'></span>".html_safe, student_application_form_path + "/#{i}"%>
+                <%= link_to "<span class='progress-ball future-step #{classBall}'></span>".html_safe, student_application_form_path + "/#{i}" %>
             <%end%>
         <% end %>
         </div>
@@ -38,13 +44,13 @@
             <button type="submit" value="personal_data" name="step"  class='custom-button'> < Back</button>
         <% end %>
         <%if @sap.step - 1 > 0 %>
-                <button type="submit" value="<%=@sap.step - 1%>" name="step"  class='custom-button'> < Back</button>
+            <button type="submit" value="<%=@sap.step - 1%>" name="step"  class='custom-button'> < Back</button>
         <%end%>
         <%if @sap.step + 1 < 7 %>
-                <button type="submit" value="<%=@sap.step + 1%>" name="step"  class='custom-button'> Next ></button>
+            <button type="submit" value="<%=@sap.step + 1%>" name="step"  class='custom-button'> Next ></button>
         <%end%>
         <%if @sap.step == 6 %>
-                <button type="submit" value="0" name="step"  class='custom-button'> Finish</button>
+            <button type="submit" value="0" name="step"  class='custom-button primary'> Finish</button>
         <%end%>
     </div>
     </br>
