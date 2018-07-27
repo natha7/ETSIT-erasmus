@@ -1,7 +1,8 @@
 
 <% id = "form-step-#{@sap.step}"   %>
 <div class="student-application-form">
-    <%= form_for @sap, url: student_application_form_path, :html => { :id => id}, :method => :post do |f| %>
+    <% from_ball = params[:from_ball].nil?%>
+    <%= form_for @sap, url: student_application_form_path(:from_ball => from_ball), :html => { :id => id }, :method => :post do |f| %>
     <div class="align-right">
 
       <% if params.has_key?(:from_ball) %>
@@ -37,6 +38,7 @@
         <% end %>
         </div>
     </div>
+
     <div class="progress-buttons">
         <% if @sap.step.to_i == 1 %>
             <button type="submit" value="personal_data" name="step"  class='custom-button'> < Back</button>
