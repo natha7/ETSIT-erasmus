@@ -13,6 +13,7 @@
 		justify-content: center
 		padding: 40px
 	.password-container
+		margin-top: 40px
 		justify-content: flex-start
 		align-items: center
 		padding: 25px
@@ -20,6 +21,12 @@
 			flex-grow: 0
 			label
 				width: auto
+				line-height: 1em
+				padding: 10px 0
+			em
+				padding: 9px 10px 9px 0
+			input[type="password"]
+				min-width: 200px
 		.actions
 			a
 				padding: 15px
@@ -73,6 +80,23 @@
 
 @media (max-width: 600px)
 	.new_user
+		.password-container
+			.field
+				flex-direction: column
+				padding: 10px 0 !important
+				width: 100%
+				label, em
+					padding: 5px 0
+
+			.actions
+				width: 100%
+				a
+					display: block
+					padding: 15px
+					text-align: center
+				.custom-button
+					width: 100%
+
 		.field
 			justify-content: center
 			padding: 0 !important
@@ -85,6 +109,7 @@
 			width: 100%
 			a
 				margin: 0 auto !important
+
 		.flex-left-new, .flex-right-new
 			text-align: center
 			padding: 0

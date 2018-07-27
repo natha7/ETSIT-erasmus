@@ -43,7 +43,7 @@ class StudentApplicationFormController < ApplicationController
 
 	def save
 		@sap = current_user.student_application_form
-		@from_ball = params[:from_ball]
+
 		unless params[:step] == "personal_data"
 			step = params[:step].to_i
 			step = nil if (step.to_s != params[:step])
@@ -126,6 +126,8 @@ class StudentApplicationFormController < ApplicationController
 		# render "student_application_form/student_application_form"
 		if params[:step] == "personal_data"
 			redirect_to student_application_form_personal_data_step_path
+		elsif !step.blank? and step.between?(1,6) and params[:from_ball]
+			redirect_to "#{student_application_form_path}/#{step}?from_ball=true"
 		elsif !step.blank? and step.between?(1,6)
 			redirect_to "#{student_application_form_path}/#{step}"
 		else
