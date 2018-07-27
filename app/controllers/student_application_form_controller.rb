@@ -43,6 +43,7 @@ class StudentApplicationFormController < ApplicationController
 
 	def save
 		@sap = current_user.student_application_form
+		@from_ball = params[:from_ball]
 		unless params[:step] == "personal_data"
 			step = params[:step].to_i
 			step = nil if (step.to_s != params[:step])
@@ -86,7 +87,7 @@ class StudentApplicationFormController < ApplicationController
 		
 	
 	    #//:seeking_degree
-	    if params[:student_application_form][:seeking_degree]
+		if params[:student_application_form][:seeking_degree]
 	    	user = @sap.user
 	    	user.seeking_degree = params[:student_application_form][:seeking_degree] == "true"
 	    	user.save!
