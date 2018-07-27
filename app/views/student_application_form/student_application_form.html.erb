@@ -1,15 +1,13 @@
 <div class="align-right">
-  <% if @from_ball.blank? %>
-    <a href="<%=user_dashboard_path%>" class="back-save-dashboard">
-      <button class='custom-button primary right'>Dashboard</button>
-    </a>
-  <% else %>
+
+  <% if params.has_key?(:from_ball) %>
     <a href="<%=user_dashboard_path%>" class="back-save-dashboard">
       <button class='custom-button right'>Close</button>
     </a>
     <a href="<%=user_dashboard_path%>" class="back-save-dashboard">
       <button class='custom-button primary right'>Save & Close</button>
     </a>
+
   <% end %>
 </div>
 <% id = "form-step-#{@sap.step}"   %>
@@ -49,7 +47,7 @@
         <%if @sap.step + 1 < 7 %>
             <button type="submit" value="<%=@sap.step + 1%>" name="step"  class='custom-button'> Next ></button>
         <%end%>
-        <%if @sap.step == 6 %>
+        <%if @sap.step == 6 && !params.has_key?(:from_ball) %>
             <button type="submit" value="0" name="step"  class='custom-button primary'> Finish</button>
         <%end%>
     </div>
