@@ -279,7 +279,7 @@ $(document).on('turbolinks:load', function() {
 
     for (var i in lang_elements) {
       var element = lang_elements[i];
-      var el = element.key;
+      var el = "student_application_form[languages][][" + element.key + "]";
       var $field = $('<div class="field"></div>');
       var $container = $('<div class="flex-container"></div>');
       var $label = $('<label/>').attr("for", el ).text(element.label);
@@ -322,35 +322,6 @@ $(document).on('turbolinks:load', function() {
 
   });
 
-  /**
-    * Intercept language form
-    */
-  $('#form-step-4').submit(function( ){
-    $('.languages-hidden').remove();
-    $('.lang-list .lang').each(function(l,lang){
-      $lang = $(lang);
-      for (var i in lang_elements) {
-        var language = lang_elements[i];
-        var el = language.key;
-        var $input = language.input === "select" ? $lang.find('select[name="'+el+'"]'): $lang.find('input[name="'+el+'"]');
-        value = language.input === "checkbox" ? $input.prop("checked") : $input.val();
-        value = language.input === "checkbox" ? (value ? value : !!value) : value;
-        $lang.remove();
-        $('<input/>').attr('type', 'hidden')
-                      .attr('name', "student_application_form[languages][]["+el+"]")
-                      .attr('class', "languages-hidden")
-                      .attr('value', value)
-                      .appendTo('#form-step-4');
-      }
-      
-    });
-    $('<input/>').attr('type', 'hidden')
-                  .attr('name', "student_application_form[other_languages]")
-                  .attr('class', "languages-hidden")
-                  .attr('value', 1)
-                  .appendTo('#form-step-4');
-    return true;
-  });
 
   /**
     * Delete work
@@ -372,7 +343,7 @@ $(document).on('turbolinks:load', function() {
 
     for (var i in work_elements) {
       var element = work_elements[i];
-      var el = element.key;
+      var el = "student_application_form[work_experiences][]["+element.key+"]";
       var $field = $('<div class="field"></div>');
       var $container = $('<div class="flex-container"></div>');
       var $label = $('<label/>').attr("for", el ).text(element.label);
@@ -412,34 +383,6 @@ $(document).on('turbolinks:load', function() {
 
   });
 
-  /**
-    * Intercept work form
-    */
-  $('#form-step-5').submit(function( ){
-
-    var works = [];
-    $('.work-hidden').remove();
-    $('.work-list .work').each(function(l,work){
-      $work = $(work);
-      var workObj = {};
-      for (var i in work_elements) {
-        var work = work_elements[i];
-        var el = work.key;
-        var $input = work.input === "select" ? $work.find('select[name="' + el + '"]') : $work.find('input[name="' + el + '"]');
-        value = work.input === "checkbox" ? $input.prop("checked") : $input.val();
-        value = work.input === "checkbox" ? (value ? value : !!value) : value;
-        workObj[el] = value;
-        $work.remove();
-        $('<input/>').attr('type', 'hidden')
-                      .attr('class', "work-hidden")
-                      .attr('name', "student_application_form[work_experiences][]["+el+"]")
-                      .attr('value', value)
-                      .appendTo('#form-step-5')
-      }
-    });
-
-    return true;
-  });
 
   $('#user_signed_student_application_form').change(function(e){ 
     if (e.target.files.length > 0) {

@@ -60,9 +60,10 @@ class StudentApplicationFormController < ApplicationController
 				languages.each do |language|
 					lan = Language.new
 					lan.name = language[:name]
-					lan.currently_studying = language[:currently_studying].to_s == 'true' ? true : false 
-					lan.able_follow_lectures = language[:able_follow_lectures].to_s == 'true' ? true : false 
-					lan.able_follow_lectures_extra_preparation = language[:able_follow_lectures_extra_preparation].to_s == 'true' ? true : false 
+					lan.currently_studying = language[:currently_studying].to_s == 'on' ? true : false 
+					lan.able_follow_lectures = language[:able_follow_lectures].to_s == 'on' ? true : false 
+					lan.able_follow_lectures_extra_preparation = language[:able_follow_lectures_extra_preparation].to_s == 'on' ? true : false 
+					puts language[:able_follow_lectures_extra_preparation].to_s, 222222222
 					@sap.languages << lan
 					lan.save!
 				end

@@ -25,6 +25,7 @@
 	<% unless review %>
 		<button class="custom-button primary" id="add-lang" type="button">Add a new language</button>
 	<%end%>
+	<input type="hidden" name="student_application_form[other_languages]" value="1"/>
 	<div class="lang-list">
 	<% if defined?(@sap.languages) %>
 		<% @sap.languages.each_with_index do |language,index|%>
@@ -32,7 +33,7 @@
 			<div class="field">
 				<div class="flex-container">
 					<label for="name">Language</label>
-					<select  name="name" class="language-input" <%=review ? "disabled" : ""%>  >
+					<select  name="student_application_form[languages][][name]" class="language-input" <%=review ? "disabled" : ""%>  >
 						<% selected_lang = language.name.to_s || "English" %>
 						<% languages_list.each do |lang| %>
 							<option <%= selected_lang == lang ? "selected" : "" %>><%=lang%></option>
@@ -43,19 +44,19 @@
 			</div>
 			<div class="field">
 				<div class="flex-container">
-					<input type="checkbox" name="currently_studying" class="language-input" <%=review ? "disabled" : ""%> <%=language.currently_studying ? "checked":"" %> />
+					<input type="checkbox" name="student_application_form[languages][][currently_studying]" class="language-input" <%=review ? "disabled" : ""%> <%=language.currently_studying ? "checked":"" %> />
 					<label class="checkBox" for="currently_studying">Currently Studying</label>
 				</div>
 			</div>
 			<div class="field">
 				<div class="flex-container">
-					<input type="checkbox" name="able_follow_lectures" class="language-input" <%=review ? "disabled" : ""%> <%=language.able_follow_lectures ? "checked":"" %>/>
+					<input type="checkbox" name="student_application_form[languages][][able_follow_lectures]" class="language-input" <%=review ? "disabled" : ""%> <%=language.able_follow_lectures ? "checked":"" %>/>
 					<label class="checkBox" for="able_follow_lectures">Able to follow lectures</label>
 				</div>
 			</div>
 			<div class="field">
 				<div class="flex-container">
-					<input type="checkbox" name="able_follow_lectures_extra_preparation" class="language-input" <%=review ? "disabled" : ""%> <%=language.able_follow_lectures_extra_preparation ? "checked":"" %> />
+					<input type="checkbox" name="student_application_form[languages][][able_follow_lectures_extra_preparation]" class="language-input" <%=review ? "disabled" : ""%> <%=language.able_follow_lectures_extra_preparation ? "checked":"" %> />
 					<label class="checkBox" for="able_follow_lectures_extra_preparation">Able to follow lectures with extra preparation</label>
 				</div>
 			</div>
