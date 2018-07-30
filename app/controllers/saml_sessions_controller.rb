@@ -1,6 +1,10 @@
 class SamlSessionsController < Devise::SamlSessionsController
   after_action :store_winning_strategy, only: :create
 
+  def metadata
+	  	
+  end
+
   private
 
   def store_winning_strategy

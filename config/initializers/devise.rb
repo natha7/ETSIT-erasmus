@@ -253,7 +253,7 @@ Devise.setup do |config|
   # The default HTTP method used to sign out a resource. Default is :delete.
   config.sign_out_via = :delete
 
-  config.secret_key = '668ad7a6b10c6143ffbb81a7ca679f080b543f9ca6f1ca7ce0c6e3afb4021b0416fc8825cb3a004917de0ba699521a1142096b5bdc0a6f0d4bb23037c07ed34f'
+  #config.secret_key = YAML.load_file("#{Rails.root}/config/config.yml")[:secret_key]
 
 
   # ==> Configuration for :saml_authenticatable
@@ -287,19 +287,30 @@ Devise.setup do |config|
     # You can set a handler object that takes the response for a failed SAML request and the strategy,
     # and implements a #handle method. This method can then redirect the user, return error messages, etc.
     # config.saml_failed_callback = nil
-
+    CONFIG = YAML.load_file("#{Rails.root}/config/config.yml")
+    
     # Configure with your SAML settings (see ruby-saml's README for more information: https://github.com/onelogin/ruby-saml).
     config.saml_configure do |settings|
       # assertion_consumer_service_url is required starting with ruby-saml 1.4.3: https://github.com/onelogin/ruby-saml#updating-from-142-to-143
-      settings.assertion_consumer_service_url     = "http://localhost:3000/users/saml/auth"
+      settings.assertion_consumer_service_url     = CONFIG["sp_options"]["assert_endpoint"]
       settings.assertion_consumer_service_binding = "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"
       settings.name_identifier_format             = "urn:oasis:names:tc:SAML:2.0:nameid-format:transient"
-      settings.issuer                             = "http://localhost:3000/saml/metadata"
-      settings.authn_context                      = ""
-      settings.idp_slo_target_url                 = "http://localhost/simplesaml/www/saml2/idp/SingleLogoutService.php"
-      settings.idp_sso_target_url                 = "http://localhost/simplesaml/www/saml2/idp/SSOService.php"
-      settings.idp_cert_fingerprint               = "00:A1:2B:3C:44:55:6F:A7:88:CC:DD:EE:22:33:44:55:D6:77:8F:99"
-      settings.idp_cert_fingerprint_algorithm     = "http://www.w3.org/2000/09/xmldsig#sha1"
+      settings.issuer                             = CONFIG["sp_options"]["entity_id"]
+      settings.authn_context                      = "urn:oasis:names:tc:SAML:2.0:protocol"
+      settings.idp_sso_target_url                 = CONFIG["idp_options"]["sso_login_url"]
+      settings.certificate                        = ""
+      settings.private_key                        = ""
+
+      settings.attribute_consuming_service.configure do
+        service_name CONFIG['attributes']['service_name']
+        service_index 6
+        add_attribute :name => CONFIG['attributes']['attr1']['name'], :name_format => CONFIG['attributes']['name_format'], :friendly_name => CONFIG['attributes']['attr1']['friendly_name']
+        add_attribute :name => CONFIG['attributes']['attr2']['name'], :name_format => CONFIG['attributes']['name_format'], :friendly_name => CONFIG['attributes']['attr2']['friendly_name']
+        add_attribute :name => CONFIG['attributes']['attr3']['name'], :name_format => CONFIG['attributes']['name_format'], :friendly_name => CONFIG['attributes']['attr3']['friendly_name']
+        add_attribute :name => CONFIG['attributes']['attr4']['name'], :name_format => CONFIG['attributes']['name_format'], :friendly_name => CONFIG['attributes']['attr4']['friendly_name']
+        add_attribute :name => CONFIG['attributes']['attr5']['name'], :name_format => CONFIG['attributes']['name_format'], :friendly_name => CONFIG['attributes']['attr5']['friendly_name']
+        add_attribute :name => CONFIG['attributes']['attr6']['name'], :name_format => CONFIG['attributes']['name_format'], :friendly_name => CONFIG['attributes']['attr6']['friendly_name']
+      end
     end
 
   # ==> OmniAuth

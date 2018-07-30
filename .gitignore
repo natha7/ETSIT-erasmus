@@ -27,6 +27,7 @@
 # Ignore master key for decrypting credentials and more.
 /config/attribute-map.yml
 /config/config.yml
+/config/secrets.yml
 
 /config/master.key
 /config/database.yml
