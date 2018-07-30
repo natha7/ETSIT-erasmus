@@ -55,7 +55,7 @@
 							<% for i in 1..6 do %>
 							<% classBall = final_steps_array[i-1] ? "done-step" : "todo-step" %>
 							<% ball = "<span class='progress-ball  #{classBall}'></span>"%>
-							<%= link_to ball.html_safe, "/review_student_application_form/#{current_user.id}" + "/#{i}", :title => titles[i-1] %>
+							<%= link_to ball.html_safe, "/review_student_application_form/#{current_user.id}" + "/#{i}?from_ball=true", :title => titles[i-1] %>
 							<% end %>
 						</div>
 					</div>

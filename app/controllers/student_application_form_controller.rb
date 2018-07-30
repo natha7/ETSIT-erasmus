@@ -1,4 +1,6 @@
 require "prawn"
+#require "prawn/table"
+
 class StudentApplicationFormController < ApplicationController
 	before_action :authenticate_user!
 	before_action :validate_admin?, only: [:review_step]
@@ -42,7 +44,9 @@ class StudentApplicationFormController < ApplicationController
 	end
 
 	def save
+
 		@sap = current_user.student_application_form
+		from_ball = params[:from_ball]
 		unless params[:step] == "personal_data"
 			step = params[:step].to_i
 			step = nil if (step.to_s != params[:step])
@@ -56,9 +60,10 @@ class StudentApplicationFormController < ApplicationController
 				languages.each do |language|
 					lan = Language.new
 					lan.name = language[:name]
-					lan.currently_studying = language[:currently_studying].to_s == 'true' ? true : false 
-					lan.able_follow_lectures = language[:able_follow_lectures].to_s == 'true' ? true : false 
-					lan.able_follow_lectures_extra_preparation = language[:able_follow_lectures_extra_preparation].to_s == 'true' ? true : false 
+					lan.currently_studying = language[:currently_studying].to_s == 'on' ? true : false 
+					lan.able_follow_lectures = language[:able_follow_lectures].to_s == 'on' ? true : false 
+					lan.able_follow_lectures_extra_preparation = language[:able_follow_lectures_extra_preparation].to_s == 'on' ? true : false 
+					puts language[:able_follow_lectures_extra_preparation].to_s, 222222222
 					@sap.languages << lan
 					lan.save!
 				end
@@ -86,7 +91,7 @@ class StudentApplicationFormController < ApplicationController
 		
 	
 	    #//:seeking_degree
-	    if params[:student_application_form][:seeking_degree]
+		if params[:student_application_form][:seeking_degree]
 	    	user = @sap.user
 	    	user.seeking_degree = params[:student_application_form][:seeking_degree] == "true"
 	    	user.save!
@@ -126,7 +131,11 @@ class StudentApplicationFormController < ApplicationController
 		if params[:step] == "personal_data"
 			redirect_to student_application_form_personal_data_step_path
 		elsif !step.blank? and step.between?(1,6)
-			redirect_to "#{student_application_form_path}/#{step}"
+			if from_ball.nil?
+				redirect_to "#{student_application_form_path}/#{step}"
+			else 
+				redirect_to "#{student_application_form_path}/#{step}?from_ball=true"
+			end
 		else
 			redirect_to user_dashboard_path
 		end
@@ -166,7 +175,6 @@ class StudentApplicationFormController < ApplicationController
 			"first"
 		end
 	end
-
 
 
 
