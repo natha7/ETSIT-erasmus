@@ -1,7 +1,6 @@
-
 <% id = "form-step-#{@sap.step}"   %>
 <div class="student-application-form">
-    <% from_ball = params[:from_ball].nil?%>
+    <% from_ball = !params[:from_ball].nil?%>
     <%= form_for @sap, url: student_application_form_path(:from_ball => from_ball), :html => { :id => id }, :method => :post do |f| %>
     <div class="align-right">
 
