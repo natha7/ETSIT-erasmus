@@ -208,6 +208,7 @@ $(document).on('turbolinks:load', function() {
           $('#actual-picture').attr('src', url);
           // $('.messages-from-server').append($('<p class="message-from-server notice">Uploaded correctly!</p>'));
           $('#edit-picture-dialog').dialog('close');
+          location.reload();
         } catch (e) {
           console.error("An error ocurred when uploading the file", e)
           $('.messages-from-server').append($('<p class="message-from-server alert">An error ocurred</p>'));
