@@ -10,6 +10,11 @@ class UserController < ApplicationController
 	def set_user_status
 		user = User.find(params[:user][:id])
 		user.progress_status = params[:user][:progress_status]
+		begin
+	     	UserMailer.reviewed_application_mail(current_user).deliver_now
+	     rescue
+	     	flash[:error] = "E-mail to #{user.email} could not be sent"
+	    end
 		user.save!
 		redirect_to admin_dashboard_path
 	end
@@ -39,6 +44,11 @@ class UserController < ApplicationController
 		user = current_user
 	    if user.role == "user" && user.progress_status == "in_process" && user.percentage_num.to_i == 100
 	      user.progress_status = :finished
+	     begin
+	      	UserMailer.finished_application_mail_to_admins(current_user).deliver_now
+      	rescue
+	      	flash[:error] = (flash[:error].blank? ?  "" : (flash[:error] + "\n" )) + "E-mail to #{user.email} could not be sent"
+        end
 	      user.save!
 	    end
 	    redirect_to user_dashboard_path
