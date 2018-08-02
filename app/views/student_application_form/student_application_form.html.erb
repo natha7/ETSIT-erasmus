@@ -1,6 +1,6 @@
 <% id = "form-step-#{@sap.step}"   %>
 <div class="student-application-form">
-    <% from_ball = !params[:from_ball].nil?%>
+    <% from_ball = !params[:from_ball].nil? %>
     <%= form_for @sap, url: student_application_form_path(:from_ball => from_ball), :html => { :id => id }, :method => :post do |f| %>
     <div class="align-right">
 
@@ -26,13 +26,25 @@
         <% for i in 1..6 do %>
             <% classBall = final_steps_array[i-1] ? "done-step" :"todo-step " %>
             <%if @sap.step > i %>
-                <%= link_to "<span class='progress-ball previous-step #{classBall}'></span>".html_safe, student_application_form_path + "/#{i}" %>
+              <% if from_ball == true %>
+                <%= link_to "<span class='progress-ball previous-step #{classBall}'></span>".html_safe, student_application_form_path + "/#{i}?from_ball=true"%>
+              <% else %>
+                <%= link_to "<span class='progress-ball previous-step #{classBall}'></span>".html_safe, student_application_form_path + "/#{i}"%>
+              <% end %>
             <%end%>
             <%if @sap.step === i %>
-                <%= link_to "<span class='progress-ball current-step #{classBall}'></span>".html_safe, student_application_form_path + "/#{i}" %>
+              <% if from_ball == true %>
+                <%= link_to "<span class='progress-ball current-step #{classBall}'></span>".html_safe, student_application_form_path + "/#{i}?from_ball=true"%>
+              <% else %>
+                <%= link_to "<span class='progress-ball current-step #{classBall}'></span>".html_safe, student_application_form_path + "/#{i}"%>
+              <% end %>
             <%end%>
             <%if @sap.step < i %>
-                <%= link_to "<span class='progress-ball future-step #{classBall}'></span>".html_safe, student_application_form_path + "/#{i}" %>
+              <% if from_ball == true %>
+                <%= link_to "<span class='progress-ball future-step #{classBall}'></span>".html_safe, student_application_form_path + "/#{i}?from_ball=true"%>
+              <% else %>
+                <%= link_to "<span class='progress-ball future-step #{classBall}'></span>".html_safe, student_application_form_path + "/#{i}"%>
+              <% end %>
             <%end%>
         <% end %>
         </div>
@@ -48,8 +60,10 @@
         <%if @sap.step + 1 < 7 %>
             <button type="submit" value="<%=@sap.step + 1%>" name="step"  class='custom-button'> Next ></button>
         <%end%>
-        <%if @sap.step == 6 && !params.has_key?(:from_ball) %>
-            <button type="submit" value="0" name="step"  class='custom-button primary'> Finish</button>
+        <%if @sap.step == 6 %>
+          <%if !params.has_key?(:from_ball) || from_ball == false %>
+              <button type="submit" value="0" name="step" class='custom-button primary'> Finish</button>
+          <%end%>
         <%end%>
     </div>
   </div>

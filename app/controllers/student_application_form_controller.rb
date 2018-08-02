@@ -129,12 +129,16 @@ class StudentApplicationFormController < ApplicationController
 		@sap.save!
 		# render "student_application_form/student_application_form"
 		if params[:step] == "personal_data"
-			redirect_to student_application_form_personal_data_step_path
+			if !from_ball
+				redirect_to student_application_form_personal_data_step_path
+			else
+				redirect_to student_application_form_personal_data_step_path(:from_ball => from_ball)
+			end
 		elsif !step.blank? and step.between?(1,6)
 			if !from_ball
 				redirect_to "#{student_application_form_path}/#{step}"
 			else 
-				redirect_to "#{student_application_form_path}/#{step}?from_ball=true"
+				redirect_to "#{student_application_form_path}/#{step}?from_ball=#{from_ball}"
 			end
 		else
 			redirect_to user_dashboard_path
