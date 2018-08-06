@@ -11,10 +11,11 @@ class UserController < ApplicationController
 		user = User.find(params[:user][:id])
 		user.progress_status = params[:user][:progress_status]
 		if user.progress_status == "accepted"
-		  begin
+	  	begin
 	     	#UserMailer.reviewed_application_mail(current_user).deliver_now
-				UserMailer.with(user: user).reviewed_application_mail.deliver_now
-			rescue
+	     	url = request.base_url
+			UserMailer.reviewed_application_mail(url, user).deliver_now
+		rescue
 	     	flash[:error] = "E-mail to #{user.email} could not be sent"
 	    end
 
@@ -49,7 +50,8 @@ class UserController < ApplicationController
 	    if user.role == "user" && user.progress_status == "in_process" && user.percentage_num.to_i == 100
 	      user.progress_status = :finished
 	     begin
-	      	UserMailer.finished_application_mail_to_admins(current_user).deliver_now
+	     	url = request.base_url
+	      	UserMailer.finished_application_mail_to_admins(url, current_user).deliver_now
       	rescue
 	      	flash[:error] = (flash[:error].blank? ?  "" : (flash[:error] + "\n" )) + "E-mail to #{user.email} could not be sent"
         end
