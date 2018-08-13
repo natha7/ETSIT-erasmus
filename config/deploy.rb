@@ -3,6 +3,7 @@ lock "~> 3.11.0"
 
 set :application, "eid4u"
 set :repo_url, 'https://github.com/abenitoc/eiD4U.git'
+set :branch, :eidas
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
@@ -15,7 +16,7 @@ set :repo_url, 'https://github.com/abenitoc/eiD4U.git'
  set :rails_env,     "production"
  set :use_sudo,      false
 
- append :linked_files, 'config/database.yml'
+ append :linked_files, 'config/database.yml', 'config/config.yml', 'config/secrets.yml'
  set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'public/system')
  
  set :pty,             true
