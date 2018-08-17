@@ -4,6 +4,7 @@ require "capistrano/setup"
 # Include default deployment tasks
 require "capistrano/deploy"
 require 'capistrano/rake'
+
 # Load the SCM plugin appropriate to your project:
 #
 # require "capistrano/scm/hg"
@@ -23,7 +24,7 @@ require 'capistrano/puma'
 install_plugin Capistrano::Puma
 require 'capistrano/puma/nginx'
 install_plugin Capistrano::Puma::Nginx
-
+require 'capistrano/rails/console'
 # Include tasks from other gems included in your Gemfile
 #
 # For documentation on these, see for example:

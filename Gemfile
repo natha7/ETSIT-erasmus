@@ -59,6 +59,7 @@ group :development do
   gem 'capistrano-rails'           # automatic migrations and asset compilation
   gem 'capistrano3-puma'
   gem 'capistrano-rake'
+  gem 'capistrano-rails-console', require: false
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
