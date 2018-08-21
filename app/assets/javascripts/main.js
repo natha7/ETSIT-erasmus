@@ -53,7 +53,7 @@ $(document).on('turbolinks:load', function() {
     **/
   function initCropper(){
       var $image = $('#edit-picture-dialog-picture');
-      if ($image.attr('src') !== "/assets/placeholder.png") {
+      if ($image.attr('src') !== "/erasmus/assets/placeholder.png") {
         $image.cropper({
           aspectRatio: 1,
           minContainerWidth: 150,
