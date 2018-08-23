@@ -1,3 +1,3 @@
 <h1>Welcome, <span class="email"> <%=@nominee.email%></span></h1>
-<div><%= button_to "Register with EIDAS", "/register/"+@nominee.registration_token+"/register_with_eidas", :method=> :get, form_class: "button", :class=> "custom-button primary"  %></div>
-<div><%= button_to "Register with email and password", "/register/"+@nominee.registration_token+"/register_with_email_and_password", :method=> :get, form_class: "button", :class=> "custom-button primary" %></div>
+<div><%= button_to "Register with EIDAS", "<%= RELATIVE_URL %>/register/"+@nominee.registration_token+"/register_with_eidas", :method=> :get, form_class: "button", :class=> "custom-button primary"  %></div>
+<div><%= button_to "Register with email and password", "<%= RELATIVE_URL %>/register/"+@nominee.registration_token+"/register_with_email_and_password", :method=> :get, form_class: "button", :class=> "custom-button primary" %></div>

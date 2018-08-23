@@ -41,7 +41,7 @@
 						<div class="progress-line">
 						</div>
 						<div class="progress-balls">
-						<a href="/student_application_form/personal_data_step" title="Personal Data">
+						<a href="<%= RELATIVE_URL %>/student_application_form/personal_data_step" title="Personal Data">
 							<span class='progress-ball done-step'></span>
 						</a>
 						<% final_steps_array = sap.completed_steps_array %>
@@ -86,7 +86,7 @@
 					<% else %>
 						<%= button_to "Delete", user_file_delete_url(:id => current_user.id, :attachment => :signed_student_application_form_file_name), :method=> :delete, :class => "custom-button" %>
 					<% end %>
-					<a download="application_form.pdf" href=<%= finish_and_uploaded ? current_user.signed_student_application_form.url : "/generate_pdf" %>   >
+					<a download="application_form.pdf" href=<%= finish_and_uploaded ? current_user.signed_student_application_form.url : RELATIVE_URL + "/generate_pdf" %>   >
 						<button type="button" class="custom-button" <%= (finish_app_form || finish_and_uploaded) ? "":"disabled"%>   >
 							Download
 						</button>
@@ -175,14 +175,14 @@
 				<canvas id="canvas"></canvas>
 				<div class="image-edit-actions">
 					<input class="input-file" type="file" name="photo2" accept="image/*"></input>
-					<%= form_for current_user, url: "/user/file_upload_ajax", html: { multipart: true }, :method => :POST do |form| %>
+					<%= form_for current_user, url: RELATIVE_URL + "/user/file_upload_ajax", html: { multipart: true }, :method => :POST do |form| %>
 					<br></br>
 					<div class="messages-from-server">
 						
 					</div>
 					<div class="align-right">
 						<%= form.submit "Upload", :class => "custom-button" %>
-						<img id="spinner" src="/erasmus/assets/spinner.gif" class="hidden"/>
+						<img id="spinner" src="<%= RELATIVE_URL %>/assets/spinner.gif" class="hidden"/>
 					</div>
 					<% end %>
 				</div>

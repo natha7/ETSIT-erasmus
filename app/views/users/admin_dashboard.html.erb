@@ -1,5 +1,5 @@
 <div class="align-right">
-<%= button_to "Contact users", "/massive_email", :method=> :get, :class => "custom-button primary", :form_class =>"inline"%>
+<%= button_to "Contact users", RELATIVE_URL + "/massive_email", :method=> :get, :class => "custom-button primary", :form_class =>"inline"%>
 <%= button_to "Log out", destroy_user_session_path, :method=> :delete, :class => "custom-button ", :form_class =>"inline"%>
 </div>
 <%# like_email = "%#{ params[:email]}%"    %>
@@ -23,7 +23,7 @@
   deadline</u> .</p>
 <br/>
 <div class="filters">
-  <form action="/admin_dashboard" method="GET">
+  <form action="<%= RELATIVE_URL %>/admin_dashboard" method="GET">
     <h2>Filters</h2>
     <div class="flex-filters">
       <div class="field filter">
@@ -163,7 +163,7 @@
         <% users.each do |user| %>
           <div class="registered-item">
             <div class="user-<%= user.id %>-id flex-table-cell flex-table-email">
-              <span class="big-hidden">Email:</span><a href="/review_dashboard/<%=user.id%>"><span class="email"><%= user.family_name %>, <%= user.first_name %> </span></a>
+              <span class="big-hidden">Email:</span><a href="<%= RELATIVE_URL %>/review_dashboard/<%=user.id%>"><span class="email"><%= user.family_name %>, <%= user.first_name %> </span></a>
             </div>
             <div class="user-<%= user.id %>-id flex-table-cell flex-table-univ">
               <span class="big-hidden">University: </span>
@@ -176,7 +176,7 @@
             <div class="user-<%= user.id %>-id flex-table-cell flex-table-app-form">
               <span class="big-hidden">App Form: </span>
               <span class="dashboard-icon">
-                <a href="/review_student_application_form/<%=user.id%>/1">
+                <a href="<%= RELATIVE_URL %>/review_student_application_form/<%=user.id%>/1">
                   <% pctg = user.student_application_form.completed_percentage(!user.signed_student_application_form.blank?) %>
                 <%="#{pctg}" %>
                   <i  class="mdi mdi-clipboard-text app-form <%= 'green' if pctg === '100%' %>"></i>
@@ -243,14 +243,15 @@
       <canvas id="canvas"></canvas>
       <div class="image-edit-actions">
         <input class="input-file" type="file" name="photo2" accept="image/*"></input>
-        <%= form_for current_user, url: "/user/file_upload_ajax", html: { multipart: true }, :method => :POST do |form| %>
+
+        <%= form_for current_user, url: "#{RELATIVE_URL}/user/file_upload_ajax", html: { multipart: true }, :method => :POST do |form| %>
         <br></br>
         <div class="messages-from-server">
           
         </div>
         <div class="align-right">
           <%= form.submit "Upload", :class => "custom-button" %>
-          <img id="spinner" src="/erasmus/assets/spinner.gif" class="hidden"/>
+          <img id="spinner" src="<%= RELATIVE_URL %>/assets/spinner.gif" class="hidden"/>
         </div>
         <% end %>
       </div>
@@ -269,7 +270,7 @@
             <button type="submit" class="custom-button primary">
                 Send   <i class="mdi mdi-send"></i> 
             </button>
-            <img id="spinner" src="/erasmus/assets/spinner.gif" class="hidden"/>
+            <img id="spinner" src="<%= RELATIVE_URL %>/assets/spinner.gif" class="hidden"/>
           </div>
           <% end %>
       </div>

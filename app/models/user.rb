@@ -23,7 +23,7 @@ class User < ApplicationRecord
   has_attached_file :transcript_of_records
   has_attached_file :learning_agreement
   has_attached_file :valid_insurance_policy
-  has_attached_file :photo, :default_url  => '/erasmus/assets/placeholder.png'
+  has_attached_file :photo, :default_url  => RELATIVE_URL + '/assets/placeholder.png'
   has_attached_file :ni_passport
   has_attached_file :recommendation_letter_1
   has_attached_file :recommendation_letter_2

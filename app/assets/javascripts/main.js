@@ -1,4 +1,7 @@
 $(document).on('turbolinks:load', function() {
+
+  var relative_url = "/erasmus";
+
   var lang_elements = [
     {key: "name", label: "Language", input: "select"},
     {key: "currently_studying", label: "Currently Studying", input: "checkbox"},
@@ -53,7 +56,7 @@ $(document).on('turbolinks:load', function() {
     **/
   function initCropper(){
       var $image = $('#edit-picture-dialog-picture');
-      if ($image.attr('src') !== "/erasmus/assets/placeholder.png") {
+      if ($image.attr('src') !== relative_url + "/assets/placeholder.png") {
         $image.cropper({
           aspectRatio: 1,
           minContainerWidth: 150,
@@ -191,7 +194,7 @@ $(document).on('turbolinks:load', function() {
     oData.append("authenticity_token", $('#edit-picture-dialog form input[name="authenticity_token"]').val());
 
     var oReq = new XMLHttpRequest();
-    oReq.open("POST", "/user/file_upload_ajax");
+    oReq.open("POST", relative_url+"/user/file_upload_ajax");
     oReq.send(oData)
     $('#spinner').removeClass('hidden');
     $('.messages-from-server').empty();
