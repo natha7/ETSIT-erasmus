@@ -1,5 +1,5 @@
 <div class="align-right">
-<a href="<%="/review_dashboard/#{params[:user]}"%>" class="back-to-dashboard"><button class='custom-button primary'> Close</button></a>
+<a href="<%="#{RELATIVE_URL}/review_dashboard/#{params[:user]}"%>" class="back-to-dashboard"><button class='custom-button primary'> Close</button></a>
 
 </div>
 <div class="student-application-form">
@@ -15,30 +15,30 @@
                 <div class="progress-line">
                 </div>
                 <div class="progress-balls">
-                 <a href=<%="/review_student_application_form/#{params[:user]}/personal_data_step"%>><span class='progress-ball previous-step done-step'></span></a>
+                 <a href=<%="/erasmus/review_student_application_form/#{params[:user]}/personal_data_step"%>><span class='progress-ball previous-step done-step'></span></a>
                 <% for i in 1..6 do %>
                     <% classBall = final_steps_array[i-1] ? "done-step" :"todo-step " %>
                     <%if params[:step].to_i > i %>
-                        <%= link_to "<span class='progress-ball previous-step #{classBall}'></span>".html_safe, "/review_student_application_form/#{params[:user]}" + "/#{i}"%>
+                        <%= link_to "<span class='progress-ball previous-step #{classBall}'></span>".html_safe, "#{RELATIVE_URL}/review_student_application_form/#{params[:user]}" + "/#{i}"%>
                     <%end%>
                     <%if params[:step].to_i === i %>
-                        <%= link_to "<span class='progress-ball current-step #{classBall}'></span>".html_safe, "/review_student_application_form/#{params[:user]}" + "/#{i}"%>
+                        <%= link_to "<span class='progress-ball current-step #{classBall}'></span>".html_safe, "#{RELATIVE_URL}/review_student_application_form/#{params[:user]}" + "/#{i}"%>
                     <%end%>
                     <%if params[:step].to_i < i %>
-                        <%= link_to "<span class='progress-ball future-step #{classBall}'></span>".html_safe, "/review_student_application_form/#{params[:user]}" + "/#{i}"%>
+                        <%= link_to "<span class='progress-ball future-step #{classBall}'></span>".html_safe, "#{RELATIVE_URL}/review_student_application_form/#{params[:user]}" + "/#{i}"%>
                     <%end%>
                 <% end %>
                 </div>
             </div>
         <div class="progress-buttons">
             <% if params[:step].to_i == 1 %>
-                <%= link_to "<button  class='custom-button'> < Back</button>".html_safe, "/review_student_application_form/#{params[:user]}" + "/personal_data_step"%>
+                <%= link_to "<button  class='custom-button'> < Back</button>".html_safe, "#{RELATIVE_URL}/review_student_application_form/#{params[:user]}" + "/personal_data_step"%>
             <% end %>
             <%if params[:step].to_i - 1 > 0 %>
-                <%= link_to "<button  class='custom-button'> < Back</button>".html_safe, "/review_student_application_form/#{params[:user]}" + "/#{params[:step].to_i - 1}"%>
+                <%= link_to "<button  class='custom-button'> < Back</button>".html_safe, "#{RELATIVE_URL}/review_student_application_form/#{params[:user]}" + "/#{params[:step].to_i - 1}"%>
             <%end%>
             <%if params[:step].to_i + 1 < 7 %>
-                <%= link_to "<button  class='custom-button'> Next > </button>".html_safe, "/review_student_application_form/#{params[:user]}" + "/#{params[:step].to_i + 1}"%>
+                <%= link_to "<button  class='custom-button'> Next > </button>".html_safe, "#{RELATIVE_URL}/review_student_application_form/#{params[:user]}" + "/#{params[:step].to_i + 1}"%>
             <%end%>
             <%#if params[:step].to_i == 6 %>
                 <%#= link_to "<button  class='custom-button primary'> Finish </button>".html_safe, "/review_dashboard/#{params[:user]}" %>

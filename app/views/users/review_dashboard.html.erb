@@ -47,7 +47,7 @@
 						<div class="progress-line">
 						</div>
 						<div class="progress-balls">
-							<a href="/review_student_application_form/<%= current_user.id.to_s%>}/personal_data_step" title="Personal Data">
+							<a href="<%= RELATIVE_URL %>/review_student_application_form/<%= current_user.id.to_s%>}/personal_data_step" title="Personal Data">
 							<span class='progress-ball done-step'></span>
 						</a>
 							<% final_steps_array = sap.completed_steps_array %>
@@ -55,7 +55,7 @@
 							<% for i in 1..6 do %>
 							<% classBall = final_steps_array[i-1] ? "done-step" : "todo-step" %>
 							<% ball = "<span class='progress-ball  #{classBall}'></span>"%>
-							<%= link_to ball.html_safe, "/review_student_application_form/#{current_user.id}" + "/#{i}?from_ball=true", :title => titles[i-1] %>
+							<%= link_to ball.html_safe, "#{RELATIVE_URL}/review_student_application_form/#{current_user.id}" + "/#{i}?from_ball=true", :title => titles[i-1] %>
 							<% end %>
 						</div>
 					</div>
@@ -73,9 +73,9 @@
 			<div class="collapsible big">
 				<p class="intro-paragraph">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
 				<div class="align-right">
-					<a download="application_form.pdf" href="<%="/generate_pdf/#{current_user.id}"%>"><button class="custom-button">Download</button></a>
+					<a download="application_form.pdf" href="<%="#{RELATIVE_URL}/generate_pdf/#{current_user.id}"%>"><button class="custom-button">Download</button></a>
 					<a download="application_form.pdf" href="<%= current_user.signed_student_application_form.url %>"><button class="custom-button primary">Download signed</button></a>
-					<a href="<%="/review_student_application_form/#{current_user.id}/1"%>"><button class="custom-button" >Review data</button></a>
+					<a href="<%="#{RELATIVE_URL}/review_student_application_form/#{current_user.id}/1"%>"><button class="custom-button" >Review data</button></a>
 
 				</div>
 
