@@ -17,18 +17,18 @@ class User < ApplicationRecord
 
   has_one :student_application_form
   accepts_nested_attributes_for :student_application_form
-  has_attached_file :signed_student_application_form
-  has_attached_file :motivation_letter
-  has_attached_file :curriculum_vitae
-  has_attached_file :transcript_of_records
-  has_attached_file :learning_agreement
-  has_attached_file :valid_insurance_policy
-  has_attached_file :photo, :default_url  => RELATIVE_URL + '/assets/placeholder.png'
-  has_attached_file :ni_passport
-  has_attached_file :recommendation_letter_1
-  has_attached_file :recommendation_letter_2
-  has_attached_file :official_gpa
-  has_attached_file :english_test_score
+  has_attached_file :signed_student_application_form, :url=> "/erasmus/attachment/ssaf/:basename.:extension"
+  has_attached_file :motivation_letter, :url=> "/erasmus/attachment/mot_letter/:basename.:extension"
+  has_attached_file :curriculum_vitae, :url=> "/erasmus/attachment/cv/:basename.:extension"
+  has_attached_file :transcript_of_records, :url=> "/erasmus/attachment/tor/:basename.:extension"
+  has_attached_file :learning_agreement, :url=> "/erasmus/attachment/la/:basename.:extension"
+  has_attached_file :valid_insurance_policy, :url=> "/erasmus/attachment/vip/:basename.:extension"
+  has_attached_file :photo, :url=> "/erasmus/attachment/photo/:basename.:extension", :default_url  => RELATIVE_URL + '/assets/placeholder.png'
+  has_attached_file :ni_passport, :url=> "/erasmus/attachment/npass/:basename.:extension"
+  has_attached_file :recommendation_letter_1, :url=> "/erasmus/attachment/rl1/:basename.:extension"
+  has_attached_file :recommendation_letter_2, :url=> "/erasmus/attachment/rl2/:basename.:extension"
+  has_attached_file :official_gpa, :url=> "/erasmus/attachment/og/:basename.:extension"
+  has_attached_file :english_test_score, :url=> "/erasmus/attachment/ets/:basename.:extension"
 
   before_create :create_student_application_form
   after_validation :clean_paperclip_errors
