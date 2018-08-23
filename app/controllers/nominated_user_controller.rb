@@ -10,7 +10,7 @@ class NominatedUserController < ApplicationController
 			flash[:error] = nominee.errors.full_messages.to_sentence
 			redirect_to admin_dashboard_path + "?nominees=true"
 		else
-			url = request.base_url
+			url = request.base_url + RELATIVE_URL
 			begin  
 			   NomineeMailer.user_creation_email(nominee, url).deliver_now
 			rescue  
@@ -30,7 +30,7 @@ class NominatedUserController < ApplicationController
 			unless !email.blank? and nominee.save 
 				flash[:error] = (flash[:error].blank? ?  "" : (flash[:error] + "\n" )) + nominee.errors.full_messages.to_sentence
 			else
-				url = request.base_url
+				url = request.base_url + RELATIVE_URL
 				begin  
 				   NomineeMailer.user_creation_email(nominee, url).deliver_now
 				rescue  
@@ -44,7 +44,7 @@ class NominatedUserController < ApplicationController
 	def resend_email
 		nominee = NominatedUser.find_by :id => params[:id]
 		nominee.regenerate_registration_token
-		url = request.base_url
+		url = request.base_url + RELATIVE_URL
 		begin  
 		   NomineeMailer.user_creation_email(nominee, url).deliver_now
 		rescue  
