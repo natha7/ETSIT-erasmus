@@ -17,7 +17,7 @@ set :branch, :eidas
  set :use_sudo,      false
 
  append :linked_files, 'config/database.yml', 'config/config.yml', 'config/secrets.yml'
- set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'public/system','public/erasmus')
+ set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'public/system', 'public/erasmus')
  
  set :pty,             true
  set :stages,          ["staging", "production"]
