@@ -32,5 +32,6 @@
 /config/master.key
 /config/database.yml
 .idea
+!/public/erasmus/metadata.xml
 /public/system
-/public/erasmus
+/public/erasmus/*/*
