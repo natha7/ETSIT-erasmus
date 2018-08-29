@@ -308,12 +308,14 @@ module PdfHelper
         check_field(steps.year_attended)
         label("Specialization Area")
         check_field(steps.specialization_area)
-        label("Already Study Abroad")
+        label("Have you ever studied abroad?")
         check_field(steps.already_study_abroad ? "Yes" : "No")
-        label("Where Study Abroad")
-        check_field(steps.where_study_abroad)
-        label("Where Institution Abroad")
-        check_field(steps.where_institution_abroad)
+        if steps.already_study_abroad 
+            label("Location")
+            check_field(steps.where_study_abroad)
+            label("Institution")
+            check_field(steps.where_institution_abroad)
+        end
 
         # Final text
         move_down 10

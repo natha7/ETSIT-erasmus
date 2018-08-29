@@ -387,6 +387,9 @@ $(document).on('turbolinks:load', function() {
 
   });
 
+  $('#already_study_abroad').click(function(){
+    $('.already_study_abroad_dependent').toggleClass('hidden');
+  });
 
   $('#user_signed_student_application_form').change(function(e){ 
     if (e.target.files.length > 0) {

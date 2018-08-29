@@ -2,7 +2,7 @@
 <%if review%>
 <h3><%=name%></h3>
 <%end%>
-<!--<p class="intro-paragraph">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>-->
+ 
 <div class="edit_student_application_flex studies">
 <div class="field field100">
   <div class="flex-container">
@@ -26,19 +26,19 @@
 </div>
 <div class="field marginleft45">
   <div class="flex-container">
-    <%= f.check_box :already_study_abroad, autofocus: true, autocomplete: "already_study_abroad", disabled: review %>
-    <%= f.label :already_study_abroad, "Already been studying abroad?",class: "checkBox" %><br />
+    <%= f.check_box :already_study_abroad, autofocus: true, autocomplete: "already_study_abroad", disabled: review ,:id => "already_study_abroad"%>
+    <%= f.label :already_study_abroad, "Have you studied abroad before?",class: "checkBox" %><br />
   </div>
 </div>
-<div class="field field50">
+<div class="field field50 already_study_abroad_dependent <%= @sap.already_study_abroad ? "":"hidden" %>">
   <div class="flex-container">
-    <%= f.label :where_study_abroad , "When do you study abroad?"%><br />
+    <%= f.label :where_study_abroad , "Location"%><br />
     <%= f.text_field :where_study_abroad, autofocus: true, autocomplete: "where_study_abroad", disabled: review %>
   </div>
 </div>
-<div class="field field50">
+<div class="field field50 already_study_abroad_dependent <%= @sap.already_study_abroad ? "":"hidden" %>">
   <div class="flex-container">
-    <%= f.label :where_institution_abroad, "At which institution?" %><br />
+    <%= f.label :where_institution_abroad, "Institution" %><br />
     <%= f.text_field :where_institution_abroad, autofocus: true, autocomplete: "where_institution_abroad", disabled: review %>
   </div>
 </div>
