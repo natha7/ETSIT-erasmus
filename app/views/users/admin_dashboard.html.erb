@@ -63,7 +63,7 @@
       </div>-->
 
       <input type="submit" class="custom-button primary" value="Search"/>
-
+      <input type="button" class="custom-button primary" onclick="location.href='<%= RELATIVE_URL %>/admin_dashboard';" value="Clear filters" />
     </div>
   </form>
 </div>
@@ -213,7 +213,7 @@
                 <%= user.progress_status.humanize.capitalize %>
               <% else #elsif user.progress_status == "finished"  %>
                 <%= form_for(user, url: set_user_status_path,  method: :post) do |f|%>
-                  <%= f.select :progress_status, User.progress_statuses.map{|k,v| [k.humanize.capitalize, k]}, {}, {value: user.progress_status, class: 'form-control', onchange: 'if(confirm("This student will be accepted, and the application will send an email to welcoming him/her. Are you sure you want to change the status for this user?")){this.form.submit();}'}%>
+                  <%= f.select :progress_status, User.progress_statuses.map{|k,v| [k.humanize.capitalize, k]}, {}, {value: user.progress_status, class: 'form-control', onfocus: 'this.setAttribute("PrvSelectedValue",this.value);', onchange: 'var newval=$(this).val();if(confirm("This student will be accepted, and the application will send an email to welcoming him/her. Are you sure you want to change the status for this user?")){this.form.submit();}else{this.value=this.getAttribute("PrvSelectedValue");}'}%>
 
                   <%= f.hidden_field :id, :value => user.id %>
                 <% end %>
