@@ -1,7 +1,8 @@
 
 <div class="student-application-form">
-
-  <%= form_for(@user, url: student_application_form_personal_data_path, method: :post) do |f| %>
+  <% from_ball = !params[:from_ball].nil?%>
+  <%= form_for(@user, url: student_application_form_personal_data_path(:from_ball => from_ball), method: :post) do |f| %>
+    <% if params.has_key?(:from_ball) %>
     <div class="align-right">
       <a href="<%=user_dashboard_path%>" class="back-save-dashboard">
         <button class='custom-button right'>Close</button>
@@ -10,8 +11,8 @@
         <button class='custom-button primary right'>Save & Close</button>
       </a>
     </div>
+    <% end %>
    <h1>Student Application Form <span class="fake-arrow" > > </span>  </h1><h2 class="form-subtitle">Personal data</h2></br>
-<!--    <p class="intro-paragraph">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>-->
     <%= devise_error_messages! %>
     <div class="edit_student_application_flex personal_data">
     <div class="field field50">
@@ -71,16 +72,18 @@
           <a href="/student_application_form/personal_data_step"><span class='progress-ball current-step done-step'></span></a>
         <% for i in 1..6 do %>
             <% classBall = final_steps_array[i-1] ? "done-step" :"todo-step " %>
-                <%= link_to "<span class='progress-ball future-step #{classBall}'></span>".html_safe, student_application_form_path + "/#{i}"%>
+            <% if from_ball == true %>
+              <%= link_to "<span class='progress-ball future-step #{classBall}'></span>".html_safe, student_application_form_path + "/#{i}?from_ball=true"%>
+            <% else %>
+              <%= link_to "<span class='progress-ball future-step #{classBall}'></span>".html_safe, student_application_form_path + "/#{i}"%>
+            <% end %>
         <% end %>
         </div>
     </div>
     <div class="progress-buttons">
         <%= f.submit "Next >", :class => "custom-button" %>
     </div>
-    </br>
-    </br>
-    </br>
+
   </div>
   <% end %>
 </div>

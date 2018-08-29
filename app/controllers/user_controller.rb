@@ -10,6 +10,16 @@ class UserController < ApplicationController
 	def set_user_status
 		user = User.find(params[:user][:id])
 		user.progress_status = params[:user][:progress_status]
+		if user.progress_status == "accepted"
+	  	begin
+	     	#UserMailer.reviewed_application_mail(current_user).deliver_now
+	     	url = request.base_url
+			UserMailer.reviewed_application_mail(url, user).deliver_now
+		rescue
+	     	flash[:error] = "E-mail to #{user.email} could not be sent"
+	    end
+
+		end
 		user.save!
 		redirect_to admin_dashboard_path
 	end
@@ -39,6 +49,12 @@ class UserController < ApplicationController
 		user = current_user
 	    if user.role == "user" && user.progress_status == "in_process" && user.percentage_num.to_i == 100
 	      user.progress_status = :finished
+	     begin
+	     	url = request.base_url
+	      	UserMailer.finished_application_mail_to_admins(url, current_user).deliver_now
+      	rescue
+	      	flash[:error] = (flash[:error].blank? ?  "" : (flash[:error] + "\n" )) + "E-mail to #{user.email} could not be sent"
+        end
 	      user.save!
 	    end
 	    redirect_to user_dashboard_path
@@ -57,8 +73,14 @@ class UserController < ApplicationController
 			))
 		
 		current_user.student_application_form.step = 1
+		from_ball = params[:from_ball] == "true"
 		if current_user.save
-			redirect_to student_application_form_path
+			if !from_ball
+				redirect_to student_application_form_path
+			else
+				redirect_to student_application_form_path(:from_ball => from_ball)
+			end
+
 		else
 			flash[:error] = current_user.errors.full_messages.to_sentence
 			redirect_back fallback_location: root_path
