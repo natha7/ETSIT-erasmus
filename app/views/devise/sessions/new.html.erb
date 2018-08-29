@@ -4,7 +4,11 @@
   semester or academic year 2018-19 and <span class="red"><strong>December, 1st</strong></span> for the second semester. Please <u>complete your application package before the
   deadline</u> with the documents required in pdf.</p>
 
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+<% path1 =  session_path(resource_name).scan(/\/erasmus/).size == 2 ? session_path(resource_name).sub(/\/erasmus/,'') : session_path(resource_name) %>
+<% path2 = new_user_sso_session_path.scan(/\/erasmus/).size == 2 ? new_user_sso_session_path.sub(/\/erasmus/,'') : new_user_sso_session_path %>
+
+
+<%= form_for(resource, as: resource_name, url: path1) do |f| %>
 <div class="flex-container signin-container">
 <div class="flex-left-new">
   <div class="field">
@@ -38,7 +42,7 @@
 </div>
 <div class="flex-right-new">
  <div class="flex-container">
-  <%= link_to "I have a digital certificate", new_user_sso_session_path,  :class => "custom-button primary" %>
+  <%= link_to "I have a digital certificate", path2,  :class => "custom-button primary" %>
  </div>
 </div>
 </div>
