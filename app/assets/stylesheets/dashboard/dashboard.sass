@@ -3,6 +3,8 @@
 #edit-picture-dialog
 	padding: 25px
 	display: none
+
+
 	canvas#canvas
 		width: 150px
 		height: 150px
@@ -23,6 +25,11 @@
 			vertical-align: top
 			padding: 10px
 			flex: 1
+			input[type=file]
+				white-space: nowrap
+				overflow: hidden
+				text-overflow: ellipsis
+				width: 100%
 			.input-file
 			.custom-button
 				margin: 10px
