@@ -1,6 +1,8 @@
 <div class="row">
 	<span class="dashboard-section" id="motivation-letter-tab">
-		<span class="red">*</span>
+		<%unless admin === true  %>
+			<span class="red">*</span>
+		<%end%>
 		<label for=<%=name%>>
 			<%=label%><i class="caret mdi mdi-menu-down no-reverse"></i>
 		</label>
