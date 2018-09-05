@@ -30,13 +30,13 @@
     <%= f.label :already_study_abroad, "Have you studied abroad before?",class: "checkBox" %><br />
   </div>
 </div>
-<div class="field field50 already_study_abroad_dependent <%= @sap.already_study_abroad ? "":"hidden" %>">
+<div class="field field50 already_study_abroad_dependent <%= sap.already_study_abroad ? "":"hidden" %>">
   <div class="flex-container">
     <%= f.label :where_study_abroad , "Location"%><br />
     <%= f.text_field :where_study_abroad, autofocus: true, autocomplete: "where_study_abroad", disabled: review %>
   </div>
 </div>
-<div class="field field50 already_study_abroad_dependent <%= @sap.already_study_abroad ? "":"hidden" %>">
+<div class="field field50 already_study_abroad_dependent <%= sap.already_study_abroad ? "":"hidden" %>">
   <div class="flex-container">
     <%= f.label :where_institution_abroad, "Institution" %><br />
     <%= f.text_field :where_institution_abroad, autofocus: true, autocomplete: "where_institution_abroad", disabled: review %>
