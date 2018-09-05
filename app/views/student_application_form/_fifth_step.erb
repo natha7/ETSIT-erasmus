@@ -16,8 +16,8 @@
 	<br/><br/>
 <%end%>
 <div class="work-list">
-<% if defined?(@sap.work_experiences) %>
-	<% @sap.work_experiences.each_with_index do |work,index|%>
+<% if defined?(sap.work_experiences) %>
+	<% sap.work_experiences.each_with_index do |work,index|%>
 	<div class="work">
 		<div class="field field50">
 			<div class="flex-container">
@@ -56,9 +56,11 @@
 				</select>
 			</div>
 		</div>
+		<%if !review%>
 		<button type="button" class="delete-work-button transparent-button small-button">
 			<i class="mdi mdi-close"></i></button>
 		</div>
+		<%end%>
 	<% end %>
 <% else %>
 	<!-- <p class="no-results" >No languages defined</p> -->

@@ -27,8 +27,8 @@
 	<%end%>
 	<input type="hidden" name="student_application_form[other_languages]" value="1"/>
 	<div class="lang-list">
-	<% if defined?(@sap.languages) %>
-		<% @sap.languages.each_with_index do |language,index|%>
+	<% if defined?(sap.languages) %>
+		<% sap.languages.each_with_index do |language,index|%>
 		<div class="lang">
 			<div class="field">
 				<div class="flex-container">
@@ -60,9 +60,11 @@
 					<label class="checkBox" for="able_follow_lectures_extra_preparation">Able to follow lectures with extra preparation</label>
 				</div>
 			</div>
+			<%if !review%>
 			<button type="button" class="delete-lang-button transparent-button small-button">
 				<i class="mdi mdi-close"></i>
 			</button>
+			<%end%>
 			</div>
 		<% end %>
 	<% else %>
