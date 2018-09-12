@@ -43,6 +43,11 @@
 <div class="flex-right-new">
  <div class="flex-container">
   <%= link_to "I have a digital certificate", path2,  :class => "custom-button primary", method: :post %>
+     <%#- form_tag @login_url, :method => :post, :id => "saml-form" do %>
+    <%#- @post_params.each do |key, value| %>
+      <%#= hidden_field_tag key, value %>
+    <%#end%>
+  <%# end %>
  </div>
 </div>
 </div>

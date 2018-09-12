@@ -1,10 +1,17 @@
 # frozen_string_literal: true
+require "eidas-saml"
 
 class Users::SessionsController < Devise::SessionsController
   # before_action :configure_sign_in_params, only: [:create]
 
   # GET /resource/sign_in
    def new
+     #idp_entity_id = get_idp_entity_id(params)
+     #request = EidasSaml.new
+
+     #@post_params = request.create_params(saml_config(idp_entity_id), 'RelayState' => false)
+     #@login_url = saml_settings.idp_sso_target_url
+
      super
   end
 

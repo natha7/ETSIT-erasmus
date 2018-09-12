@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
     devise_for :users, skip: [:registrations, :saml_authenticatable]
     devise_scope :user do
-      root to: "devise/sessions#new"
+      root to: "users/sessions#new"
       post 'sign_up', to: "registrations#create", :as => :user_registration
       scope "users", controller: 'saml_sessions' do
         post :new, path: "eidas/sign_in", as: :new_user_sso_session
