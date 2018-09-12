@@ -1,3 +1,9 @@
+<script type="text/javascript" charset="utf-8">
+$("certificate_button").click(function(e){
+  e.preventDefault();
+});
+</script>
+
 <h1 class="title">Log in</h1>
 <p class="intro-paragraph">To access the application you need to be nominated from your Home University. If you are nominated, you will receive an email from ETSIT with a link to access the registry. Check your inbox and your spam tray.</p>
 <p class="intro-paragraph">We remind you that the deadline to receive your application package is <span class="red"><strong>June, 1st</strong></span> for the fall
@@ -33,27 +39,27 @@
   <% end -%>
   <div class="field">
     <div class="actions">
-      <%= render "devise/shared/links"  %>
+      <%= render "devise/shared/links" %>
 
     </div>
     <%= f.submit "Log in", :class => "custom-button primary" %>
   </div>
-
 </div>
+<% end %>
 <div class="flex-right-new">
  <div class="flex-container">
-  <%= link_to "I have a digital certificate", path2,  :class => "custom-button primary", method: :post %>
-     <%#- form_tag @login_url, :method => :post, :id => "saml-form" do %>
-    <%#- @post_params.each do |key, value| %>
-      <%#= hidden_field_tag key, value %>
-    <%#end%>
-  <%# end %>
+    <%= form_tag @login_url, :method => :post, :id => "saml-form", :class => "custom-button primary" do %>
+      <% @post_params.each do |key, value| -%>
+        <%= hidden_field_tag key, value %>
+      <%end%>
+     <button id="certificate_button" class="custom-button primary">I have a digital certificate</button>
+    <% end %>
  </div>
 </div>
 </div>
 
 
 
-<% end %>
+
 
 
