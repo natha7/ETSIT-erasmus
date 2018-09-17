@@ -3,7 +3,7 @@ class EidasSaml < OneLogin::RubySaml::Authrequest
 
 
   def create(settings, params = nil)
-    binding.pry
+    #binding.pry
     params = create_params(settings, params)
     params_prefix = (settings.idp_sso_target_url =~ /\?/) ? '&' : '?'
     saml_request = CGI.escape(params.delete("SAMLRequest"))
@@ -16,7 +16,8 @@ class EidasSaml < OneLogin::RubySaml::Authrequest
   end
 
   def create_authentication_xml_doc(settings)
-    super
+    document = create_xml_document(settings)
+    sign_document(document, settings)
   end
 
   def create_params(settings, params = nil)
@@ -31,12 +32,13 @@ class EidasSaml < OneLogin::RubySaml::Authrequest
     end
 
     request_doc = create_authentication_xml_doc(settings)
+    #binding.pry
     request_doc.context[:attribute_quote] = :quote if settings.double_quote_xml_attribute_values
 
     request = ""
     request_doc.write(request)
 
-    request = deflate(request) if settings.compress_request
+    #request = deflate(request) if settings.compress_request
     base64_request = encode(request)
     request_params = {"SAMLRequest" => base64_request}
 
@@ -66,14 +68,14 @@ class EidasSaml < OneLogin::RubySaml::Authrequest
     request_doc = XMLSecurity::Document.new
     request_doc.uuid = uuid
 
-    root = request_doc.add_element "samlp:AuthnRequest", { "xmlns:samlp" => "urn:oasis:names:tc:SAML:2.0:protocol", "xmlns:saml" => "urn:oasis:names:tc:SAML:2.0:assertion", "xmlns:ds" => "http://www.w3.org/2000/09/xmldsig#", "xmlns:eidas" => "http://eidas.europa.eu/saml-extensions" }
+    root = request_doc.add_element "saml2p:AuthnRequest", { "xmlns:saml2p" => "urn:oasis:names:tc:SAML:2.0:protocol", "xmlns:saml2" => "urn:oasis:names:tc:SAML:2.0:assertion", "xmlns:ds" => "http://www.w3.org/2000/09/xmldsig#", "xmlns:eidas" => "http://eidas.europa.eu/saml-extensions" }
     root.attributes['ID'] = uuid
     root.attributes['IssueInstant'] = time
     root.attributes['Version'] = "2.0"
     root.attributes['ProviderName'] = "Clave"
     root.attributes['Destination'] = settings.idp_sso_target_url unless settings.idp_sso_target_url.nil?
     root.attributes['IsPassive'] = settings.passive unless settings.passive.nil?
-    root.attributes['ProtocolBinding'] = settings.protocol_binding unless settings.protocol_binding.nil?
+    root.attributes['ProtocolBinding'] = "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"
     root.attributes["AttributeConsumingServiceIndex"] = settings.attributes_index unless settings.attributes_index.nil?
     root.attributes['ForceAuthn'] = settings.force_authn unless settings.force_authn.nil?
     root.attributes['Consent'] = "urn:oasis:names:tc:SAML:2.0:consent:unspecified"
@@ -83,46 +85,11 @@ class EidasSaml < OneLogin::RubySaml::Authrequest
       root.attributes["AssertionConsumerServiceURL"] = settings.assertion_consumer_service_url
     end
     if settings.issuer != nil
-      issuer = root.add_element "saml:Issuer"
+      issuer = root.add_element "saml2:Issuer"
       issuer.attributes["Format"] = "urn:oasis:names:tc:SAML:2.0:nameid-format:entity"
       issuer.text = settings.issuer
     end
-    if settings.name_identifier_format != nil
-      root.add_element "samlp:NameIDPolicy", {
-          # Might want to make AllowCreate a setting?
-          "AllowCreate" => "true",
-          "Format" => settings.name_identifier_format
-      }
-    end
 
-    if settings.authn_context || settings.authn_context_decl_ref
-
-      if settings.authn_context_comparison != nil
-        comparison = settings.authn_context_comparison
-      else
-        comparison = 'exact'
-      end
-
-      requested_context = root.add_element "samlp:RequestedAuthnContext", {
-          "Comparison" => comparison,
-      }
-
-      if settings.authn_context != nil
-        authn_contexts_class_ref = settings.authn_context.is_a?(Array) ? settings.authn_context : [settings.authn_context]
-        authn_contexts_class_ref.each do |authn_context_class_ref|
-          class_ref = requested_context.add_element "saml:AuthnContextClassRef"
-          class_ref.text = authn_context_class_ref
-        end
-      end
-
-      if settings.authn_context_decl_ref != nil
-        authn_contexts_decl_refs = settings.authn_context_decl_ref.is_a?(Array) ? settings.authn_context_decl_ref : [settings.authn_context_decl_ref]
-        authn_contexts_decl_refs.each do |authn_context_decl_ref|
-          decl_ref = requested_context.add_element "saml:AuthnContextDeclRef"
-          decl_ref.text = authn_context_decl_ref
-        end
-      end
-    end
 
     extension = root.add_element "saml2p:Extensions"
     sptype = extension.add_element "eidas:SPType"
@@ -133,6 +100,52 @@ class EidasSaml < OneLogin::RubySaml::Authrequest
     requested_attributes.add_element "eidas:RequestedAttribute", { "Name" => "http://eidas.europa.eu/attributes/naturalperson/DateOfBirth", "FriendlyName" => "DateOfBirth", "NameFormat" => "urn:oasis:names:tc:SAML:2.0:attrname-format:uri", "isRequired" => "true"}
     requested_attributes.add_element "eidas:RequestedAttribute", { "Name" => "http://eidas.europa.eu/attributes/naturalperson/PersonIdentifier", "FriendlyName" => "PersonIdentifier", "NameFormat" => "urn:oasis:names:tc:SAML:2.0:attrname-format:uri", "isRequired" => "true"}
 
+    if settings.name_identifier_format != nil
+      root.add_element "saml2p:NameIDPolicy", {
+          # Might want to make AllowCreate a setting?
+          "AllowCreate" => "true",
+          "Format" => "urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified"
+      }
+    end
+
+    if settings.authn_context || settings.authn_context_decl_ref
+
+      if settings.authn_context_comparison != nil
+        comparison = settings.authn_context_comparison
+      else
+        comparison = 'minimum'
+      end
+
+      requested_context = root.add_element "saml2p:RequestedAuthnContext", {
+          "Comparison" => comparison,
+      }
+
+      if settings.authn_context != nil
+        authn_contexts_class_ref = settings.authn_context.is_a?(Array) ? settings.authn_context : [settings.authn_context]
+        authn_contexts_class_ref.each do |authn_context_class_ref|
+          class_ref = requested_context.add_element "saml2:AuthnContextClassRef"
+          class_ref.text = "http://eidas.europa.eu/LoA/low"
+        end
+      end
+
+      if settings.authn_context_decl_ref != nil
+        authn_contexts_decl_refs = settings.authn_context_decl_ref.is_a?(Array) ? settings.authn_context_decl_ref : [settings.authn_context_decl_ref]
+        authn_contexts_decl_refs.each do |authn_context_decl_ref|
+          decl_ref = requested_context.add_element "saml2:AuthnContextDeclRef"
+          decl_ref.text = authn_context_decl_ref
+        end
+      end
+    end
+
+
+
+    #nameidpolicy = root.add_element "saml2p:NameIDPolicy", { "AllowCreate" => "true", "Format" => "urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified"}
+    #nameidpolicy.add_element "AllowCreate", "true"
+    #nameidpolicy.add_element  "Format", "urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified"
+
+    #requestedauthcontext = root.add_element "saml2p:RequestedAuthnContext", { "Comparison" => "minimum"}
+    #authcontextclassref = requestedauthcontext.add_element "saml2:AuthnContextClassRef"
+
     request_doc
   end
 
@@ -141,6 +154,10 @@ class EidasSaml < OneLogin::RubySaml::Authrequest
   end
 
   def sign_document(document, settings)
-    super
+    private_key = settings.get_sp_key
+    cert = settings.get_sp_cert
+    document.sign_document(private_key, cert, XMLSecurity::Document::RSA_SHA512, XMLSecurity::Document::SHA512)
+    
+    document
   end
 end

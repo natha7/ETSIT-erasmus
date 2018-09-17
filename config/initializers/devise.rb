@@ -289,8 +289,11 @@ Devise.setup do |config|
     # and implements a #handle method. This method can then redirect the user, return error messages, etc.
     # config.saml_failed_callback = nil
     CONFIG = YAML.load_file("#{Rails.root}/config/config.yml")
-    
-    # Configure with your SAML settings (see ruby-saml's README for more information: https://github.com/onelogin/ruby-saml).
+    raw_cert = File.read(Rails.root + 'vendor/certs/cert.pem')
+    raw_key = File.read(Rails.root + 'vendor/certs/key.pem')
+
+
+  # Configure with your SAML settings (see ruby-saml's README for more information: https://github.com/onelogin/ruby-saml).
     config.saml_configure do |settings|
       # assertion_consumer_service_url is required starting with ruby-saml 1.4.3: https://github.com/onelogin/ruby-saml#updating-from-142-to-143
       settings.assertion_consumer_service_url     = CONFIG["sp_options"]["assert_endpoint"]
@@ -299,19 +302,9 @@ Devise.setup do |config|
       settings.issuer                             = CONFIG["sp_options"]["entity_id"]
       settings.authn_context                      = "urn:oasis:names:tc:SAML:2.0:protocol"
       settings.idp_sso_target_url                 = CONFIG["idp_options"]["sso_login_url"]
-      settings.certificate                        = ""
-      settings.private_key                        = ""
+      settings.certificate                        = raw_cert
+      settings.private_key                        = raw_key
 
-      settings.attribute_consuming_service.configure do
-        service_name CONFIG['attributes']['service_name']
-        service_index 6
-        add_attribute :name => CONFIG['attributes']['attr1']['name'], :name_format => CONFIG['attributes']['name_format'], :friendly_name => CONFIG['attributes']['attr1']['friendly_name']
-        add_attribute :name => CONFIG['attributes']['attr2']['name'], :name_format => CONFIG['attributes']['name_format'], :friendly_name => CONFIG['attributes']['attr2']['friendly_name']
-        add_attribute :name => CONFIG['attributes']['attr3']['name'], :name_format => CONFIG['attributes']['name_format'], :friendly_name => CONFIG['attributes']['attr3']['friendly_name']
-        add_attribute :name => CONFIG['attributes']['attr4']['name'], :name_format => CONFIG['attributes']['name_format'], :friendly_name => CONFIG['attributes']['attr4']['friendly_name']
-        add_attribute :name => CONFIG['attributes']['attr5']['name'], :name_format => CONFIG['attributes']['name_format'], :friendly_name => CONFIG['attributes']['attr5']['friendly_name']
-        add_attribute :name => CONFIG['attributes']['attr6']['name'], :name_format => CONFIG['attributes']['name_format'], :friendly_name => CONFIG['attributes']['attr6']['friendly_name']
-      end
     end
 
   # ==> OmniAuth
