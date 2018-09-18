@@ -4,7 +4,6 @@ class SamlSessionsController < Devise::SamlSessionsController
   after_action :store_winning_strategy, only: :create
 
   def new
-    binding.pry
     idp_entity_id = get_idp_entity_id(params)
     request = EidasSaml.new
     auth_params = { RelayState: relay_state } if relay_state
