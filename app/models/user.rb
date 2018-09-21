@@ -23,7 +23,7 @@ class User < ApplicationRecord
   has_attached_file :transcript_of_records, :url=> "/erasmus/attachment/tor/:id/:basename.:extension"
   has_attached_file :learning_agreement, :url=> "/erasmus/attachment/la/:id/:basename.:extension"
   has_attached_file :valid_insurance_policy, :url=> "/erasmus/attachment/vip/:id/:basename.:extension"
-  has_attached_file :photo, :url=> "/erasmus/attachment/photo/:id/:basename.:extension", :default_url  => ActionController::Base.helpers.image_path('placeholder.png')
+  has_attached_file :photo, :url=> "/erasmus/attachment/photo/:id/:basename.:extension", :default_url  => "/erasmus/images/placeholder.png"
   has_attached_file :ni_passport, :url=> "/erasmus/attachment/npass/:id/:basename.:extension"
   has_attached_file :recommendation_letter_1, :url=> "/erasmus/attachment/rl1/:id/:basename.:extension"
   has_attached_file :recommendation_letter_2, :url=> "/erasmus/attachment/rl2/:id/:basename.:extension"

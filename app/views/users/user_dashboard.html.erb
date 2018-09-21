@@ -18,7 +18,7 @@
 <div class="dashboard-container">
 	<div class="left-column">
 		<button class="edit-picture "><i class="mdi mdi-camera"></i></button>
-		<img id="actual-picture" class="picture" src="<%=current_user.photo %>" alt="User image"/>
+		<img id="actual-picture" class="picture" src="<%= current_user.photo == "/erasmus/images/placeholder.png" ? ActionController::Base.helpers.image_path('placeholder.png') : current_user.photo%>" alt="User image"/>
 		<p><%= current_user.first_name %> <%= current_user.family_name %></p>
 		<span class="red">required photo</span>
 	</div>

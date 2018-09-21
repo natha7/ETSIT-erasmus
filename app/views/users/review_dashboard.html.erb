@@ -22,11 +22,11 @@
 <div class="dashboard-container">
 	<div class="left-column">
 		<div class="picture-container"> 
-			<img class="picture tiny" src="<%=admin.photo %>"/>
+			<img class="picture tiny" src="<%=admin.photo == "/erasmus/images/placeholder.png" ? ActionController::Base.helpers.image_path('placeholder.png') : admin.photo %>"/>
 			<p><%= admin.first_name.blank? ? "Administrator" : (admin.first_name + " " + admin.family_name) %></p>
 		</div>
 		<div class="picture-container"> 	
-			<img class="picture" src="<%=current_user.photo %>"/>
+			<img class="picture" src="<%= current_user.photo == "/erasmus/images/placeholder.png" ? ActionController::Base.helpers.image_path('placeholder.png') : current_user.photo %>"/>
 			<p><%= current_user.first_name %> <%= current_user.family_name %></p>
 		</div>
 	</div>
