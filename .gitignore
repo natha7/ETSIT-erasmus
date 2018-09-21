@@ -34,4 +34,4 @@
 .idea
 /public/system
 /public/erasmus/*/*
-
+/vendor/certs
