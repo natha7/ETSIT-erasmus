@@ -72,7 +72,7 @@
                   <a href=<%="#{RELATIVE_URL}/review_student_application_form/#{params[:user]}/personal_data_step"%>><span class='progress-ball current-step done-step'></span></a>
                 <% for i in 1..6 do %>
                     <% classBall = final_steps_array[i-1] ? "done-step" :"todo-step " %>
-                        <%= link_to "<span class='progress-ball future-step #{classBall}'></span>".html_safe, "/review_student_application_form/#{params[:user]}" + "/#{i}"%>
+                        <%= link_to "<span class='progress-ball future-step #{classBall}'></span>".html_safe, "#{RELATIVE_URL}/review_student_application_form/#{params[:user]}" + "/#{i}"%>
                 <% end %>
                 </div>
             </div>
