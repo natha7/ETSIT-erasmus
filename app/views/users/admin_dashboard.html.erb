@@ -71,7 +71,7 @@
 <div class="admin-dashboard  dashboard-container">
   <div class="left-column">
     <button class="edit-picture "><i class="mdi mdi-camera"></i></button>
-    <img id="actual-picture" class="picture" src="<%=current_user.photo %>"/>
+    <img id="actual-picture" class="picture" src="<%= current_user.photo.url == "/erasmus/images/placeholder.png" ? ActionController::Base.helpers.image_path('placeholder.png') : current_user.photo %>"/>
     <p><%=admin_name%></p>
   </div>
   <div class="right-column">
