@@ -55,4 +55,16 @@ class XMLSecuritySAML2 < XMLSecurity::Document
       end
     end
   end
+
+  def decypher_document(private_key, response)
+     saml_doc = Base64.decode64(response)
+
+     cipher = OpenSSL::Cipher.new('AES-256-CBC').decrypt
+     iv_len = cipher.iv_len
+     data = saml_doc[iv_len..-1]
+     cipher.padding, cipher.key, cipher.iv = 0, symmetric_key, cipher_text[0..iv_len-1]
+     assertion_plaintext = cipher.update(data)
+     assertion_plaintext << cipher.final
+     response
+  end
 end
