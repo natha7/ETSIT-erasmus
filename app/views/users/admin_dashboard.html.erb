@@ -19,8 +19,7 @@
 <% admin_name = current_user.first_name.blank? ? "Administrator" : (current_user.first_name + " " + current_user.family_name) %>
 <h1 class="title"> Hi, <%=admin_name%></h1>
 <p class="intro-paragraph">Keep in mind that the deadline to receive application packages is <span class="red"><strong>June, 1st</strong></span> for the fall
-  semester or academic year 2018-19, and <span class="red"><strong>December, 1st</strong></span> for the second semester. Please <u>check registered users, documents required in pdf, and application packages before the
-  deadline</u> .</p>
+  semester or academic year 2019-20, and <span class="red"><strong>December, 1st</strong></span> for the second semester of this current academic year 2018-19. For double degree students, the deadline is <span class="red"><strong>May 15th</strong></span>. Please <u>check registered users, documents required in pdf, and application packages before the deadline</u> .</p>
 <br/>
 <div class="filters">
   <form action="<%= RELATIVE_URL %>/admin_dashboard" method="GET">
@@ -30,9 +29,7 @@
         <label class="label">Period </label>
         <!-- <input name="period" placeholder="Find by name" value="<%=params[:period]%>"/> -->
         <% period_options = [
-          "2018-2019: Fall Semester",
           "2018-2019: Spring Semester",
-          "2018-2019: Academic Year",
           "2019-2020: Fall Semester",
           "2019-2020: Spring Semester",
           "2019-2020: Academic Year",
@@ -239,7 +236,7 @@
     <h2 class="title">Edit your picture</h2>
     <button class="transparent-button action-button right close" id="edit-picture-dialog-close"><i class="mdi mdi-close"></i></button>
     <div class="flex-container">
-      <div class="image-container"><img id="edit-picture-dialog-picture" class="picture" src="<%=current_user.photo %>"/></div>
+      <div class="image-container"><img id="edit-picture-dialog-picture" class="picture" src="<%= current_user.photo.url == "/erasmus/images/placeholder.png" ? ActionController::Base.helpers.image_path('placeholder.png') : current_user.photo%>"/></div>
       <canvas id="canvas"></canvas>
       <div class="image-edit-actions">
         <input class="input-file" type="file" name="photo2" accept="image/*"></input>

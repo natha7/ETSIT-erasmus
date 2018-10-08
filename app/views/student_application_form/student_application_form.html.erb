@@ -22,7 +22,7 @@
         <div class="progress-line">
         </div>
         <div class="progress-balls">
-        <a href="<%=student_application_form_path + "/personal_data_step" %>"><span class='progress-ball previous-step done-step'></span></a>
+        <a href="<%=student_application_form_path + "/personal_data_step" + (from_ball == true ? "?from_ball=true":"")%>"><span class='progress-ball previous-step done-step'></span></a>
         <% for i in 1..6 do %>
             <% classBall = final_steps_array[i-1] ? "done-step" :"todo-step " %>
             <%if @sap.step > i %>

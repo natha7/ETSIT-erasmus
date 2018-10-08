@@ -83,6 +83,10 @@ html
 				width: 1170px
 		input[type=checkbox]
 			vertical-align: middle
+		select
+			background: white
+			&:disabled
+				background: rgb(235, 235, 228)
 		a.underline
 			color: $etsit-blue
 			&:hover
@@ -96,7 +100,8 @@ html
 			text-align: right
 		form.inline
 			display: inline-block
-
+		.s12
+			font-size: 12px
 
 @media (max-width: 600px)
 	html

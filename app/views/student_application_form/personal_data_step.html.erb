@@ -73,7 +73,7 @@
         <% for i in 1..6 do %>
             <% classBall = final_steps_array[i-1] ? "done-step" :"todo-step " %>
             <% if from_ball == true %>
-              <%= link_to "<span class='progress-ball future-step #{classBall}'></span>".html_safe,  "#{RELATIVE_URL}/student_application_form_path/#{i}?from_ball=true"%>
+              <%= link_to "<span class='progress-ball future-step #{classBall}'></span>".html_safe,  "#{RELATIVE_URL}/student_application_form/#{i}?from_ball=true"%>
             <% else %>
               <%= link_to "<span class='progress-ball future-step #{classBall}'></span>".html_safe,  "#{RELATIVE_URL}/student_application_form/#{i}"%>
             <% end %>

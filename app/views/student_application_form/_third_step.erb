@@ -3,27 +3,40 @@
 <h3><%=name%></h3>
 <%end%>
 <!--<p class="intro-paragraph">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>-->
-<div class="edit_student_application_flex purpose_stay">
+<div class="edit_student_application_flex purpose_stay" style="display:block">
 
-<div class="field field100">
+<!--<div class="field field100">
   <div class="flex-container">
-    <%= f.label :project_work, "Project Work (areas of interest)" %><br />
-    <%= f.text_area :project_work, autofocus: true, autocomplete: "project_work", disabled: review %>
+    <%#= f.label :project_work, "Project Work (areas of interest)" %><br />
+    <%#= f.text_area :project_work, autofocus: true, autocomplete: "project_work", disabled: review %>
   </div>
 </div>
   <div class="field field100">
     <div class="flex-container">
-      <%= f.label :graduate_courses, "Graduate Courses" %><br />
-      <%= f.text_area :graduate_courses, autofocus: true, autocomplete: "graduate_courses", disabled: review %>
+      <%#= f.label :graduate_courses, "Graduate Courses" %><br />
+      <%#= f.text_area :graduate_courses, autofocus: true, autocomplete: "graduate_courses", disabled: review %>
     </div>
   </div>
 <div class="field field100">
   <div class="flex-container">
-    <%= f.label :under_grad_courses, "Undergraduate Courses" %><br />
-    <%= f.text_area :under_grad_courses, autofocus: true, autocomplete: "under_grad_courses", disabled: review %>
+    <%#= f.label :under_grad_courses, "Undergraduate Courses" %><br />
+    <%#= f.text_area :under_grad_courses, autofocus: true, autocomplete: "under_grad_courses", disabled: review %>
   </div>
-</div>
 
+</div>-->
+  <%= f.check_box :graduate_courses, autofocus: true, autocomplete: "graduate_courses", disabled: review %>
+  <%= f.label "graduate_courses", "Undergraduate courses" %><br/>
+  <%= f.check_box :graduate_courses, autofocus: true, autocomplete: "graduate_courses", disabled: review %>
+  <%= f.label "graduate_courses", "Master courses" %><br/>
+  <%= f.check_box :graduate_courses, autofocus: true, autocomplete: "graduate_courses", disabled: review %>
+  <%= f.label "graduate_courses", "Bachelor/Master thesis (*)" %><br/>
+  <%= f.check_box :graduate_courses, autofocus: true, autocomplete: "graduate_courses", disabled: review %>
+  <%= f.label "graduate_courses", "Research Project" %><br/>
+  <%= f.check_box :graduate_courses, autofocus: true, autocomplete: "graduate_courses", disabled: review %>
+  <%= f.label "graduate_courses", "Other" %> Please specify:
+  <%= f.text_field :graduate_courses, autofocus: true, autocomplete: "graduate_courses", disabled: review %>
+  <br/>
+  (*) Note: Bachelor thesis has a workload of 12 ECTS. Master thesis has a workload of 30 ECTS
 
 </div>
  

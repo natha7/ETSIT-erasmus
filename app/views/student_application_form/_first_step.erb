@@ -10,9 +10,7 @@
   <div class="flex-container">
     <%= f.label :academic_year %><br />
     <%= f.select :academic_year, [
-      '2018-2019: Fall Semester',
       '2018-2019: Spring Semester',
-      '2018-2019: Academic Year',
       '2019-2020: Fall Semester',
       '2019-2020: Spring Semester',
       '2019-2020: Academic Year',
@@ -30,6 +28,8 @@
         'Bilateral Agreement',
         'Visiting Student',
         'SICUE/SENECA',
+        'Other'
+
         ],{}, {disabled: review} %>
       </div>
     </div>
@@ -37,17 +37,17 @@
     <div class="field field50">
       <div class="flex-container">
         <%= f.label :field_of_study %><br />
-        <%= f.select :field_of_study, ["Telecommunication","Biotechnology"],{}, {disabled: review} %>
+        <%= f.select :field_of_study, ["Telecommunication Engineering","Biomedical Engineering"],{}, {disabled: review} %>
       </div>
     </div>
 
 
-    <div class="field field50">
+    <div class="field">
       <div class="flex-container">
-      <%= f.radio_button :seeking_degree, true, :checked => sap.user.seeking_degree  %>
-      <%= f.label :seeking_degree, "I am seeking double degree", :value => true, class: "checkBox"  %>
-      <%= f.radio_button :seeking_degree, false, :checked => !sap.user.seeking_degree %>
-      <%= f.label :seeking_degree, "I am not seeking double degree", :value => false, class: "checkBox"  %>
+      <%= f.check_box :seeking_degree, :checked => !!sap.user.seeking_degree , disabled: review  %>
+      <%= f.label :seeking_degree, "I am degree seeking student", :value => true, class: "checkBox"  %>
+<!--      <%#= f.radio_button :seeking_degree, false, :checked => !sap.user.seeking_degree %>
+      <%#= f.label :seeking_degree, "I am not seeking double degree", :value => false, class: "checkBox"  %>-->
     </div>
  </div>
   </div>

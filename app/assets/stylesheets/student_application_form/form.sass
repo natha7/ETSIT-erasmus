@@ -29,7 +29,7 @@
 		.personal_data, .study_year, .sending_institution, .purpose_stay, .languages, .work_experience, .studies
 			padding: 20px
 			.field
-				flex: 0 0 auto
+				flex: 0 auto
 				padding: 10px !important
 			.field25
 				flex: 1 0 23%
@@ -38,7 +38,7 @@
 				input
 					max-width: 390px
 			.field100
-				flex: 1 0 100%
+				flex: 1  100%
 				input, textarea
 					width: 98%
 					resize: none
@@ -70,10 +70,13 @@
 				.checkBox
 					text-align: left
 					width: auto
+					max-width: 100%
 					padding-left: 12px
 					padding-right: 12px
 				input:not([type="radio"]), select
 					flex-grow: 1
+				input[type="checkbox"]
+					flex-grow: 0
 		.field_inst_sending_name
 			width: calc(50% - 25px)
 		.field_erasmus_code
@@ -92,7 +95,7 @@
 			width: calc(33% - 22px)
 		.block, .actions 
 			display: block
-			width: 100%
+			//width: 100%
 		.action-buttons
 			display: block
 			padding: 15px
@@ -104,6 +107,7 @@
 			background-color: #edf2f6
 			padding: 0 15px 0 0
 			position: relative
+
 			.field
 				input:not([type="submit"])
 					width: auto
@@ -181,7 +185,8 @@
 			color: $etsit_blue
 			margin: 0
 		form
-
+			.first-fc
+				margin-top: 40px
 			.field_inst_sending_name
 				width: 100%
 			.field_erasmus_code

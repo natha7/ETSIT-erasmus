@@ -92,7 +92,7 @@ class StudentApplicationFormController < ApplicationController
 	    #//:seeking_degree
 		if params[:student_application_form][:seeking_degree]
 	    	user = @sap.user
-	    	user.seeking_degree = params[:student_application_form][:seeking_degree] == "true"
+	    	user.seeking_degree = params[:student_application_form][:seeking_degree] == "1"
 	    	user.save!
 	    	params[:student_application_form].delete :seeking_degree
 		end
