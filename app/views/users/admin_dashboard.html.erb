@@ -236,7 +236,7 @@
     <h2 class="title">Edit your picture</h2>
     <button class="transparent-button action-button right close" id="edit-picture-dialog-close"><i class="mdi mdi-close"></i></button>
     <div class="flex-container">
-      <div class="image-container"><img id="edit-picture-dialog-picture" class="picture" src="<%=current_user.photo %>"/></div>
+      <div class="image-container"><img id="edit-picture-dialog-picture" class="picture" src="<%= current_user.photo.url == "/erasmus/images/placeholder.png" ? ActionController::Base.helpers.image_path('placeholder.png') : current_user.photo%>"/></div>
       <canvas id="canvas"></canvas>
       <div class="image-edit-actions">
         <input class="input-file" type="file" name="photo2" accept="image/*"></input>

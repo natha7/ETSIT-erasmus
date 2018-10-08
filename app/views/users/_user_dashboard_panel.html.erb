@@ -10,7 +10,10 @@
 	<%unless content.blank? %>
 		<span class="check_mark"><i class="mdi mdi-check green"></i></span>
 		<div class="collapsible">
-
+			<!--					<%#= form.radio_button :ni_type, 'id', :checked => true %>
+					<%#= label :ni_type_id, 'Identity card' %>
+					<%#= form.radio_button :ni_type, 'passport' %>
+					<%#= label :ni_type_passport, 'Passport' %>-->
 			<div class="align-right">
 				<div class="file-name"><i class="mdi mdi-file"></i> <span class=""> <%= link_to  file_name,  content.url %></span></div>
 				<%unless admin === true  %>
@@ -24,6 +27,10 @@
 			<%unless admin === true  %>
 
 				<%= form_for current_user, url: user_file_upload_path, html: { multipart: true , }, :method => :POST do |form| %>
+<!--					<%#= form.radio_button :ni_type, 'id', :checked => true %>
+					<%#= label :ni_type_id, 'Identity card' %>
+					<%#= form.radio_button :ni_type, 'passport' %>
+					<%#= label :ni_type_passport, 'Passport' %>-->
 				<div class="align-right">
 					<div class="file-name">
 						<%= form.file_field name %>

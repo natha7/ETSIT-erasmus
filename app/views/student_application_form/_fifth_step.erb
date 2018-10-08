@@ -20,7 +20,7 @@
 	<% sap.work_experiences.each_with_index do |work,index|%>
 	<div class="work">
 		<div class="field field50">
-			<div class="flex-container">
+			<div class="flex-container first-fc">
 				<label for="student_application_form[work_experiences][][work_kind]">Type of work</label>
 				<input type="text" name="student_application_form[work_experiences][][work_kind]" class="work-input" <%=review ? "disabled" : ""%> value="<%=work.work_kind%>"/>
 			</div>
