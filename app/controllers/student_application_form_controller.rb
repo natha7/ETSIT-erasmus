@@ -44,7 +44,7 @@ class StudentApplicationFormController < ApplicationController
 	end
 
 	def save
-
+		binding.pry
 		@sap = current_user.student_application_form
 		from_ball = params[:from_ball] == "true"
 		unless params[:step] == "personal_data"

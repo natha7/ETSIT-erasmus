@@ -25,6 +25,15 @@ ActiveRecord::Schema.define(version: 2018_05_23_122232) do
     t.index ["student_application_form_id"], name: "index_languages_on_student_application_form_id"
   end
 
+  create_table "learning_agreement", force: :cascade do |t|
+    t.integer "code"
+    t.string "subject"
+    t.string "degree"
+    t.float "ects"
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_learning_agreement_on_user_id"
+  end
+
   create_table "nominated_users", force: :cascade do |t|
     t.string "name"
     t.string "university"
@@ -47,9 +56,8 @@ ActiveRecord::Schema.define(version: 2018_05_23_122232) do
     t.string "academic_year", default: ""
     t.string "programme"
     t.string "field_of_study"
-    t.string "project_work"
-    t.string "under_grad_courses"
-    t.string "graduate_courses"
+    t.string "purpose_of_stay"
+    t.string "other_purpose"
     t.string "mother_tongue"
     t.string "language_instruction"
     t.string "current_diploma_degree"
@@ -133,6 +141,7 @@ ActiveRecord::Schema.define(version: 2018_05_23_122232) do
     t.string "english_test_score_content_type"
     t.integer "english_test_score_file_size"
     t.datetime "english_test_score_updated_at"
+    t.integer "ni_type"
     t.integer "role"
     t.integer "progress_status"
     t.datetime "created_at", null: false

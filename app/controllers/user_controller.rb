@@ -91,7 +91,11 @@ class UserController < ApplicationController
 	def file_upload
 		unless params[:user].blank?
 			keys = params[:user].keys
-			current_user.assign_attributes({keys[0] => params[:user][keys[0]]})
+			if keys.length == 1
+				current_user.assign_attributes({keys[0] => params[:user][keys[0]]})
+			elsif keys.length == 2 and keys[0] == "ni_type"
+				current_user.assign_attributes({keys[0] => params[:user][keys[0]], keys[1] => params[:user][keys[1]]})
+			end
 			unless current_user.save
 				flash[:error] = current_user.errors.full_messages.to_sentence
 			end

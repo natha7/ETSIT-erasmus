@@ -7,13 +7,13 @@
 			<%=label%><i class="caret mdi mdi-menu-down no-reverse"></i>
 		</label>
 	</span>
+
 	<%unless content.blank? %>
 		<span class="check_mark"><i class="mdi mdi-check green"></i></span>
 		<div class="collapsible">
-			<!--					<%#= form.radio_button :ni_type, 'id', :checked => true %>
-					<%#= label :ni_type_id, 'Identity card' %>
-					<%#= form.radio_button :ni_type, 'passport' %>
-					<%#= label :ni_type_passport, 'Passport' %>-->
+			<% if name === :ni_passport %>
+				<b>Type of document:</b>  <%= current_user["ni_type"] == "id" ? "Identity card" : "Passport"%>
+			<%end %>
 			<div class="align-right">
 				<div class="file-name"><i class="mdi mdi-file"></i> <span class=""> <%= link_to  file_name,  content.url %></span></div>
 				<%unless admin === true  %>
@@ -25,18 +25,23 @@
 	<% else %>
 		<div class="collapsible">
 			<%unless admin === true  %>
-
 				<%= form_for current_user, url: user_file_upload_path, html: { multipart: true , }, :method => :POST do |form| %>
-<!--					<%#= form.radio_button :ni_type, 'id', :checked => true %>
-					<%#= label :ni_type_id, 'Identity card' %>
-					<%#= form.radio_button :ni_type, 'passport' %>
-					<%#= label :ni_type_passport, 'Passport' %>-->
+					<% if name === :ni_passport %>
+						<div class="ni_selection">
+							<b> Type of document:</b>
+							<%= form.radio_button :ni_type, 'id', :checked => current_user["ni_type"] == "id", :required=>true%>
+							<%= form.label :ni_type, 'Identity card', :value => :id %> &nbsp;
+							<%= form.radio_button :ni_type, 'passport', :checked => current_user["ni_type"] == "passport",  :required=>true%>
+							<%= form.label :ni_type, 'Passport',  :value => :passport %>
+							</div>
+					<%end %>
 				<div class="align-right">
 					<div class="file-name">
 						<%= form.file_field name %>
 					</div>
 					<%= form.submit "Upload", :class => "custom-button primary" %>
 				</div>
+
 				<% end %>
 			<%else%>
 				<p class="no-results">Not yet uploaded</p>
