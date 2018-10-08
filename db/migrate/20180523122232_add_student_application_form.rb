@@ -20,9 +20,8 @@ class AddStudentApplicationForm < ActiveRecord::Migration[5.2]
   		t.string :field_of_study
 
   		#Purpose of Stay
-  		t.string :project_work
-  		t.string :under_grad_courses
-  		t.string :graduate_courses
+  		t.string :purpose_of_stay
+			t.string :other_purpose
 
   		#Language Competence
   		t.string :mother_tongue
@@ -42,6 +41,14 @@ class AddStudentApplicationForm < ActiveRecord::Migration[5.2]
     
     add_reference :student_application_forms, :user, index: true
 
+		create_table :learning_agreement do |t|
+			t.integer :code
+			t.string :subject
+			t.string :degree
+			t.float :ects
+		end
+
+		add_reference :learning_agreement, :user, index: true
 
   	create_table :languages do |t|
   		t.string :name

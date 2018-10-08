@@ -1,0 +1,3 @@
+class LearningAgreement < ApplicationRecord
+  
+end
