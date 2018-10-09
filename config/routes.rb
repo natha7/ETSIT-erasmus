@@ -34,6 +34,8 @@ Rails.application.routes.draw do
     get 'generate_pdf', to: "student_application_form#generate_pdf"
     get 'generate_pdf/:user', to: "student_application_form#generate_pdf"
 
+    get 'generate_csv', to: "user#generate_csv"
+
     get 'student_application_form', to: "student_application_form#sap_page"
     post 'student_application_form', to: "student_application_form#save"
     get 'student_application_form/personal_data_step', to: "student_application_form#personal_data"

@@ -204,4 +204,18 @@ class UserController < ApplicationController
 		end
 		redirect_to "mailto:?bcc=#{emails}&subject=ETSIT-UPM International Office&body=Dear Students,%0A%0a"
 	end
+
+	def generate_csv
+		require 'csv'
+		users = User.all.reject{|t| t.role == "admin"}
+		csv_string = CSV.generate(:col_sep => ";") do |csv|
+			csv << ["user", "email", "institution", "academic_year", "programme", "subject", "code", "degree", "created_at", "last_updated"]
+			users.each do |user|
+ 				user.learning_agreement_subjects.each do |s|
+					csv << [user.id, user.email, user.student_application_form.inst_sending_name, user.student_application_form.academic_year, user.student_application_form.programme, s.subject, s.code, s.degree, user.created_at.in_time_zone("Madrid").strftime("%d-%m-%Y %r"), user.updated_at.in_time_zone("Madrid").strftime("%d-%m-%Y %r")]
+				end
+			end
+		end
+		send_data csv_string , :filename => 'students.csv'
+	end
 end
