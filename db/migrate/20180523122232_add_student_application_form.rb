@@ -41,14 +41,14 @@ class AddStudentApplicationForm < ActiveRecord::Migration[5.2]
     
     add_reference :student_application_forms, :user, index: true
 
-		create_table :learning_agreement do |t|
+		create_table :learning_agreement_subjects do |t|
 			t.integer :code
 			t.string :subject
 			t.string :degree
 			t.float :ects
 		end
 
-		add_reference :learning_agreement, :user, index: true
+		add_reference :learning_agreement_subjects, :user, index: true
 
   	create_table :languages do |t|
   		t.string :name

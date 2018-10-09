@@ -1,3 +1,0 @@
-class LearningAgreement < ApplicationRecord
-  
-end

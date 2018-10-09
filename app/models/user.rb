@@ -17,6 +17,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
 
   has_one :student_application_form
+  has_many :learning_agreement_subjects
+
   accepts_nested_attributes_for :student_application_form
   has_attached_file :signed_student_application_form, :url=> "/erasmus/attachment/ssaf/:id/:basename.:extension"
   has_attached_file :motivation_letter, :url=> "/erasmus/attachment/mot_letter/:id/:basename.:extension"
