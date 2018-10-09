@@ -25,13 +25,13 @@ ActiveRecord::Schema.define(version: 2018_05_23_122232) do
     t.index ["student_application_form_id"], name: "index_languages_on_student_application_form_id"
   end
 
-  create_table "learning_agreement", force: :cascade do |t|
+  create_table "learning_agreement_subjects", force: :cascade do |t|
     t.integer "code"
     t.string "subject"
     t.string "degree"
     t.float "ects"
     t.bigint "user_id"
-    t.index ["user_id"], name: "index_learning_agreement_on_user_id"
+    t.index ["user_id"], name: "index_learning_agreement_subjects_on_user_id"
   end
 
   create_table "nominated_users", force: :cascade do |t|

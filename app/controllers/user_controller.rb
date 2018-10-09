@@ -104,7 +104,36 @@ class UserController < ApplicationController
 		end
 		redirect_to user_dashboard_path
 	end
-	
+
+	def submit_la
+		unless params[:user].blank?
+			unless params[:user][:learning_agreement_subjects].blank?
+				current_user.learning_agreement_subjects.destroy_all
+				subjects = params[:user][:learning_agreement_subjects]
+				subjects.each do |subject|
+					if !subject[:subject].blank? and !subject[:code].blank? and !subject[:degree].blank? and !subject[:ects].blank?
+						sj = LearningAgreementSubject.new
+						sj.subject = subject[:subject]
+						sj.code = subject[:code]
+						sj.degree = subject[:degree]
+						sj.ects = subject[:ects]
+						current_user.learning_agreement_subjects << sj
+						sj.save!
+					end
+				end
+
+			end
+			unless current_user.save
+				head :forbidden
+				return
+			end
+		else
+			head :forbidden
+			return
+		end
+		render :json => {  }
+	end
+
 	def file_upload_ajax
 		url = ""
 		unless params[:user].blank?
@@ -121,7 +150,6 @@ class UserController < ApplicationController
 		end
 		render :json => {:url => url }
 	end
-
 
 	def file_delete
 		case params[:attachment]

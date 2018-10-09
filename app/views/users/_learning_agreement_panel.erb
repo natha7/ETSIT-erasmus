@@ -1,40 +1,102 @@
-<div class="row">
-	<span class="dashboard-section" id="motivation-letter-tab">
-		<%unless admin === true  %>
-			<span class="red">*</span>
-		<%end%>
-    <label for=<%=name%>>
-			<%=label%><i class="caret mdi mdi-menu-down no-reverse"></i>
-		</label>
-	</span>
+<%= form_for current_user, url: RELATIVE_URL + "/user/submit_la", html: { id: "la-form" }, :method => :POST do |form| %>
 
-  <%unless content.blank? %>
-    <span class="check_mark"><i class="mdi mdi-check green"></i></span>
-    <div class="collapsible">
-      <div class="align-right">
-        <div class="file-name"><i class="mdi mdi-file"></i> <span class=""> <%= link_to  file_name,  content.url %></span></div>
-        <%unless admin === true  %>
-          <%= button_to "Delete", user_file_delete_url(:id => current_user.id, :attachment => name), :method=> :delete, :class => "custom-button" , :form_class =>   "deletion" %>
-        <%end%>
-        <a href="<%=  content.url%>" download="<%=  file_name %>"><button class="custom-button primary">Download</button></a>
-      </div>
-    </div>
-  <% else %>
-    <div class="collapsible">
-      <%unless admin === true  %>
-        <%= form_for current_user, url: user_file_upload_path, html: { multipart: true , }, :method => :POST do |form| %>
-
-          <div class="align-right">
-            <div class="file-name">
-              <%= form.file_field name %>
-            </div>
-            <%= form.submit "Upload", :class => "custom-button primary" %>
-          </div>
-
+<div class="learning-agreement-transcription">
+  <div class="la-row la-header">
+    <label class="la-degree">Degree <i class="info-icon mdi mdi-information-outline"></i></label>
+    <label class="la-code">Code</label>
+    <label class="la-name">Name</label>
+    <label class="la-ects">ECTS</label>
+    <% unless admin %>
+     <label class=""></label>
+    <%end%>
+  </div>
+  <%total = 0 %>
+  <% if !current_user.learning_agreement_subjects.blank? %>
+    <% current_user.learning_agreement_subjects.each do |subject|%>
+      <% total += subject.ects %>
+      <div class="la-row la-form-row">
+        <select class="la-degree" name="user[learning_agreement_subjects][][degree]" value="<%= subject.degree %>" <%= admin ? "disabled":"" %>>
+          <option value="" disabled required ></option>
+          <option value="GITST">GITST</option>
+          <option value="GIB">GIB</option>
+          <option value="MUIT">MUIT</option>
+          <option value="MUIB">MUIB</option>
+          <option value="MUSTC">MUSTC</option>
+          <option value="MUCS">MUCS</option>
+          <option value="MUESFV">MUESFV</option>
+          <option value="MUISE">MUISE</option>
+          <option value="MUIRST">MUIRST</option>
+          <option value="MUTECI">MUTECI</option>
+          <option value="MUIF">MUIF</option>
+          <option value="Other">Other</option>
+        </select>
+        <input class="la-code" name="user[learning_agreement_subjects][][code]" value="<%= subject.code %>" <%= admin ? "disabled":"" %> />
+        <input class="la-name" name="user[learning_agreement_subjects][][subject]" value="<%= subject.subject %>" <%= admin ? "disabled":"" %> />
+        <input class="la-ects" name="user[learning_agreement_subjects][][ects]" value="<%= subject.ects %>" type="number" min="0" max="400" <%= admin ? "disabled":"" %> />
+        <% unless admin %>
+          <button class="delete-la-button transparent-button small-button" type="button"><i class="mdi mdi-close"></i></button>
         <% end %>
-      <%else%>
-        <p class="no-results">Not yet uploaded</p>
-      <%end%>
-    </div>
-  <%end%>
+      </div>
+    <%end %>
+  <%end %>
+  <%unless admin %>
+  <div class="la-row la-form-row">
+    <select class="la-degree" name="user[learning_agreement_subjects][][degree]">
+      <option value="" disabled selected required></option>
+      <option value="GITST">GITST</option>
+      <option value="GIB">GIB</option>
+      <option value="MUIT">MUIT</option>
+      <option value="MUIB">MUIB</option>
+      <option value="MUSTC">MUSTC</option>
+      <option value="MUCS">MUCS</option>
+      <option value="MUESFV">MUESFV</option>
+      <option value="MUISE">MUISE</option>
+      <option value="MUIRST">MUIRST</option>
+      <option value="MUTECI">MUTECI</option>
+      <option value="MUIF">MUIF</option>
+      <option value="Other">Other</option>
+    </select>
+    <input class="la-code" name="user[learning_agreement_subjects][][code]"/>
+    <input class="la-name" name="user[learning_agreement_subjects][][subject]"/>
+    <input class="la-ects" name="user[learning_agreement_subjects][][ects]" type="number" min="0" max="400"  />
+    <button class="delete-la-button transparent-button small-button" type="button"><i class="mdi mdi-close"></i></button>
+  </div>
+    <%end %>
+</div>
+
+  <div class="la-total ">
+    <%unless admin %>
+      <button class="custom-button" id="add-la-subject" type="button">➕</button>
+      <%= form.submit "SAVE", :class => "custom-button" %>
+      <label id="la-server-msg"></label>
+  <%end %>
+    <% if admin and current_user.learning_agreement_subjects.length == 0 %>
+      <center class="intro-paragraph"><em>No subjects selected</em></center>
+    <%else %>
+      <span class="right la-total-label">Total: &nbsp;  <b><span id="total-ects"><%= total %></span></b> &nbsp;ECTS</span>
+    <% end %>
+  </div>
+
+<br/>
+
+<% end %>
+
+<div id="info-degrees-dialog" >
+  <h2 class="title">What to study at ETSIT</h2>
+  <button class="transparent-button action-button right close" id="info-degrees-dialog-close"><i class="mdi mdi-close"></i></button>
+  <ul>
+    <li class="info-degree"><a href="http://www.etsit.upm.es/estudios/grado-en-ingenieria-de-tecnologias-y-servicios-de-telecomunicacion.html">Grado en Ingeniería de Tecnologías y Servicios de Telecomunicación (GITST)</a> </li>
+    <li class="info-degree"><a href="http://www.etsit.upm.es/estudios/grado-en-ingenieria-biomedica.html">Grado en Ingeniería Biomédica (GIB)</a> </li>
+    <li class="info-degree"><a href="http://www.etsit.upm.es/estudios/master-universitario-en-ingenieria-de-telecomunicacion.html">Máster Universitario en Ingeniería de Telecomunicación (MUIT)</a> </li>
+    <li class="info-degree"><a href="http://www.etsit.upm.es/estudios/masteres-oficiales/programas-ofertados/master-u-ciberseguridad.html">Máster Universitario en Ciberseguridad (MUIB)</a> </li>
+    <li class="info-degree"><a href="http://www.etsit.upm.es/estudios/masteres-oficiales/programas-ofertados/master-u-energia-solar-fotovoltaica.html">Máster Universitario en Energía Solar Fotovoltaica (MUESFV)</a> </li>
+    <li class="info-degree"><a href="http://www.etsit.upm.es/estudios/masteres-oficiales/programas-ofertados/master-u-ingenieria-biomedica.html">Máster Universitario en Ingeniería Biomédica (MUIB)</a> </li>
+    <li class="info-degree"><a href="http://www.etsit.upm.es/estudios/masteres-oficiales/programas-ofertados/master-u-ingenieria-de-redes-y-servicios-telematicos.html">Máster Universitario en Ingeniería de Redes y Servicios Telemáticos (MUIRST)</a> </li>
+    <li class="info-degree"><a href="http://www.etsit.upm.es/estudios/masteres-oficiales/programas-ofertados/master-u-ingenieria-de-sistemas-electronicos.html">Máster Universitario en Ingeniería de Sistemas Electrónicos (MUISE)</a> </li>
+    <li class="info-degree"><a href="http://www.etsit.upm.es/?id=2074">Máster Universitario en Ingeniería Fotónica (MUIF)</a> </li>
+    <li class="info-degree"><a href="http://www.etsit.upm.es/estudios/masteres-oficiales/programas-ofertados/master-u-tratamiento-estadistico-computacional-de-la-informacion.html">Máster Universitario en Tratamiento Estadístico-Computacional de la Información (MUTECI)</a> </li>
+    <li class="info-degree"><a href="http://www.etsit.upm.es/?id=2077">Master of Science in Signal Theory and Communications (MUSTC)</a> </li>
+  </ul>
+  <br/>
+  <p class="more-info">More degrees available at <b><a href="http://upm.es">upm.es</a></b>.</p>
 </div>

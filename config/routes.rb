@@ -45,6 +45,7 @@ Rails.application.routes.draw do
     post 'user/file_upload', to: "user#file_upload"
     post 'set_user_status', to: "user#set_user_status"
     post 'user/file_upload_ajax', to: "user#file_upload_ajax"
+    post 'user/submit_la', to: "user#submit_la"
     delete 'user/file_delete', to: "user#file_delete"
   end
 end

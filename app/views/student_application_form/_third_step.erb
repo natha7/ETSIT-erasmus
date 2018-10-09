@@ -4,19 +4,24 @@
 <%end%>
 <!--<p class="intro-paragraph">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>-->
 <div class="edit_student_application_flex purpose_stay" style="display:block">
+<%purposes = sap.purpose_of_stay.blank? ? [] : JSON.parse(sap.purpose_of_stay)%>
+<input id="undergraduate_courses" name="student_application_form[purpose_of_stay][][" size="30" type="checkbox" value="undergraduate_courses" <%= review ? "disabled":"" %>
+  <%=purposes.include?("undergraduate_courses") ? "checked":"" %> />
+<%= f.label "purpose_of_stay", "Undergraduate courses" %><br/>
+<input id="master_courses" name="student_application_form[purpose_of_stay][]" size="30" type="checkbox" value="master_courses" <%= review ? "disabled":"" %>
+   <%=purposes.include?("master_courses") ? "checked":"" %> />
+<%= f.label "purpose_of_stay", "Masters courses" %><br/>
+<input id="thesis" name="student_application_form[purpose_of_stay][]" size="30" type="checkbox" value="thesis" <%= review ? "disabled":"" %>
+   <%=purposes.include?("thesis") ? "checked":"" %> />
+<%= f.label "purpose_of_stay", "Bachelor/Master thesis" %> <span class="red">(*)</span><br/>
+<input id="research" name="student_application_form[purpose_of_stay][]" size="30" type="checkbox" value="research" <%= review ? "disabled":"" %>
+   <%=purposes.include?("research") ? "checked":"" %> />
+<%= f.label "purpose_of_stay", "Research Project" %><br/>
+<input id="other" name="student_application_form[purpose_of_stay][]" size="30" type="checkbox" value="other" <%= review ? "disabled":"" %>
+   <%=purposes.include?("other") ? "checked":"" %> />
+<%= f.label "purpose_of_stay", "Other." %>  &nbsp;Please specify:
+<%= f.text_field :other_purpose, required: (!review and purposes.include?("other")), autofocus: true, autocomplete: "other_purpose", disabled: review%>
 
-  <%= f.check_box :purpose_of_stay, {multiple: true}, "Undergraduate courses", nil%>
-  <%= f.label "graduate_courses", "Undergraduate courses" %><br/>
-  <%= f.check_box :purpose_of_stay, {multiple: true},"Master courses", nil %>
-  <%= f.label "graduate_courses", "Master courses" %><br/>
-  <%= f.check_box :purpose_of_stay, {multiple: true}, "Bachelor/Master thesis", nil %>
-  <%= f.label "graduate_courses", "Bachelor/Master thesis" %> <span class="red">(*)</span><br/>
-  <%= f.check_box :purpose_of_stay, {multiple: true}, "Research Project", nil%>
-  <%= f.label "graduate_courses", "Research Project" %><br/>
-  <%= f.check_box :purpose_of_stay, {multiple: true}, "Research Project", nil%>
-  <%= f.label "graduate_courses", "Other." %>  &nbsp;Please specify:
-  <%= f.text_field :other_purpose, autofocus: true, autocomplete: "other_purpose", disabled: review %>
-  <br/><br/>
   <p class="intro-paragraph"><span class="red">(*)</span> Note: Bachelor thesis has a workload of 12 ECTS. Master thesis has a workload of 30 ECTS.</p>
 
 </div>

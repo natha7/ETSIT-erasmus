@@ -28,11 +28,9 @@ class StudentApplicationForm < ApplicationRecord
   		percentage = second.reject{|element| self[element].blank?}.length == second.length ? percentage + 14 : percentage
 
   		third = [
-  			:project_work,
-	  		:under_grad_courses,
-	  		:graduate_courses
-	  		
+  			:purpose_of_stay,
   		]
+
   		percentage = third.reject{|element| self[element].blank?}.length == third.length ? percentage + 14 : percentage
   		
   		
@@ -79,9 +77,7 @@ class StudentApplicationForm < ApplicationRecord
   		]
 
   		third = [
-	  		:project_work,
-	  		:under_grad_courses,
-	  		:graduate_courses
+	  		:purpose_of_stay
 		]
 
 		fourth = [

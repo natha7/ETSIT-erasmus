@@ -82,7 +82,7 @@ $(document).on('turbolinks:load', function() {
    **/
   $('.edit-picture').click(
     function(e) {
-      let availWidth = $('html').width();
+      var availWidth = $('html').width();
       availWidth = availWidth > 900 ? 700 : (availWidth < 500 ? availWidth - 10 : availWidth*0.7)
       $('#edit-picture-dialog').dialog({ 
         modal:true, 
@@ -102,12 +102,44 @@ $(document).on('turbolinks:load', function() {
       // Get the Cropper.js instance after initialized
   });
 
+    /**
+     * Close picture modal
+     */
+    $('#edit-picture-dialog-close').click(
+        function(e) {
+            $('#edit-picture-dialog').dialog('close');
+        }
+    )
+
+    /**
+     * Open Degree Info modal
+     **/
+    $('.info-icon').click(
+        function(e) {
+            var availWidth = $('html').width();
+            availWidth = availWidth > 900 ? 700 : (availWidth < 500 ? availWidth - 10 : availWidth*0.7)
+            $('#info-degrees-dialog').dialog({
+                modal:true,
+                minWidth: availWidth,
+                show: {
+                    effect: "scale",
+                    duration: 200
+                },
+                hide: {
+                    effect: "explode",
+                    duration: 200
+                }
+            });
+
+        });
+
+
   /**
     * Close picture modal
     */
-  $('#edit-picture-dialog-close').click(
+  $('#info-degrees-dialog-close').click(
     function(e) {
-        $('#edit-picture-dialog').dialog('close');
+        $('#info-degrees-dialog').dialog('close');
     }
   )
 
@@ -116,7 +148,7 @@ $(document).on('turbolinks:load', function() {
     */
   $('#multiple-nominees-button').click(function(e){
     e.stopPropagation();
-    let availWidth = $('html').width();
+    var availWidth = $('html').width();
     availWidth = availWidth > 900 ? 700 : (availWidth < 500 ? availWidth - 10 : availWidth*0.7)
     $('#several-nominee-dialog').dialog({ 
       modal:true, 
@@ -241,7 +273,78 @@ $(document).on('turbolinks:load', function() {
       reader.readAsDataURL(e.target.files[0]);
     }
   });
-  
+
+    /**
+     * Send Learning Agreement Subjects
+     */
+    $('#la-form').submit(function() {
+
+        var oData = new FormData(document.getElementById("la-form"));
+        oData.append("authenticity_token", $('#la-form input[name="authenticity_token"]').val());
+
+        var oReq = new XMLHttpRequest();
+        oReq.open("POST", relative_url+"/user/submit_la");
+        oReq.send(oData)
+        /*$('.messages-from-server').empty();*/
+        $('#la-server-msg').text("Saving...")
+        oReq.onload = function(oEvent) {
+
+            if (oReq.status == 200) {
+                try {
+                    $('#la-server-msg').text("Saved!");
+                    setTimeout(function(){
+                        $('#la-server-msg').text("");
+                    }, 3000);
+                } catch (e) {
+                    console.error("An error ocurred when uploading the file", e)
+                    // $('.messages-from-server').append($('<p class="message-from-server alert">An error ocurred</p>'));
+                    $('#la-server-msg').text("An error ocurred")
+                }
+            } else {
+                console.error("Error " + oReq.status + " occurred when trying to upload your file.");
+                $('#la-server-msg').text("An error ocurred")
+            }
+
+        };
+        return false;
+        //  return true;
+    });
+
+    /**
+     * Change ECTS callback
+     */
+    function ectsChange(e){
+        var total = 0;
+        $('input.la-ects').each(function(a,b){
+            total += b.value && !isNaN(parseFloat(b.value)) ? parseFloat(b.value) : 0;
+        });
+        $('#total-ects').text(total)
+    }
+
+    /**
+     * Add a new learning agreement subject
+     */
+    $('#add-la-subject').click(function(e){
+        var transc = $('.learning-agreement-transcription');
+        var clone = $('.la-form-row:last-child').clone(true, true);
+        clone.find("input").val("");
+        clone.find("select").val("");
+        clone.insertAfter('.la-form-row:last-child');
+    });
+
+    $('.delete-la-button').click(function(e){
+        if($('.la-form-row').length > 1) {
+            $(this).closest('.la-form-row').remove();
+
+        } else {
+            $('.la-form-row:last-child').find("input").val("");
+            $('.la-form-row:last-child').find("select").val("");
+        }
+        ectsChange(e);
+
+    });
+    $('input.la-ects').keyup(ectsChange);
+    $('input.la-ects').change(ectsChange);
   /**
     * Collapse panels
     */
@@ -250,10 +353,11 @@ $(document).on('turbolinks:load', function() {
     var wasOpen = content.hasClass('show');
 
     $('.collapsible.show').removeClass('show');
-    $('.caret').removeClass('reverse');
-    $('.caret').addClass('no-reverse');
+    var caret = $('.caret')
+    caret.removeClass('reverse');
+    caret.addClass('no-reverse');
     if (!wasOpen) {
-      var caret= $(this).find('.caret');
+      caret= $(this).find('.caret');
       content.toggleClass('show');
       caret.toggleClass('reverse');
       caret.toggleClass('no-reverse');
@@ -325,6 +429,8 @@ $(document).on('turbolinks:load', function() {
     $('.lang-list').append($lang)
 
   });
+
+
 
 
   /**
@@ -404,5 +510,16 @@ $(document).on('turbolinks:load', function() {
   $('.deletion').submit(function(e){
      return confirm("Are you sure you want to delete this file?");
   })
+    $('.purpose_stay #other').change(function() {
+        if ($('#student_application_form_other_purpose').attr('required')) {
+            $('#student_application_form_other_purpose').removeAttr('required');
+        }
 
+        else {
+            $('#student_application_form_other_purpose').attr('required','required');
+        }
+
+    });
 });
+
+

@@ -5,7 +5,16 @@ module PdfHelper
 
         	steps = user.student_application_form
             require 'active_support'
-
+            # Use Source Sans Pro Font
+          # font_families.update(
+          #     "SourceSansPro" => {
+          #         :normal => Rails.root.join("app/assets/fonts/SourceSansPro.ttf"),
+          #         :bold => Rails.root.join("app/assets/fonts/SourceSansPro-Bold.ttf"),
+          #         :italic => Rails.root.join("app/assets/fonts/SourceSansPro-Italic.ttf")
+          #     }
+          # )
+          #font "SourceSansPro"
+          font "Helvetica"
 
         	# Blue box with logo
         	def header
@@ -51,15 +60,15 @@ module PdfHelper
     			  text ("<b>#{field}</b>"), :inline_format => true
     			  fill_color "000000"
     			  move_down 4
-    		end	
+            end
 
-    		# Form field value
-        	def check_field(field, period=true)
-        		fill_color "4664A2"
-    			  text (field.blank? ? "<em>Empty</em>" : field), :inline_format => true
-        		fill_color "000000"
-        		move_down 10 if period
-    		end
+            # Form field value
+            def check_field(field, period=true)
+                fill_color "4664A2"
+                text (field.blank? ? "<em>Empty</em>" : field), :inline_format => true
+                fill_color "000000"
+                move_down 10 if period
+            end
 
             def checkbox(label, flag, x_position = 0, y_position = cursor  )
                line_width(1)
@@ -69,24 +78,13 @@ module PdfHelper
                 text("x", align: :center, valign: :top) if flag
               end
             end
-
-          # Form plain text
-          def plain_text(field)
-            fill_color "000000"
-            text ("#{field}"), :inline_format => true, :size => 9, :leading => 5
-            fill_color "000000"
-            move_down 2
-          end
-          # Use Source Sans Pro Font
-    		font_families.update(
-    		 "SourceSansPro" => {
-    		 	:normal => Rails.root.join("app/assets/fonts/SourceSansPro.ttf"),
-    		 	:bold => Rails.root.join("app/assets/fonts/SourceSansPro-Bold.ttf"),
-    		 	:italic => Rails.root.join("app/assets/fonts/SourceSansPro-Italic.ttf")
-    		 }
-    		)
-    		#font "SourceSansPro"
-        font "Helvetica"
+            # Form plain text
+            def plain_text(field)
+               fill_color "000000"
+               text ("#{field}"), :inline_format => true, :size => 9, :leading => 5
+               fill_color "000000"
+               move_down 2
+            end
 
     		# Add header to all pages
     		repeat(:all) do
@@ -199,12 +197,18 @@ module PdfHelper
         stroke
 
         move_down 10
-        label("Project work")
-        check_field(steps.project_work)
-        label("Under Graduate Courses")
-        check_field(steps.under_grad_courses)
-        label("Graduate Courses")
-        check_field(steps.graduate_courses)
+        purposes =  steps.purpose_of_stay.blank? ? [] : JSON.parse(steps.purpose_of_stay)
+        checkbox("Undergraduate courses" , purposes.include?("undergraduate_courses"), 0, cursor )
+        move_down 5
+        checkbox("Masters courses" , purposes.include?("master_courses"), 0, cursor )
+        move_down 5
+        checkbox("Bachelor/Master thesis" , purposes.include?("thesis"), 0, cursor )
+        move_down 5
+        checkbox("Research Project" , purposes.include?("research"), 0, cursor )
+        move_down 5
+        if purposes.include?("other")
+            checkbox("Other: " + steps.other_purpose , purposes.include?("other"), 0, cursor )
+        end
 
         start_new_page
 
@@ -242,7 +246,7 @@ module PdfHelper
         else
             check_field("No other languages")
         end
-
+        move_down 20
 
         # Step 5
 

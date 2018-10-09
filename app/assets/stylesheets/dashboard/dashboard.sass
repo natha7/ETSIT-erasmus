@@ -1,10 +1,21 @@
 @import "../variables"
 @import "../mixins"
-#edit-picture-dialog
+#edit-picture-dialog, #info-degrees-dialog
 	padding: 25px
 	display: none
-
-
+	ul
+		padding-left: 0px
+		.info-degree
+			list-style:  none
+			padding: 8px
+			margin: 5px
+			border-bottom: 1px solid #4664A2
+			a
+				//text-decoration: underline
+				font-weight: bold
+	.more-info
+		padding: 8px
+		margin: 5px
 	canvas#canvas
 		width: 150px
 		height: 150px
@@ -154,6 +165,47 @@
 				.second-container-right
 					flex-grow: 1
 					text-align: right
+			.learning-agreement-transcription
+				display: flex
+				margin: 5px
+				flex-direction: column
+				.la-row
+					display: flex
+					flex-direction: row
+					justify-items: center
+					justify-content: space-between
+					padding-bottom: 10px
+					&:last-child
+						padding-bottom: 10px
+						border-bottom: 2px solid #ddd
+					input, label, select
+						padding: 5px
+						margin-right: 10px
+					.la-degree
+						width: 25%
+					.la-code
+						width: 15%
+					.la-name
+						width: calc(50% - 28px)
+					.la-ects
+						width: 10%
+					&.la-header
+						font-weight: bold
+						border-bottom: 2px solid #ddd
+						margin-bottom: 10px
+						.info-icon
+							color: #4664A2
+							cursor: help
+			.la-total
+				margin: 3px
+				#la-server-msg
+					color: grey
+					margin-left: 4px
+				.custom-button
+					padding: 7px 10px
+				.la-total-label
+					line-height: 37px
+					height: 38px
 			.student-application-form-progress
 				font-weight: bold
 			.check_mark

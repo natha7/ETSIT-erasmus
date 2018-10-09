@@ -44,7 +44,6 @@ class StudentApplicationFormController < ApplicationController
 	end
 
 	def save
-		binding.pry
 		@sap = current_user.student_application_form
 		from_ball = params[:from_ball] == "true"
 		unless params[:step] == "personal_data"
@@ -52,6 +51,17 @@ class StudentApplicationFormController < ApplicationController
 			step = nil if (step.to_s != params[:step])
 		else
 			step = 1
+		end
+		if !params[:student_application_form][:purpose_of_stay].blank?
+			@sap.purpose_of_stay = params[:student_application_form][:purpose_of_stay]
+			if params[:student_application_form][:purpose_of_stay].include?("other")
+				@sap.other_purpose = params[:student_application_form][:other_purpose]
+			else
+				@sap.other_purpose = nil
+			end
+		elsif	params[:student_application_form][:other_purpose]
+			 @sap.other_purpose = nil
+			 @sap.purpose_of_stay = nil
 		end
 		if !params[:student_application_form][:other_languages].blank?
 			@sap.languages.destroy_all
@@ -101,29 +111,25 @@ class StudentApplicationFormController < ApplicationController
 				:inst_sending_name, 
 				:inst_adress,
 				:school_family_dpt,
-		  		:erasmus_code,
-		  		:dept_coordinator,
-		      	:contact_person,
-		  		:inst_telephone,
-		  		:inst_email,
-		  		:academic_year,
-		  		:programme,
-		  		:field_of_study,
-		  		:project_work,
-		  		:under_grad_courses,
-		  		:graduate_courses,
-		  		:reasons_abroad,
-		  		:mother_tongue,
-		  		:language_instruction,
-		  		:current_diploma_degree,
-		  		:year_attended,
-		  		:specialization_area,
-		  		:already_study_abroad,
-		  		:where_study_abroad,
-		  		:where_institution_abroad,
-		  		:no_work_experience
+				:erasmus_code,
+				:dept_coordinator,
+				:contact_person,
+				:inst_telephone,
+				:inst_email,
+				:academic_year,
+				:programme,
+				:field_of_study,
+				:reasons_abroad,
+				:mother_tongue,
+				:language_instruction,
+				:current_diploma_degree,
+				:year_attended,
+				:specialization_area,
+				:already_study_abroad,
+				:where_study_abroad,
+				:where_institution_abroad,
+				:no_work_experience
 			))
-
 
 		@sap.save!
 		# render "student_application_form/student_application_form"

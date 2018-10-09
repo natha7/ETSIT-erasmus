@@ -100,9 +100,10 @@
 					</div>
 				</div>
 
-				<%= render partial: "users/learning_agreement_panel", :locals => {
+				<%= render partial: "users/user_dashboard_panel", :locals => {
 						:admin => false,
 						:name => :learning_agreement,
+						:current_user => current_user,
 						:content => current_user.learning_agreement,
 						:file_name => current_user.learning_agreement_file_name,
 						:label => "Learning Agreement"}  %>
@@ -191,6 +192,9 @@
 					</div>
 
 				</div>
+
+
+
 	<% elsif current_user.progress_status == "finished" %>
 		<h1> Intenational office has been notified and they will contact back soon. </h1>
 	<% elsif current_user.progress_status == "accepted" %>
