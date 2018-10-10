@@ -31,6 +31,9 @@ $(document).on('turbolinks:load', function() {
      **/
     $('#no_work_experience_checkbox').click(
         function(e) {
+            if (!$('.other-work ').hasClass('hidden')) {
+                $('.work-list ').empty();
+            }
             $('.other-work ').toggleClass('hidden');
         }
     );
