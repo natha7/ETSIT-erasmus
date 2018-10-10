@@ -9,7 +9,7 @@
 <%= f.check_box :no_work_experience, autofocus: true, autocomplete: "no_work_experience", disabled: review, id: "no_work_experience_checkbox" %>
 <%= f.label :no_work_experience %><br /><br/>
 </div>
-<div class="<%=   sap.no_work_experience ? "other-work hidden" : "other-work" %>" style="">
+<div class="<%= sap.no_work_experience ? "other-work hidden" : "other-work" %>" style="">
 
 <% unless review %>
 	<button class="custom-button primary" id="add-work" type="button">Add a new work experience</button>
@@ -42,7 +42,6 @@
 			<div class="flex-container">
 				<label for="student_application_form[work_experiences][][to]">To</label>
 				<input required type="date" name="student_application_form[work_experiences][][to]" class="work-input" <%=review ? "disabled" : ""%> value="<%=work.to%>"/>
-
 			</div>
 		</div>
 
