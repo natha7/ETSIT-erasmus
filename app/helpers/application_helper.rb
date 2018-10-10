@@ -274,6 +274,7 @@ module ApplicationHelper
 
   def languages_list
       [
+        "",
         "Abkhazian",
         "Afar",
         "Afrikaans",

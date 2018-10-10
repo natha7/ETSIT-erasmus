@@ -1,5 +1,9 @@
 <%= form_for current_user, url: RELATIVE_URL + "/user/submit_la", html: { id: "la-form" }, :method => :POST do |form| %>
-
+  <% unless admin %>
+    <p class="intro-paragraph alert">
+      The Learning Agreement must include all the educational components to be carried out at ETSIT. Please, fill in the table below with the same subjects that you have included in your Learning Agreement. You must also upload a copy of your Learning Agreement signed by the home Institution Coordinator.
+    </p>
+  <%end%>
 <div class="learning-agreement-transcription">
   <div class="la-row la-header">
     <label class="la-degree">Degree <i class="info-icon mdi mdi-information-outline"></i></label>

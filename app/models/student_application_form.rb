@@ -80,17 +80,22 @@ class StudentApplicationForm < ApplicationRecord
 	  		:purpose_of_stay
 		]
 
-		fourth = [
+			fourth = [
 	  		:mother_tongue,
 	  		:language_instruction
   		]
 
   		fifth_complete = self.work_experiences.blank? ? self.no_work_experience : true
+
+
 	  	sixth = [
 	  		:current_diploma_degree,
 	  		:year_attended,
 	  		:specialization_area
 	  	]
+			if self.already_study_abroad
+				sixth.insert(-1, :where_study_abroad, :where_institution_abroad)
+			end
 
 	  	 
 

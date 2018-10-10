@@ -106,32 +106,33 @@ class StudentApplicationFormController < ApplicationController
 	    	user.save!
 	    	params[:student_application_form].delete :seeking_degree
 		end
+		if params[:student_application_form]
+			@sap.assign_attributes(params.require(:student_application_form).permit(
+					:inst_sending_name,
+					:inst_adress,
+					:school_family_dpt,
+					:erasmus_code,
+					:dept_coordinator,
+					:contact_person,
+					:inst_telephone,
+					:inst_email,
+					:academic_year,
+					:programme,
+					:field_of_study,
+					:reasons_abroad,
+					:mother_tongue,
+					:language_instruction,
+					:current_diploma_degree,
+					:year_attended,
+					:specialization_area,
+					:already_study_abroad,
+					:where_study_abroad,
+					:where_institution_abroad,
+					:no_work_experience
+				))
 
-		@sap.assign_attributes(params.require(:student_application_form).permit(
-				:inst_sending_name, 
-				:inst_adress,
-				:school_family_dpt,
-				:erasmus_code,
-				:dept_coordinator,
-				:contact_person,
-				:inst_telephone,
-				:inst_email,
-				:academic_year,
-				:programme,
-				:field_of_study,
-				:reasons_abroad,
-				:mother_tongue,
-				:language_instruction,
-				:current_diploma_degree,
-				:year_attended,
-				:specialization_area,
-				:already_study_abroad,
-				:where_study_abroad,
-				:where_institution_abroad,
-				:no_work_experience
-			))
-
-		@sap.save!
+			@sap.save!
+		end
 		# render "student_application_form/student_application_form"
 		if params[:step] == "personal_data"
 			if !from_ball
@@ -171,9 +172,9 @@ class StudentApplicationFormController < ApplicationController
 		params.require(:languages).permit(
 					:languages,
 					:name,
-		  			:currently_studying,
-		  			:able_follow_lectures,
-		  			:able_follow_lectures_extra_preparation)
+					:currently_studying,
+					:able_follow_lectures,
+					:able_follow_lectures_extra_preparation)
 	end
 
 	def toNumeral(number)

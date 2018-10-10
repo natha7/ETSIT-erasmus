@@ -19,13 +19,13 @@
 <% if defined?(sap.work_experiences) %>
 	<% sap.work_experiences.each_with_index do |work,index|%>
 	<div class="work">
-		<div class="field field50">
+		<div class="field  ">
 			<div class="flex-container first-fc">
 				<label for="student_application_form[work_experiences][][work_kind]">Type of work</label>
-				<input type="text" name="student_application_form[work_experiences][][work_kind]" class="work-input" <%=review ? "disabled" : ""%> value="<%=work.work_kind%>"/>
+				<input required type="text" name="student_application_form[work_experiences][][work_kind]" class="work-input" <%=review ? "disabled" : ""%> value="<%=work.work_kind%>"/>
 			</div>
 		</div>
-		<div class="field field50">
+		<div class="field  ">
 			<div class="flex-container">
 				<label for="student_application_form[work_experiences][][firm_organisation]">Organisation</label>
 				<input type="text" name="student_application_form[work_experiences][][firm_organisation]" class="work-input" <%=review ? "disabled" : ""%> value="<%=work.firm_organisation%>"/>
@@ -34,22 +34,23 @@
 		<div class="field ">
 			<div class="flex-container">
 				<label for="student_application_form[work_experiences][][from]">From</label>
-				<input type="date" name="student_application_form[work_experiences][][from]" class="work-input" <%=review ? "disabled" : ""%> value="<%=work.from%>"/>
+				<input required type="date" name="student_application_form[work_experiences][][from]" class="work-input" <%=review ? "disabled" : ""%> value="<%=work.from%>"/>
 
 			</div>
 		</div>
 		<div class="field">
 			<div class="flex-container">
 				<label for="student_application_form[work_experiences][][to]">To</label>
-				<input type="date" name="student_application_form[work_experiences][][to]" class="work-input" <%=review ? "disabled" : ""%> value="<%=work.to%>"/>
+				<input required type="date" name="student_application_form[work_experiences][][to]" class="work-input" <%=review ? "disabled" : ""%> value="<%=work.to%>"/>
 
 			</div>
 		</div>
 
-		<div class="field field50">
+		<div class="field  ">
 			<div class="flex-container">
 				<label for="student_application_form[work_experiences][][country]">Country</label>
-				<select   name="student_application_form[work_experiences][][country]" class="work-input" <%=review ? "disabled" : ""%> value="<%=work.country%>">
+				<select  required name="student_application_form[work_experiences][][country]" class="work-input" <%=review ? "disabled" : ""%> value="<%=work.country%>">
+						<option value  <%= work.country   ? "" : "selected" %> disabled  ></option>
 					<% for country in country_list %>
 						<option <%= work.country == country ? "selected" : "" %>><%= country%></option>
 					<% end %>

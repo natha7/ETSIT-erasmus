@@ -18,7 +18,6 @@ class UserController < ApplicationController
 		rescue
 	     	flash[:error] = "E-mail to #{user.email} could not be sent"
 	    end
-
 		end
 		user.save!
 		redirect_to admin_dashboard_path
@@ -62,14 +61,14 @@ class UserController < ApplicationController
 
 	def update_personal_data
 		current_user.assign_attributes(params.require(:user).permit(
-				:first_name,
-			     :family_name,
-			     :birth_date,
-			     :born_place,
-			     :nationality,
-			     :sex,
-			     :permanent_adress,
-			     :phone_number
+				 :first_name,
+				 :family_name,
+				 :birth_date,
+				 :born_place,
+				 :nationality,
+				 :sex,
+				 :permanent_adress,
+				 :phone_number
 			))
 		
 		current_user.student_application_form.step = 1
