@@ -146,11 +146,46 @@
 .table-header
 	@include flexBoxVendor
 #several-nominee-dialog
-	.several-nominee-actions
-		form
-			padding: 15px
-			textarea
-				width: 100%
-				min-height: 300px
-				margin: 10px 0px
-				resize: none
+	padding: 25px
+	display: none
+	canvas#canvas
+		width: 150px
+		height: 150px
+		display: none
+	.title
+		margin-top: 0
+		display: inline-block
+	.close
+		margin: -18px
+	.flex-container
+		.image-container
+			display: inline-block
+			.picture
+				width: 150px
+		.several-nominee-actions
+			display: inline-block
+			vertical-align: top
+			padding: 10px
+			form
+				padding: 15px
+				textarea
+					width: 100%
+					min-height: 300px
+					margin: 10px 0px
+					resize: none
+			.input-file
+			.custom-button
+				margin: 10px
+			.messages-from-server
+				.message-from-server
+					margin-top: 0
+					padding-left: 10px
+					&.notice
+						color: green
+					&.alert
+						color: red
+			#spinner
+				width: 60px
+				vertical-align: middle
+				&.hidden
+					display: none

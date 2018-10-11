@@ -3,13 +3,13 @@ class AddStudentApplicationForm < ActiveRecord::Migration[5.2]
 
 		create_table :project_settings do |t|
 #			t.integer  :singleton_guard
-			t.string :academic_years
-			t.string :current_academic_year
-			t.string :next_academic_year
-			t.string :deadline_first_semeter
-			t.string :deadline_second_semester
-			t.string :deadline_double_degree
-			t.string :mobility_programmes
+			t.string :academic_years, default: [ "2018-2019: Spring Semester", "2019-2020: Fall Semester", "2019-2020: Spring Semester", "2019-2020: Academic Year"].inspect
+			t.string :current_academic_year, default: "2018-19"
+			t.string :next_academic_year, default: "2019-20"
+			t.string :deadline_first_semeter,   default: "June, 1st"
+			t.string :deadline_second_semester,  default: "December, 1st"
+			t.string :deadline_double_degree,  default: "May, 15th"
+			t.string :mobility_programmes,  default: ["Eramus+ Studies", "Eramus+ Placement", "Magalhães", "Bilateral Agreement", "Visiting Student", "SICUE/SENECA", "Other"].inspect
 			t.timestamps
 		end
 #		add_index(:project_settings, :singleton_guard, :unique => true)

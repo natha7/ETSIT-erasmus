@@ -81,8 +81,8 @@
 			.input-file
 			.custom-button
 				margin: 10px
-			.messages-from-server 
-				.message-from-server 
+			.messages-from-server
+				.message-from-server
 					margin-top: 0
 					padding-left: 10px
 					&.notice
@@ -264,3 +264,65 @@
 						width: 100%
 						margin-top: 5px
 
+#admin-settings-dialog
+	padding: 25px
+	display: none
+	.title
+		margin-top: 0
+		display: inline-block
+	.close
+		margin: -18px
+	.flex-container
+		.multiple-item-container
+			flex: 1
+			.multiple-item-flex-container
+				display: flex
+				justify-content: center
+				input
+					margin-bottom: 5px
+				.delete-settings-button
+					margin-left: 3px
+				&:last-child
+					//justify-content: flex-end
+		.flex-container-form-item
+			display: flex
+			padding: 5px
+			label
+				margin-right: 10px
+				font-weight: bold
+				width: 300px
+				text-align: right
+				margin-top: 5px
+			input
+				padding: 3px 4px 4px 4px
+				flex: 1
+				font-family: inherit
+				font-size: 1em
+#csv-dialog
+	padding: 25px
+	display: none
+	.title
+		margin-top: 0
+		display: inline-block
+	.close
+		margin: -18px
+	.flex-container
+		display: flex
+		flex-direction: row
+		justify-items: flex-start
+		justify-content: space-between
+		.flex-block-item
+			width: 50%
+			.flex-container-form-item
+				display: flex
+				padding: 5px
+				label
+					margin-right: 10px
+					color: #555
+				input
+					padding: 3px 4px 4px 4px
+					font-family: inherit
+					font-size: 1em
+			h3.csv-category
+				color: #4664A2
+				margin-bottom: 4px

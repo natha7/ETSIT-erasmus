@@ -43,6 +43,18 @@ ActiveRecord::Schema.define(version: 2018_05_23_122232) do
     t.index ["registration_token"], name: "index_nominated_users_on_registration_token", unique: true
   end
 
+  create_table "project_settings", force: :cascade do |t|
+    t.string "academic_years", default: "[\"2018-2019: Spring Semester\", \"2019-2020: Fall Semester\", \"2019-2020: Spring Semester\", \"2019-2020: Academic Year\"]"
+    t.string "current_academic_year", default: "2018-19"
+    t.string "next_academic_year", default: "2019-20"
+    t.string "deadline_first_semeter", default: "June, 1st"
+    t.string "deadline_second_semester", default: "December, 1st"
+    t.string "deadline_double_degree", default: "May, 15th"
+    t.string "mobility_programmes", default: "[\"Eramus+ Studies\", \"Eramus+ Placement\", \"Magalhães\", \"Bilateral Agreement\", \"Visiting Student\", \"SICUE/SENECA\", \"Other\"]"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "student_application_forms", force: :cascade do |t|
     t.integer "step", default: 1
     t.string "inst_sending_name", default: ""

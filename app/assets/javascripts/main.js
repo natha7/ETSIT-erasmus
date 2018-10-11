@@ -113,7 +113,7 @@ $(document).on('turbolinks:load', function() {
         function(e) {
             $('#edit-picture-dialog').dialog('close');
         }
-    )
+    );
 
     /**
      * Open Degree Info modal
@@ -243,7 +243,6 @@ $(document).on('turbolinks:load', function() {
                 console.error("Error " + oReq.status + " occurred when trying to upload your file.");
                 $('.messages-from-server').append($('<p class="alert">An error ocurred</p>'));
             }
-
         };
         return false;
     });
@@ -259,7 +258,7 @@ $(document).on('turbolinks:load', function() {
                 $image.attr('src', ev.target.result);
                 $image.cropper('destroy')
                 initCropper();
-            }
+            };
             reader.readAsDataURL(e.target.files[0]);
         }
     });
@@ -271,7 +270,6 @@ $(document).on('turbolinks:load', function() {
 
         var oData = new FormData(document.getElementById("la-form"));
         oData.append("authenticity_token", $('#la-form input[name="authenticity_token"]').val());
-
         var oReq = new XMLHttpRequest();
         oReq.open("POST", relative_url+"/user/submit_la");
         oReq.send(oData)
@@ -333,16 +331,17 @@ $(document).on('turbolinks:load', function() {
         ectsChange(e);
 
     });
+
     var $laECTS = $('input.la-ects');
     $laECTS.keyup(ectsChange);
     $laECTS.change(ectsChange);
+
     /**
      * Collapse panels
      */
     $('.dashboard-section').click(function(e) {
         var content= $(this).parents('.row').children('.collapsible');
         var wasOpen = content.hasClass('show');
-
         $('.collapsible.show').removeClass('show');
         var caret = $('.caret')
         caret.removeClass('reverse');
@@ -367,15 +366,12 @@ $(document).on('turbolinks:load', function() {
      */
     $('.delete-lang-button').click(deleteLang);
 
-
     /**
      * Add a new language
      */
     $('#add-lang').click(function(e){
         var numLang = $(".language-input").length;
         var $lang = $('<div class="lang"></div>');
-
-
         for (var i in lang_elements) {
             var element = lang_elements[i];
             var el = "student_application_form[languages][][" + element.key + "]";
@@ -387,7 +383,6 @@ $(document).on('turbolinks:load', function() {
                 .attr('required', 'required')
                 .attr('class', "language-input");
             if(element.input === 'select' && window.options) {
-
                 $input = $('<select/>')
                     .attr('name',el)
                     .attr('required', 'required')
@@ -449,14 +444,12 @@ $(document).on('turbolinks:load', function() {
      */
     $('#add-work').click(function(e){
         var $work = $('<div class="work"></div>');
-
         for (var i in work_elements) {
             var element = work_elements[i];
             var el = "student_application_form[work_experiences][]["+element.key+"]";
             var $field = $('<div class="field"></div>');
             var $container = $('<div class="flex-container"></div>');
             var $label = $('<label/>').attr("for", el ).text(element.label);
-
             var $input = $('<input/>').attr('type', element.input)
                 .attr('name',el)
                 .attr('class', "work-input")
@@ -478,7 +471,6 @@ $(document).on('turbolinks:load', function() {
                         .attr('value', window.options[opt])
                         .text(window.options[opt]);
                     $input.append($option);
-
                 }
             }
             $container.append($label);
@@ -497,7 +489,6 @@ $(document).on('turbolinks:load', function() {
         $button.append($icon);
         $work.append($button);
         $('.work-list').append($work)
-
     });
 
     $('#already_study_abroad').click(function(){
@@ -526,8 +517,126 @@ $(document).on('turbolinks:load', function() {
         else {
             $otherPurpose.attr('required','required');
         }
-
     });
+
+    /**
+     * Admin Settings modal
+     */
+    $('#admin-settings').click(function(e){
+            var availWidth = $('html').width();
+            availWidth = availWidth > 900 ? 700 : (availWidth < 500 ? availWidth - 10 : availWidth*0.7)
+            $('#admin-settings-dialog').dialog({
+                modal:true,
+                minWidth: availWidth,
+                show: {
+                    effect: "scale",
+                    duration: 200
+                },
+                hide: {
+                    effect: "explode",
+                    duration: 200
+                }
+            });
+    });
+
+    /**
+     * Close admin settings modal
+     */
+    $('#admin-settings-dialog-close').click(
+        function(e) {
+            $('#admin-settings-dialog').dialog('close');
+        }
+    );
+
+    /**
+     * Delete item from admin settings
+     */
+
+    $('.delete-settings-button').click(function(e){
+        $(this).parent().remove();
+    });
+
+    /**
+     * Add Mobility Programe to settings
+     */
+    $('#add_mobility_programmes').click(function(e){
+        var $multiple = $('<div/>').attr("class","multiple-item-flex-container");
+        var $input = $('<input/>').attr("type","text").attr("name","mobility_programmes[]").attr("required","required");
+        var $button = $("<button/>").attr("class","delete-settings-button transparent-button small-button") ;
+        var $i = $('<i/>').attr("class","mdi mdi-close");
+
+        $button.click(function(e){
+            $(this).parent().remove();
+        });
+
+        $button.append($i);
+        $multiple.append($input);
+        $multiple.append($button);
+        $('#add_mobility_programmes_container').before($multiple);
+    });
+
+    /**
+     * Add academic years available
+     */
+   $('#add_academic_years').click(function(e){
+        var $multiple = $('<div/>').attr("class","multiple-item-flex-container") ;
+        var $input = $('<input/>').attr("type","text").attr("name","academic_years[]").attr("required","required");
+        var $button = $("<button/>").attr("class","delete-settings-button transparent-button small-button") ;
+        var $i = $('<i/>').attr("class","mdi mdi-close");
+
+        $button.click(function(e){
+            $(this).parent().remove();
+        });
+
+        $button.append($i);
+        $multiple.append($input);
+        $multiple.append($button);
+        $('#add_academic_years_container').before($multiple);
+    });
+
+
+
+    /**
+     * CSV modal
+     */
+    $('#csv-dialog-button').click(function(e){
+        var availWidth = $('html').width();
+        availWidth = availWidth > 900 ? 700 : (availWidth < 500 ? availWidth - 10 : availWidth*0.7)
+        $('#csv-dialog').dialog({
+            modal:true,
+            minWidth: availWidth,
+            show: {
+                effect: "scale",
+                duration: 200
+            },
+            hide: {
+                effect: "explode",
+                duration: 200
+            }
+        });
+    });
+
+    /**
+     * Select All in CSV modal
+     */
+    $('#csv-dialog-select-all-button').click(function(e){
+        $('#csv-dialog input').attr("checked","checked")
+    });
+
+
+    /**
+     * Close CSV modal
+     */
+    $('#csv-dialog-close').click(
+        function(e) {
+            $('#csv-dialog').dialog('close');
+        }
+    );
+
+    /**
+     * CSV Button
+     */
+
 });
 
 

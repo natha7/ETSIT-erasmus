@@ -174,7 +174,8 @@ class StudentApplicationFormController < ApplicationController
 					:name,
 					:currently_studying,
 					:able_follow_lectures,
-					:able_follow_lectures_extra_preparation)
+					:able_follow_lectures_extra_preparation
+		)
 	end
 
 	def toNumeral(number)

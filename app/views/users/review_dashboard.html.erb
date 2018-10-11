@@ -17,8 +17,10 @@
 
 	<h1 class="title"> You are reviewing <%= current_user.first_name %>'s application</h1>
 
-	<p class="intro-paragraph">Keep in mind that the deadline to receive application packages is <span class="red"><strong>June, 1st</strong></span> for the fall
-		semester or academic year 2019-20, and <span class="red"><strong>December, 1st</strong></span> for the second semester of this current academic year 2018-19. For double degree students, the deadline is <span class="red"><strong>May 15th</strong></span>. Please <u>check registered users, documents required in pdf, and application packages before the deadline</u> .</p>
+	<% settings = ProjectSettings.first_or_create! %>
+
+	<p class="intro-paragraph">Keep in mind that the deadline to receive application packages is <span class="red"><strong><%= settings.deadline_first_semeter %></strong></span> for the fall
+		semester or academic year <%= settings.next_academic_year %>, and <span class="red"><strong><%= settings.deadline_second_semester %> </strong></span> for the second semester of this current academic year <%= settings.current_academic_year %>. For double degree students, the deadline is <span class="red"><strong><%= settings.deadline_double_degree %> </strong></span>. Please <u>check registered users, documents required in pdf, and application packages before the deadline</u> .</p>
 	<br/>
 	<div class="dashboard-container">
 		<div class="left-column">

@@ -207,14 +207,58 @@ class UserController < ApplicationController
 	def generate_csv
 		require 'csv'
 		users = User.all.reject{|t| t.role == "admin"}
+		keys = params["user"].keys.reject{|r| ["student_application_form", "learning_agreement_subjects"].include?(r)}
+		subjects = !params["user"]["learning_agreement_subjects"].blank?
+		sap = params["user"]["student_application_form"].blank? ? [] : params["user"]["student_application_form"].keys
 		csv_string = CSV.generate(:col_sep => ";") do |csv|
-			csv << ["user", "email", "institution", "academic_year", "programme", "subject", "code", "degree", "created_at", "last_updated"]
+			csv << keys + (sap ? sap : []) + (subjects ? ["subject", "subject_code", "degree", "ects"] : [])
 			users.each do |user|
- 				user.learning_agreement_subjects.each do |s|
-					csv << [user.id, user.email, user.student_application_form.inst_sending_name, user.student_application_form.academic_year, user.student_application_form.programme, s.subject, s.code, s.degree, user.created_at.in_time_zone("Madrid").strftime("%d-%m-%Y %r"), user.updated_at.in_time_zone("Madrid").strftime("%d-%m-%Y %r")]
+				attrs = []
+				keys.each do |key|
+					attrs.push(user[key])
 				end
+				sap.each do |key|
+				  attrs.push(user.student_application_form[key])
+				end
+
+				if subjects and user.learning_agreement_subjects and user.learning_agreement_subjects.length > 0
+					user.learning_agreement_subjects.each do |s|
+						csv << attrs + [s.subject, s.code, s.degree, s.ects]
+					end
+				else
+					csv << attrs
+				end
+				# csv << [user.id, user.email, user.student_application_form.inst_sending_name, user.student_application_form.academic_year, user.student_application_form.programme, s.subject, s.code, s.degree, user.created_at.in_time_zone("Madrid").strftime("%d-%m-%Y %r"), user.updated_at.in_time_zone("Madrid").strftime("%d-%m-%Y %r")]
 			end
 		end
 		send_data csv_string , :filename => 'students.csv'
+	end
+
+
+
+	def update_settings
+		settings = params.require(:project_settings).permit(
+				:current_academic_year,
+				:next_academic_year,
+				:deadline_first_semeter,
+				:deadline_second_semester,
+				:deadline_double_degree,
+		)
+
+		if !params[:mobility_programmes].blank?
+			settings[:mobility_programmes] = params[:mobility_programmes].inspect
+		else
+			settings[:mobility_programmes] = [].inspect
+		end
+
+		if !params[:academic_years].blank?
+			settings[:academic_years] = params[:academic_years].inspect
+		else
+			settings[:academic_years] = [].inspect
+
+		end
+		ProjectSettings.first_or_create.update(settings)
+
+		redirect_to admin_dashboard_path
 	end
 end

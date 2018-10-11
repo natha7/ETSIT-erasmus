@@ -5,34 +5,20 @@
 <!--<p class="intro-paragraph">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>-->
 
 <div class="edit_student_application_flex study_year">
-
+  <% settings = ProjectSettings.first_or_create! %>
+  <% mobility_programmes = JSON.parse(settings.mobility_programmes) %>
+  <% academic_year = JSON.parse(settings.academic_years) %>
 <div class="field field50">
   <div class="flex-container">
     <%= f.label :academic_year %><br />
-    <%= f.select :academic_year, [
-       '',
-      '2018-2019: Spring Semester',
-      '2019-2020: Fall Semester',
-      '2019-2020: Spring Semester',
-      '2019-2020: Academic Year',
-      ],{disabled: '', selected: sap.academic_year ? sap.academic_year : ''}, {disabled: review}%>
+    <%= f.select :academic_year, academic_year.unshift(""), {disabled: '', selected: sap.academic_year ? sap.academic_year : ''}, {disabled: review}%>
     </div>
   </div>
 
   <div class="field field50">
     <div class="flex-container">
       <%= f.label :programme %><br />
-      <%= f.select :programme, [
-        '',
-        'Eramus+ Studies',
-        'Eramus+ Placement',
-        'Magalhães',
-        'Bilateral Agreement',
-        'Visiting Student',
-        'SICUE/SENECA',
-        'Other'
-
-        ],{disabled: '', selected: sap.programme ? sap.programme : ''}, {include_blank: true, disabled: review } %>
+      <%= f.select :programme, mobility_programmes.unshift(""), {disabled: '', selected: sap.programme ? sap.programme : ''}, {include_blank: true, disabled: review } %>
       </div>
     </div>
 

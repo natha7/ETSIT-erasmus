@@ -1,4 +1,5 @@
 <div class="align-right">
+<button class="custom-button" id="admin-settings">Settings</button>
 <%= button_to "Contact users", RELATIVE_URL + "/massive_email", :method=> :get, :class => "custom-button primary", :form_class =>"inline"%>
 <%= button_to "Log out", destroy_user_session_path, :method=> :delete, :class => "custom-button ", :form_class =>"inline"%>
 </div>
@@ -10,6 +11,7 @@
 
 <% users = User.where("lower(unaccent(first_name)) LIKE ? or lower(unaccent(family_name)) LIKE ?", 
  like_name.downcase,  like_name.downcase).joins(:student_application_form).merge( StudentApplicationForm.where("lower(academic_year) LIKE ? and lower(unaccent(inst_sending_name)) LIKE ?", like_period.downcase, like_university.downcase)).reject{|t| t.role == "admin"} %>
+<% settings = ProjectSettings.first_or_create! %>
 
 <% unless params[:progress_state].blank? %>
   <%users.reject!{|t| t.progress_status_before_type_cast != params[:progress_state].to_i}%>
@@ -18,8 +20,9 @@
 
 <% admin_name = current_user.first_name.blank? ? "Administrator" : (current_user.first_name + " " + current_user.family_name) %>
 <h1 class="title"> Hi, <%=admin_name%></h1>
-<p class="intro-paragraph">Keep in mind that the deadline to receive application packages is <span class="red"><strong>June, 1st</strong></span> for the fall
-  semester or academic year 2019-20, and <span class="red"><strong>December, 1st</strong></span> for the second semester of this current academic year 2018-19. For double degree students, the deadline is <span class="red"><strong>May 15th</strong></span>. Please <u>check registered users, documents required in pdf, and application packages before the deadline</u> .</p>
+<p class="intro-paragraph">Keep in mind that the deadline to receive application packages is <span class="red"><strong><%= settings.deadline_first_semeter %></strong></span> for the fall
+  semester or academic year <%= settings.next_academic_year %>, and <span class="red"><strong><%= settings.deadline_second_semester %> </strong></span> for the second semester of this current academic year <%= settings.current_academic_year %>. For double degree students, the deadline is <span class="red"><strong><%= settings.deadline_double_degree %> </strong></span>. Please <u>check registered users, documents required in pdf, and application packages before the deadline</u> .</p>
+
 <br/>
 <div class="filters">
   <form action="<%= RELATIVE_URL %>/admin_dashboard" method="GET">
@@ -27,13 +30,7 @@
     <div class="flex-filters">
       <div class="field filter">
         <label class="label">Period </label>
-        <!-- <input name="period" placeholder="Find by name" value="<%=params[:period]%>"/> -->
-        <% period_options = [
-          "2018-2019: Spring Semester",
-          "2019-2020: Fall Semester",
-          "2019-2020: Spring Semester",
-          "2019-2020: Academic Year",
-        ] %>
+        <% period_options = JSON.parse(settings.academic_years) %>
         <select name="period" value="<%=params[:period]%>">
             <option value="" <%=params[:period].blank? ? "selected":""%>>Any</option>
           <% period_options.each do |period| %>
@@ -275,4 +272,108 @@
     </div>
 
   <br/><br/> </div>
-<div class="intro-paragraph right s12"><a href="<%= RELATIVE_URL %>/generate_csv" download="students.csv"><u>Download csv</u></a></div>
+
+<div id="admin-settings-dialog" >
+  <h2 class="title">Settings</h2>
+  <button class="transparent-button action-button right close" id="admin-settings-dialog-close"><i class="mdi mdi-close"></i></button>
+  <%= form_for ProjectSettings.first_or_initialize, url: RELATIVE_URL + "/update_settings", :html => { :id => "id" }, :method => :post do |f| %>
+    <div class="flex-container">
+      <div class="flex-container-form-item"><%= f.label :current_academic_year, "Current academic year" %>
+        <%= f.text_field :current_academic_year, autofocus: true, autocomplete: "current_academic_year"%><br/></div>
+      <div class="flex-container-form-item"><%= f.label :next_academic_year, "Next academic year" %>
+        <%= f.text_field :next_academic_year, autofocus: true, autocomplete: "next_academic_year"%><br/></div>
+      <div class="flex-container-form-item"><%= f.label :deadline_first_semeter, "Deadline for first semester" %>
+        <%= f.text_field :deadline_first_semeter, autofocus: true, autocomplete: "deadline_first_semeter"%><br/></div>
+      <div class="flex-container-form-item"><%= f.label :deadline_second_semester, "Deadline for second semester" %>
+        <%= f.text_field :deadline_second_semester, autofocus: true, autocomplete: "deadline_second_semester"%><br/></div>
+      <div class="flex-container-form-item"><%= f.label :deadline_double_degree, "Deadline for degree seeking students" %>
+        <%= f.text_field :deadline_double_degree, autofocus: true, autocomplete: "deadline_double_degree"%><br/></div>
+      <div class="flex-container-form-item"><%= f.label :mobility_programmes, "Available mobility programmes" %>
+        <% mob_prog = ProjectSettings.first_or_initialize["mobility_programmes"] %>
+        <div class="multiple-item-container">
+        <% if defined?(mob_prog) %>
+          <%  JSON.parse(mob_prog).each do |prog|%>
+              <div class="multiple-item-flex-container">
+                <input type="text" name="mobility_programmes[]" value="<%=prog %>"/>
+                <button type="button" id="" class="delete-settings-button transparent-button small-button">
+                  <i class="mdi mdi-close"></i>
+                </button>
+              </div>
+          <%end %>
+         <%end %>
+          <div class="multiple-item-flex-container" id="add_mobility_programmes_container">
+            <button class="custom-button" id="add_mobility_programmes" type="button">ADD</button>
+          </div>
+        </div>
+      </div>
+      <div class="flex-container-form-item"><%= f.label :academic_years, "Available academic years" %>
+        <% ac_years = ProjectSettings.first_or_initialize["academic_years"] %>
+        <div class="multiple-item-container">
+          <% if defined?(ac_years) %>
+            <%  JSON.parse(ac_years).each do |year|%>
+              <div class="multiple-item-flex-container">
+                <input type="text" name="academic_years[]" value="<%=year %>"/>
+                <button type="button" class="delete-settings-button transparent-button small-button">
+                  <i class="mdi mdi-close"></i>
+                </button>
+              </div>
+           <%end %>
+          <%end %>
+          <div class="multiple-item-flex-container" id="add_academic_years_container">
+            <button class="custom-button" id="add_academic_years" type="button">ADD</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <p class="align-right">
+      <%= f.submit "Update", :class => "custom-button primary" %>
+    </p>
+<%end %>
+</div>
+
+<div id="csv-dialog" >
+  <h2 class="title">Download CSV</h2>
+  <button class="transparent-button action-button right close" id="csv-dialog-close"><i class="mdi mdi-close"></i></button>
+  <form method="get" action="<%= RELATIVE_URL %>/generate_csv">
+    <div class="flex-container">
+        <div class="flex-block-item">
+          <h3 class="csv-category">Personal data</h3>
+          <% csv_fields["personal"].each_with_index do |field, index| %>
+            <div class="flex-container-form-item">
+              <input type="checkbox" name="<%=field %>" checked/>
+              <label for="<%=field %>"><%=csv_field_values["personal"][index] %></label>
+            </div>
+          <% end %>
+
+
+        <h3 class="csv-category">Learning Agreement</h3>
+        <% csv_fields["learning_agreement"].each_with_index do |field, index| %>
+          <div class="flex-container-form-item">
+            <input type="checkbox" name="<%=field %>"/>
+            <label for="<%=field %>"><%=csv_field_values["learning_agreement"][index] %></label>
+          </div>
+        <% end %>
+        </div>
+      <div class="flex-block-item">
+        <h3 class="csv-category">Application Form</h3>
+          <% csv_fields["application_form"].each_with_index do |field, index| %>
+            <div class="flex-container-form-item">
+              <input type="checkbox" name="<%=field %>" />
+              <label for="<%=field %>"><%=csv_field_values["application_form"][index] %></label>
+            </div>
+          <% end %>
+      </div>
+    </div>
+    <p class="align-right">
+      <button type="button" class="custom-button" id="csv-dialog-select-all-button">Select All</button>
+      <button type="submit" class="custom-button primary">Download</button>
+    </p>
+    <!--    <a href="<%#= RELATIVE_URL %>/generate_csv" download="students.csv"><u>Download csv</u></a>-->
+  </form>
+</div>
+
+
+<div class="intro-paragraph right s12">
+  <button class="custom-button primary" id="csv-dialog-button">Download CSV</button>
+</div>

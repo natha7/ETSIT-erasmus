@@ -462,6 +462,91 @@ module ApplicationHelper
       ]
   end
 
+  def csv_fields
+    {
+        "personal" =>[
+          "user[email]",
+          "user[first_name]",
+          "user[family_name]",
+          "user[birth_date]",
+          "user[born_place]",
+          "user[nationality]",
+          "user[sex]",
+          "user[permanent_adress]",
+          "user[phone_number]",
+          "user[seeking_degree]",
+          "user[progress_status]",
+          "user[ni_type]",
+          "user[created_at]",
+          "user[updated_at]"
+        ],
+        "learning_agreement" => [
+            "user[learning_agreement_subjects][subject]",
+        ],
+        "application_form" => [
+          "user[student_application_form][inst_sending_name]",
+          "user[student_application_form][erasmus_code]",
+          "user[student_application_form][academic_year]",
+          "user[student_application_form][programme]",
+          "user[student_application_form][field_of_study]",
+          "user[student_application_form][purpose_of_stay]",
+          "user[student_application_form][other_purpose]",
+          "user[student_application_form][mother_tongue]",
+          "user[student_application_form][language_instruction]",
+          "user[student_application_form][current_diploma_degree]",
+          "user[student_application_form][year_attended]",
+          "user[student_application_form][specialization_area]",
+          "user[student_application_form][already_study_abroad]",
+          "user[student_application_form][where_study_abroad]",
+          "user[student_application_form][where_institution_abroad]",
+          "user[student_application_form][no_work_experience]"
+        ]
+    }
+  end
+
+  def csv_field_values
+    {
+        "personal" =>[
+          "Email",
+          "First Name",
+          "Family Name",
+          "Birth Date",
+          "Born place",
+          "Nationality",
+          "Sex",
+          "Permanent address",
+          "Phone Number",
+          "Seeking Degree",
+          "Progress status",
+          "Identification type",
+          "User creation date",
+          "User last update date",
+        ],
+        "learning_agreement" => [
+          "Learning Agreement Subjects"
+        ],
+        "application_form" => [
+            "Institution Sending Name",
+            "Erasmus Code",
+            "Academic year",
+            "Programme",
+            "Field of Study",
+            "Purpose of stay",
+            "Other purpose",
+            "Mother tongue",
+            "Language instruction",
+            "Current diploma degree",
+            "Year attended",
+            "Specialization area",
+            "Already studied abroad",
+            "Where study abroad",
+            "Where institution abroad",
+            "No work experience"
+        ],
+
+    }
+  end
+
   def toNumeral(number)
     numeralhash = {1=>"first", 2=>"second", 3=>"third", 4=>"fourth",5=>"fifth",6=>"sixth",7=>"seventh"}
     if numeralhash.has_key?number
