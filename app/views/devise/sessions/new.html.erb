@@ -47,12 +47,12 @@ $("certificate_button").click(function(e){
 <% end %>
 <div class="flex-right-new">
  <div class="flex-container">
-    <%= form_tag @login_url, :method => :post, :id => "saml-form", :class => "custom-button primary", :enforce_utf8=> false, :authenticity_token => false do %>
-      <% @post_params.each do |key, value| -%>
-        <%= hidden_field_tag key, value %>
-      <%end%>
-     <button id="certificate_button" class="custom-button primary">I have a digital certificate</button>
-    <% end %>
+    <%#= form_tag @login_url, :method => :post, :id => "saml-form", :class => "custom-button primary", :enforce_utf8=> false, :authenticity_token => false do %>
+      <%# @post_params.each do |key, value| -%>
+        <%#= hidden_field_tag key, value %>
+      <%#end%>
+     <button id="certificate_button" class="custom-button primary" disabled>I have a digital certificate</button>
+    <%# end %>
  </div>
 </div>
 </div>
