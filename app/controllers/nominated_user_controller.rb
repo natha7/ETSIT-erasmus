@@ -13,7 +13,18 @@ class NominatedUserController < ApplicationController
 			url = request.base_url + RELATIVE_URL
 			begin  
 			   NomineeMailer.user_creation_email(nominee, url).deliver_now
-			rescue  
+			rescue EOFError,
+					IOError,
+					TimeoutError,
+					Errno::ECONNRESET,
+					Errno::ECONNABORTED,
+					Errno::EPIPE,
+					Errno::ETIMEDOUT,
+					Net::SMTPAuthenticationError,
+					Net::SMTPServerBusy,
+					Net::SMTPSyntaxError,
+					Net::SMTPUnknownError,
+					OpenSSL::SSL::SSLError => e
 				flash[:error] = "E-mail to #{nominee.email} could not be sent"
 			end  
 			redirect_to admin_dashboard_path + "?nominees=true"
@@ -33,7 +44,7 @@ class NominatedUserController < ApplicationController
 				url = request.base_url + RELATIVE_URL
 				begin  
 				   NomineeMailer.user_creation_email(nominee, url).deliver_now
-				rescue  
+				rescue
 					flash[:error] = (flash[:error].blank? ?  "" : (flash[:error] + "\n" )) + "E-mail to #{email} could not be sent"
 				end  
 			end
