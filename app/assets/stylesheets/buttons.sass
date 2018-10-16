@@ -27,6 +27,11 @@
 
 .actions
     padding: 10px
+    &.container
+        bottom: 0px
+        position: fixed
+        box-sizing: border-box
+        background: white
 .right
     float: right
 
@@ -66,6 +71,10 @@
     border: 2px solid $etsit_blue
     i, i.dark
         color: white !important
+    &.secondary
+        background-color: white
+        i, i.dark
+            color: $etsit_blue !important
 .mdi-help
     cursor: help
 

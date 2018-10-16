@@ -12,7 +12,7 @@
 		<span class="check_mark"><i class="mdi mdi-check green"></i></span>
 		<div class="collapsible">
 			<% if name === :ni_passport %>
-				<b>Type of document:</b>  <%= current_user["ni_type"] == "id" ? "Identity card" : "Passport"%>
+				<div class="ni_selection"><p><b>Type of document:</b>  <%= current_user["ni_type"] == "id" ? "Identity card" : "Passport"%></p></div>
 			<%end %>
 			<% if name === :learning_agreement %>
 				<%= render partial: "users/learning_agreement_panel", :locals => {
@@ -47,7 +47,7 @@
 				<%= form_for current_user, url: user_file_upload_path, html: { multipart: true , }, :method => :POST do |form| %>
 					<% if name === :ni_passport %>
 						<div class="ni_selection">
-							<b> Type of document:</b>
+							<p><b> Type of document:</b></p>
 							<%= form.radio_button :ni_type, 'id', :checked => current_user["ni_type"] == "id", :required=>true%>
 							<%= form.label :ni_type, 'Identity card', :value => :id %> &nbsp;
 							<%= form.radio_button :ni_type, 'passport', :checked => current_user["ni_type"] == "passport",  :required=>true%>

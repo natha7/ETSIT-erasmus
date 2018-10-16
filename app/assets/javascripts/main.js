@@ -621,6 +621,18 @@ $(document).on('turbolinks:load', function() {
      */
     $('#csv-dialog-select-all-button').click(function(e){
         $('#csv-dialog input').attr("checked","checked")
+        $(this).hide();
+        $('#csv-dialog-deselect-all-button').show();
+    });
+
+    /**
+     * Deselect All in CSV modal
+     */
+    $('#csv-dialog-deselect-all-button').click(function(e){
+        $('#csv-dialog input').removeAttr("checked");
+        $(this).hide();
+        $('#csv-dialog-select-all-button').show();
+
     });
 
 

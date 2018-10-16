@@ -38,7 +38,7 @@
         <input class="la-name" name="user[learning_agreement_subjects][][subject]" value="<%= subject.subject %>" <%= admin ? "disabled":"" %> />
         <input class="la-ects" name="user[learning_agreement_subjects][][ects]" value="<%= subject.ects %>" type="number" min="0" max="400" <%= admin ? "disabled":"" %> />
         <% unless admin %>
-          <button class="delete-la-button transparent-button small-button" type="button"><i class="mdi mdi-close"></i></button>
+          <button class="delete-la-button transparent-button small-button secondary" type="button"><i class="mdi mdi-close"></i></button>
         <% end %>
       </div>
     <%end %>
@@ -63,15 +63,15 @@
     <input class="la-code" name="user[learning_agreement_subjects][][code]"/>
     <input class="la-name" name="user[learning_agreement_subjects][][subject]"/>
     <input class="la-ects" name="user[learning_agreement_subjects][][ects]" type="number" min="0" max="400"  />
-    <button class="delete-la-button transparent-button small-button" type="button"><i class="mdi mdi-close"></i></button>
+    <button class="delete-la-button transparent-button small-button secondary" type="button"><i class="mdi mdi-close"></i></button>
   </div>
     <%end %>
 </div>
 
   <div class="la-total ">
     <%unless admin %>
-      <button class="custom-button" id="add-la-subject" type="button">➕</button>
-      <%= form.submit "SAVE", :class => "custom-button" %>
+      <button class="custom-button primary" id="add-la-subject" type="button">➕</button>
+      <%= form.submit "Save", :class => "custom-button primary" %>
       <label id="la-server-msg"></label>
   <%end %>
     <% if admin and current_user.learning_agreement_subjects.length == 0 %>

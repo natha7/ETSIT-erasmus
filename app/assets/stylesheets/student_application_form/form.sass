@@ -3,7 +3,7 @@
 .finish_app
 	margin: 0 0 20px 0
 	float: right
-.student-application-form
+.student-application-form, .edit_user
 
 	h1
 		display: inline-block
@@ -19,17 +19,18 @@
 		color: $etsit_blue
 
 	form
+		padding-bottom: 70px
 		.edit_student_application_flex
 			@include flexBoxVendor
 			flex-wrap: wrap
-			min-height: 450px
+			min-height: 200px
 			align-content: start
 		.personal_data
-			min-height: 450px
+			min-height: 200px
 		.personal_data, .study_year, .sending_institution, .purpose_stay, .languages, .work_experience, .studies
 			padding: 20px
 			.field
-				flex: 0 auto
+				flex: 1 auto
 				padding: 10px !important
 			.field25
 				flex: 1 0 23%
@@ -168,7 +169,7 @@
 				.field
 					width: auto !important
 
-@media (max-width: 800px)
+@media (max-width: 767px)
 	.student-application-form
 		h1
 			display: block
@@ -213,3 +214,7 @@
 					select
 						width: 100%
 
+		.actions.container
+			//padding-right: 36px
+			width: 100%
+			margin: 0px -15px
