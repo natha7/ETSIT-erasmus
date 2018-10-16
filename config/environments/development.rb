@@ -1,3 +1,5 @@
+
+
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -35,15 +37,28 @@ Rails.application.configure do
   # Don't care if the mailer can't send.
   config.action_mailer.perform_caching = false
 
-  config.action_mailer.delivery_method = :sendmail
-# Defaults to:
+
+  econfig = YAML.load_file("#{Rails.root}/config/config.yml")
+  #config.action_mailer.delivery_method = :sendmail
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.default_options = {:host => 'localhost:3000'}
+  config.action_mailer.smtp_settings = {
+      address:              'smtp.sendgrid.net',
+      port:                 25,
+      domain:               'localhost:3000/erasmus',
+      user_name:            'apikey',
+      password:             econfig["mail_api_key"],
+      authentication:       'plain',
+      enable_starttls_auto: true }
+
+  # Defaults to:
 # config.action_mailer.sendmail_settings = {
 #   location: '/usr/sbin/sendmail',
 #   arguments: '-i -t'
 # }
-config.action_mailer.perform_deliveries = true
-config.action_mailer.raise_delivery_errors = true
-config.action_mailer.default_options = {from: 'no-reply@eid4u.org'}
+
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
