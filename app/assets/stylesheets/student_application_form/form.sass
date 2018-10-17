@@ -108,7 +108,8 @@
 			background-color: #edf2f6
 			padding: 0 15px 0 0
 			position: relative
-
+			&.work
+				padding-top: 38px
 			.field
 				input:not([type="submit"])
 					width: auto
@@ -128,6 +129,8 @@
 		.lang:last-child, .work:last-child
 			border-bottom: none
 		.work-list
+			.work
+				padding-top: 38px
 			.field:first-child, .field:nth-child(2)
 				width: 40%
 		.lang-list
@@ -194,6 +197,7 @@
 				width: 100%
 			.field_contact_person, .field_inst_telephone, .field_inst_email
 				width: 100%
+
 			.lang, .work
 				padding-bottom: 10px
 				border-bottom: 1px solid grey
@@ -218,3 +222,4 @@
 			//padding-right: 36px
 			width: 100%
 			margin: 0px -15px
+			padding-right: 36px

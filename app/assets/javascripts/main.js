@@ -380,7 +380,6 @@ $(document).on('turbolinks:load', function() {
             var $label = $('<label/>').attr("for", el ).text(element.label);
             var $input = $('<input/>').attr('type', element.input)
                 .attr('name',el)
-                .attr('required', 'required')
                 .attr('class', "language-input");
             if(element.input === 'select' && window.options) {
                 $input = $('<select/>')

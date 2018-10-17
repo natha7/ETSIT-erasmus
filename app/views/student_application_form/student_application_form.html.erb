@@ -17,7 +17,7 @@
 
 	  <%= render partial: "student_application_form/#{toNumeral(@sap.step)}_step" , :locals =>{ :f=> f, :sap => @sap, :review => false} %>
     <% final_steps_array = @sap.completed_steps_array  %>
-  <div class="action-buttons">
+  <div class="container actions">
     <div class="progress-bar">
         <div class="progress-line">
         </div>
