@@ -130,7 +130,7 @@
 					:label => "Identity card / Passport"}  %>
 
 			<%if current_user.seeking_degree %>
-				<div id="degree-seeking" class="hidden">
+				<div id="degree-seeking" class="<%= current_user.seeking_degree ? "" : "hidden" %>">
 					<%= render partial: "users/user_dashboard_panel", :locals => {
 							:admin => true,
 							:name => :recommendation_letter_1,
