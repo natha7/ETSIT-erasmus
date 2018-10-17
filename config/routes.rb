@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   scope 'erasmus' do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
     devise_for :users, skip: [:registrations, :saml_authenticatable]
@@ -50,5 +51,6 @@ Rails.application.routes.draw do
     post 'user/submit_la', to: "user#submit_la"
     post 'update_settings', to: "user#update_settings"
     delete 'user/file_delete', to: "user#file_delete"
+    get "*erasmus/", to: "home#filter_double_erasmus"
   end
 end
