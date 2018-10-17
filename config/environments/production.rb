@@ -45,11 +45,11 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.default_options = {from: 'no-reply@erasmus.etsit.upm.es'}
+  config.action_mailer.default_options = {from: 'no-reply@pruebas.etsit.upm.es'}
   config.action_mailer.smtp_settings = {
       address:              'smtp.sendgrid.net',
       port:                 25,
-      domain:               'localhost:3000/erasmus',
+      domain:               'pruebas.etsit.upm.es',
       user_name:            'apikey',
       password:             econfig["mail_api_key"],
       authentication:       'plain',
