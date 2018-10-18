@@ -1,4 +1,5 @@
 require "eidas-saml"
+require "eidas-metadata"
 
 class SamlSessionsController < Devise::SamlSessionsController
   after_action :store_winning_strategy, only: :create
@@ -18,8 +19,9 @@ class SamlSessionsController < Devise::SamlSessionsController
   end
 
   def metadata
-     xml = File.read("#{Rails.root}/public/metadata.xml")
-	 render :plain=> xml, :content_type=> "application/xml"
+    metadata = EidasMetadata.new
+     xml = metadata.generate(CONFIG)
+	  render :plain=> xml, :content_type=> "application/xml"
   end
 
   private

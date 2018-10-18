@@ -31,13 +31,6 @@ set :branch, :master
  set :puma_worker_timeout, nil
  set :puma_init_active_record, true
 
-namespace :deploy do
-  desc "Invoke rake task"
-  task :invoke do
-    run "cd '#{current_path}' && #{rake} #{ENV['task']} RAILS_ENV=#{rails_env}"
-  end
-end
-
 # Default value for :format is :airbrussh.
 # set :format, :airbrussh
 

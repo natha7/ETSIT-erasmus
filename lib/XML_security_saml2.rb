@@ -45,8 +45,11 @@ class XMLSecuritySAML2 < XMLSecurity::Document
 
     # add the signature
     issuer_element = self.elements["//saml2:Issuer"]
+    extensions = self.elements["//md:Extensions"]
     if issuer_element
       self.root.insert_after issuer_element, signature_element
+    elsif extensions
+      self.root.insert_before extensions, signature_element
     else
       if sp_sso_descriptor = self.elements["/md:EntityDescriptor"]
         self.root.insert_before sp_sso_descriptor, signature_element
