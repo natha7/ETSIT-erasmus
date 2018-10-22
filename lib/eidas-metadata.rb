@@ -100,6 +100,9 @@ class EidasMetadata < OneLogin::RubySaml::Metadata
 
       root.attributes["ID"] = OneLogin::RubySaml::Utils.uuid
       root.attributes["entityID"] = config["sp_options"]["entity_id"]
+      tl = Time.now.localtime
+      year = ((tl.year.to_i) + 1).to_s
+      root.attributes["validUntil"] =  year + "-" + tl.month.to_s + "-" + tl.day.to_s + "T" + "12:18:25.802Z"
 
       nameID = sp_sso.add_element "md:NameIDFormat"
       nameID.text "urn:oasis:names:tc:SAML:2.0:nameid-format:transient"
