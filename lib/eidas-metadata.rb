@@ -98,7 +98,7 @@ class EidasMetadata < OneLogin::RubySaml::Metadata
         end
       end
 
-      root.attributes["ID"] = OneLogin::RubySaml::Utils.uuid
+      #root.attributes["ID"] = OneLogin::RubySaml::Utils.uuid
       root.attributes["entityID"] = config["sp_options"]["entity_id"]
       tl = Time.now.localtime
       year = ((tl.year.to_i) + 1).to_s

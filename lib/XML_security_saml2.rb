@@ -10,7 +10,7 @@ class XMLSecuritySAML2 < XMLSecurity::Document
     signed_info_element.add_element("ds:SignatureMethod", {"Algorithm"=>signature_method})
 
     # Add Reference
-    reference_element = signed_info_element.add_element("ds:Reference", {"URI" => "##{uuid}"})
+    reference_element = signed_info_element.add_element("ds:Reference", {"URI" => ""})
 
     # Add Transforms
     transforms_element = reference_element.add_element("ds:Transforms")
