@@ -121,10 +121,10 @@ class EidasMetadata < OneLogin::RubySaml::Metadata
           "xml:lang" => "en"
       }
       org_name.text = config["sp_options"]["organization"]
-      org_dispname = organization.add_element "md:OrganizationDisplayName", {
-          "xml:lang" => "en"
-      }
-      org_dispname.text = config["sp_options"]["organization_display"]
+      #org_dispname = organization.add_element "md:OrganizationDisplayName", {
+      #    "xml:lang" => "en"
+      #}
+      #org_dispname.text = config["sp_options"]["organization_display"]
 
       org_url = organization.add_element "md:OrganizationURL", {
           "xml:lang" => "en"
