@@ -83,6 +83,7 @@ class EidasSaml < OneLogin::RubySaml::Authrequest
     # Conditionally defined elements based on settings
     if settings.assertion_consumer_service_url != nil
       root.attributes["AssertionConsumerServiceURL"] = settings.assertion_consumer_service_url
+      root.attributes["ForceAuthn"] = "true"
     end
     if settings.issuer != nil
       issuer = root.add_element "saml2:Issuer"
