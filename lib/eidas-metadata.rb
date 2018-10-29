@@ -21,7 +21,9 @@ class EidasMetadata < OneLogin::RubySaml::Metadata
 
 
       namespaces = {
-          "xmlns:md" => "urn:oasis:names:tc:SAML:2.0:metadata"
+          "xmlns:md" => "urn:oasis:names:tc:SAML:2.0:metadata",
+          "xmlns:ds" => "http://www.w3.org/2000/09/xmldsig#",
+          "Id" => ""
       }
 
       root = meta_doc.add_element "md:EntityDescriptor", namespaces
@@ -105,7 +107,7 @@ class EidasMetadata < OneLogin::RubySaml::Metadata
       root.attributes["validUntil"] =  year + "-" + tl.month.to_s + "-" + tl.day.to_s + "T" + tl.localtime.strftime("%H:%M:%S") + ".802Z"
 
       nameID = sp_sso.add_element "md:NameIDFormat"
-      nameID.text "urn:oasis:names:tc:SAML:2.0:nameid-format:transient"
+      nameID.text =  "urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified"
 
       sp_sso.add_element "md:AssertionConsumerService", {
           "Binding" => "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST",
@@ -133,6 +135,10 @@ class EidasMetadata < OneLogin::RubySaml::Metadata
           "contactType" => "technical"
       }
       contact_person.text = config["sp_options"]["contact"]
+      contact_person2 = root.add_element "md:ContactPerson", {
+          "contactType" => "support"
+      }
+      contact_person2.text = config["sp_options"]["contact"]
 
       # With OpenSSO, it might be required to also include
       #  <md:RoleDescriptor xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:query="urn:oasis:names:tc:SAML:metadata:ext:query" xsi:type="query:AttributeQueryDescriptorType" protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol"/>
