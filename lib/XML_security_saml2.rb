@@ -10,13 +10,13 @@ class XMLSecuritySAML2 < XMLSecurity::Document
     signed_info_element.add_element("ds:SignatureMethod", {"Algorithm"=>signature_method})
 
     # Add Reference
-    reference_element = signed_info_element.add_element("ds:Reference", {"URI" => ""})
+    reference_element = signed_info_element.add_element("ds:Reference", {"URI" => uuid})
 
     # Add Transforms
     transforms_element = reference_element.add_element("ds:Transforms")
     transforms_element.add_element("ds:Transform", {"Algorithm" => ENVELOPED_SIG})
     c14element = transforms_element.add_element("ds:Transform", {"Algorithm" => C14N})
-    c14element.add_element("ec:InclusiveNamespaces", {"xmlns:ec" => C14N, "PrefixList" => INC_PREFIX_LIST})
+    c14element.add_element("ec:InclusiveNamespaces", {"xmlns:ec" => C14N}) #, "PrefixList" => INC_PREFIX_LIST
 
     digest_method_element = reference_element.add_element("ds:DigestMethod", {"Algorithm" => digest_method})
     inclusive_namespaces = INC_PREFIX_LIST.split(" ")

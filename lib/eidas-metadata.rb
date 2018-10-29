@@ -22,8 +22,7 @@ class EidasMetadata < OneLogin::RubySaml::Metadata
 
       namespaces = {
           "xmlns:md" => "urn:oasis:names:tc:SAML:2.0:metadata",
-          "xmlns:ds" => "http://www.w3.org/2000/09/xmldsig#",
-          "Id" => ""
+          "xmlns:ds" => "http://www.w3.org/2000/09/xmldsig#"
       }
 
       root = meta_doc.add_element "md:EntityDescriptor", namespaces
