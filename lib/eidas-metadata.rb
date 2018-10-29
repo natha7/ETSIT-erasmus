@@ -26,7 +26,7 @@ class EidasMetadata < OneLogin::RubySaml::Metadata
       }
 
       root = meta_doc.add_element "md:EntityDescriptor", namespaces
-
+=begin
       extensions = root.add_element "md:Extensions"
 
       entity_attributes = extensions.add_element "mdattr:EntityAttributes", {
@@ -66,7 +66,7 @@ class EidasMetadata < OneLogin::RubySaml::Metadata
           "xmlns:alg" => "urn:oasis:names:tc:SAML:metadata:algsupport",
           "Algorithm" => "http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"
       }
-
+=end
       sp_sso = root.add_element "md:SPSSODescriptor", {
           "protocolSupportEnumeration" => "urn:oasis:names:tc:SAML:2.0:protocol",
           "AuthnRequestsSigned" => "true",
