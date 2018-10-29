@@ -22,7 +22,8 @@ class EidasMetadata < OneLogin::RubySaml::Metadata
 
       namespaces = {
           "xmlns:md" => "urn:oasis:names:tc:SAML:2.0:metadata",
-          "xmlns:ds" => "http://www.w3.org/2000/09/xmldsig#"
+          "xmlns:ds" => "http://www.w3.org/2000/09/xmldsig#",
+          "xmlns:entityID" => "urn:oasis:names:tc:SAML:2.0:metadata"
       }
 
       root = meta_doc.add_element "md:EntityDescriptor", namespaces
@@ -93,9 +94,9 @@ class EidasMetadata < OneLogin::RubySaml::Metadata
           xc2 = xd2.add_element "ds:X509Certificate"
           xc2.text = cert_text
 
-          kd2.add_element "md:EncryptionMethod", {
-              "Algorithm" => "http://www.w3.org/2009/xmlenc11#aes256-gcm"
-          }
+          #kd2.add_element "md:EncryptionMethod", {
+           #   "Algorithm" => "http://www.w3.org/2009/xmlenc11#aes256-gcm"
+          #}
         end
       end
 
