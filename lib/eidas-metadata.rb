@@ -129,16 +129,37 @@ class EidasMetadata < OneLogin::RubySaml::Metadata
       org_url = organization.add_element "md:OrganizationURL", {
           "xml:lang" => "en"
       }
-      org_url.text = config["sp_options"]["url"]
+      org_url.text = config["sp_options"]["organization_url"]
 
       contact_person = root.add_element "md:ContactPerson", {
           "contactType" => "technical"
       }
-      contact_person.text = config["sp_options"]["contact"]
+      company = contact_person.add_element "md:Company"
+      company.text = config["sp_options"]["organization"]
+      givenName = contact_person.add_element "md:GivenName"
+      givenName.text = config["sp_options"]["contact_given_name"]
+      surName = contact_person.add_element "md:SurName"
+      surName.text = config["sp_options"]["contact_surname"]
+      emailAddress = contact_person.add_element "md:EmailAddress"
+      emailAddress.text = config["sp_options"]["contact_address"]
+      telephoneNumber = contact_person.add_element "md:TelephoneNumber"
+      telephoneNumber.text = config["sp_options"]["contact_telehpone"]
+
       contact_person2 = root.add_element "md:ContactPerson", {
           "contactType" => "support"
       }
-      contact_person2.text = config["sp_options"]["contact"]
+      company2 = contact_person2.add_element "md:Company"
+      company2.text = config["sp_options"]["organization"]
+      givenName2 = contact_person2.add_element "md:GivenName"
+      givenName2.text = config["sp_options"]["contact_given_name"]
+      surName2 = contact_person2.add_element "md:SurName"
+      surName2.text = config["sp_options"]["contact_surname"]
+      emailAddress2 = contact_person2.add_element "md:EmailAddress"
+      emailAddress2.text = config["sp_options"]["contact_address"]
+      telephoneNumber2 = contact_person2.add_element "md:TelephoneNumber"
+      telephoneNumber2.text = config["sp_options"]["contact_telehpone"]
+
+
 
       # With OpenSSO, it might be required to also include
       #  <md:RoleDescriptor xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:query="urn:oasis:names:tc:SAML:metadata:ext:query" xsi:type="query:AttributeQueryDescriptorType" protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol"/>
