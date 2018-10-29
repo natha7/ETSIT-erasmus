@@ -7,10 +7,10 @@ class XMLSecuritySAML2 < XMLSecurity::Document
     signature_element = REXML::Element.new("ds:Signature").add_namespace('ds', DSIG)
     signed_info_element = signature_element.add_element("ds:SignedInfo")
     signed_info_element.add_element("ds:CanonicalizationMethod", {"Algorithm" => C14N})
-    signed_info_element.add_element("ds:SignatureMethod", {"Algorithm"=>signature_method})
+    signed_info_element.add_element("ds:SignatureMethod", {"Algorithm" => signature_method})
 
     # Add Reference
-    reference_element = signed_info_element.add_element("ds:Reference", {"URI" => uuid})
+    reference_element = signed_info_element.add_element("ds:Reference", {"URI" => uuid || ""})
 
     # Add Transforms
     transforms_element = reference_element.add_element("ds:Transforms")
