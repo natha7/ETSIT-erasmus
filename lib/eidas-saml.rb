@@ -70,10 +70,10 @@ class EidasSaml < OneLogin::RubySaml::Authrequest
     time = Time.now.utc.strftime("%Y-%m-%dT%H:%M:%SZ")
     #uu = generate_id
     request_doc = XMLSecuritySAML2.new
-    request_doc.uuid = ""
+    request_doc.uuid = uuid
 
     root = request_doc.add_element "saml2p:AuthnRequest", { "xmlns:saml2p" => "urn:oasis:names:tc:SAML:2.0:protocol", "xmlns:saml2" => "urn:oasis:names:tc:SAML:2.0:assertion", "xmlns:ds" => "http://www.w3.org/2000/09/xmldsig#", "xmlns:eidas" => "http://eidas.europa.eu/saml-extensions" }
-    root.attributes['ID'] = ""
+    root.attributes['ID'] = uuid
     root.attributes['IssueInstant'] = time
     root.attributes['Version'] = "2.0"
     root.attributes['ProviderName'] = "ERASMUS"
