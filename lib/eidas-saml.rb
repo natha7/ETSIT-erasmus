@@ -62,14 +62,18 @@ class EidasSaml < OneLogin::RubySaml::Authrequest
     request_params
   end
 
+  def generate_id
+     "_" + rand(16**42).to_s(16)
+  end
+
   def create_xml_document(settings)
     time = Time.now.utc.strftime("%Y-%m-%dT%H:%M:%SZ")
-
+    uu = generate_id
     request_doc = XMLSecuritySAML2.new
-    request_doc.uuid = uuid
+    request_doc.uuid = uu
 
     root = request_doc.add_element "saml2p:AuthnRequest", { "xmlns:saml2p" => "urn:oasis:names:tc:SAML:2.0:protocol", "xmlns:saml2" => "urn:oasis:names:tc:SAML:2.0:assertion", "xmlns:ds" => "http://www.w3.org/2000/09/xmldsig#", "xmlns:eidas" => "http://eidas.europa.eu/saml-extensions" }
-    root.attributes['ID'] = uuid
+    root.attributes['ID'] = uu
     root.attributes['IssueInstant'] = time
     root.attributes['Version'] = "2.0"
     root.attributes['ProviderName'] = "ERASMUS"
@@ -100,6 +104,8 @@ class EidasSaml < OneLogin::RubySaml::Authrequest
     requested_attributes.add_element "eidas:RequestedAttribute", { "Name" => "http://eidas.europa.eu/attributes/naturalperson/CurrentGivenName", "FriendlyName" => "FirstName", "NameFormat" => "urn:oasis:names:tc:SAML:2.0:attrname-format:uri", "isRequired" => "true"}
     requested_attributes.add_element "eidas:RequestedAttribute", { "Name" => "http://eidas.europa.eu/attributes/naturalperson/DateOfBirth", "FriendlyName" => "DateOfBirth", "NameFormat" => "urn:oasis:names:tc:SAML:2.0:attrname-format:uri", "isRequired" => "true"}
     requested_attributes.add_element "eidas:RequestedAttribute", { "Name" => "http://eidas.europa.eu/attributes/naturalperson/PersonIdentifier", "FriendlyName" => "PersonIdentifier", "NameFormat" => "urn:oasis:names:tc:SAML:2.0:attrname-format:uri", "isRequired" => "true"}
+    requested_attributes.add_element "eidas:RequestedAttribute", { "Name" => "http://eidas.europa.eu/attributes/legalperson/LegalName", "FriendlyName" => "LegalName", "NameFormat" => "urn:oasis:names:tc:SAML:2.0:attrname-format:uri", "isRequired" => "true"}
+    requested_attributes.add_element "eidas:RequestedAttribute", { "Name" => "http://eidas.europa.eu/attributes/legalperson/LegalPersonIdentifier", "FriendlyName" => "LegalPersonIdentifier", "NameFormat" => "urn:oasis:names:tc:SAML:2.0:attrname-format:uri", "isRequired" => "true"}
 
     if settings.name_identifier_format != nil
       root.add_element "saml2p:NameIDPolicy", {
