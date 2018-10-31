@@ -189,6 +189,9 @@ class UserController < ApplicationController
 		when "english_test_score"
 			current_user.english_test_score = nil
 			current_user.save!
+		when "spanish_test_score"
+			current_user.spanish_test_score = nil
+			current_user.save!
 		else
 			flash[:error] = "There was an error"
 		end
@@ -201,7 +204,7 @@ class UserController < ApplicationController
 		require 'zip'
 		user = User.find(params[:user])
 		user_name = user.first_name + " " + user.family_name
-		files_to_download = [ user.signed_student_application_form,   user.motivation_letter,   user.curriculum_vitae,   user.transcript_of_records,   user.learning_agreement,   user.valid_insurance_policy,   user.photo,   user.ni_passport,   user.recommendation_letter_1,   user.recommendation_letter_2,   user.official_gpa,   user.english_test_score]
+		files_to_download = [ user.signed_student_application_form,   user.motivation_letter,   user.curriculum_vitae,   user.transcript_of_records,   user.learning_agreement,   user.valid_insurance_policy,   user.photo,   user.ni_passport,   user.recommendation_letter_1,   user.recommendation_letter_2,   user.official_gpa,   user.english_test_score, user.spanish_test_score]
 		compressed_filestream = Zip::OutputStream.write_buffer do |stream|
 			files_to_download.each_with_index do |file, index|
 				unless file.blank? and file.path.blank?
