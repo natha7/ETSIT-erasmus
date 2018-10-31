@@ -22,7 +22,7 @@ Rails.application.routes.draw do
     get 'review_dashboard/:user', to: "user#review_dashboard"
     get 'admin_dashboard', to: "user#admin_dashboard"
     get 'massive_email', to: "user#massive_email"
-
+    get 'download_all_files/:user', to: "user#download_all_files"
     post 'create_nominee', to: "nominated_user#create_nominee"
     post 'create_nominee_multiple', to: "nominated_user#create_nominee_multiple"
     post 'resend_email', to: "nominated_user#resend_email"

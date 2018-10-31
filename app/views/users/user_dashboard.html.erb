@@ -55,15 +55,15 @@
 						<div class="second-container-right">
 							<span class="student-application-form-progress"><%=sap.completed_percentage(is_signed)%></span>
 							<%if finish_app_form %>
-								<span class="check_mark" style="float: none;" title="You must upload your application form signed in order to complete the progress"><i class="mdi mdi-alert orange"></i></span>
+								<span class="check_mark progress-icon" title="You must upload your application form signed in order to complete the progress"><i class="mdi mdi-alert orange"></i></span>
 							<%end%>
 							<%if finish_and_uploaded %>
-								<span class="check_mark" style="float: none;"><i class="mdi mdi-check green"></i></span>
+								<span class="check_mark progress-icon"><i class="mdi mdi-check green"></i></span>
 							<%end%>
 						</div>
 					</div>
 					<div class="collapsible big show">
-						<p class="intro-paragraph alert">Once you are done, you must <u>download</u> your application form and <u>upload</u> it signed by the home Institution Coordinator with the name and the code of the selected courses at ETSIT
+						<p class="intro-paragraph alert">Once you are done, you must <u>download</u> your application form and <u>upload</u> it signed by your Institutional Coordinator with the name and the code of the selected courses at ETSIT
 						</p>
 						<% url = finish_and_uploaded ? (user_file_delete_url(:id => current_user.id, :attachment => :signed_student_application_form)) : user_file_upload_path %>
 						<% method = finish_and_uploaded ? :delete : :POST %>
@@ -134,7 +134,12 @@
 						:content => current_user.ni_passport,
 						:file_name => current_user.ni_passport_file_name,
 						:label => "Identity card / Passport"}  %>
-
+				<%= render partial: "users/user_dashboard_panel", :locals => {
+						:admin => false,
+						:name => :english_test_score,
+						:content => current_user.english_test_score,
+						:file_name => current_user.english_test_score_file_name,
+						:label => "Language Certificate"}  %>
 				<% if current_user.seeking_degree %>
 					<div id="degree-seeking">
 						<%= render partial: "users/user_dashboard_panel", :locals => {
@@ -155,12 +160,6 @@
 								:content => current_user.official_gpa,
 								:file_name => current_user.official_gpa_file_name,
 								:label => "Official GPA"}  %>
-						<%= render partial: "users/user_dashboard_panel", :locals => {
-								:admin => false,
-								:name => :english_test_score,
-								:content => current_user.english_test_score,
-								:file_name => current_user.english_test_score_file_name,
-								:label => "English Test Score"}  %>
 					</div>
 					</div>
 				<% end %>

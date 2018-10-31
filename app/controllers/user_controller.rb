@@ -1,7 +1,8 @@
+
 class UserController < ApplicationController
 	before_action :authenticate_user!, except: [:digital_certificate, :token_registration, :create_user, :register_with_email_and_password, :register_with_eidas]
 	before_action :validate_not_user?, only: [:register_with_email_and_password, :register_with_eidas]
-	before_action :validate_admin?, only: [:admin_dashboard, :set_user_status, :review_dashboard]
+	before_action :validate_admin?, only: [:admin_dashboard, :set_user_status, :review_dashboard, :update_settings, :download_all_files, :generate_csv]
 
 	### ADMIN
 	def admin_dashboard
@@ -193,6 +194,27 @@ class UserController < ApplicationController
 		end
 
 		redirect_to user_dashboard_path
+	end
+
+	def download_all_files
+		require 'rubygems'
+		require 'zip'
+		user = User.find(params[:user])
+		user_name = user.first_name + " " + user.family_name
+		files_to_download = [ user.signed_student_application_form,   user.motivation_letter,   user.curriculum_vitae,   user.transcript_of_records,   user.learning_agreement,   user.valid_insurance_policy,   user.photo,   user.ni_passport,   user.recommendation_letter_1,   user.recommendation_letter_2,   user.official_gpa,   user.english_test_score]
+		compressed_filestream = Zip::OutputStream.write_buffer do |stream|
+			files_to_download.each_with_index do |file, index|
+				unless file.blank? and file.path.blank?
+					file_path = file.path
+					stream.put_next_entry(user_name + "_" + file.name.to_s.camelize + File.extname(file_path))
+					stream.write IO.read(file_path)
+				end
+			end
+
+		end
+		compressed_filestream .rewind
+		send_data compressed_filestream .read, filename: (user_name + ".zip")
+
 	end
 
 	def massive_email

@@ -170,8 +170,10 @@ module PdfHelper
         move_down 10
         label("Name")
         check_field(steps.inst_sending_name)
-        label("Erasmus Code")
-        check_field(steps.erasmus_code)
+        if (steps.programme and steps.programme.downcase.match("erasmus"))
+            label("Erasmus Code")
+            check_field(steps.erasmus_code)
+        end
         label("Dept. Coordinator")
         check_field(steps.dept_coordinator)
         label("School Family Dept")

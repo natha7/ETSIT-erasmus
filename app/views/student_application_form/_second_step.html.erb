@@ -20,13 +20,14 @@
       <%= f.text_field :school_family_dpt, autofocus: true, autocomplete: "school_family_dpt", disabled: review %>
     </div>
   </div>
+<% if sap.programme and sap.programme.downcase.match("erasmus") %>
 <div class="field ">
  <div class="flex-container">
   <%= f.label :erasmus_code, "Erasmus Code"%><br />
   <%= f.text_field :erasmus_code, autofocus: true, autocomplete: "erasmus_code", disabled: review %>
 </div>
 </div>
-
+<%end %>
 <div class="field field_inst_adress">
   <div class="flex-container">
     <%= f.label :inst_adress, "Address" %><br />

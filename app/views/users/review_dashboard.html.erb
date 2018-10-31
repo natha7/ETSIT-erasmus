@@ -128,7 +128,12 @@
 					:content => current_user.ni_passport,
 					:file_name => current_user.ni_passport_file_name,
 					:label => "Identity card / Passport"}  %>
-
+			<%= render partial: "users/user_dashboard_panel", :locals => {
+					:admin => true,
+					:name => :english_test_score,
+					:content => current_user.english_test_score,
+					:file_name => current_user.english_test_score_file_name,
+					:label => "Language Certificate"}  %>
 			<%if current_user.seeking_degree %>
 				<div id="degree-seeking" class="<%= current_user.seeking_degree ? "" : "hidden" %>">
 					<%= render partial: "users/user_dashboard_panel", :locals => {
@@ -149,18 +154,15 @@
 							:content => current_user.official_gpa,
 							:file_name => current_user.official_gpa_file_name,
 							:label => "Official GPA"}  %>
-					<%= render partial: "users/user_dashboard_panel", :locals => {
-							:admin => true,
-							:name => :english_test_score,
-							:content => current_user.english_test_score,
-							:file_name => current_user.english_test_score_file_name,
-							:label => "English Test Score"}  %>
+
 				</div>
 			<% end %>
 		</div>
 <%end%>
 </div>
-<p class="intro-paragraph right s12">
-	<b>Registered</b>: <%=current_user.created_at.in_time_zone("Madrid").strftime("%d-%m-%Y %r") %>. &nbsp; &nbsp;  &nbsp; <b>Last updated:</b>  <%=current_user.updated_at.in_time_zone("Madrid").strftime("%d-%m-%Y %r") %>
+<p class="intro-paragraph  footer-paragraph s12">
+	<a download href="<%= "#{RELATIVE_URL}/download_all_files/#{current_user.id}" %>"><button class="custom-button primary">Download all files</button></a>
+	<br/>
+	<span class="registered_at"><b>Registered</b>: <%=current_user.created_at.in_time_zone("Madrid").strftime("%d-%m-%Y %r") %>. &nbsp; &nbsp;  &nbsp; <b>Last updated:</b>  <%=current_user.updated_at.in_time_zone("Madrid").strftime("%d-%m-%Y %r") %></span>
 </p>
 

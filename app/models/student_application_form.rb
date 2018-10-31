@@ -67,14 +67,16 @@ class StudentApplicationForm < ApplicationRecord
 
 		second = [
 	  		:inst_sending_name,
-	      	:inst_adress,
+				:inst_adress,
 	     	:school_family_dpt,
-	  		:erasmus_code,
 	  		:dept_coordinator,
-	      	:contact_person,
+				:contact_person,
 	  		:inst_telephone,
 	  		:inst_email
   		]
+			if self.programme and self.programme.downcase.match("erasmus")
+				second.insert(-1, :erasmus_code)
+			end
 
   		third = [
 	  		:purpose_of_stay

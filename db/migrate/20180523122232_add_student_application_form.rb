@@ -9,7 +9,7 @@ class AddStudentApplicationForm < ActiveRecord::Migration[5.2]
 			t.string :deadline_first_semeter,   default: "June, 1st"
 			t.string :deadline_second_semester,  default: "December, 1st"
 			t.string :deadline_double_degree,  default: "May, 15th"
-			t.string :mobility_programmes,  default: ["Eramus+ Studies", "Eramus+ Placement", "Magalhães", "Bilateral Agreement", "Visiting Student", "SICUE/SENECA", "Other"].inspect
+			t.string :mobility_programmes,  default: ["Erasmus+ Studies", "Erasmus+ Placement", "Magalhães", "Bilateral Agreement", "Visiting Student", "SICUE/SENECA", "Other"].inspect
 			t.timestamps
 		end
 #		add_index(:project_settings, :singleton_guard, :unique => true)
