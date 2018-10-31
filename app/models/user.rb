@@ -25,6 +25,7 @@ class User < ApplicationRecord
   has_attached_file :curriculum_vitae, :url=> "/erasmus/attachment/cv/:id/:basename.:extension"
   has_attached_file :transcript_of_records, :url=> "/erasmus/attachment/tor/:id/:basename.:extension"
   has_attached_file :learning_agreement, :url=> "/erasmus/attachment/la/:id/:basename.:extension"
+  has_attached_file :learning_agreement_es, :url=> "/erasmus/attachment/la_es/:id/:basename.:extension"
   has_attached_file :valid_insurance_policy, :url=> "/erasmus/attachment/vip/:id/:basename.:extension"
   has_attached_file :photo, :url=> "/erasmus/attachment/photo/:id/:basename.:extension", :default_url  => "/erasmus/images/placeholder.png"
   has_attached_file :ni_passport, :url=> "/erasmus/attachment/npass/:id/:basename.:extension"
@@ -42,6 +43,7 @@ class User < ApplicationRecord
   validates_attachment_content_type :curriculum_vitae, :content_type => ["application/pdf", "application/doc", "application/docx", "image/jpeg", "image/gif", "image/png", "image/jpg", "image/bmp"]
   validates_attachment_content_type :transcript_of_records, :content_type => ["application/pdf", "application/doc", "application/docx", "image/jpeg", "image/gif", "image/png", "image/jpg", "image/bmp"]
   validates_attachment_content_type :learning_agreement, :content_type => ["application/pdf", "application/doc", "application/docx", "image/jpeg", "image/gif", "image/png", "image/jpg", "image/bmp"]
+  validates_attachment_content_type :learning_agreement_es, :content_type => ["application/pdf", "application/doc", "application/docx", "image/jpeg", "image/gif", "image/png", "image/jpg", "image/bmp"]
   validates_attachment_content_type :valid_insurance_policy, :content_type => ["application/pdf", "application/doc", "application/docx", "image/jpeg", "image/gif", "image/png", "image/jpg", "image/bmp"]
   validates_attachment_content_type :photo, :content_type => ["application/pdf", "application/doc", "application/docx", "image/jpeg", "image/gif", "image/png", "image/jpg", "image/bmp"]
   validates_attachment_content_type :ni_passport, :content_type => ["application/pdf", "application/doc", "application/docx", "image/jpeg", "image/gif", "image/png", "image/jpg", "image/bmp"]
@@ -55,6 +57,7 @@ class User < ApplicationRecord
   validates_attachment_size :curriculum_vitae, :less_than => 4.megabytes
   validates_attachment_size :transcript_of_records, :less_than => 4.megabytes
   validates_attachment_size :learning_agreement, :less_than => 4.megabytes
+  validates_attachment_size :learning_agreement_es, :less_than => 4.megabytes
   validates_attachment_size :valid_insurance_policy, :less_than => 4.megabytes
   validates_attachment_size :photo, :less_than => 4.megabytes
   validates_attachment_size :ni_passport, :less_than => 4.megabytes
