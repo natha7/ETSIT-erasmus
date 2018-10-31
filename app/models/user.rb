@@ -86,16 +86,17 @@ class User < ApplicationRecord
      :valid_insurance_policy_file_name,
      :photo_file_name,
      :ni_passport_file_name,
-     :english_test_score_file_name
    ]
 
    if (self.seeking_degree) 
      attachment_values.push(*[
       :recommendation_letter_1_file_name,
       :recommendation_letter_2_file_name,
-      :official_gpa_file_name
+      :official_gpa_file_name,
+      :english_test_score_file_name
 
-      ])
+
+     ])
    end
    app_form_pctg = self.student_application_form.completed_percentage_num(!self.signed_student_application_form.blank?)
    attach_value = attachment_values.map{|val| !self[val].blank? ? 1 : 0 }.reduce(0,:+) + app_form_pctg.to_f/100

@@ -331,7 +331,7 @@ module PdfHelper
           stroke
           move_down 20
           plain_text("Other documents to send along with this form: Curriculum Vitae, Motivation letter, Official Transcript of Records, Valid Insurance Policy, Copy of national identity card or passport, Two additional Photographs")
-          plain_text("Additional documentation for degree-seeking students: Two recommendation letters, Official GPA, English Test Score (B2)")
+          plain_text("Additional documentation for degree-seeking students: Two recommendation letters, Official GPA, English Language Certificate (B2)")
           plain_text("I hereby give my consent to send this form along with a copy of my Transcript of Records and a letter of presentation to host institution, and I declare that all the information given is correct and complete.")
           move_down 40
           draw_text "Applicant's signature", :at => [30, 30], :size => 9

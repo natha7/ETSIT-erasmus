@@ -139,7 +139,13 @@
 						:name => :english_test_score,
 						:content => current_user.english_test_score,
 						:file_name => current_user.english_test_score_file_name,
-						:label => "Language Certificate"}  %>
+						:label => "English Language Certificate"}  %>
+				<%= render partial: "users/user_dashboard_panel", :locals => {
+						:admin => false,
+						:name => :spanish_test_score,
+						:content => current_user.english_test_score,
+						:file_name => current_user.english_test_score_file_name,
+						:label => "Spanish Language Certificate"}  %>
 				<% if current_user.seeking_degree %>
 					<div id="degree-seeking">
 						<%= render partial: "users/user_dashboard_panel", :locals => {
@@ -161,11 +167,8 @@
 								:file_name => current_user.official_gpa_file_name,
 								:label => "Official GPA"}  %>
 					</div>
-					</div>
 				<% end %>
-				<% if current_user.role == "user" && current_user.progress_status == "in_process" && current_user.percentage_num.to_i == 100 %>
-					<%= button_to "Finish Application", user_finish_application_form_path, data: {confirm: "This action will submit your application form and send an email to notify International Office, are you sure?" }, :method=> :post, :class => "custom-button primary right", :form_class => "finish_app" %>
-				<% end %>
+			</div>
 				<div id="edit-picture-dialog" >
 					<h2 class="title">Edit your picture</h2>
 					<button class="transparent-button action-button right close" id="edit-picture-dialog-close"><i class="mdi mdi-close"></i></button>
@@ -201,4 +204,9 @@
 		<h1></h1>
 	<%end%>
 	</div>
+	<p class="intro-paragraph  footer-paragraph s12">
+	<% if current_user.role == "user" && current_user.progress_status == "in_process" && current_user.percentage_num.to_i == 100 %>
+		<%= button_to "Finish Application", user_finish_application_form_path, data: {confirm: "This action will submit your application form and send an email to notify International Office, are you sure?" }, :method=> :post, :class => "custom-button primary ", :form_class => "finish_app" %>
+	<% end %>
+	</p>
 <%end%>
