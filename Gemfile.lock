@@ -304,6 +304,7 @@ DEPENDENCIES
   pry
   puma (~> 3.11)
   rails (~> 5.2.0)
+  rubyzip (>= 1.2.2)
   sass-rails (~> 5.0)
   selenium-webdriver
   spring
