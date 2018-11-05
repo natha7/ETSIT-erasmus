@@ -12,6 +12,18 @@ class SamlSessionsController < Devise::SamlSessionsController
     redirect_to action
   end
 
+  def eidas
+    idp_entity_id = get_idp_entity_id(params)
+    request = EidasSaml.new
+    @post_params = request.create_params(saml_config(idp_entity_id), 'RelayState' => 'MyRelayState')
+    #@post_params["postLocationUrl"] = "http://pruebas.etsit.upm.es"
+    #@post_params["redirectLocationUrl"] = "http://pruebas.etsit.upm.es"
+    @post_params["country"] = "ES"
+    #@post_params["sendMethods"] = "POST"
+    @login_url = saml_config(idp_entity_id).idp_sso_target_url
+    render "users/eidas"
+  end
+
   def eidas_endpoint
       mail(to: "bertocode@gmail.com", subject: "Logs") do |format|
         format.text { render plain: request }

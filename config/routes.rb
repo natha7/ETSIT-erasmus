@@ -9,11 +9,14 @@ Rails.application.routes.draw do
       scope "users", controller: 'saml_sessions' do
         post :new, path: "eidas/sign_in", as: :new_user_sso_session
         post :create, path: "eidas/auth", as: :eidas_endpoint #:user_sso_session
+        get :eidas, path: "eidas/eidas", as: :eidas_session
         get :destroy, path: "sign_out", as: :destroy_user_sso_session
         get :metadata, path: "eidas/metadata", as: :metadata_user_sso_session
         match :idp_sign_out, path: "eidas/idp_sign_out", via: [:get, :post]
       end
     end
+
+
     get "digital_certificate", to: "user#digital_certificate"
     post "create_user", to: "user#create_user"
     get "token_registration", to: "user#token_registration"

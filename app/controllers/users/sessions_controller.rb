@@ -15,7 +15,7 @@ class Users::SessionsController < Devise::SessionsController
      #@post_params["sendMethods"] = "POST"
      @login_url = saml_config(idp_entity_id).idp_sso_target_url
      super
-  end
+   end
 
   # POST /resource/sign_in
    def create
