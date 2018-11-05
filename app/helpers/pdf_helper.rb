@@ -3,9 +3,9 @@ module PdfHelper
     def create_pdf(user)
         Prawn::Document.new(:page_size => 'A4') do
 
-        	steps = user.student_application_form
-            require 'active_support'
-            # Use Source Sans Pro Font
+    	steps = user.student_application_form
+        require 'active_support'
+        # Use Source Sans Pro Font
           # font_families.update(
           #     "SourceSansPro" => {
           #         :normal => Rails.root.join("app/assets/fonts/SourceSansPro.ttf"),
@@ -340,5 +340,54 @@ module PdfHelper
 
 
         end.render 
+    end
+    def create_acceptance_letter_pdf(user)
+        # binding.pry
+        Prawn::Document.new(:page_size => 'A4') do
+             font "Helvetica"
+             def header
+                fill_color "FFFFFF"
+                rectangle [-40, 810], 632, 60
+                fill
+                image Rails.root.join("app/assets/images/logoescuela.jpg"), :width => 130, :at => [400, 790]
+                    image Rails.root.join("app/assets/images/logoUPM.jpg"), :width => 50, :at => [-10, 790]
+                fill_color "4664A2"
+                move_down 56
+                text "UNIVERSIDAD POLITÉCNICA DE MADRID" , :align => :center, :size => 12
+                text "ESCUELA TÉCNICA SUPERIOR DE INGENIEROS DE TELECOMUNICACIÓN" , :align => :center, :size => 12
+
+                fill_color "000000"
+            end
+            header
+             # text "<i>International Office</i>" , :align => :right, :size => 11, :inline_format => true
+             # text "<i>ETSIT-UPM</i>" , :align => :right, :size => 11, :inline_format => true
+             sap = user.student_application_form
+             move_down 20
+             table([
+                ["<u>TO:</u>","<b>#{user.family_name.upcase} #{user.first_name}</b>"], 
+                ["<u>HOME UNIVERSITY:</u>", "<b>#{sap.inst_sending_name}</b>"], 
+                ["<u>PROGRAMME:</u>", "<b>#{sap.programme}</b>"], 
+                ["<u>PERIOD OF STAY:</u>", "<b>#{sap.academic_year}</b>"]],
+                 :width => 525, :cell_style => { :inline_format => true, :size => 14,  :border_width => 0  })
+             move_down 40
+             text "<b><u>SUBJECT:</u>  Acceptance Letter</b>" , :inline_format => true, :align => :left, :size => 14
+             move_down 40
+             now = Time.now
+             text "Madrid, #{now.strftime("%B #{now.day.ordinalize} %Y")}" , :align => :right, :size => 14
+             move_down 40
+             text "Dear #{user.first_name}," , :align => :left, :size => 14
+             move_down 20
+             text "We are pleased to let you know that you have been admitted to the <i>Escuela Técnica Superior de Ingenieros de Telecomunicación</i> of the <i>Universidad Politécnica de Madrid</i> in the framework of #{sap.programme} Programme to follow courses during #{sap.academic_year}." , :inline_format => true, :align => :justify, :size => 14
+             # text "We are pleased to let you know that you have been admitted to the <i>Escuela Técnica Superior de Ingenieros de Telecomunicación</i> of the <i>Universidad Politécnica de Madrid</i> in the framework of #{sap.programme} Programme to follow courses during the fall semester of next academic year 2018-2019, starting in the beginning of September 2018 and finishing at the end of January 2019. " , :inline_format => true, :align => :justify, :size => 14
+             move_down 20
+             text "More information regarding your stay in Madrid will be sent closer to your arrival date. In the meantime, please do not hesitate to contact the International Office if you have any questions." , :align => :justify, :size => 14
+             move_down 50
+             text "Yours sincerely," , :align => :left, :size => 14
+             move_down 100
+             text "Luis Salgado", :align => :left, :size => 14
+             text "Vice-Dean for International Relations and Corporate Partnership", :align => :left, :size => 14
+             text "International Office ETSIT - UPM", :align => :left, :size => 14
+
+        end.render
     end
 end

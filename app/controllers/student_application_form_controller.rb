@@ -1,5 +1,4 @@
 require "prawn"
-#require "prawn/table"
 
 class StudentApplicationFormController < ApplicationController
 	before_action :authenticate_user!

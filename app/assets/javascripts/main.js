@@ -88,7 +88,7 @@ $(document).on('turbolinks:load', function() {
         function(e) {
             var availWidth = $('html').width();
             availWidth = availWidth > 900 ? 700 : (availWidth < 500 ? availWidth - 10 : availWidth*0.7)
-            $('#edit-picture-dialog').dialog({
+            var editPictureDialog = $('#edit-picture-dialog').dialog({
                 modal:true,
                 minWidth: availWidth,
                 show: {
@@ -98,6 +98,11 @@ $(document).on('turbolinks:load', function() {
                 hide: {
                     effect: "explode",
                     duration: 200
+                },
+                open: function () {
+                    $('.ui-widget-overlay').on('click', function () {
+                        editPictureDialog.dialog('close');
+                    });
                 }
             });
             var $image = $('#edit-picture-dialog-picture');
@@ -122,7 +127,7 @@ $(document).on('turbolinks:load', function() {
         function(e) {
             var availWidth = $('html').width();
             availWidth = availWidth > 900 ? 700 : (availWidth < 500 ? availWidth - 10 : availWidth * 0.7);
-            $('#info-degrees-dialog').dialog({
+            var infoDialog = $('#info-degrees-dialog').dialog({
                 modal:true,
                 minWidth: availWidth,
                 show: {
@@ -132,7 +137,12 @@ $(document).on('turbolinks:load', function() {
                 hide: {
                     effect: "explode",
                     duration: 200
-                }
+                },
+                open: function () {
+                    $('.ui-widget-overlay').on('click', function () {
+                        infoDialog.dialog('close');
+                    });
+                },
             });
 
         });
@@ -154,7 +164,7 @@ $(document).on('turbolinks:load', function() {
         e.stopPropagation();
         var availWidth = $('html').width();
         availWidth = availWidth > 900 ? 700 : (availWidth < 500 ? availWidth - 10 : availWidth*0.7)
-        $('#several-nominee-dialog').dialog({
+        var nomineeDialog = $('#several-nominee-dialog').dialog({
             modal:true,
             minWidth: availWidth,
             show: {
@@ -164,7 +174,12 @@ $(document).on('turbolinks:load', function() {
             hide: {
                 effect: "explode",
                 duration: 200
-            }
+            },
+            open: function () {
+                $('.ui-widget-overlay').on('click', function () {
+                    nomineeDialog.dialog('close');
+                });
+            },
         });
 
     });
@@ -522,20 +537,25 @@ $(document).on('turbolinks:load', function() {
      * Admin Settings modal
      */
     $('#admin-settings').click(function(e){
-            var availWidth = $('html').width();
-            availWidth = availWidth > 900 ? 700 : (availWidth < 500 ? availWidth - 10 : availWidth*0.7)
-            $('#admin-settings-dialog').dialog({
-                modal:true,
-                minWidth: availWidth,
-                show: {
-                    effect: "scale",
-                    duration: 200
-                },
-                hide: {
-                    effect: "explode",
-                    duration: 200
-                }
-            });
+        var availWidth = $('html').width();
+        availWidth = availWidth > 900 ? 700 : (availWidth < 500 ? availWidth - 10 : availWidth*0.7)
+        var adminDialog = $('#admin-settings-dialog').dialog({
+            modal:true,
+            minWidth: availWidth,
+            show: {
+                effect: "scale",
+                duration: 200
+            },
+            hide: {
+                effect: "explode",
+                duration: 200
+            },
+            open: function () {
+                $('.ui-widget-overlay').on('click', function () {
+                    adminDialog.dialog('close');
+                });
+            }
+        });
     });
 
     /**
@@ -601,7 +621,7 @@ $(document).on('turbolinks:load', function() {
     $('#csv-dialog-button').click(function(e){
         var availWidth = $('html').width();
         availWidth = availWidth > 900 ? 700 : (availWidth < 500 ? availWidth - 10 : availWidth*0.7)
-        $('#csv-dialog').dialog({
+        var csvDialog = $('#csv-dialog').dialog({
             modal:true,
             minWidth: availWidth,
             show: {
@@ -611,7 +631,12 @@ $(document).on('turbolinks:load', function() {
             hide: {
                 effect: "explode",
                 duration: 200
-            }
+            },
+            open: function () {
+                $('.ui-widget-overlay').on('click', function () {
+                    csvDialog.dialog('close');
+                });
+            },
         });
     });
 
@@ -619,7 +644,7 @@ $(document).on('turbolinks:load', function() {
      * Select All in CSV modal
      */
     $('#csv-dialog-select-all-button').click(function(e){
-        $('#csv-dialog input').attr("checked","checked")
+        $('#csv-dialog input').prop( "checked", true );
         $(this).hide();
         $('#csv-dialog-deselect-all-button').show();
     });
@@ -628,7 +653,7 @@ $(document).on('turbolinks:load', function() {
      * Deselect All in CSV modal
      */
     $('#csv-dialog-deselect-all-button').click(function(e){
-        $('#csv-dialog input').removeAttr("checked");
+        $('#csv-dialog input').prop( "checked", false  );
         $(this).hide();
         $('#csv-dialog-select-all-button').show();
 

@@ -1,8 +1,10 @@
+require "prawn"
 
 class UserController < ApplicationController
 	before_action :authenticate_user!, except: [:digital_certificate, :token_registration, :create_user, :register_with_email_and_password, :register_with_eidas]
 	before_action :validate_not_user?, only: [:register_with_email_and_password, :register_with_eidas]
-	before_action :validate_admin?, only: [:admin_dashboard, :set_user_status, :review_dashboard, :update_settings, :download_all_files, :generate_csv]
+	before_action :validate_admin?, only: [:admin_dashboard, :set_user_status, :review_dashboard, :update_settings, :download_all_files, :generate_csv, :generate_acceptance_letter]
+	include PdfHelper
 
 	### ADMIN
 	def admin_dashboard
@@ -259,7 +261,18 @@ class UserController < ApplicationController
 		send_data csv_string , :filename => 'students.csv'
 	end
 
-
+	def generate_acceptance_letter
+		unless current_user.role === 'admin' 
+			send_data create_acceptance_letter_pdf(current_user), :filename => "acceptace_letter.pdf", :type => "application/pdf"
+		else
+			if User.exists?(params[:user])
+				user = User.find(params[:user])
+				send_data create_acceptance_letter_pdf(user), :filename => "acceptace_letter.pdf", :type => "application/pdf"
+			else
+				redirect_to admin_dashboard_path
+			end
+		end
+	end 
 
 	def update_settings
 		settings = params.require(:project_settings).permit(

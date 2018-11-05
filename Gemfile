@@ -41,6 +41,7 @@ gem 'ledermann-rails-settings'
 # gem 'capistrano-rails', group: :development
 
 gem 'prawn', '~> 2.2.2'
+gem 'prawn-table'
 gem 'rubyzip', '>= 1.2.2' # will load new rubyzip version
 
 # Reduces boot times through caching; required in config/boot.rb
