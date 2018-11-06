@@ -169,7 +169,7 @@
 </div>
 <p class="intro-paragraph  footer-paragraph s12">
 	<a download href="<%= "#{RELATIVE_URL}/download_all_files/#{current_user.id}" %>"><button class="custom-button primary">Download all files</button></a>
-	<a download href="<%= "#{RELATIVE_URL}/generate_acceptance_letter/#{current_user.id}" %>"><button class="custom-button primary">Generate Acceptance Letter</button></a>
+	<%if current_user.progress_status === "accepted" %><a download href="<%= "#{RELATIVE_URL}/generate_acceptance_letter/#{current_user.id}" %>"><button class="custom-button primary">Generate Acceptance Letter</button></a><%end%>
 	<br/>
 	<span class="registered_at"><b>Registered</b>: <%=current_user.created_at.in_time_zone("Madrid").strftime("%d-%m-%Y %r") %>. &nbsp; &nbsp;  &nbsp; <b>Last updated:</b>  <%=current_user.updated_at.in_time_zone("Madrid").strftime("%d-%m-%Y %r") %></span>
 </p>

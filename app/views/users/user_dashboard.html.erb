@@ -62,6 +62,7 @@
 							<%end%>
 						</div>
 					</div>
+
 					<div class="collapsible big show">
 						<p class="intro-paragraph alert">Once you are done, you must <u>download</u> your application form and <u>upload</u> it signed by your Institutional Coordinator with the name and the code of the selected courses at ETSIT
 						</p>
@@ -198,6 +199,10 @@
 		<h1> Intenational office has been notified and they will contact back soon. </h1>
 	<% elsif current_user.progress_status == "accepted" %>
 		<h1> Your request was successfully completed and accepted. </h1>
+		<a href="<%= "#{RELATIVE_URL}/generate_acceptance_letter/#{current_user.id}.pdf"%>" download>
+			<button id="acceptance_letter_button" class="custom-button primary">Download acceptance letter</button>
+		</a>
+		<iframe id="acceptance_letter" src="<%= "#{RELATIVE_URL}/generate_acceptance_letter/#{current_user.id}"%>"/>
 	<% elsif current_user.progress_status == "rejected" %>
 		<h1> Your request has been rejected </h1>
 	<%else%>

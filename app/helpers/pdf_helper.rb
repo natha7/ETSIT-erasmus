@@ -1,105 +1,108 @@
 
 module PdfHelper
     def create_pdf(user)
-        Prawn::Document.new(:page_size => 'A4') do
+        Prawn::Document.new(:page_size => 'A4', :info => { :Title => "Application Form",
+                                                           :Author => "ETSIT-UPM",
+                                                           :Subject => "Application Form",
+                                                           :CreationDate => Time.now }) do
 
     	steps = user.student_application_form
         require 'active_support'
         # Use Source Sans Pro Font
-          # font_families.update(
-          #     "SourceSansPro" => {
-          #         :normal => Rails.root.join("app/assets/fonts/SourceSansPro.ttf"),
-          #         :bold => Rails.root.join("app/assets/fonts/SourceSansPro-Bold.ttf"),
-          #         :italic => Rails.root.join("app/assets/fonts/SourceSansPro-Italic.ttf")
-          #     }
-          # )
-          #font "SourceSansPro"
-          font "Helvetica"
+        # font_families.update(
+        #     "SourceSansPro" => {
+        #         :normal => Rails.root.join("app/assets/fonts/SourceSansPro.ttf"),
+        #         :bold => Rails.root.join("app/assets/fonts/SourceSansPro-Bold.ttf"),
+        #         :italic => Rails.root.join("app/assets/fonts/SourceSansPro-Italic.ttf")
+        #     }
+        # )
+        #font "SourceSansPro"
+        font "Helvetica"
 
-        	# Blue box with logo
-        	def header
-        		fill_color "FFFFFF"
-        		rectangle [-40, 810], 632, 60
-        		fill
-            image Rails.root.join("app/assets/images/logoescuela.jpg"), :width => 130, :at => [400, 790]
-        		image Rails.root.join("app/assets/images/logoUPM.jpg"), :width => 50, :at => [-10, 790]
-            fill_color "4664A2"
-            move_down 56
-            text "UNIVERSIDAD POLITÉCNICA DE MADRID" , :align => :center, :size => 12
-            text "ESCUELA TÉCNICA SUPERIOR DE INGENIEROS DE TELECOMUNICACIÓN" , :align => :center, :size => 12
+    	# Blue box with logo
+    	def header
+    		fill_color "FFFFFF"
+    		rectangle [-40, 810], 632, 60
+    		fill
+        image Rails.root.join("app/assets/images/logoescuela.jpg"), :width => 130, :at => [400, 790]
+    		image Rails.root.join("app/assets/images/logoUPM.jpg"), :width => 50, :at => [-10, 790]
+        fill_color "4664A2"
+        move_down 56
+        text "UNIVERSIDAD POLITÉCNICA DE MADRID" , :align => :center, :size => 12
+        text "ESCUELA TÉCNICA SUPERIOR DE INGENIEROS DE TELECOMUNICACIÓN" , :align => :center, :size => 12
 
-        		fill_color "4664A2"
-        	end
+    		fill_color "4664A2"
+    	end
 
-        	# Section title
-        	def title(field, size = 18)
-        		move_down 20
-        		fill_color "4664A2"
-        		text ("<b>#{field}</b>"), :inline_format => true, :align => :center,:size => size
-        		move_down 5
-        		fill_color "000000"
-        	end
-          def section(field, size = 13)
+    	# Section title
+    	def title(field, size = 18)
+    		move_down 20
+    		fill_color "4664A2"
+    		text ("<b>#{field}</b>"), :inline_format => true, :align => :center,:size => size
+    		move_down 5
+    		fill_color "000000"
+    	end
+        def section(field, size = 13)
             move_down 10
             fill_color "4664A2"
             text ("<b>#{field}</b>"), :inline_format => true, :size => size
             move_down 5
             fill_color "000000"
+        end
+    	# Subtitle (user name)
+    	def subtitle(name)
+    		fill_color "777777"
+    		text ("<b>#{name}</b>"), :inline_format => true, :align => :center,:size => 16
+    		fill_color "000000"
+        move_down 20
+    	end
+
+    	# Form field label
+    	def label(field)
+    		fill_color "000000"
+			  text ("<b>#{field}</b>"), :inline_format => true
+			  fill_color "000000"
+			  move_down 4
+        end
+
+        # Form field value
+        def check_field(field, period=true)
+            fill_color "4664A2"
+            text (field.blank? ? "<em>Empty</em>" : field), :inline_format => true
+            fill_color "000000"
+            move_down 10 if period
+        end
+
+        def checkbox(label, flag, x_position = 0, y_position = cursor  )
+           line_width(1)
+           draw_text label , :at => [x_position + 16 , y_position-10], :size => 9
+           bounding_box([x_position, y_position], width: 12, height: 12) do
+            stroke_bounds
+            text("x", align: :center, valign: :top) if flag
           end
-        	# Subtitle (user name)
-        	def subtitle(name)
-        		fill_color "777777"
-        		text ("<b>#{name}</b>"), :inline_format => true, :align => :center,:size => 16
-        		fill_color "000000"
-            move_down 20
-        	end
+        end
+        # Form plain text
+        def plain_text(field)
+           fill_color "000000"
+           text ("#{field}"), :inline_format => true, :size => 9, :leading => 5
+           fill_color "000000"
+           move_down 2
+        end
 
-        	# Form field label
-        	def label(field)
-        		fill_color "000000"
-    			  text ("<b>#{field}</b>"), :inline_format => true
-    			  fill_color "000000"
-    			  move_down 4
-            end
+		# Add header to all pages
+		repeat(:all) do
+		  header
+		end
 
-            # Form field value
-            def check_field(field, period=true)
-                fill_color "4664A2"
-                text (field.blank? ? "<em>Empty</em>" : field), :inline_format => true
-                fill_color "000000"
-                move_down 10 if period
-            end
+		# Add page number to all pages
+		repeat(:all, :dynamic => true) do
+		 draw_text page_number, :at => [530, -10], :size => 9
+         draw_text "ETSIT-UPM Application form", :at => [-10,-13], :size => 9
+		end
 
-            def checkbox(label, flag, x_position = 0, y_position = cursor  )
-               line_width(1)
-               draw_text label , :at => [x_position + 16 , y_position-10], :size => 9
-               bounding_box([x_position, y_position], width: 12, height: 12) do
-                stroke_bounds
-                text("x", align: :center, valign: :top) if flag
-              end
-            end
-            # Form plain text
-            def plain_text(field)
-               fill_color "000000"
-               text ("#{field}"), :inline_format => true, :size => 9, :leading => 5
-               fill_color "000000"
-               move_down 2
-            end
-
-    		# Add header to all pages
-    		repeat(:all) do
-    		  header
-    		end
-
-    		# Add page number to all pages
-    		repeat(:all, :dynamic => true) do
-    		 draw_text page_number, :at => [530, -10], :size => 9
-             draw_text "ETSIT-UPM Application form", :at => [-10,-13], :size => 9
-    		end
-
-    		# Cover
-    		title("Student Application Form", 20)
-    		subtitle(user.first_name + " " + user.family_name)
+		# Cover
+		title("Student Application Form", 20)
+        subtitle(user.first_name + " " + user.family_name)
 
         # Step 3
         line_width(1)
@@ -343,7 +346,10 @@ module PdfHelper
     end
     def create_acceptance_letter_pdf(user)
         # binding.pry
-        Prawn::Document.new(:page_size => 'A4') do
+        Prawn::Document.new(:page_size => 'A4', :info=> { :Title => "Acceptance Letter",
+                                                   :Author => "ETSIT-UPM",
+                                                   :Subject => "Acceptance Letter",
+                                                   :CreationDate => Time.now }) do
              font "Helvetica"
              def header
                 fill_color "FFFFFF"
@@ -370,14 +376,43 @@ module PdfHelper
                 ["<u>PERIOD OF STAY:</u>", "<b>#{sap.academic_year}</b>"]],
                  :width => 525, :cell_style => { :inline_format => true, :size => 14,  :border_width => 0  })
              move_down 40
-             text "<b><u>SUBJECT:</u>  Acceptance Letter</b>" , :inline_format => true, :align => :left, :size => 14
+             text "<b><u>SUBJECT:</u>  Acceptance Letter</b>" , :inline_format => true, :align => :left, :size => 16
              move_down 40
              now = Time.now
              text "Madrid, #{now.strftime("%B #{now.day.ordinalize} %Y")}" , :align => :right, :size => 14
              move_down 40
              text "Dear #{user.first_name}," , :align => :left, :size => 14
              move_down 20
-             text "We are pleased to let you know that you have been admitted to the <i>Escuela Técnica Superior de Ingenieros de Telecomunicación</i> of the <i>Universidad Politécnica de Madrid</i> in the framework of #{sap.programme} Programme to follow courses during #{sap.academic_year}." , :inline_format => true, :align => :justify, :size => 14
+
+             year = sap.academic_year
+             result = year
+             begin
+               matched = year.match(/(\d{4})-(\d{4})\: (\w+)/)
+               beginning = matched[1]
+               finalization = matched[2]
+               period = matched[3].downcase
+               actual_period = period
+               actual_beginning = beginning
+               actual_finalization = finalization
+               if period == "spring"
+                 actual_period = "spring semester of next academic year"
+                 actual_beginning = "January #{finalization}"
+                 actual_finalization = "July #{finalization}"
+               elsif period == "fall"
+                 actual_period = "fall semester of next academic year"
+                 actual_beginning = "September #{beginning}"
+                 actual_finalization = "January #{finalization}"
+               else
+                 actual_period = "next academic year"
+                 actual_beginning = "September #{beginning}"
+                 actual_finalization = "July #{finalization}"
+               end
+               result =  "the #{actual_period} #{beginning}-#{finalization}, starting in the beginning of #{actual_beginning} and finishing at the end of #{actual_finalization}"
+             rescue
+
+             end
+
+             text "We are pleased to let you know that you have been admitted to the <i>Escuela Técnica Superior de Ingenieros de Telecomunicación</i> of the <i>Universidad Politécnica de Madrid</i> in the framework of #{sap.programme} Programme to follow courses during #{result}." , :inline_format => true, :align => :justify, :size => 14
              # text "We are pleased to let you know that you have been admitted to the <i>Escuela Técnica Superior de Ingenieros de Telecomunicación</i> of the <i>Universidad Politécnica de Madrid</i> in the framework of #{sap.programme} Programme to follow courses during the fall semester of next academic year 2018-2019, starting in the beginning of September 2018 and finishing at the end of January 2019. " , :inline_format => true, :align => :justify, :size => 14
              move_down 20
              text "More information regarding your stay in Madrid will be sent closer to your arrival date. In the meantime, please do not hesitate to contact the International Office if you have any questions." , :align => :justify, :size => 14
