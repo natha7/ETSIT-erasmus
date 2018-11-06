@@ -76,7 +76,7 @@ class EidasSaml < OneLogin::RubySaml::Authrequest
     root.attributes['ID'] = uuid
     root.attributes['IssueInstant'] = time
     root.attributes['Version'] = "2.0"
-    root.attributes['ProviderName'] = "ERASMUS"
+    root.attributes['ProviderName'] = "ERASMUS-ETSIT"
     root.attributes['Destination'] = settings.idp_sso_target_url unless settings.idp_sso_target_url.nil?
     root.attributes['IsPassive'] = settings.passive unless settings.passive.nil?
     root.attributes['ProtocolBinding'] = "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"
