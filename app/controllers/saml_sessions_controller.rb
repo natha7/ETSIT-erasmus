@@ -31,11 +31,11 @@ class SamlSessionsController < Devise::SamlSessionsController
   end
 
   def metadata
-    #metadata = EidasMetadata.new
-    #xml = metadata.generate(CONFIG)
-	  #render :plain=> xml, :content_type=> "application/xml"
-    xml = File.read("#{Rails.root}/public/metadata.xml")
-    render :plain=> xml, :content_type=> "application/xml"
+    metadata = EidasMetadata.new
+    xml = metadata.generate(CONFIG)
+	  render :plain=> xml, :content_type=> "application/xml"
+    #xml = File.read("#{Rails.root}/public/metadata.xml")
+    #render :plain=> xml, :content_type=> "application/xml"
   end
 
   private
