@@ -45,7 +45,7 @@ class XMLSecuritySAML2 < XMLSecurity::Document
     if certificate.is_a?(String)
       certificate = OpenSSL::X509::Certificate.new(certificate)
     end
-    x509_cert_element.text = Base64.encode64(certificate.to_pem).gsub(/\n/, "")
+    x509_cert_element.text = Base64.encode64(certificate.to_der).gsub(/\n/, "")
 
     # add the signature
     issuer_element = self.elements["//saml2:Issuer"]
