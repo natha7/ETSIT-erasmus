@@ -7,7 +7,7 @@ class XMLSecuritySAML2 < XMLSecurity::Document
     signature_element = REXML::Element.new("ds:Signature").add_namespace('ds', DSIG)
     signed_info_element = signature_element.add_element("ds:SignedInfo")
     signed_info_element.add_element("ds:CanonicalizationMethod", {"Algorithm" => C14N})
-    signed_info_element.add_element("ds:SignatureMethod", {"Algorithm" => "http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"})
+    signed_info_element.add_element("ds:SignatureMethod", {"Algorithm" => signature_method})
 
     secondUri = uuid || ""
     secondUri == "" ? secondUri = "" : secondUri = "#" + uuid
@@ -24,8 +24,7 @@ class XMLSecuritySAML2 < XMLSecurity::Document
     digest_method_element = reference_element.add_element("ds:DigestMethod", {"Algorithm" => digest_method})
     inclusive_namespaces = INC_PREFIX_LIST.split(" ")
     canon_doc = noko.canonicalize(canon_algorithm(C14N), inclusive_namespaces)
-    reference_element.add_element("ds:DigestValue").text = compute_digest(canon_doc, algorithm(digest_method_element)).gsub(/\n/, "")
-
+    reference_element.add_element("ds:DigestValue").text = compute_digest(canon_doc, algorithm(digest_method_element))
 
     # add SignatureValue
     noko_sig_element = Nokogiri::XML(signature_element.to_s) do |config|

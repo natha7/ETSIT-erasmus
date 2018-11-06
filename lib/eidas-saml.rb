@@ -163,7 +163,7 @@ class EidasSaml < OneLogin::RubySaml::Authrequest
   def sign_document(document, settings)
     private_key = settings.get_sp_key
     cert = settings.get_sp_cert
-    document.sign_document(private_key, cert, XMLSecurity::Document::RSA_SHA512, XMLSecurity::Document::SHA512)
+    document.sign_document(private_key, cert, XMLSecurity::Document::RSA_SHA256, XMLSecurity::Document::SHA256)
     
     document
   end

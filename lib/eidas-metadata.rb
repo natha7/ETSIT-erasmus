@@ -169,7 +169,7 @@ class EidasMetadata < OneLogin::RubySaml::Metadata
 
       # embed signature
       private_key = formatted_private_key
-      meta_doc.sign_document(private_key, cert, XMLSecurity::Document::RSA_SHA512, XMLSecurity::Document::SHA512)
+      meta_doc.sign_document(private_key, cert, XMLSecurity::Document::RSA_SHA256, XMLSecurity::Document::SHA256)
 
       ret = meta_doc.to_s
       # pretty print the XML so IdP administrators can easily see what the SP supports
