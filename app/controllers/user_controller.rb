@@ -282,7 +282,7 @@ class UserController < ApplicationController
 	def generate_acceptance_letters
 		require 'rubygems'
 		require 'zip'
-		users = User.all.reject{|t| t.role == "admin" and t.progress_status != "accepted"}
+		users = User.all.reject{|t| t.role == "admin" or t.progress_status != "accepted"}
 		compressed_filestream = Zip::OutputStream.write_buffer do |stream|
 			users.each do |user|
 				stream.put_next_entry(user.family_name + " " + user.first_name + ".pdf")
