@@ -24,7 +24,8 @@ class XMLSecuritySAML2 < XMLSecurity::Document
     digest_method_element = reference_element.add_element("ds:DigestMethod", {"Algorithm" => digest_method})
     inclusive_namespaces = INC_PREFIX_LIST.split(" ")
     canon_doc = noko.canonicalize(canon_algorithm(C14N), inclusive_namespaces)
-    reference_element.add_element("ds:DigestValue").text = compute_digest(canon_doc, algorithm(digest_method_element))
+    reference_element.add_element("ds:DigestValue").text = compute_digest(canon_doc, algorithm(digest_method_element)).gsub(/\n/, "")
+
 
     # add SignatureValue
     noko_sig_element = Nokogiri::XML(signature_element.to_s) do |config|
@@ -44,7 +45,7 @@ class XMLSecuritySAML2 < XMLSecurity::Document
     if certificate.is_a?(String)
       certificate = OpenSSL::X509::Certificate.new(certificate)
     end
-    x509_cert_element.text = Base64.encode64(certificate.to_der).gsub(/\n/, "")
+    x509_cert_element.text = Base64.encode64(certificate.to_pem).gsub(/\n/, "")
 
     # add the signature
     issuer_element = self.elements["//saml2:Issuer"]
