@@ -19,12 +19,15 @@ class StudentApplicationForm < ApplicationRecord
 	  		:inst_sending_name,
 	      	:inst_adress,
 	     	:school_family_dpt,
-	  		:erasmus_code,
 	  		:dept_coordinator,
 	      	:contact_person,
 	  		:inst_telephone,
 	  		:inst_email
   		]
+
+  		if self.programme and self.programme.downcase.match("erasmus")
+				second.insert(-1, :erasmus_code)
+		end
   		percentage = second.reject{|element| self[element].blank?}.length == second.length ? percentage + 14 : percentage
 
   		third = [
@@ -74,9 +77,9 @@ class StudentApplicationForm < ApplicationRecord
 	  		:inst_telephone,
 	  		:inst_email
   		]
-			if self.programme and self.programme.downcase.match("erasmus")
-				second.insert(-1, :erasmus_code)
-			end
+		if self.programme and self.programme.downcase.match("erasmus")
+			second.insert(-1, :erasmus_code)
+		end
 
   		third = [
 	  		:purpose_of_stay
