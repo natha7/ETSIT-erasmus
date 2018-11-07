@@ -14,9 +14,9 @@ class EidasMetadata < OneLogin::RubySaml::Metadata
       raw_cert = File.read(Rails.root + 'vendor/certs/cert.pem')
       raw_key = File.read(Rails.root + 'vendor/certs/key.pem')
 
-      raw_cert = OneLogin::RubySaml::Utils.format_cert(raw_cert)
+      #raw_cert = OneLogin::RubySaml::Utils.format_cert(raw_cert)
       formatted_public_key =  OpenSSL::X509::Certificate.new(raw_cert)
-      raw_key = OneLogin::RubySaml::Utils.format_private_key(raw_key)
+      #raw_key = OneLogin::RubySaml::Utils.format_private_key(raw_key)
       formatted_private_key = OpenSSL::PKey::RSA.new(raw_key)
 
 
