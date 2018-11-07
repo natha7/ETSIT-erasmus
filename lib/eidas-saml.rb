@@ -161,9 +161,12 @@ class EidasSaml < OneLogin::RubySaml::Authrequest
   end
 
   def sign_document(document, settings)
-    private_key = settings.get_sp_key
-    cert = settings.get_sp_cert
-    document.sign_document(private_key, cert, XMLSecurity::Document::RSA_SHA256, XMLSecurity::Document::SHA256)
+    raw_cert = File.read(Rails.root + 'vendor/certs/cert.pem')
+    raw_key = File.read(Rails.root + 'vendor/certs/key.pem')
+
+    formatted_public_key =  OpenSSL::X509::Certificate.new(raw_cert)
+    formatted_private_key = OpenSSL::PKey::RSA.new(raw_key)
+    document.sign_document(formatted_private_key, formatted_public_key, XMLSecurity::Document::RSA_SHA256, XMLSecurity::Document::SHA256)
     
     document
   end
