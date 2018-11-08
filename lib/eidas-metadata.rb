@@ -167,6 +167,7 @@ class EidasMetadata < OneLogin::RubySaml::Metadata
 
       meta_doc << REXML::XMLDecl.new("1.0", "UTF-8")
 
+
       # embed signature
       private_key = formatted_private_key
       meta_doc.sign_document(private_key, cert, XMLSecurity::Document::RSA_SHA256, XMLSecurity::Document::SHA256)

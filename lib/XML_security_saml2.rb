@@ -22,8 +22,9 @@ class XMLSecuritySAML2 < XMLSecurity::Document
     #c14element.add_element("ec:InclusiveNamespaces", {"xmlns:ec" => C14N}) #, "PrefixList" => INC_PREFIX_LIST
 
     digest_method_element = reference_element.add_element("ds:DigestMethod", {"Algorithm" => digest_method})
-    inclusive_namespaces = INC_PREFIX_LIST.split(" ")
-    canon_doc = noko.canonicalize(canon_algorithm(C14N), inclusive_namespaces)
+    #inclusive_namespaces = INC_PREFIX_LIST.split(" ")
+    canon_doc = noko.canonicalize(canon_algorithm(C14N), "ds")
+    #binding.pry
     reference_element.add_element("ds:DigestValue").text = compute_digest(canon_doc, algorithm(digest_method_element))
 
     # add SignatureValue
