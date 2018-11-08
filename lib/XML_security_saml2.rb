@@ -54,7 +54,7 @@ class XMLSecuritySAML2 < XMLSecurity::Document
     elsif extensions
       self.root.insert_before extensions, signature_element
     else
-      if sp_sso_descriptor = self.elements["/md:SPSSODescriptor"]
+      if sp_sso_descriptor = self.elements["//md:SPSSODescriptor"]
         self.root.insert_before sp_sso_descriptor, signature_element
       else
         self.root.add_element(signature_element)
