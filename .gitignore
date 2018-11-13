@@ -35,3 +35,4 @@
 /public/system
 /public/erasmus/*/*
 /vendor/certs/*
+/vendor/saml2-node/eidas.json

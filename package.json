@@ -1,5 +1,13 @@
 {
   "name": "EID4U",
   "private": true,
-  "dependencies": {}
+  "dependencies": {
+    "async": "^2.6.1",
+    "debug": "^4.1.0",
+    "fs": "0.0.1-security",
+    "underscore": "^1.9.1",
+    "xml-crypto": "^1.0.2",
+    "xml-encryption": "^0.11.2",
+    "xml2js": "^0.4.19"
+  }
 }

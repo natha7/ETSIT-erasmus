@@ -13,6 +13,7 @@ class SamlSessionsController < Devise::SamlSessionsController
   end
 
   def eidas
+
     idp_entity_id = get_idp_entity_id(params)
     request = EidasSaml.new
     @post_params = request.create_params(saml_config(idp_entity_id), 'RelayState' => 'MyRelayState')
@@ -21,6 +22,14 @@ class SamlSessionsController < Devise::SamlSessionsController
     @post_params["country"] = "ES"
     #@post_params["sendMethods"] = "POST"
     @login_url = saml_config(idp_entity_id).idp_sso_target_url
+    node_command = Terrapin::CommandLine.new("node -e 'require(\"./vendor/saml2-node/saml2-gateway.js\").getAuthnRequest()'");
+
+    begin
+      @resolution = node_command.run
+    rescue Terrapin::ExitStatusError => e
+      put e.message
+    end
+
     render "users/eidas"
   end
 
@@ -31,9 +40,19 @@ class SamlSessionsController < Devise::SamlSessionsController
   end
 
   def metadata
-    metadata = EidasMetadata.new
-    xml = metadata.generate(CONFIG)
-	  render :plain=> xml, :content_type=> "application/xml"
+    #metadata = EidasMetadata.new
+    #xml = metadata.generate(CONFIG)
+    node_command = Terrapin::CommandLine.new("node -e 'require(\"./vendor/saml2-node/saml2-gateway.js\").getMetadata()'");
+
+    begin
+      xml = node_command.run
+      xml_doc  = Nokogiri::XML(xml)
+    rescue Terrapin::ExitStatusError => e
+      put e.message
+    end
+
+    render :plain=> xml_doc, :content_type => "application/xml"
+
     #xml = File.read("#{Rails.root}/public/metadata.xml")
     #render :plain=> xml, :content_type=> "application/xml"
   end
