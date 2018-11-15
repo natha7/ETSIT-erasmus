@@ -16,7 +16,7 @@ set :branch, :master
  set :rails_env,     "production"
  set :use_sudo,      false
 
-set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'vendor/certs', 'vendor/saml2-node', 'public/system', 'public/erasmus')
+set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'vendor/certs', 'public/system', 'public/erasmus')
  append :linked_files, 'config/database.yml', 'config/config.yml', 'config/secrets.yml', 'vendor/certs/cert.pem', 'vendor/certs/key.pem', 'vendor/saml2-node/eidas.json'
 
  set :pty,             true
