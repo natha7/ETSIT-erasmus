@@ -15,19 +15,21 @@ class SamlSessionsController < Devise::SamlSessionsController
   def eidas
 
     idp_entity_id = get_idp_entity_id(params)
-    request = EidasSaml.new
-    @post_params = request.create_params(saml_config(idp_entity_id), 'RelayState' => 'MyRelayState')
+    #request = EidasSaml.new
+    #@post_params = request.create_params(saml_config(idp_entity_id), 'RelayState' => 'MyRelayState')
     #@post_params["postLocationUrl"] = "http://pruebas.etsit.upm.es"
     #@post_params["redirectLocationUrl"] = "http://pruebas.etsit.upm.es"
-    @post_params["country"] = "ES"
     #@post_params["sendMethods"] = "POST"
-    @login_url = saml_config(idp_entity_id).idp_sso_target_url
+    @post_params = {}
     node_command = Terrapin::CommandLine.new("node -e 'require(\"./vendor/saml2-node/saml2-gateway.js\").getAuthnRequest()'");
 
     begin
-      @resolution = node_command.run
+      @post_params["SAMLRequest"] = node_command.run
+      @post_params["RelayState"] = "MyRelayState"
+      @post_params["country"] = "ES"
+      @login_url = saml_config(idp_entity_id).idp_sso_target_url
     rescue Terrapin::ExitStatusError => e
-      put e.message
+      puts e.message
     end
 
     render "users/eidas"
@@ -48,7 +50,7 @@ class SamlSessionsController < Devise::SamlSessionsController
       xml = node_command.run
       xml_doc  = Nokogiri::XML(xml)
     rescue Terrapin::ExitStatusError => e
-      put e.message
+      puts e.message
     end
 
     render :plain=> xml_doc, :content_type => "application/xml"
