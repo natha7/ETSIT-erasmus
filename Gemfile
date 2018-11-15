@@ -29,7 +29,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'sprockets', '~> 3.7.2'
 gem 'ledermann-rails-settings'
 gem 'terrapin'
-gem 'capistrano-nvm', require: false
+#gem 'capistrano-nvm', require: false
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password
