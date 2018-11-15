@@ -25,7 +25,7 @@ install_plugin Capistrano::Puma
 require 'capistrano/puma/nginx'
 install_plugin Capistrano::Puma::Nginx
 require 'capistrano/rails/console'
-require 'capistrano/nvm'
+#require 'capistrano/nvm'
 
 #set :nvm_type, :user # or :system, depends on your nvm setup
 #set :nvm_node, 'v11.1.0'
