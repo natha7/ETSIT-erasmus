@@ -25,6 +25,11 @@ install_plugin Capistrano::Puma
 require 'capistrano/puma/nginx'
 install_plugin Capistrano::Puma::Nginx
 require 'capistrano/rails/console'
+require 'capistrano/nvm'
+
+set :nvm_type, :user # or :system, depends on your nvm setup
+set :nvm_node, 'v11.1.0'
+set :nvm_map_bins, %w{node npm yarn}
 # Include tasks from other gems included in your Gemfile
 #
 # For documentation on these, see for example:
