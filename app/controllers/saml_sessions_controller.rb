@@ -27,7 +27,7 @@ class SamlSessionsController < Devise::SamlSessionsController
       @post_params["SAMLRequest"] = node_command.run
       @post_params["RelayState"] = "MyRelayState"
       @post_params["country"] = "ES"
-      @login_url = saml_config(idp_entity_id).idp_sso_target_url
+      @login_url = CONFIG["idp_options"]["sso_login_url"]
     rescue Terrapin::ExitStatusError => e
       puts e.message
     end
