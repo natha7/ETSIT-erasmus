@@ -81,3 +81,68 @@ bundle install
 bundle exec rake db:migrate
 rails s
 ```
+
+# MAC
+
+```bash
+brew install git
+```
+Install rbenv from https://github.com/rbenv/rbenv and ruby-build as plugin
+
+```
+brew install rbenv
+~/.rbenv/bin/rbenv init
+echo 'eval "$(rbenv init -)"' >> ~/.bashrc
+rbenv install 2.5.1
+rbenv global 2.5.1
+```
+
+Reboot Terminal
+```
+brew install postgres
+gem install bundler
+bundle install
+
+```
+Create user and give ownership as in config/database.yml
+
+
+```
+sudo -u postgres psql (to enter in the postgreSQL console)  
+CREATE ROLE loguser WITH CREATEDB LOGIN PASSWORD 'password';
+
+```
+Now, execute the following command in the postgreSQL console to make your user superuser. This way, the 'loguser' user will have access rights to the databases.
+
+```
+ALTER USER loguser WITH superuser;
+
+```
+
+Afterwards, we create the databases needed.
+
+```
+CREATE DATABASE logapp_dev OWNER loguser;
+CREATE DATABASE logapp_prod OWNER loguser;
+CREATE DATABASE logapp_test OWNER loguser;
+
+\q (exit from postgreSQL console)
+```
+
+**To start database and populate:**
+```
+rake db:migrate db:populate
+```
+
+
+The following files are needed in order to run the project: 
+- config/config.yml
+- config/secrets.yml
+- vendor/certs/key.pem
+- vendor/certs/cert.pem
+- vendor/saml2-node/eidas.json
+
+**To start rails:**
+```
+rails s
+```
