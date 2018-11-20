@@ -35,11 +35,11 @@ var contact = {
 
 
 var sp_options = {
-    entity_id: "https://"+ eidas.gateway_host +"/users/eidas/metadata",
+    entity_id: "http://"+ eidas.gateway_host +"/users/eidas/metadata",
     private_key: fs.readFileSync(__dirname +"/../certs/key.pem").toString(),
     certificate: fs.readFileSync(__dirname +"/../certs/cert.pem").toString(),
     assert_endpoint: "https://"+eidas.gateway_host+"/users/eidas/auth",
-    audience: "https://"+eidas.gateway_host+"/users/eidas/auth",
+    audience: "http://"+eidas.gateway_host+"/users/eidas/auth",
     sign_get_request: true,
     nameid_format: "urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified",
     provider_name: organization.nif,
