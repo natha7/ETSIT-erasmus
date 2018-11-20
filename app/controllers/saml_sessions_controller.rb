@@ -53,7 +53,7 @@ class SamlSessionsController < Devise::SamlSessionsController
       puts e.message
     end
 
-    render :plain=> xml_doc, :content_type => "application/xml"
+    render :xml=> xml_doc
 
     #xml = File.read("#{Rails.root}/public/metadata.xml")
     #render :plain=> xml, :content_type=> "application/xml"
