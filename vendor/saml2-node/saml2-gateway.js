@@ -5,7 +5,7 @@ var fs = require('fs');
 
 var idp_options = {
     sso_login_url: eidas.idp_host,
-    sso_logout_url: "https://"+eidas.gateway_host+"/users/eidas//logout",
+    sso_logout_url: "https://"+eidas.gateway_host+"/users/eidas/logout",
     certificates: []
 };
 var idp = new saml2.IdentityProvider(idp_options);

@@ -68,6 +68,7 @@ create_authn_request = function(issuer, assert_endpoint, destination, force_auth
       '@Comparison': context.comparison
     });
   }
+
   id = '_' + crypto.randomBytes(21).toString('hex');
   xml = xmlbuilder.create({
     "saml2p:AuthnRequest": {
@@ -919,7 +920,6 @@ module.exports.ServiceProvider = ServiceProvider = (function() {
     options = set_option_defaults(options, identity_provider.shared_options, this.shared_options);
     ref1 = create_authn_request(this.entity_id, this.assert_endpoint, identity_provider.sso_login_url, options.force_authn, options.auth_context, options.nameid_format, options.provider_name, options.extensions), id = ref1.id, xml = ref1.xml;
     var signed = sign_authn_request(xml, this.private_key, options, this.certificate);
-
     return Buffer.from(signed).toString('base64')
   };
 
