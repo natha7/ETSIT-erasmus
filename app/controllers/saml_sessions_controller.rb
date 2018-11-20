@@ -52,8 +52,9 @@ class SamlSessionsController < Devise::SamlSessionsController
     rescue Terrapin::ExitStatusError => e
       puts e.message
     end
+    response.headers["Content-Type"] = "application/xml"
 
-    render :xml=> xml_doc
+    render :plain=> xml
 
     #xml = File.read("#{Rails.root}/public/metadata.xml")
     #render :plain=> xml, :content_type=> "application/xml"
