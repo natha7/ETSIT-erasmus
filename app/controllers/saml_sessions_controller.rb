@@ -21,7 +21,7 @@ class SamlSessionsController < Devise::SamlSessionsController
     #@post_params["redirectLocationUrl"] = "http://pruebas.etsit.upm.es"
     #@post_params["sendMethods"] = "POST"
     @post_params = {}
-    node_command = Terrapin::CommandLine.new("node -e 'require(\"./vendor/saml2-node/saml2-gateway.js\").getAuthnRequest()'");
+    node_command = Terrapin::CommandLine.new("node -e 'require(\"./vendor/saml2-node/saml2-gateway.js\").getAuthnRequest()'")
 
     begin
       @post_params["SAMLRequest"] = node_command.run
@@ -44,7 +44,7 @@ class SamlSessionsController < Devise::SamlSessionsController
   def metadata
     #metadata = EidasMetadata.new
     #xml = metadata.generate(CONFIG)
-    node_command = Terrapin::CommandLine.new("node -e 'require(\"./vendor/saml2-node/saml2-gateway.js\").getMetadata()'");
+    node_command = Terrapin::CommandLine.new("node -e 'require(\"./vendor/saml2-node/saml2-gateway.js\").getMetadata()'")
 
     begin
       xml = node_command.run
