@@ -37,6 +37,7 @@ class SamlSessionsController < Devise::SamlSessionsController
       puts e.message
     end
       puts @response
+    puts "Responsed"
     render :json => JSON.parse(@response)
 
   end
