@@ -2,7 +2,7 @@
 namespace :deploy do
   desc "Install saml2-node libraries"
   task :saml2_node_libraries do
-    sh"npm install --prefix /current"
+    sh"npm install"
   end
 end
 
