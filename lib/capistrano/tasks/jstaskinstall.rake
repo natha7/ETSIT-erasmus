@@ -2,7 +2,7 @@
 namespace :deploy do
   desc "Install saml2-node libraries"
   task :saml2_node_libraries do
-    Terrapin::CommandLine.new("npm install;")
+    sh"npm install;"
   end
 end
 
