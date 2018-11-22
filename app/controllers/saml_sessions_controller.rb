@@ -15,11 +15,7 @@ class SamlSessionsController < Devise::SamlSessionsController
   def eidas
 
     idp_entity_id = get_idp_entity_id(params)
-    #request = EidasSaml.new
-    #@post_params = request.create_params(saml_config(idp_entity_id), 'RelayState' => 'MyRelayState')
-    #@post_params["postLocationUrl"] = "http://pruebas.etsit.upm.es"
-    #@post_params["redirectLocationUrl"] = "http://pruebas.etsit.upm.es"
-    #@post_params["sendMethods"] = "POST"
+
     @post_params = {}
     node_command = Terrapin::CommandLine.new("node -e 'require(\"./vendor/saml2-node/saml2-gateway.js\").getAuthnRequest()'")
 
@@ -42,8 +38,7 @@ class SamlSessionsController < Devise::SamlSessionsController
   end
 
   def metadata
-    #metadata = EidasMetadata.new
-    #xml = metadata.generate(CONFIG)
+
     node_command = Terrapin::CommandLine.new("node -e 'require(\"./vendor/saml2-node/saml2-gateway.js\").getMetadata()'")
 
     begin
@@ -55,9 +50,6 @@ class SamlSessionsController < Devise::SamlSessionsController
     response.headers["Content-Type"] = "application/xml"
 
     render :plain=> xml
-
-    #xml = File.read("#{Rails.root}/public/metadata.xml")
-    #render :plain=> xml, :content_type=> "application/xml"
   end
 
   private
