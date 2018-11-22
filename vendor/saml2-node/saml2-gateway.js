@@ -57,6 +57,12 @@ exports.getMetadata = function() {
     process.stdout.write(sp.create_metadata());
 };
 
+exports.decodeAuthnResponse = function(samlResponse){
+    sp.post_assert(idp, {request_body: samlResponse}, function(err,saml_response){
+        process.stdout.write(saml_response.user);
+    });
+};
+
 exports.getAuthnRequest = function(){
     var array_natural = ["PersonIdentifier" , "FamilyName", "FirstName", "DateOfBirth"];
     var array_legal = ["LegalPersonIdentifier", "LegalName"];
