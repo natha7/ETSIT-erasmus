@@ -2,7 +2,9 @@
 namespace :deploy do
   desc "Install saml2-node libraries"
   task :saml2_node_libraries do
-    execute "cd vendor/saml2-node; npm install"
+    on roles(:app) do
+      execute "cd vendor/saml2-node; npm install"
+    end
   end
 end
 
