@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_31_120341) do
+ActiveRecord::Schema.define(version: 2018_11_22_144800) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,7 +50,7 @@ ActiveRecord::Schema.define(version: 2018_10_31_120341) do
     t.string "deadline_first_semeter", default: "June, 1st"
     t.string "deadline_second_semester", default: "December, 1st"
     t.string "deadline_double_degree", default: "May, 15th"
-    t.string "mobility_programmes", default: "[\"Erasmus+ Studies\", \"Erasmus+ Placement\", \"Magalhães\", \"Bilateral Agreement\", \"Visiting Student\", \"SICUE/SENECA\", \"Other\"]"
+    t.string "mobility_programmes", default: "[\"Eramus+ Studies\", \"Eramus+ Placement\", \"Magalhães\", \"Bilateral Agreement\", \"Visiting Student\", \"SICUE/SENECA\", \"Other\"]"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -162,6 +162,7 @@ ActiveRecord::Schema.define(version: 2018_10_31_120341) do
     t.string "spanish_test_score_content_type"
     t.integer "spanish_test_score_file_size"
     t.datetime "spanish_test_score_updated_at"
+    t.string "person_identifier", default: ""
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
