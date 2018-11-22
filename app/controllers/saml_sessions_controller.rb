@@ -13,9 +13,7 @@ class SamlSessionsController < Devise::SamlSessionsController
   end
 
   def eidas
-
     idp_entity_id = get_idp_entity_id(params)
-
     @post_params = {}
     node_command = Terrapin::CommandLine.new("node -e 'require(\"./vendor/saml2-node/saml2-gateway.js\").getAuthnRequest()'")
 
@@ -31,7 +29,7 @@ class SamlSessionsController < Devise::SamlSessionsController
     render "users/eidas"
   end
 
-  def eidas_endpoint
+  def create
       mail(to: "bertocode@gmail.com", subject: "Logs") do |format|
         format.text { render plain: request }
       end
