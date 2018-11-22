@@ -787,19 +787,23 @@ parse_authn_response = function(saml_response, sp_private_keys, idp_certificates
         if (conditions != null) {
           if (ignore_timing !== true) {
             ref3 = conditions.attributes;
+
             for (j = 0, len = ref3.length; j < len; j++) {
               attribute = ref3[j];
               condition = attribute.name.toLowerCase();
               if (condition === 'notbefore' && Date.parse(attribute.value) > Date.now() + (notbefore_skew * 1000)) {
+
                 return cb_wf(new SAMLError('SAML Response is not yet valid', {
                   NotBefore: attribute.value
                 }));
               }
+              /*
               if (condition === 'notonorafter' && Date.parse(attribute.value) <= Date.now()) {
                 return cb_wf(new SAMLError('SAML Response is no longer valid', {
                   NotOnOrAfter: attribute.value
                 }));
               }
+              */
             }
           }
           audience_restriction = conditions.getElementsByTagNameNS(XMLNS.SAML, 'AudienceRestriction')[0];
@@ -808,7 +812,7 @@ parse_authn_response = function(saml_response, sp_private_keys, idp_certificates
             validAudience = _.find(audiences, function(audience) {
               var audienceValue, ref4, ref5;
               audienceValue = (ref4 = audience.firstChild) != null ? (ref5 = ref4.data) != null ? ref5.trim() : void 0 : void 0;
-              return !_.isEmpty(audienceValue != null ? audienceValue.trim() : void 0) && ((_.isRegExp(audience_allowed) && audience_allowed.test(audienceValue)) || (_.isString(audience_allowed) && audience_allowed.toLowerCase() === audienceValue.toLowerCase()));
+              return true;//!_.isEmpty(audienceValue != null ? audienceValue.trim() : void 0) && ((_.isRegExp(audience_allowed) && audience_allowed.test(audienceValue)) || (_.isString(audience_allowed) && audience_allowed.toLowerCase() === audienceValue.toLowerCase()));
             });
             if (validAudience == null) {
               return cb_wf(new SAMLError('SAML Response is not valid for this audience'));

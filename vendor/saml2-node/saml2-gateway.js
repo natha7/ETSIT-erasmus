@@ -39,7 +39,7 @@ var sp_options = {
     private_key: fs.readFileSync(__dirname +"/../certs/key.pem").toString(),
     certificate: fs.readFileSync(__dirname +"/../certs/cert.pem").toString(),
     assert_endpoint: "https://"+eidas.gateway_host+"/users/eidas/auth",
-    audience: "https://"+eidas.gateway_host+"/users/eidas/auth",
+    audience: "https://"+eidas.gateway_host+"/users/eidas/metadata",
     sign_get_request: true,
     nameid_format: "urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified",
     provider_name: organization.nif,
@@ -58,8 +58,14 @@ exports.getMetadata = function() {
 };
 
 exports.decodeAuthnResponse = function(samlResponse){
-    sp.post_assert(idp, {request_body: samlResponse}, function(err,saml_response){
-        process.stdout.write(saml_response.user);
+    sp.post_assert(idp, {request_body: {"SAMLResponse": samlResponse, "RelayState": "MyRelayState"}}, function(err, saml_response){
+        var final_response = saml_response;
+        var attributes = final_response.user.attributes;
+        var mapped_attributes = {};
+        Object.keys(attributes).forEach( element =>{
+            mapped_attributes = {...mapped_attributes, ...{[element]: attributes[element][0]}}
+        });
+        process.stdout.write(JSON.stringify(mapped_attributes));
     });
 };
 
