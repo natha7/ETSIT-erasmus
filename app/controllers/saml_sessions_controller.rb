@@ -30,19 +30,14 @@ class SamlSessionsController < Devise::SamlSessionsController
   end
 
   def create
-
-    node_command = Terrapin::CommandLine.new("node -e 'require(\"./vendor/saml2-node/saml2-gateway.js\").decodeAuthnResponse(" + params["SAMLResponse"] + ")'")
-
+    node_command = Terrapin::CommandLine.new("node -e 'require(\"./vendor/saml2-node/saml2-gateway.js\").decodeAuthnResponse(\"" + params["SAMLResponse"] + "\")'")
     begin
       @response = node_command.run
     rescue Terrapin::ExitStatusError => e
       puts e.message
     end
-
       puts @response
-      mail(to: "bertocode@gmail.com", subject: "Logs") do |format|
-        format.text { render plain: request }
-      end
+
   end
 
   def metadata
