@@ -2,7 +2,7 @@ require "eidas-saml"
 require "eidas-metadata"
 
 class SamlSessionsController < Devise::SamlSessionsController
-  after_action :store_winning_strategy, only: :create
+  #after_action :store_winning_strategy, only: :create
 
   def new
     idp_entity_id = get_idp_entity_id(params)
