@@ -72,6 +72,7 @@ class NominatedUserController < ApplicationController
 
 	def register
 		@nominee = NominatedUser.find_by(:registration_token => params[:token_registration])
+		session[:nominee] = @nominee.email
 		if @nominee.blank?
 			raise_forbidden
 		else  

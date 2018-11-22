@@ -36,16 +36,33 @@ class SamlSessionsController < Devise::SamlSessionsController
     rescue Terrapin::ExitStatusError => e
       puts e.message
     end
-      puts @response
-    puts "Responsed"
-    render :json => JSON.parse(@response)
+
+    if @response != nil
+      user_data = JSON.parse(@response)
+      if user_data != nil
+        @user = User.find_by person_identifier: user_data["person_identifier"]
+        if !session[:nominee].blank?
+          user = User.new
+          user.email = session[:nominee]
+          user.person_identifier = user_data["person_identifier"]
+          user.family_name = user_data["FamilyName"]
+          user.firstname = user_data["FirstName"]
+          user.birth_date = user_data["DateOfBirth"]
+          user.save
+
+          render "student_application_form/personal_data_step"
+        elsif !@user.nil?
+          sign_in(@user, User)
+        else
+         redirect_to(:root)
+        end
+      end
+    end
 
   end
 
   def metadata
-
     node_command = Terrapin::CommandLine.new("node -e 'require(\"./vendor/saml2-node/saml2-gateway.js\").getMetadata()'")
-
     begin
       xml = node_command.run
       xml_doc  = Nokogiri::XML(xml)
