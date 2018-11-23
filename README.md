@@ -51,6 +51,8 @@ Afterwards, we create the databases needed.
 
 ```
 CREATE DATABASE logapp_dev OWNER loguser;
+CREATE DATABASE logapp_prod OWNER loguser;
+CREATE DATABASE logapp_test OWNER loguser;
 \q (exit from postgreSQL console)
 ```
 
