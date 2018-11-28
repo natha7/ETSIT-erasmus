@@ -21,22 +21,22 @@
       <div class="la-row la-form-row">
         <select class="la-degree" name="user[learning_agreement_subjects][][degree]" value="<%= subject.degree %>" <%= admin ? "disabled":"" %>>
           <option value="" disabled required ></option>
-          <option value="GITST">GITST</option>
-          <option value="GIB">GIB</option>
-          <option value="MUIT">MUIT</option>
-          <option value="MUIB">MUIB</option>
-          <option value="MUSTC">MUSTC</option>
-          <option value="MUCS">MUCS</option>
-          <option value="MUESFV">MUESFV</option>
-          <option value="MUISE">MUISE</option>
-          <option value="MUIRST">MUIRST</option>
-          <option value="MUTECI">MUTECI</option>
-          <option value="MUIF">MUIF</option>
-          <option value="Other">Other</option>
+          <option value="GITST" <%= subject.degree == "GITST" ? "selected" : "" %>>GITST</option>
+          <option value="GIB" <%= subject.degree == "GIB" ? "selected" : "" %>>GIB</option>
+          <option value="MUIT" <%= subject.degree == "MUIT" ? "selected" : "" %>>MUIT</option>
+          <option value="MUIB" <%= subject.degree == "MUIB" ? "selected" : "" %>>MUIB</option>
+          <option value="MUSTC" <%= subject.degree == "MUSTC" ? "selected" : "" %>>MUSTC</option>
+          <option value="MUCS" <%= subject.degree == "MUCS" ? "selected" : "" %>>MUCS</option>
+          <option value="MUESFV" <%= subject.degree == "MUESFV" ? "selected" : "" %>>MUESFV</option>
+          <option value="MUISE" <%= subject.degree == "MUISE" ? "selected" : "" %>>MUISE</option>
+          <option value="MUIRST" <%= subject.degree == "MUIRST" ? "selected" : "" %>>MUIRST</option>
+          <option value="MUTECI" <%= subject.degree == "MUTECI" ? "selected" : "" %>>MUTECI</option>
+          <option value="MUIF" <%= subject.degree == "MUIF" ? "selected" : "" %>>MUIF</option>
+          <option value="Other" <%= subject.degree == "Other" ? "selected" : "" %>>Other</option>
         </select>
         <input class="la-code" name="user[learning_agreement_subjects][][code]" value="<%= subject.code %>" <%= admin ? "disabled":"" %> />
         <input class="la-name" name="user[learning_agreement_subjects][][subject]" value="<%= subject.subject %>" <%= admin ? "disabled":"" %> />
-        <input class="la-ects" name="user[learning_agreement_subjects][][ects]" value="<%= subject.ects %>" type="number" min="0" max="400" <%= admin ? "disabled":"" %> />
+        <input class="la-ects" name="user[learning_agreement_subjects][][ects]" value="<%= subject.ects %>" type="number" min="0" step="any" max="400" <%= admin ? "disabled":"" %> />
         <% unless admin %>
           <button class="delete-la-button transparent-button small-button secondary" type="button"><i class="mdi mdi-close"></i></button>
         <% end %>

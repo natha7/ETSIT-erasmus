@@ -1,6 +1,6 @@
 <div class="row">
 	<span class="dashboard-section" id="motivation-letter-tab">
-		<%unless admin === true or (!current_user.seeking_degree and name === :english_test_score ) or name === :spanish_test_score %>
+		<%unless admin === true or (!current_user.seeking_degree and name === :english_test_score ) or name === :spanish_test_score or name === :valid_insurance_policy %>
 				<span class="red">*</span>
 		<%else %>
 				<span class="red">&nbsp; </span>

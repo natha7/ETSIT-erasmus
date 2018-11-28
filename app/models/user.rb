@@ -87,7 +87,7 @@ class User < ApplicationRecord
      :curriculum_vitae_file_name,
      :transcript_of_records_file_name,
      :learning_agreement_file_name,
-     :valid_insurance_policy_file_name,
+     # :valid_insurance_policy_file_name,
      :photo_file_name,
      :ni_passport_file_name,
    ]
