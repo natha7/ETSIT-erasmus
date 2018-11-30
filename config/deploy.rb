@@ -2,7 +2,7 @@
 lock "~> 3.11.0"
 
 set :application, "eid4u"
-set :repo_url, 'https://github.com/abenitoc/eiD4U.git'
+set :repo_url, 'https://github.com/ging/ETSIT-erasmus.git'
 set :branch, :master
 
 # Default branch is :master
