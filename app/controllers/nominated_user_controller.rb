@@ -1,6 +1,6 @@
 class NominatedUserController < ApplicationController
 	before_action :authenticate_user!, except: [:register]
-	before_action :validate_not_user?, only: [:register]
+	# before_action :validate_not_user?, only: [:register]
 	before_action :validate_admin?, only: [:create_nominee, :resend_email, :delete_nominee]
 
 	def create_nominee
@@ -71,12 +71,16 @@ class NominatedUserController < ApplicationController
 	end
 
 	def register
-		@nominee = NominatedUser.find_by(:registration_token => params[:token_registration])
-		session[:nominee] = @nominee.email
-		if @nominee.blank?
-			raise_forbidden
-		else  
-			render "users/register_choice"
+		if !current_user.blank?
+			redirect_to(:root)
+		else
+			@nominee = NominatedUser.find_by(:registration_token => params[:token_registration])
+			if @nominee.blank?
+	        	redirect_to(:root)
+			else  
+				session[:nominee] = @nominee.email
+				render "users/register_choice"
+			end
 		end
 	end
 end
