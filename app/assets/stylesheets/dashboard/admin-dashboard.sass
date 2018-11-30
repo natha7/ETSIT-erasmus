@@ -91,6 +91,7 @@
 			font-weight: bold
 			border-top: none
 			color: #333
+			cursor: pointer	
 		.flex-table-email
 			width: 17%
 			a:hover
@@ -135,7 +136,7 @@
 					.custom-button
 						font-size: 14px
 			.flex-table-header
-				min-height: 30px		
+				min-height: 30px	
 		&.user-table
 
 .nominee-item
@@ -190,3 +191,18 @@
 				vertical-align: middle
 				&.hidden
 					display: none
+.flex-table-cell
+	.caret
+		display: none
+		color: #aaa
+	&.order-asc
+		.caret
+			display: inline
+			&.reverse:before, &.no-reverse:before
+				transition: 0.2s all ease-in
+				transform: rotate(180deg)						
+	&.order-desc
+		.caret 
+			display: inline
+			&.reverse:before, &.no-reverse:before
+				transition: 0.2s all ease-in

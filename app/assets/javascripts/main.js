@@ -669,9 +669,34 @@ $(document).on('turbolinks:load', function() {
         }
     );
 
+
     /**
-     * CSV Button
+     * Sort rows for registered users
      */
+    var asc = true;
+    var sortRowsRegisteredCallback = function (e) {
+      var filter = this.dataset.field;
+      var allowedFilters = ["name","uni","period","status","pctg"];
+      if (allowedFilters.indexOf(filter) === -1) {
+        return
+      }  
+      var order = $('.order');
+      order.removeClass('order order-asc order-desc')
+      $(this).addClass('order ' + (asc ? "order-asc" : "order-desc"));
+
+      [].slice.call(document.querySelectorAll('[data-' + filter +']')).sort(
+        function(a,b){
+            var a_f = a.dataset[filter];
+            var b_f = b.dataset[filter];
+            var compare = (!isNaN(parseFloat(a_f)) && !isNaN(parseFloat(b_f))) ? 
+                (parseFloat(a_f) > parseFloat(b_f)) : (a_f.toLowerCase() > b_f.toLowerCase());
+            var res = (compare) - (!compare); 
+            return asc ? res: -res
+      }).map(function(n,i){console.log(n); n.parentElement.style.order = i+1; return n;});
+      asc = !asc;
+    };
+
+    $('.flex-table-header').click(sortRowsRegisteredCallback)
 
 });
 
