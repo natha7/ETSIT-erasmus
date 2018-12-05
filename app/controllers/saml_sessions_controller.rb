@@ -51,17 +51,25 @@ class SamlSessionsController < Devise::SamlSessionsController
         elsif !session[:nominee].blank?
           user = User.new
           user.email = session[:nominee]
-          user.person_identifier = user_data["PersonIdentifier"]
-          user.family_name = user_data["FamilyName"]
-          user.first_name = user_data["FirstName"]
-          user.birth_date = user_data["DateOfBirth"]
           # TODO Qué pasa cuando un parámetro de user data viene vacío?
           user.password = "demonstration"
+          # user.person_identifier = user_data["PersonIdentifier"]
+          # user.family_name = user_data["FamilyName"]
+          # user.first_name = user_data["FirstName"]
+          # user.birth_date = user_data["DateOfBirth"]
           # user.sex = "Male"
           # user.born_place = ""
           # user.permanent_adress = ""
           # user.nationality = ""
           # user.phone_number = ""
+
+          saml_dictionary = saml_attrs_to_model_attrs
+          user_data.each do |key,value|
+            if saml_dictionary.key?(key)
+              user[saml_dictionary[key]] = value
+            end
+          end
+          
           user.save(validate: false)
 
           nominee = NominatedUser.find_by :email => session[:nominee]
