@@ -41,7 +41,11 @@ class SamlSessionsController < Devise::SamlSessionsController
       user_data = JSON.parse(@response)
       if user_data != nil
         @user = User.find_by person_identifier: user_data["person_identifier"]
-        if !session[:nominee].blank?
+        if !@user.nil?
+          sign_in(:user, @user)
+          flash[:error] = nil
+          redirect_to(:root)
+        elsif !session[:nominee].blank?
           user = User.new
           user.email = session[:nominee]
           user.person_identifier = user_data["person_identifier"]
@@ -55,21 +59,16 @@ class SamlSessionsController < Devise::SamlSessionsController
           # user.permanent_adress = ""
           # user.nationality = ""
           # user.phone_number = ""
-
+          Rails.logger.info "#{user_data}"
           user.save(validate: false)
 
           nominee = NominatedUser.find_by :email => session[:nominee]
           session.delete(:nominee)
           nominee.destroy!
 
-          
           sign_in(:user, user)
           @user = user
           redirect_to RELATIVE_URL + "/student_application_form/personal_data_step"
-        elsif !@user.nil?
-          sign_in(:user, @user)
-          flash[:error] = nil
-          redirect_to(:root)
         else
          flash[:error] = "You have not registered with eIDAS"
          redirect_to(:root)
