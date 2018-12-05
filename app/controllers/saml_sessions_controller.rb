@@ -52,8 +52,17 @@ class SamlSessionsController < Devise::SamlSessionsController
           user.family_name = user_data["FamilyName"]
           user.first_name = user_data["FirstName"]
           user.birth_date = user_data["DateOfBirth"]
-          user.save
+
+          pupil.password = "demonstration"
+          pupil.sex = "Male"
+          pupil.born_place = ""
+          pupil.permanent_adress = ""
+          pupil.nationality = ""
+          pupil.phone_number = ""
+
+          user.save!
           @user = user
+          Rails.logger.info "#{@user}"
           render "student_application_form/personal_data_step"
         elsif !@user.nil?
           sign_in(@user, User)
