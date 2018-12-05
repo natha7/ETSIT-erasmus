@@ -1,0 +1,38 @@
+sp_options:
+ entity_id: "https://pruebas.etsit.upm.es/erasmus/users/eidas/metadata"
+ idp_fingerprint: "08:1E:68:50:CE:1F:F8:F6:FB:38:91:51:E0:62:38:DA:09:E7:5F:0B"
+ idp_fingerprint_cipher: "http://www.w3.org/2000/09/xmldsig#sha1"
+ assert_endpoint: "https://idm.vishub.org/saml2/ReturnPage"
+ sign_get_request: true
+ nameid_format: 'urn:oasis:names:tc:SAML:2.0:attrname-format:uri'
+ auth_context:
+  comparison: "minimum"
+  class_refs: "http://eidas.europa.eu/LoA/low"
+ force_authn: true
+ organization: 'Universidad Politecnica de Madrid'
+ contact: 'Alvaro Alonso'
+idp_options:
+ sso_login_url: "https://se-eidas.redsara.es/EidasNode/ServiceProvider"
+ sso_logout_url: ""
+ certificates: ""
+attributes:
+ service_name: 'eidas'
+ name_format: 'urn:oasis:names:tc:SAML:2.0:attrname-format:uri'
+ attr1:
+  name: 'http://eidas.europa.eu/attributes/legalperson/LegalName'
+  friendly_name: 'LegalName'
+ attr2:
+  name: 'http://eidas.europa.eu/attributes/legalperson/LegalPersonIdentifier'
+  friendly_name: 'LegalPersonIdentifier'
+ attr3:
+  name: 'http://eidas.europa.eu/attributes/legalperson/CurrentFamilyName'
+  friendly_name: 'CurrentFamilyName'
+ attr4:
+  name: 'http://eidas.europa.eu/attributes/legalperson/CurrentGivenName'
+  friendly_name: 'CurrentGivenName'
+ attr5: 
+  name: 'http://eidas.europa.eu/attributes/legalperson/DateOfBirth'
+  friendly_name: 'DateOfBirth'
+ attr6:
+  name: 'http://eidas.europa.eu/attributes/legalperson/PersonIdentifier'
+  friendly_name: 'PersonIdentifier'

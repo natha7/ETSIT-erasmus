@@ -77,8 +77,21 @@ class NominatedUserController < ApplicationController
 			@nominee = NominatedUser.find_by(:registration_token => params[:token_registration])
 			if @nominee.blank?
 	        	redirect_to(:root)
-			else  
+			else
+				@post_params = {}
+				node_command = Terrapin::CommandLine.new("node -e 'require(\"./vendor/saml2-node/saml2-gateway.js\").getAuthnRequest()'")
+
+				begin
+					@post_params["SAMLRequest"] = node_command.run
+					@post_params["RelayState"] = "MyRelayState"
+					@post_params["country"] = "ES"
+					@login_url = CONFIG["idp_options"]["sso_login_url"]
+				rescue Terrapin::ExitStatusError => e
+					puts e.message
+				end
+
 				session[:nominee] = @nominee.email
+
 				render "users/register_choice"
 			end
 		end
