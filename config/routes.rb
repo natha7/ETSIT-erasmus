@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   scope 'erasmus' do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
     devise_for :users, skip: [:registrations, :saml_authenticatable]
+    # devise_for :users, controllers: {sessions: "sessions"}
     devise_scope :user do
       root to: "users/sessions#new"
       post 'sign_up', to: "registrations#create", :as => :user_registration

@@ -55,11 +55,15 @@ class SamlSessionsController < Devise::SamlSessionsController
           # user.permanent_adress = ""
           # user.nationality = ""
           # user.phone_number = ""
-
+          
           user.save(validate: false)
-          sign_in(:user, user)
+
           nominee = NominatedUser.find_by :email => session[:nominee]
+          session.delete(:nominee)
           nominee.destroy!
+
+          
+          sign_in(:user, user)
           @user = user
           redirect_to RELATIVE_URL + "/student_application_form/personal_data_step"
         elsif !@user.nil?
