@@ -48,7 +48,7 @@ class SamlSessionsController < Devise::SamlSessionsController
           user.family_name = user_data["FamilyName"]
           user.first_name = user_data["FirstName"]
           user.birth_date = user_data["DateOfBirth"]
-          user.save!
+          user.save
           @user = user
           render "student_application_form/personal_data_step"
         elsif !@user.nil?
