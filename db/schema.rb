@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_22_144800) do
+ActiveRecord::Schema.define(version: 2018_12_05_201423) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -163,6 +163,7 @@ ActiveRecord::Schema.define(version: 2018_11_22_144800) do
     t.integer "spanish_test_score_file_size"
     t.datetime "spanish_test_score_updated_at"
     t.string "person_identifier", default: ""
+    t.boolean "archived", default: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

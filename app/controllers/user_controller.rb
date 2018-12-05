@@ -318,7 +318,12 @@ class UserController < ApplicationController
 
 		redirect_to admin_dashboard_path
 	end
-
+	def archive
+		user = User.find_by :id => params[:user]
+		user.archived = params[:archived]
+		user.save!
+		redirect_to admin_dashboard_path
+	end		
 	def delete
 		user = User.find_by :id => params[:user]
 		user.destroy!

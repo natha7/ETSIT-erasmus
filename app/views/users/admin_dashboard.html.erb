@@ -8,9 +8,12 @@
 <% like_period = "%#{ params[:period]}%"    %>
 <% like_university = I18n.transliterate "%#{params[:university]}%"    %>
 
-
 <% users = User.where("lower(unaccent(first_name)) LIKE ? or lower(unaccent(family_name)) LIKE ?", 
- like_name.downcase,  like_name.downcase).joins(:student_application_form).merge( StudentApplicationForm.where("lower(academic_year) LIKE ? and lower(unaccent(inst_sending_name)) LIKE ?", like_period.downcase, like_university.downcase)).order(:family_name).reject{|t| t.role == "admin"} %>
+ like_name.downcase,  like_name.downcase).joins(:student_application_form).merge( StudentApplicationForm.where("lower(academic_year) LIKE ? and lower(unaccent(inst_sending_name)) LIKE ?", like_period.downcase, like_university.downcase)).order(:family_name).reject{|t| t.role == "admin" || t.archived } %>
+
+<% archived_users =  User.where("lower(unaccent(first_name)) LIKE ? or lower(unaccent(family_name)) LIKE ?", 
+ like_name.downcase,  like_name.downcase).joins(:student_application_form).merge( StudentApplicationForm.where("lower(academic_year) LIKE ? and lower(unaccent(inst_sending_name)) LIKE ?", like_period.downcase, like_university.downcase)).order(:family_name).reject{|t| t.role == "admin" || !t.archived } %>
+
 <% settings = ProjectSettings.first_or_create! %>
 
 <% unless params[:progress_state].blank? %>
@@ -104,6 +107,7 @@
         <div class="nominee-item">
           <div class="nominee-<%= nominee.id %>-id flex-table-cell flex-table-email-nominee">
             <span class="big-hidden">Email:</span><span class="email"><%= nominee.email %></span>
+            <%=#nominee.registration_token%>
           </div>
           <div class="nominee-<%= nominee.id %>-id flex-table-cell flex-table-resend">
             <span class="dashboard-icon">
@@ -131,123 +135,10 @@
       </div>
     </div>
    
-    <div class="row">
-      <span class="dashboard-section"  >
-             <label> 
-             Registered users
-               <i class="caret mdi mdi-menu-down no-reverse"></i>
-             </label>
-      </span>
-      <div class="collapsible big <%= params[:nominees].blank? ? ' show':'' %>">
-      <% unless users.empty? %>
-      <div id="registered-users" class="flex-table flex-registered" style="order:0;">
-        <div class="table-header" id="registered-header">
-          <div data-field="name" class="flex-table-header flex-table-cell flex-table-email order order-desc">Student Name
-          <i class="caret mdi mdi-menu-down reverse"></i>
-          </div>
-          <div data-field="uni" class="flex-table-header flex-table-cell flex-table-univ">University
-          <i class="caret mdi mdi-menu-down reverse"></i>
-          </div>
-          <div data-field="period" class="flex-table-header flex-table-cell flex-table-period">Period
-          <i class="caret mdi mdi-menu-down reverse"></i>
-          </div>
-          <div data-field="form" class="flex-table-header flex-table-cell flex-table-app-form">Form
-          <i class="caret mdi mdi-menu-down reverse"></i>
-          </div>
-          <div data-field="letter" class="flex-table-header flex-table-cell flex-table-mot-letter">Letter
-          <i class="caret mdi mdi-menu-down reverse"></i>
-          </div>
-          <div data-field="cv" class="flex-table-header flex-table-cell flex-table-cv">CV
-          <i class="caret mdi mdi-menu-down reverse"></i>
-          </div>
-          <div data-field="tr" class="flex-table-header flex-table-cell flex-table-trans-rec">TR
-          <i class="caret mdi mdi-menu-down reverse"></i>
-          </div>
-          <div data-field="la" class="flex-table-header flex-table-cell flex-table-la">LA
-          <i class="caret mdi mdi-menu-down reverse"></i>
-          </div>
-          <div data-field="status" class="flex-table-header flex-table-cell flex-table-status">Status
-          <i class="caret mdi mdi-menu-down reverse"></i>
-          </div>
-          <div data-field="pctg" class="flex-table-header flex-table-cell flex-table-pctg">%
-          <i class="caret mdi mdi-menu-down reverse"></i>
-          </div>
-        </div>
-        
-        <% users.each_with_index do |user, index| %>
-          <div class="registered-item" style="order: <%=index+1%>;">
-            <div data-name="<%= user.family_name.split(" ").join("") %>" class="user-<%= user.id %>-id flex-table-cell flex-table-email">
-              <span class="big-hidden">Email:</span><a href="<%= RELATIVE_URL %>/review_dashboard/<%=user.id%>"><span class="email"><%= user.family_name %>, <%= user.first_name %> </span></a>
-            </div>
-            <div data-uni="<%= user.student_application_form.inst_sending_name %>" class="user-<%= user.id %>-id flex-table-cell flex-table-univ">
-              <span class="big-hidden">University: </span>
-              <%= user.student_application_form.inst_sending_name %>
-            </div>
-            <div data-period="<%= user.student_application_form.academic_year %>" class="user-<%= user.id %>-id flex-table-cell flex-table-period">
-              <span class="big-hidden">Period: </span>
-              <%= user.student_application_form.academic_year %>
-            </div>
-            <% pctg = user.student_application_form.completed_percentage(!user.signed_student_application_form.blank?) %>
-            <div data-form="<%= pctg %>" class="user-<%= user.id %>-id flex-table-cell flex-table-app-form">
-              <span class="big-hidden">App Form: </span>
-              <span class="dashboard-icon">
-                <a href="<%= RELATIVE_URL %>/review_student_application_form/<%=user.id%>/1">
-                  
-                <%="#{pctg}" %>
-                  <i  class="mdi mdi-clipboard-text app-form <%= 'green' if pctg === '100%' %>"></i>
-                </a>
-              </span>
-            </div>
-            <div data-letter="<%= user.motivation_letter.exists? %>" class="user-<%= user.id %>-id flex-table-cell flex-table-mot-letter">
-              <span class="big-hidden">Mot. Letter: </span>
-              <span class="dashboard-icon">
-                <i class="mdi mdi-email <%=  'exists' if user.motivation_letter.exists?  %>"></i>
-              </span>
-            </div>
-            <div data-cv="<%= user.curriculum_vitae.exists? %>" class="user-<%= user.id %>-id flex-table-cell flex-table-cv">
-              <span class="big-hidden">CV: </span>
-              <span class="dashboard-icon">
-                <i class="mdi mdi-account <%=  'exists' if user.curriculum_vitae.exists?  %>"></i>
-              </span>
-            </div>
-            <div data-tr="<%= user.transcript_of_records.exists? %>" class="user-<%= user.id %>-id flex-table-cell flex-table-trans-rec">
-              <span class="big-hidden">Trans. Rec: </span>
-              <span class="dashboard-icon">
-                <i class="mdi mdi-radiobox-marked <%=  'exists' if user.transcript_of_records.exists?  %>"></i>
-              </span>
-            </div>
-            <div data-la="<%= user.learning_agreement.exists? %>" class="user-<%= user.id %>-id flex-table-cell flex-table-la">
-              <span class="big-hidden">LA: </span>
-              <span class="dashboard-icon"><i class="mdi mdi-school <%=  'exists' if user.learning_agreement.exists?  %>"></i>
-              </span>
-            </div>
-            <div data-status="<%= user.progress_status %>" class="user-<%= user.id %>-id flex-table-cell flex-table-status">
-              <span class="big-hidden">Status: </span>
-              <% if (user.progress_status != "finished" and user.percentage.to_i != 100) %>
-                <%= user.progress_status.humanize.capitalize %>
-              <% else #elsif user.progress_status == "finished"  %>
-                <%= form_for(user, url: set_user_status_path,  method: :post) do |f|%>
-                  <%= f.select :progress_status, User.progress_statuses.map{|k,v| [k.humanize.capitalize, k]}, {}, {value: user.progress_status, class: 'form-control', onfocus: 'this.setAttribute("PrvSelectedValue",this.value);', onchange: 'var newval=$(this).val();if(confirm("This student will be accepted, and the application will send an email to welcoming him/her. Are you sure you want to change the status for this user?")){this.form.submit();}else{this.value=this.getAttribute("PrvSelectedValue");}'}%>
-
-                  <%= f.hidden_field :id, :value => user.id %>
-                <% end %>
-              <% #else %>
-                <%#= user.progress_status.humanize.capitalize %>
-              <% end %>
-            </div>
-            <div data-pctg="<%= user.percentage %>" class="user-<%= user.id %>-id flex-table-cell flex-table-pctg">
-              <span class="big-hidden">Progress: </span>
-              <%= "#{user.percentage}" %>
-            </div>
-          </div>
-        <% end %><br/>
-        
-      </div>
-      <%else%>
-          <p class="no-results">No results</p>
-      <%end%>
-    </div>
-    </div>
+  <%= render partial: "users/admin_dashboard_panel", :locals => {
+      :title => "Registered users", :users => users, :main => true}  %>
+  <%= render partial: "users/admin_dashboard_panel", :locals => {
+      :title => "Archived users", :users => archived_users, :main => false}  %>      
   </div>
   <div id="edit-picture-dialog" > 
     <h2 class="title">Edit your picture</h2>

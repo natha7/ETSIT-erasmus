@@ -180,9 +180,15 @@
 	<h2 class="title">Delete user</h2>
 	<button class="transparent-button action-button right close" id="delete-user-dialog-close"><i class="mdi mdi-close"></i></button>
 	<div class="flex-container">
-		<%= button_to "Archive user", "#{RELATIVE_URL}/users/archive/#{current_user.id}", :method=> :delete, :class => "custom-button", :disabled => true, :form_class =>"inline"%>
-		<%= button_to "Delete permanently", "#{RELATIVE_URL}/users/delete/#{current_user.id}", :method=> :delete,  data: { confirm: "This action is permanent. Are you sure you want to delete this user?" }, :class => "custom-button red-button", :form_class =>"inline"%>
-
+		<% if current_user.archived %>
+			<p>Would you like to restore this user or delete it permanently?</p>
+		<% else %>
+			<p>Would you like to archive this user in order to keep the data or delete it permanently?</p>
+		<% end %>
+        <div class="align-right">
+			<%= button_to current_user.archived ? "Restore user":"Archive user", "#{RELATIVE_URL}/users/archive/#{current_user.id}", :method=> :put, :class => "custom-button", :form_class =>"inline", params: {'archived' => !current_user.archived}%>
+			<%= button_to "Delete permanently", "#{RELATIVE_URL}/users/delete/#{current_user.id}", :method=> :delete,  data: { confirm: "This action is permanent. Are you sure you want to delete this user?" }, :class => "custom-button red-button", :form_class =>"inline"%>
+		</div>
 	</div>
 
 </div>
