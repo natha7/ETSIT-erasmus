@@ -18,7 +18,7 @@ module ApplicationHelper
   end
 
   def country_list
-    [
+    [ "",
       "Afghanistan",
       "Aland Islands",
       "Albania",

@@ -51,11 +51,11 @@ class SamlSessionsController < Devise::SamlSessionsController
           user.birth_date = user_data["DateOfBirth"]
 
           user.password = "demonstration"
-          user.sex = "Male"
-          user.born_place = ""
-          user.permanent_adress = ""
-          user.nationality = ""
-          user.phone_number = ""
+          # user.sex = "Male"
+          # user.born_place = ""
+          # user.permanent_adress = ""
+          # user.nationality = ""
+          # user.phone_number = ""
 
           user.save(validate: false)
           @user = user
