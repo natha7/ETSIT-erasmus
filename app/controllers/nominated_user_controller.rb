@@ -87,8 +87,6 @@ class NominatedUserController < ApplicationController
 				    	@post_params["country"] = "ES"
 				    	@login_url = CONFIG["idp_options"]["sso_login_url"]
 				rescue Terrapin::ExitStatusError => e
-					binding.pry
-
 					puts e.message
 				end
 				session[:nominee] = @nominee.email
