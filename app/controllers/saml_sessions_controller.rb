@@ -38,7 +38,9 @@ class SamlSessionsController < Devise::SamlSessionsController
     end
 
     if @response != nil
+      Rails.logger.info "#{response}"
       user_data = JSON.parse(@response)
+
       if user_data != nil
         @user = User.find_by person_identifier: user_data["PersonIdentifier"]
         Rails.logger.info "#{user_data}"
@@ -74,6 +76,9 @@ class SamlSessionsController < Devise::SamlSessionsController
          redirect_to(:root)
         end
       end
+    else
+     flash[:error] = "Something went wrong"
+     redirect_to(:root)
     end
 
   end
