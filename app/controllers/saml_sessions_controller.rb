@@ -41,7 +41,9 @@ class SamlSessionsController < Devise::SamlSessionsController
       user_data = JSON.parse(@response)
       if user_data != nil
         @user = User.find_by person_identifier: user_data["person_identifier"]
-        print @user
+        Rails.logger.info "{@user}"
+        Rails.logger.info "{user_data}"
+
         print user_data
         if !session[:nominee].blank?
           user = User.new
