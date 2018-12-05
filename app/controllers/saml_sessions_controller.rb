@@ -48,7 +48,7 @@ class SamlSessionsController < Devise::SamlSessionsController
           user.family_name = user_data["FamilyName"]
           user.first_name = user_data["FirstName"]
           user.birth_date = user_data["DateOfBirth"]
-
+          # TODO Qué pasa cuando un parámetro de user data viene vacío?
           user.password = "demonstration"
           # user.sex = "Male"
           # user.born_place = ""
@@ -61,7 +61,6 @@ class SamlSessionsController < Devise::SamlSessionsController
           nominee = NominatedUser.find_by :email => session[:nominee]
           nominee.destroy!
           @user = user
-          Rails.logger.info "#{@user}"
           redirect_to RELATIVE_URL + "/student_application_form/personal_data_step"
         elsif !@user.nil?
           sign_in(:user, @user)
