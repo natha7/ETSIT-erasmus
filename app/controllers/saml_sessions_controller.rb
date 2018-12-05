@@ -62,7 +62,7 @@ class SamlSessionsController < Devise::SamlSessionsController
           # nominee.destroy!
           @user = user
           Rails.logger.info "#{@user}"
-          redirect_to "student_application_form/personal_data_step"
+          redirect_to RELATIVE_URL + "/student_application_form/personal_data_step"
         elsif !@user.nil?
           sign_in(:user, @user)
           redirect_to(:root)
