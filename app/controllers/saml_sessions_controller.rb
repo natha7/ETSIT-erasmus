@@ -41,6 +41,7 @@ class SamlSessionsController < Devise::SamlSessionsController
       user_data = JSON.parse(@response)
       if user_data != nil
         @user = User.find_by person_identifier: user_data["person_identifier"]
+        Rails.logger.info "#{user_data}"
         if !@user.nil?
           sign_in(:user, @user)
           flash[:error] = nil
@@ -59,7 +60,6 @@ class SamlSessionsController < Devise::SamlSessionsController
           # user.permanent_adress = ""
           # user.nationality = ""
           # user.phone_number = ""
-          Rails.logger.info "#{user_data}"
           user.save(validate: false)
 
           nominee = NominatedUser.find_by :email => session[:nominee]
