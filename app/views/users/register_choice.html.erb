@@ -5,14 +5,13 @@
 </script>
 
 <h1>Welcome, <span class="email"> <%=@nominee.email%></span></h1>
-<!--<div><%#= button_to "Register with EIDAS", new_user_sso_session_path, :method=> :get, form_class: "button", :class=> "custom-button primary", :disabled => true  %></div>-->
-
+ 
 <%= form_tag @login_url, :method => :post, :id => "saml-form", :class=> "inline" , :enforce_utf8=> false, :authenticity_token => false do %>
   <% if @post_params != nil %>
     <% @post_params.each do |key, value| -%>
       <%= hidden_field_tag key, value %>
     <%end%>
   <% end %>
-  <button id="certificate_button" class="custom-button"><img id="logo-eidas" src="<%="#{RELATIVE_URL}/assets/eidas.jpg"%>"/>Register with eIDAS</button>
+  <button id="certificate_button" class="custom-button"><%= image_tag("eidas.jpg", alt: "eIDAS", id: "logo-eidas") %>Register with eIDAS</button>
 <% end %>
 <%= button_to "Register with email and password", "#{RELATIVE_URL}/register/"+@nominee.registration_token+"/register_with_email_and_password", :method=> :get, form_class: "inline", :class=> "custom-button primary" %>

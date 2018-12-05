@@ -55,7 +55,7 @@ class SamlSessionsController < Devise::SamlSessionsController
           # user.permanent_adress = ""
           # user.nationality = ""
           # user.phone_number = ""
-          
+
           user.save(validate: false)
 
           nominee = NominatedUser.find_by :email => session[:nominee]
@@ -68,8 +68,10 @@ class SamlSessionsController < Devise::SamlSessionsController
           redirect_to RELATIVE_URL + "/student_application_form/personal_data_step"
         elsif !@user.nil?
           sign_in(:user, @user)
+          flash[:error] = nil
           redirect_to(:root)
         else
+         flash[:error] = "You have not registered with eIDAS"
          redirect_to(:root)
         end
       end
