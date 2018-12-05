@@ -41,6 +41,8 @@ class SamlSessionsController < Devise::SamlSessionsController
       user_data = JSON.parse(@response)
       if user_data != nil
         @user = User.find_by person_identifier: user_data["person_identifier"]
+        print @user
+        print user_data
         if !session[:nominee].blank?
           user = User.new
           user.email = session[:nominee]
@@ -48,7 +50,7 @@ class SamlSessionsController < Devise::SamlSessionsController
           user.family_name = user_data["FamilyName"]
           user.first_name = user_data["FirstName"]
           user.birth_date = user_data["DateOfBirth"]
-          user.save!
+          user.save
           @user = user
           render "student_application_form/personal_data_step"
         elsif !@user.nil?
