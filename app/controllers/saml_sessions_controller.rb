@@ -59,11 +59,14 @@ class SamlSessionsController < Devise::SamlSessionsController
 
           user.save(validate: false)
           sign_in(:user, user)
+          # NominatedUser.find_by :email => session[:nominee]
+          # nominee.destroy!
           @user = user
           Rails.logger.info "#{@user}"
-          render "student_application_form/personal_data_step"
+          redirect_to "student_application_form/personal_data_step"
         elsif !@user.nil?
-          sign_in(@user, User)
+          sign_in(:user, User)
+          redirect_to(@user)
         else
          redirect_to(:root)
         end
