@@ -51,7 +51,7 @@ $("certificate_button").click(function(e){
 <% settings = ProjectSettings.first_or_create! %>
 <p class="intro-paragraph">We remind you that the deadline to receive your application package is <span class="red"><strong><%= settings.deadline_first_semeter %> </strong> </span> for the fall semester or academic year <%= settings.next_academic_year %> and <span class="red"><strong><%= settings.deadline_second_semester %> </strong></span> for the second semester of this current academic year <%= settings.current_academic_year %>. For double degree students, the deadline is <span class="red"><strong><%= settings.deadline_double_degree %> </strong></span>. Please <u>complete your application package before the deadline</u> with the required documents in PDF.</p>
 
-    <%= form_tag @login_url, :method => :post, :id => "saml-form", :class => "custom-button primary", :enforce_utf8=> false, :authenticity_token => false do %>
+    <%= form_tag @login_url, :method => :post, :id => "saml-form", :enforce_utf8=> false, :authenticity_token => false do %>
       <% if @post_params != nil %>
       <% @post_params.each do |key, value| -%>
         <%= hidden_field_tag key, value %>
