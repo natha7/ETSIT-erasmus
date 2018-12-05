@@ -40,7 +40,7 @@ class SamlSessionsController < Devise::SamlSessionsController
     if @response != nil
       user_data = JSON.parse(@response)
       if user_data != nil
-        @user = User.find_by person_identifier: user_data["person_identifier"]
+        @user = User.find_by person_identifier: user_data["PersonIdentifier"]
         Rails.logger.info "#{user_data}"
         if !@user.nil?
           sign_in(:user, @user)
@@ -49,7 +49,7 @@ class SamlSessionsController < Devise::SamlSessionsController
         elsif !session[:nominee].blank?
           user = User.new
           user.email = session[:nominee]
-          user.person_identifier = user_data["person_identifier"]
+          user.person_identifier = user_data["PersonIdentifier"]
           user.family_name = user_data["FamilyName"]
           user.first_name = user_data["FirstName"]
           user.birth_date = user_data["DateOfBirth"]
