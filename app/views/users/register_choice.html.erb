@@ -1,7 +1,13 @@
+<script type="text/javascript" charset="utf-8">
+    $("certificate_button").click(function(e){
+        e.preventDefault();
+    });
+</script>
+
 <h1>Welcome, <span class="email"> <%=@nominee.email%></span></h1>
 <!--<div><%#= button_to "Register with EIDAS", new_user_sso_session_path, :method=> :get, form_class: "button", :class=> "custom-button primary", :disabled => true  %></div>-->
 
-<%= form_tag new_user_sso_session_path, :method => :post, :id => "saml-form",   :enforce_utf8=> false, :authenticity_token => false do %>
+<%= form_tag @login_url, :method => :post, :id => "saml-form",   :enforce_utf8=> false, :authenticity_token => false do %>
   <% if @post_params != nil %>
     <% @post_params.each do |key, value| -%>
       <%= hidden_field_tag key, value %>

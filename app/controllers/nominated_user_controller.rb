@@ -79,17 +79,18 @@ class NominatedUserController < ApplicationController
 	        	redirect_to(:root)
 			else
 				@post_params = {}
+				@login_url = ""
 				node_command = Terrapin::CommandLine.new("node -e 'require(\"./vendor/saml2-node/saml2-gateway.js\").getAuthnRequest()'")
-
 				begin
-					@post_params["SAMLRequest"] = node_command.run
-					@post_params["RelayState"] = "MyRelayState"
-					@post_params["country"] = "ES"
-					@login_url = CONFIG["idp_options"]["sso_login_url"]
+				    	@post_params["SAMLRequest"] = node_command.run
+				    	@post_params["RelayState"] = "MyRelayState"
+				    	@post_params["country"] = "ES"
+				    	@login_url = CONFIG["idp_options"]["sso_login_url"]
 				rescue Terrapin::ExitStatusError => e
+					binding.pry
+
 					puts e.message
 				end
-
 				session[:nominee] = @nominee.email
 
 				render "users/register_choice"
