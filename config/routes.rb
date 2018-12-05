@@ -12,7 +12,10 @@ Rails.application.routes.draw do
         get :eidas, path: "eidas/eidas", as: :eidas_session
         get :destroy, path: "sign_out", as: :destroy_user_sso_session
         get :metadata, path: "eidas/metadata", as: :metadata_user_sso_session
+        delete 'delete/:user', to: "user#delete"
+
         match :idp_sign_out, path: "eidas/idp_sign_out", via: [:get, :post]
+
       end
     end
 

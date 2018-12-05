@@ -3,7 +3,7 @@ require "prawn"
 class UserController < ApplicationController
 	before_action :authenticate_user!, except: [:digital_certificate, :token_registration, :create_user, :register_with_email_and_password, :register_with_eidas]
 	before_action :validate_not_user?, only: [:register_with_email_and_password, :register_with_eidas]
-	before_action :validate_admin?, only: [:admin_dashboard, :set_user_status, :review_dashboard, :update_settings, :download_all_files, :generate_csv, :generate_acceptance_letters]
+	before_action :validate_admin?, only: [:admin_dashboard, :set_user_status, :review_dashboard, :update_settings, :download_all_files, :generate_csv, :generate_acceptance_letters, :delete]
 	include PdfHelper
 
 	### ADMIN
@@ -316,6 +316,12 @@ class UserController < ApplicationController
 		end
 		ProjectSettings.first_or_create.update(settings)
 
+		redirect_to admin_dashboard_path
+	end
+
+	def delete
+		user = User.find_by :id => params[:user]
+		user.destroy!
 		redirect_to admin_dashboard_path
 	end
 end

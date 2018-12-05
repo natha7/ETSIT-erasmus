@@ -193,6 +193,41 @@ $(document).on('turbolinks:load', function() {
     );
 
     /**
+     * Delete user modal
+     */
+    $('#delete-user').click(function(e){
+        e.stopPropagation();
+        var availWidth = $('html').width();
+        availWidth = availWidth > 900 ? 700 : (availWidth < 500 ? availWidth - 10 : availWidth*0.7)
+        var deleteUserDialog = $('#delete-user-dialog').dialog({
+            modal:true,
+            minWidth: availWidth,
+            show: {
+                effect: "scale",
+                duration: 200
+            },
+            hide: {
+                effect: "explode",
+                duration: 200
+            },
+            open: function () {
+                $('.ui-widget-overlay').on('click', function () {
+                    deleteUserDialog.dialog('close');
+                });
+            },
+        });
+
+    });
+
+    $('#delete-user-dialog-close').click(
+        function(e) {
+            $('#delete-user-dialog').dialog('close');
+        }
+    );
+
+
+
+    /**
      * Convert Base64 to Blob
      */
     function dataURItoBlob(dataURI) {
