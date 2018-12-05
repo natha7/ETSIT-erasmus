@@ -1,8 +1,8 @@
 require "eidas-saml"
 require "eidas-metadata"
-
 class SamlSessionsController < Devise::SamlSessionsController
   #after_action :store_winning_strategy, only: :create
+  include SamlSessionsHelper
 
   def new
     idp_entity_id = get_idp_entity_id(params)
@@ -69,7 +69,7 @@ class SamlSessionsController < Devise::SamlSessionsController
               user[saml_dictionary[key]] = value
             end
           end
-          
+
           user.save(validate: false)
 
           nominee = NominatedUser.find_by :email => session[:nominee]

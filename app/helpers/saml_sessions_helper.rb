@@ -5,9 +5,9 @@ module SamlSessionsHelper
   end
   def saml_attrs_to_model_attrs
   	{
-  		"person_identifier" => "PersonIdentifier"
-  		"family_name" => "FamilyName"
-  		"first_name" => "FirstName"
+  		"person_identifier" => "PersonIdentifier",
+  		"family_name" => "FamilyName",
+  		"first_name" => "FirstName",
   		"birth_date" => "DateOfBirth"
   	}
 
