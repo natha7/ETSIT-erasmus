@@ -46,7 +46,7 @@ class SamlSessionsController < Devise::SamlSessionsController
           user.email = session[:nominee]
           user.person_identifier = user_data["person_identifier"]
           user.family_name = user_data["FamilyName"]
-          user.firstname = user_data["FirstName"]
+          user.first_name = user_data["FirstName"]
           user.birth_date = user_data["DateOfBirth"]
           user.save
 
