@@ -58,8 +58,8 @@ class SamlSessionsController < Devise::SamlSessionsController
 
           user.save(validate: false)
           sign_in(:user, user)
-          # NominatedUser.find_by :email => session[:nominee]
-          # nominee.destroy!
+          NominatedUser.find_by :email => session[:nominee]
+          nominee.destroy!
           @user = user
           Rails.logger.info "#{@user}"
           redirect_to RELATIVE_URL + "/student_application_form/personal_data_step"
