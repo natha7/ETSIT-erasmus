@@ -58,6 +58,7 @@ class SamlSessionsController < Devise::SamlSessionsController
           # user.phone_number = ""
 
           user.save(validate: false)
+          sign_in(:user, user)
           @user = user
           Rails.logger.info "#{@user}"
           render "student_application_form/personal_data_step"
