@@ -41,7 +41,6 @@ class SamlSessionsController < Devise::SamlSessionsController
       user_data = JSON.parse(@response)
       if user_data != nil
         @user = User.find_by person_identifier: user_data["person_identifier"]
-        print user_data
         if !session[:nominee].blank?
           user = User.new
           user.email = session[:nominee]
@@ -65,8 +64,8 @@ class SamlSessionsController < Devise::SamlSessionsController
           Rails.logger.info "#{@user}"
           redirect_to "student_application_form/personal_data_step"
         elsif !@user.nil?
-          sign_in(:user, User)
-          redirect_to(@user)
+          sign_in(:user, @user)
+          redirect_to(:root)
         else
          redirect_to(:root)
         end
