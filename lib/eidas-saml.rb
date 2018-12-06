@@ -2,6 +2,8 @@ require "XML_security_saml2"
 
 class EidasSaml < OneLogin::RubySaml::Authrequest
 
+  include SamlSessionsHelper
+
   def create(settings, params = nil)
     #binding.pry
     params = create_params(settings, params)
@@ -100,12 +102,12 @@ class EidasSaml < OneLogin::RubySaml::Authrequest
     sptype = extension.add_element "eidas:SPType"
     sptype.text = "public"
     requested_attributes = extension.add_element "eidas:RequestedAttributes"
-    requested_attributes.add_element "eidas:RequestedAttribute", { "Name" => "http://eidas.europa.eu/attributes/naturalperson/CurrentFamilyName", "FriendlyName" => "FamilyName", "NameFormat" => "urn:oasis:names:tc:SAML:2.0:attrname-format:uri", "isRequired" => "true"}
-    requested_attributes.add_element "eidas:RequestedAttribute", { "Name" => "http://eidas.europa.eu/attributes/naturalperson/CurrentGivenName", "FriendlyName" => "FirstName", "NameFormat" => "urn:oasis:names:tc:SAML:2.0:attrname-format:uri", "isRequired" => "true"}
-    requested_attributes.add_element "eidas:RequestedAttribute", { "Name" => "http://eidas.europa.eu/attributes/naturalperson/DateOfBirth", "FriendlyName" => "DateOfBirth", "NameFormat" => "urn:oasis:names:tc:SAML:2.0:attrname-format:uri", "isRequired" => "true"}
-    requested_attributes.add_element "eidas:RequestedAttribute", { "Name" => "http://eidas.europa.eu/attributes/naturalperson/PersonIdentifier", "FriendlyName" => "PersonIdentifier", "NameFormat" => "urn:oasis:names:tc:SAML:2.0:attrname-format:uri", "isRequired" => "true"}
-    requested_attributes.add_element "eidas:RequestedAttribute", { "Name" => "http://eidas.europa.eu/attributes/legalperson/LegalName", "FriendlyName" => "LegalName", "NameFormat" => "urn:oasis:names:tc:SAML:2.0:attrname-format:uri", "isRequired" => "true"}
-    requested_attributes.add_element "eidas:RequestedAttribute", { "Name" => "http://eidas.europa.eu/attributes/legalperson/LegalPersonIdentifier", "FriendlyName" => "LegalPersonIdentifier", "NameFormat" => "urn:oasis:names:tc:SAML:2.0:attrname-format:uri", "isRequired" => "true"}
+    attrs = get_eidas_requested_attrs
+    # Add requested attributes to SAML request
+    attrs.each do |attr|
+      requested_attributes.add_element "eidas:RequestedAttribute", { "Name" => attr["Name"], "FriendlyName" => attr["FriendlyName"], "NameFormat" => attr["NameFormat"], "isRequired" => attr["isRequired"]}
+
+    end
 
     if settings.name_identifier_format != nil
       root.add_element "saml2p:NameIDPolicy", {
