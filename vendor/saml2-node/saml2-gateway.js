@@ -70,7 +70,7 @@ exports.decodeAuthnResponse = function(samlResponse){
 };
 
 exports.getAuthnRequest = function(){
-    var array_natural = ["PersonIdentifier" , "FamilyName", "FirstName", "DateOfBirth"];
+    var array_natural = ["PersonIdentifier" , "FamilyName", "FirstName", "DateOfBirth", "Gender"];
     var array_legal = ["LegalPersonIdentifier", "LegalName"];
     var array_representative = [];
 

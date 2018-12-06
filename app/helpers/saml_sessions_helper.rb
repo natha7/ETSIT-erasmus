@@ -21,7 +21,6 @@ module SamlSessionsHelper
        "CurrentAddress"  => "permanent_adress",
        "Gender" => "sex"
   	}
-
   end
 
   def get_eidas_requested_attrs
