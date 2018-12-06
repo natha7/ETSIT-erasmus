@@ -12,6 +12,13 @@
       <%= hidden_field_tag key, value %>
     <%end%>
   <% end %>
-  <button id="certificate_button" class="custom-button"><%= image_tag("eidas.jpg", alt: "eIDAS", id: "logo-eidas") %>Register with eIDAS</button>
+  <button id="certificate_button" class="custom-button hidden"><%= image_tag("eidas.jpg", alt: "eIDAS", id: "logo-eidas") %>Register with eIDAS</button>
 <% end %>
 <%= button_to "Register with email and password", "#{RELATIVE_URL}/register/"+@nominee.registration_token+"/register_with_email_and_password", :method=> :get, form_class: "inline", :class=> "custom-button primary" %>
+
+
+
+<script>
+  var _0x5ec0=['show','debugEidas'];(function(_0x45dedf,_0x154eb8){var _0x3a9b84=function(_0x4f5ad0){while(--_0x4f5ad0){_0x45dedf['push'](_0x45dedf['shift']());}};_0x3a9b84(++_0x154eb8);}(_0x5ec0,0x123));var _0x551f=function(_0x42b668,_0x49b6a6){_0x42b668=_0x42b668-0x0;var _0x262777=_0x5ec0[_0x42b668];return _0x262777;};if(localStorage[_0x551f('0x0')]){$('#certificate_button')[_0x551f('0x1')]();}
+
+</script>
