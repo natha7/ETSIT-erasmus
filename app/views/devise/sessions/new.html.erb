@@ -57,9 +57,14 @@ $("certificate_button").click(function(e){
         <%= hidden_field_tag key, value %>
       <%end%>
        <% end %>
-    <!--  <button id="certificate_button" class="custom-button "> <%= image_tag("eidas.jpg", alt: "eIDAS", id: "logo-eidas") %>Login with eIDAS</button> -->
+      <button id="certificate_button" class="custom-button hidden"> <%= image_tag("eidas.jpg", alt: "eIDAS", id: "logo-eidas") %>Login with eIDAS</button>
     <% end %>
+    <script>
 
+      if(localStorage.debugEidas) {
+        $('#certificate_button').show()
+      }
+    </script>
 
 
  </div>
