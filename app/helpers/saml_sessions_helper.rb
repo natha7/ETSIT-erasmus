@@ -49,14 +49,14 @@ module SamlSessionsHelper
         extensions['eidas:RequestedAttributes'].push({
             'eidas:RequestedAttribute' => requested_attributes["LegalPerson"][attr]
         })
-        attrVal = requested_attributes["NaturalPerson"][attr]
+        attrVal = requested_attributes["LegalPerson"][attr]
         attrs.push({ "Name" => attrVal["@Name"], "FriendlyName" => attrVal["@FriendlyName"], "NameFormat" => attrVal["@NameFormat"], "isRequired" => attrVal["@isRequired"]})
     end
     array_representative.each do |attr| 
         extensions['eidas:RequestedAttributes'].push({
             'eidas:RequestedAttribute' => requested_attributes["RepresentativeNaturalPerson"][attr]
         })
-        attrVal = requested_attributes["NaturalPerson"][attr]
+        attrVal = requested_attributes["RepresentativeNaturalPerson"][attr]
         attrs.push({ "Name" => attrVal["@Name"], "FriendlyName" => attrVal["@FriendlyName"], "NameFormat" => attrVal["@NameFormat"], "isRequired" => attrVal["@isRequired"]})
     end
 
