@@ -107,8 +107,6 @@ class EidasSaml < OneLogin::RubySaml::Authrequest
     attrs.each do |attr|
       requested_attributes.add_element "eidas:RequestedAttribute", { "Name" => attr["Name"], "FriendlyName" => attr["FriendlyName"], "NameFormat" => attr["NameFormat"], "isRequired" => attr["isRequired"]}
     end
-    puts "REQUESTED_ATTRS\n"
-    puts requested_attributes
     if settings.name_identifier_format != nil
       root.add_element "saml2p:NameIDPolicy", {
           # Might want to make AllowCreate a setting?
