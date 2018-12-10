@@ -529,7 +529,7 @@ module ApplicationHelper
       "ZW" => "Zimbabwe"
     }
     if (codes.key?(code))
-      result = cdoes[code]
+      result = codes[code]
     end
     result
   end
