@@ -2,6 +2,7 @@
 require 'json'
 
 module SamlSessionsHelper
+  include ApplicationHelper
   requested_eidas_attrs = File.read(Rails.root + 'vendor/saml2-node/requested_attributes.json')
   parsed_eidas_attrs = {}
   begin 
@@ -40,6 +41,15 @@ module SamlSessionsHelper
         "HomeInstitutionAddress" => "inst_adress",
         # "TemporaryAddress" => "address",
     }
+  end
+
+  def parseAttribute(key, value)
+    finalValue = value
+    case key
+    when "Nationality"
+      finalValue = country_from_code(value)
+    end
+    finalValue
   end
 
   def get_eidas_requested_attrs
