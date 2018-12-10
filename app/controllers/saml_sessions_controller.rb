@@ -55,7 +55,7 @@ class SamlSessionsController < Devise::SamlSessionsController
           saml_dictionary = saml_attrs_to_model_attrs
           user_data.each do |key,value|
             if saml_dictionary.key?(key)
-              user[saml_dictionary[key]] = value
+              user[saml_dictionary[key]] = parseAttribute(key,value)
             elsif saml_dictionary_sap.key?(key)
               Rails.logger.info "#{key} #{saml_dictionary_sap[key]} "
               user.student_application_form[saml_dictionary_sap[key]] = parseAttribute(key,value)
