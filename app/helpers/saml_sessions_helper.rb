@@ -26,7 +26,7 @@ module SamlSessionsHelper
        "Phone" => "phone_number",
   	}
   end
-  def saml_dictionary_sap
+  def saml_attrs_to_model_attrs_sap
     {
         "CurrentDegree" => "current_diploma_degree",
         # "Degree" => "current_diploma_degree",

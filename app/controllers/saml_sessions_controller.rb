@@ -53,6 +53,7 @@ class SamlSessionsController < Devise::SamlSessionsController
           # TODO Qué pasa cuando un parámetro de user data viene vacío?
           user.password = "demonstration"
           saml_dictionary = saml_attrs_to_model_attrs
+          saml_dictionary_sap = saml_attrs_to_model_attrs_sap
           user_data.each do |key,value|
             if saml_dictionary.key?(key)
               user[saml_dictionary[key]] = parseAttribute(key,value)
