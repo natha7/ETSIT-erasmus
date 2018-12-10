@@ -47,6 +47,96 @@
 			"@Name": "http://eidas.europa.eu/attributes/naturalperson/Gender",
 			"@NameFormat": "urn:oasis:names:tc:SAML:2.0:attrname-format:uri",
 			"@isRequired": "false"
+		},
+		"CurrentPhoto": {
+			"@FriendlyName": "CurrentPhoto",
+			"@Name": "http://eidas.europa.eu/attributes/naturalperson/CurrentPhoto",
+			"@NameFormat": "urn:oasis:names:tc:SAML:2.0:attrname-format:uri",
+			"@isRequired": "false"
+		},
+		"Nationality": {
+			"@FriendlyName": "Nationality",
+			"@Name": "http://eidas.europa.eu/attributes/naturalperson/Nationality",
+			"@NameFormat": "urn:oasis:names:tc:SAML:2.0:attrname-format:uri",
+			"@isRequired": "false"
+		},
+		"Phone": {
+			"@FriendlyName": "CurrentPhoto",
+			"@Name": "http://eidas.europa.eu/attributes/naturalperson/Phone",
+			"@NameFormat": "urn:oasis:names:tc:SAML:2.0:attrname-format:uri",
+			"@isRequired": "false"
+		},
+		"CurrentDegree": {
+			"@FriendlyName": "CurrentDegree",
+			"@Name": "http://eidas.europa.eu/attributes/naturalperson/CurrentDegree",
+			"@NameFormat": "urn:oasis:names:tc:SAML:2.0:attrname-format:uri",
+			"@isRequired": "false"
+		},
+		"Degree": {
+			"@FriendlyName": "Degree",
+			"@Name": "http://eidas.europa.eu/attributes/naturalperson/Degree",
+			"@NameFormat": "urn:oasis:names:tc:SAML:2.0:attrname-format:uri",
+			"@isRequired": "false"
+		},
+		"DegreeAwardingInstitution": {
+			"@FriendlyName": "DegreeAwardingInstitution",
+			"@Name": "http://eidas.europa.eu/attributes/naturalperson/DegreeAwardingInstitution",
+			"@NameFormat": "urn:oasis:names:tc:SAML:2.0:attrname-format:uri",
+			"@isRequired": "false"
+		},
+		"DegreeCountry": {
+			"@FriendlyName": "DegreeCountry",
+			"@Name": "http://eidas.europa.eu/attributes/naturalperson/DegreeCountry",
+			"@NameFormat": "urn:oasis:names:tc:SAML:2.0:attrname-format:uri",
+			"@isRequired": "false"
+		},
+		"FieldOfStudy": {
+			"@FriendlyName": "FieldOfStudy",
+			"@Name": "http://eidas.europa.eu/attributes/naturalperson/FieldOfStudy",
+			"@NameFormat": "urn:oasis:names:tc:SAML:2.0:attrname-format:uri",
+			"@isRequired": "false"
+		},
+		"GraduationYear": {
+			"@FriendlyName": "GraduationYear",
+			"@Name": "http://eidas.europa.eu/attributes/naturalperson/GraduationYear",
+			"@NameFormat": "urn:oasis:names:tc:SAML:2.0:attrname-format:uri",
+			"@isRequired": "false"
+		},
+		"LanguageCertificates": {
+			"@FriendlyName": "LanguageCertificates",
+			"@Name": "http://eidas.europa.eu/attributes/naturalperson/LanguageCertificates",
+			"@NameFormat": "urn:oasis:names:tc:SAML:2.0:attrname-format:uri",
+			"@isRequired": "false"
+		},
+		"LanguageProficiency": {
+			"@FriendlyName": "LanguageProficiency",
+			"@Name": "http://eidas.europa.eu/attributes/naturalperson/LanguageProficiency",
+			"@NameFormat": "urn:oasis:names:tc:SAML:2.0:attrname-format:uri",
+			"@isRequired": "false"
+		},
+		"HomeInstitutionAddress": {
+			"@FriendlyName": "HomeInstitutionAddress",
+			"@Name": "http://eidas.europa.eu/attributes/naturalperson/HomeInstitutionAddress",
+			"@NameFormat": "urn:oasis:names:tc:SAML:2.0:attrname-format:uri",
+			"@isRequired": "false"
+		},
+		"HomeInstitutionCountry": {
+			"@FriendlyName": "HomeInstitutionCountry",
+			"@Name": "http://eidas.europa.eu/attributes/naturalperson/HomeInstitutionCountry",
+			"@NameFormat": "urn:oasis:names:tc:SAML:2.0:attrname-format:uri",
+			"@isRequired": "false"
+		},
+		"HomeInstitutionName": {
+			"@FriendlyName": "HomeInstitutionName",
+			"@Name": "http://eidas.europa.eu/attributes/naturalperson/HomeInstitutionName",
+			"@NameFormat": "urn:oasis:names:tc:SAML:2.0:attrname-format:uri",
+			"@isRequired": "false"
+		},
+		"TemporaryAddress": {
+			"@FriendlyName": "TemporaryAddress",
+			"@Name": "http://eidas.europa.eu/attributes/naturalperson/TemporaryAddress",
+			"@NameFormat": "urn:oasis:names:tc:SAML:2.0:attrname-format:uri",
+			"@isRequired": "false"
 		}
 	},
 	"LegalPerson": {

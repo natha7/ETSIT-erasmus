@@ -19,14 +19,33 @@ module SamlSessionsHelper
   		 "DateOfBirth" => "birth_date",
        "PlaceOfBirth" => "born_place",
        "CurrentAddress"  => "permanent_adress",
-       "Gender" => "sex"
+       "Gender" => "sex",
+       "CurrentPhoto" => "photo",
+       "Nationality" => "nationality",
+       "Phone" => "phone_number",
   	}
+  end
+  def saml_dictionary_sap
+    {
+        "CurrentDegree" => "current_diploma_degree",
+        # "Degree" => "current_diploma_degree",
+        # "DegreeAwardingInstitution" => "",
+        # "DegreeCountry" => "",
+        "FieldOfStudy" => "field_of_study",
+        "GraduationYear" => "year_attended",
+        # "LanguageCertificates" => "",
+        # "LanguageProficiency" => "",
+        "HomeInstitutionName" => "inst_sending_name",
+        # "HomeInstitutionCountry" => "",
+        "HomeInstitutionAddress" => "inst_adress",
+        # "TemporaryAddress" => "address",
+    }
   end
 
   def get_eidas_requested_attrs
     requested_attributes = REQUESTED_EIDAS_ATTRS
 
-    array_natural = ["PersonIdentifier" , "FamilyName", "FirstName", "DateOfBirth", "PlaceOfBirth", "CurrentAddress", "Gender"]
+    array_natural = ["PersonIdentifier" , "FamilyName", "FirstName", "DateOfBirth", "PlaceOfBirth", "CurrentAddress", "Gender","CurrentPhoto", "Nationality", "Phone", "CurrentDegree", "Degree", "DegreeAwardingInstitution", "DegreeCountry", "FieldOfStudy", "GraduationYear", "LanguageCertificates", "LanguageProficiency", "HomeInstitutionAddress", "HomeInstitutionCountry", "HomeInstitutionName", "TemporaryAddress"],
     array_legal = ["LegalPersonIdentifier", "LegalName"]
     array_representative = []
     attrs = []

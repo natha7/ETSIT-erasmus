@@ -56,6 +56,8 @@ class SamlSessionsController < Devise::SamlSessionsController
           user_data.each do |key,value|
             if saml_dictionary.key?(key)
               user[saml_dictionary[key]] = value
+            elsif saml_dictionary_sap.key?(key)
+              user.student_application_form[saml_dictionary_sap[key]] = value
             end
           end
 
