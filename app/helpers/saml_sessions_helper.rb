@@ -49,9 +49,7 @@ module SamlSessionsHelper
     case key
     when "Nationality"
       finalValue = country_from_code(value)
-    when "HomeInstitutionAddress"
-    when "CurrentAddress"
-    when "TemporaryAddress"
+    when "HomeInstitutionAddress", "CurrentAddress", "TemporaryAddress"
       finalValue = Base64.decode64(value)
     end
     finalValue
