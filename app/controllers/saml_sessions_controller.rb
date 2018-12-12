@@ -40,7 +40,7 @@ class SamlSessionsController < Devise::SamlSessionsController
     if @response != nil
       Rails.logger.info "#{response}"
       user_data = JSON.parse(@response)
-
+      Rails.logger.info "#{user_data}"
       if user_data != nil
         @user = User.find_by person_identifier: user_data["PersonIdentifier"]
         Rails.logger.info "#{user_data}"
@@ -52,6 +52,7 @@ class SamlSessionsController < Devise::SamlSessionsController
           user.email = session[:nominee]
           # TODO Qué pasa cuando un parámetro de user data viene vacío?
           user.password = "demonstration"
+          user.save(validate: false)
           saml_dictionary = saml_attrs_to_model_attrs
           saml_dictionary_sap = saml_attrs_to_model_attrs_sap
           user_data.each do |key,value|
