@@ -38,12 +38,10 @@ class SamlSessionsController < Devise::SamlSessionsController
     end
 
     if @response != nil
-      Rails.logger.info "#{response}"
       user_data = JSON.parse(@response)
       Rails.logger.info "#{user_data}"
       if user_data != nil
         @user = User.find_by person_identifier: user_data["PersonIdentifier"]
-        Rails.logger.info "#{user_data}"
         if !@user.nil?
           sign_in(:user, @user)
           redirect_to RELATIVE_URL + "/user_dashboard"

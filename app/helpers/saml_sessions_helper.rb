@@ -40,7 +40,7 @@ module SamlSessionsHelper
         "HomeInstitutionName" => "inst_sending_name",
         # "HomeInstitutionCountry" => "",
         "HomeInstitutionAddress" => "inst_adress",
-        "TemporaryAddress" => "address",
+        # "TemporaryAddress" => "address",
     }
   end
 
