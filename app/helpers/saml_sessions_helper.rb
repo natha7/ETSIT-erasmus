@@ -1,5 +1,6 @@
 
 require 'json'
+require "base64"
 
 module SamlSessionsHelper
   include ApplicationHelper
@@ -29,7 +30,7 @@ module SamlSessionsHelper
   def saml_attrs_to_model_attrs_sap
     {
         "CurrentDegree" => "current_diploma_degree",
-        # "Degree" => "current_diploma_degree",
+        "Degree" => "current_diploma_degree",
         # "DegreeAwardingInstitution" => "",
         # "DegreeCountry" => "",
         "FieldOfStudy" => "field_of_study",
@@ -39,7 +40,7 @@ module SamlSessionsHelper
         "HomeInstitutionName" => "inst_sending_name",
         # "HomeInstitutionCountry" => "",
         "HomeInstitutionAddress" => "inst_adress",
-        # "TemporaryAddress" => "address",
+        "TemporaryAddress" => "address",
     }
   end
 
@@ -48,6 +49,10 @@ module SamlSessionsHelper
     case key
     when "Nationality"
       finalValue = country_from_code(value)
+    when "HomeInstitutionAddress"
+    when "CurrentAddress"
+    when "TemporaryAddress"
+      finalValue = Base64.decode64(value)
     end
     finalValue
   end
