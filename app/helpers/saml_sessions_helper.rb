@@ -41,6 +41,8 @@ module SamlSessionsHelper
         # "HomeInstitutionCountry" => "",
         "HomeInstitutionAddress" => "inst_adress",
         # "TemporaryAddress" => "address",
+        "CurrentLevelOfStudy" => "purpose_of_stay",
+        "FieldOfStudy" => "specialization_area"
     }
   end
 
@@ -51,6 +53,16 @@ module SamlSessionsHelper
       finalValue = country_from_code(value)
     when "HomeInstitutionAddress", "CurrentAddress", "TemporaryAddress"
       finalValue = Base64.decode64(value)
+    when "CurrentLevelOfStudy"
+      if (value == 4)
+        finalValue = "undergraduate_courses"
+      elsif (value == 5)
+        finalValue = "master_courses"
+      elsif (value == 6)
+        finalValue = "thesis"
+      else
+        finalValue = "other"
+      end
     end
     finalValue
   end

@@ -273,6 +273,50 @@ module ApplicationHelper
     ]
   end
 
+
+  def isced_fos(fos)
+    let res = ""
+    let equivalence = {
+        "0" => "General programmes",
+        "01" => "Basic programmes",
+        "08" => "Literacy and numeracy",
+        "09" => "Personal development",
+        "1" => "Education",
+        "14" => "Teacher training and education science",
+        "2" => "Humanities and arts",
+        "21" => "Arts",
+        "22" => "Humanities",
+        "3" => "Social sciences, business and law",
+        "31" => "Social and behavioural science",
+        "32" => "Journalism and information",
+        "34" => "Business and administration",
+        "38" => "Law",
+        "4" => "Science",
+        "42" => "Life sciences",
+        "44" => "Physical sciences",
+        "46" => "Mathematics and statistics",
+        "48" => "Computing",
+        "5" => "Engineering, manufacturing and construction",
+        "52" => "Engineering and engineering trades",
+        "54" => "Manufacturing and processing",
+        "58" => "Architecture and building",
+        "6" => "Agriculture",
+        "62" => "Agriculture, forestry and fishery",
+        "64" => "Veterinary",
+        "7" => "Health and welfare",
+        "72" => "Health",
+        "76" => "Social services",
+        "8" => "Services",
+        "81" => "Personal services",
+        "84" => "Transport services",
+        "85" => "Environmental protection",
+        "86" => "Security services"
+    }
+    if (!fos.blank? and equivalence.key?(fos.to_s))
+        res = equivalence[fos.to_s]
+    end
+    res
+    end
   def country_from_code(code)
     result = ""
     codes = { "" => "",
@@ -817,4 +861,4 @@ module ApplicationHelper
       "first"
     end
   end
-end
+ end

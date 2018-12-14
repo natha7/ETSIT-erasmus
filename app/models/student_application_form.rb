@@ -17,10 +17,10 @@ class StudentApplicationForm < ApplicationRecord
 
 		second = [
 	  		:inst_sending_name,
-	      	:inst_adress,
+				:inst_adress,
 	     	:school_family_dpt,
 	  		:dept_coordinator,
-	      	:contact_person,
+				:contact_person,
 	  		:inst_telephone,
 	  		:inst_email
   		]
