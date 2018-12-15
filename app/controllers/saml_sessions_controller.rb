@@ -51,14 +51,15 @@ class SamlSessionsController < Devise::SamlSessionsController
           # TODO Qué pasa cuando un parámetro de user data viene vacío?
           user.password = "demonstration"
           user.save(validate: false)
-          saml_dictionary = saml_attrs_to_model_attrs
-          saml_dictionary_sap = saml_attrs_to_model_attrs_sap
-          user_data.each do |key,value|
-            if saml_dictionary.key?(key)
-              user[saml_dictionary[key]] = parseAttribute(key,value)
-            elsif saml_dictionary_sap.key?(key)
-              Rails.logger.info "#{key} #{saml_dictionary_sap[key]} "
-              user.student_application_form[saml_dictionary_sap[key]] = parseAttribute(key,value)
+          user_data.each do |key, value|
+            attr = parseEidasAttr(key, value)
+            Rails.logger.info "#{key} #{attr[:key]} #{attr[:value]}"
+            if (attr[:key] != "unknown") 
+              if (attr[:sap]) 
+                user.student_application_form[attr[:key]] = attr[:value]
+              else
+                user[attr[:key]] = attr[:value]
+              end
             end
           end
 

@@ -238,14 +238,19 @@ class UserController < ApplicationController
 		subjects = !params["user"]["learning_agreement_subjects"].blank?
 		sap = params["user"]["student_application_form"].blank? ? [] : params["user"]["student_application_form"].keys
 		csv_string = CSV.generate(:col_sep => ";") do |csv|
-			csv << keys + (sap ? sap : []) + (subjects ? ["subject", "subject_code", "degree", "ects"] : [])
+			heading = keys.collect {|i| i.humanize } + (sap ? sap : []).collect {|i| i.humanize } + (subjects ? ["Subject", "Subject Code", "Degree", "ects"] : [])
+			csv << heading
 			users.each do |user|
 				attrs = []
 				keys.each do |key|
 					attrs.push(user[key])
 				end
 				sap.each do |key|
-				  attrs.push(user.student_application_form[key])
+				  if (key == "purpose_of_stay" and !user.student_application_form[key].blank?) 
+				  	attrs.push(JSON.parse(user.student_application_form[key]).collect {|i| i.humanize }.join(', '))
+				  else
+				  	attrs.push(user.student_application_form[key])
+				  end
 				end
 
 				if subjects and user.learning_agreement_subjects and user.learning_agreement_subjects.length > 0

@@ -275,8 +275,8 @@ module ApplicationHelper
 
 
   def isced_fos(fos)
-    let res = ""
-    let equivalence = {
+    res = ""
+    equivalence = {
         "0" => "General programmes",
         "01" => "Basic programmes",
         "08" => "Literacy and numeracy",

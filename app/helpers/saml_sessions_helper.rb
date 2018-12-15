@@ -1,6 +1,8 @@
 
 require 'json'
 require "base64"
+require 'active_support/core_ext/hash'  #from_xml 
+require 'nokogiri'
 
 module SamlSessionsHelper
   include ApplicationHelper
@@ -13,59 +15,84 @@ module SamlSessionsHelper
   def generate_metadata
 
   end
-  def saml_attrs_to_model_attrs
-  	{
-  		 "PersonIdentifier" => "person_identifier",
-  		 "FamilyName" => "family_name",
-  		 "FirstName" => "first_name",
-  		 "DateOfBirth" => "birth_date",
-       "PlaceOfBirth" => "born_place",
-       "CurrentAddress"  => "permanent_adress",
-       "Gender" => "sex",
-       "CurrentPhoto" => "photo",
-       "Nationality" => "nationality",
-       "Phone" => "phone_number",
-  	}
-  end
-  def saml_attrs_to_model_attrs_sap
-    {
-        "CurrentDegree" => "current_diploma_degree",
-        "Degree" => "current_diploma_degree",
-        # "DegreeAwardingInstitution" => "",
-        # "DegreeCountry" => "",
-        "FieldOfStudy" => "field_of_study",
-        "GraduationYear" => "year_attended",
-        # "LanguageCertificates" => "",
-        # "LanguageProficiency" => "",
-        "HomeInstitutionName" => "inst_sending_name",
-        # "HomeInstitutionCountry" => "",
-        "HomeInstitutionAddress" => "inst_adress",
-        # "TemporaryAddress" => "address",
-        "CurrentLevelOfStudy" => "purpose_of_stay",
-        "FieldOfStudy" => "specialization_area"
-    }
+
+  def parseXML(str)
+    mod_str = ("<All>" + str + "</All>").gsub("eidas-natural:","")
+    doc = Nokogiri::XML(mod_str)
+    Hash.from_trusted_xml(doc.to_s)["All"]
   end
 
-  def parseAttribute(key, value)
-    finalValue = value
-    case key
-    when "Nationality"
-      finalValue = country_from_code(value)
-    when "HomeInstitutionAddress", "CurrentAddress", "TemporaryAddress"
-      finalValue = Base64.decode64(value)
-    when "CurrentLevelOfStudy"
-      if (value == 4)
-        finalValue = "undergraduate_courses"
-      elsif (value == 5)
-        finalValue = "master_courses"
-      elsif (value == 6)
-        finalValue = "thesis"
-      else
-        finalValue = "other"
-      end
-    end
-    finalValue
+  def parseAddress(value)
+    decoded = Base64.decode64(value)
+    parsedXML = parseXML(decoded)
+    parsedXML.map{|k,v| "#{v}"}.join(', ')
   end
+
+  def parseEidasAttr(key,value)
+    attr = {:key => key, :value => value, :sap => false}
+    case key
+    when "PersonIdentifier"
+      attr[:key] = "person_identifier"
+    when "FamilyName"
+      attr[:key] = "family_name"
+    when "FirstName"
+      attr[:key] = "first_name"
+    when "DateOfBirth"
+      attr[:key] = "birth_date"
+    when "PlaceOfBirth"
+      attr[:key] = "born_place"
+    when "CurrentAddress"
+      attr[:key] = "permanent_adress"
+      attr[:value] = parseAddress(value)
+    when "Gender"
+      attr[:key] = "sex"
+    when "CurrentPhoto" # TODO save & max size
+      attr[:key] = "photo"
+      attr[:value] = Base64.decode64(value)
+    when "Phone"
+      attr[:key] = "phone_number" 
+    when "Nationality"
+      attr[:key] = "nationality"
+      attr[:value] = country_from_code(value)
+    when "CurrentLevelOfStudy"
+      attr[:key] = "purpose_of_stay" # TODO ISCED Version
+      if (value == 4)
+        attr[:value] = ["undergraduate_courses"]
+      elsif (value == 5)
+        attr[:value] = ["master_courses"]
+      elsif (value == 6)
+        attr[:value] = ["thesis"]
+      else
+        attr[:value] = ["other"]
+      end
+      attr[:sap] = true
+    when "CurrentDegree"
+      attr[:key] = "current_diploma_degree"
+      attr[:sap] = true
+    when "Degree"
+      attr[:key] = "current_diploma_degree"
+      attr[:sap] = true
+    when "GraduationYear"
+      attr[:key] = "year_attended"
+      attr[:sap] = true
+    when "HomeInstitutionName"
+      attr[:key] = "inst_sending_name"
+      attr[:sap] = true
+    when "HomeInstitutionAddress"  
+      attr[:key] = "inst_adress"
+      attr[:value] = parseAddress(value)
+      attr[:sap] = true
+    when "FieldOfStudy"
+      attr[:key] = "specialization_area" 
+      attr[:value] = isced_fos(value)
+      attr[:sap] = true
+    when "LanguageProficiency" # TODO parse XML
+      attr[:key] = "unknown"
+    else
+      attr[:key] = "unknown"
+    end
+    attr
+  end  
 
   def get_eidas_requested_attrs
     requested_attributes = REQUESTED_EIDAS_ATTRS
