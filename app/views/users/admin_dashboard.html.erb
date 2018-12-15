@@ -246,6 +246,10 @@
   <h2 class="title">Download CSV</h2>
   <button class="transparent-button action-button right close" id="csv-dialog-close"><i class="mdi mdi-close"></i></button>
   <form method="get" action="<%= RELATIVE_URL %>/generate_csv">
+    <div class="flex-container-form-item floating" >
+        <input type="checkbox" name="archived" />
+        <label for="archived">Include archived users</label>
+    </div>
     <div class="flex-container">
         <div class="flex-block-item">
           <h3 class="csv-category">Personal data</h3>
@@ -273,9 +277,11 @@
               <label for="<%=field %>"><%=csv_field_values["application_form"][index] %></label>
             </div>
           <% end %>
+
       </div>
-    </div>
+    </div>  
     <p class="align-right">
+               
       <button type="button" class="custom-button" id="csv-dialog-select-all-button">Select All</button>
       <button type="button" class="custom-button hidden" id="csv-dialog-deselect-all-button">Deselect All</button>
       <button type="submit" class="custom-button primary">Download</button>
