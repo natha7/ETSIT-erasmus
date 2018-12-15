@@ -237,7 +237,7 @@ class UserController < ApplicationController
 		keys = params["user"].keys.reject{|r| ["student_application_form", "learning_agreement_subjects"].include?(r)}
 		subjects = !params["user"]["learning_agreement_subjects"].blank?
 		sap = params["user"]["student_application_form"].blank? ? [] : params["user"]["student_application_form"].keys
-		csv_string = CSV.generate(:col_sep => ";", :encoding => 'ISO-8859-1') do |csv|
+		csv_string = CSV.generate(:col_sep => ";" ) do |csv|
 			heading = keys.collect {|i| i.humanize } + (sap ? sap : []).collect {|i| i.humanize } + (subjects ? ["Subject", "Subject Code", "Degree", "ects"] : [])
 			csv << heading
 			users.each do |user|
