@@ -1,0 +1,36 @@
+<europass3:ForeignLanguageList>
+	<europass3:ForeignLanguage>
+		<europass3:Description>
+			<europass3:Code>ja</europass3:Code>
+			<europass3:Label>Japanese</europass3:Label>
+		</europass3:Description>
+		<europass3:ProficiencyLevel>
+			<europass3:Listening>C1</europass3:Listening>
+			<europass3:Reading>C1</europass3:Reading>
+			<europass3:SpokenInteraction>C1</europass3:SpokenInteraction>
+			<europass3:SpokenProduction>C1</europass3:SpokenProduction>
+			<europass3:Writing>C1</europass3:Writing>
+		</europass3:ProficiencyLevel>
+		<europass3:VerifiedBy>
+			<europass3:Certificate>
+				<europass3:Title>Cambridge Proficiency</europass3:Title>
+			</europass3:Certificate>
+			<europass3:Certificate>
+				<europass3:Title>Michigan Proficiency</europass3:Title>
+			</europass3:Certificate>
+		</europass3:VerifiedBy>
+	</europass3:ForeignLanguage>
+	<europass3:ForeignLanguage>
+		<europass3:Description>
+			<europass3:Code>es</europass3:Code>
+			<europass3:Label>Spanish</europass3:Label>
+		</europass3:Description>
+		<europass3:ProficiencyLevel>
+			<europass3:Listening>B2</europass3:Listening>
+			<europass3:Reading>B2</europass3:Reading>
+			<europass3:SpokenInteraction>B1</europass3:SpokenInteraction>
+			<europass3:SpokenProduction>C1</europass3:SpokenProduction>
+			<europass3:Writing>C1</europass3:Writing>
+		</europass3:ProficiencyLevel>
+	</europass3:ForeignLanguage>
+</europass3:ForeignLanguageList>

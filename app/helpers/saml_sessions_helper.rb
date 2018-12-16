@@ -28,68 +28,101 @@ module SamlSessionsHelper
     parsedXML.map{|k,v| "#{v}"}.join(', ')
   end
 
+  def langLevel(value) 
+    res = false
+    case value
+    when "B2,C1,C2"
+      res = true
+    end
+    res
+  end
+  def parseLangs(value)
+    mod_str = value.gsub("europass3:","")
+    doc = Nokogiri::XML(mod_str)
+    res = Hash.from_trusted_xml(doc.to_s)
+    langs = []
+    res["ForeignLanguageList"]["ForeignLanguage"].each do |lang|
+      level = lang["ProficiencyLevel"]
+      is_level_high = langLevel(level["Listening"])
+      
+      lan = Language.new
+      lan.name = language[:name]
+      lan.currently_studying =  false 
+      lan.able_follow_lectures = is_level_high
+      lan.able_follow_lectures_extra_preparation = !is_level_high
+      langs << lan
+    end
+    langs
+  end
   def parseEidasAttr(key,value)
     attr = {:key => key, :value => value, :sap => false}
-    case key
-    when "PersonIdentifier"
-      attr[:key] = "person_identifier"
-    when "FamilyName"
-      attr[:key] = "family_name"
-    when "FirstName"
-      attr[:key] = "first_name"
-    when "DateOfBirth"
-      attr[:key] = "birth_date"
-    when "PlaceOfBirth"
-      attr[:key] = "born_place"
-    when "CurrentAddress"
-      attr[:key] = "permanent_adress"
-      attr[:value] = parseAddress(value)
-    when "Gender"
-      attr[:key] = "sex"
-    when "CurrentPhoto" # TODO save & max size
-      attr[:key] = "photo"
-      attr[:value] = Base64.decode64(value)
-    when "Phone"
-      attr[:key] = "phone_number" 
-    when "Nationality"
-      attr[:key] = "nationality"
-      attr[:value] = country_from_code(value)
-    when "CurrentLevelOfStudy"
-      attr[:key] = "purpose_of_stay" # TODO ISCED Version
-      if (value == 4)
-        attr[:value] = ["undergraduate_courses"]
-      elsif (value == 5)
-        attr[:value] = ["master_courses"]
-      elsif (value == 6)
-        attr[:value] = ["thesis"]
+    begin
+      case key
+      when "PersonIdentifier"
+        attr[:key] = "person_identifier"
+      when "FamilyName"
+        attr[:key] = "family_name"
+      when "FirstName"
+        attr[:key] = "first_name"
+      when "DateOfBirth"
+        attr[:key] = "birth_date"
+      when "PlaceOfBirth"
+        attr[:key] = "born_place"
+      when "CurrentAddress"
+        attr[:key] = "permanent_adress"
+        attr[:value] = parseAddress(value)
+      when "Gender"
+        attr[:key] = "sex"
+      when "CurrentPhoto" # TODO save & max size
+        attr[:key] = "photo"
+        attr[:value] = Base64.decode64(value)
+      when "Phone"
+        attr[:key] = "phone_number" 
+      when "Nationality"
+        attr[:key] = "nationality"
+        attr[:value] = country_from_code(value)
+      when "CurrentLevelOfStudy"
+        attr[:key] = "purpose_of_stay" # TODO ISCED Version
+        if (value == 4)
+          attr[:value] = ["undergraduate_courses"]
+        elsif (value == 5)
+          attr[:value] = ["master_courses"]
+        elsif (value == 6)
+          attr[:value] = ["thesis"]
+        else
+          attr[:value] = ["other"]
+        end
+        attr[:sap] = true
+      when "CurrentDegree"
+        attr[:key] = "current_diploma_degree"
+        attr[:sap] = true
+      when "Degree"
+        attr[:key] = "current_diploma_degree"
+        attr[:sap] = true
+      when "GraduationYear"
+        attr[:key] = "year_attended"
+        attr[:sap] = true
+      when "HomeInstitutionName"
+        attr[:key] = "inst_sending_name"
+        attr[:sap] = true
+      when "HomeInstitutionAddress"  
+        attr[:key] = "inst_adress"
+        attr[:sap] = true
+        attr[:value] = parseAddress(value)
+      when "FieldOfStudy"
+        attr[:key] = "specialization_area" 
+        attr[:sap] = true
+        attr[:value] = isced_fos(value)
+      when "LanguageProficiency" 
+        attr[:key] = "unknown"
+        # attr[:key] = "languages"
+        attr[:sap] = true
+        # attr[:value] = parseLangs(Base64.decode64(value))
       else
-        attr[:value] = ["other"]
+        attr[:key] = "unknown"
       end
-      attr[:sap] = true
-    when "CurrentDegree"
-      attr[:key] = "current_diploma_degree"
-      attr[:sap] = true
-    when "Degree"
-      attr[:key] = "current_diploma_degree"
-      attr[:sap] = true
-    when "GraduationYear"
-      attr[:key] = "year_attended"
-      attr[:sap] = true
-    when "HomeInstitutionName"
-      attr[:key] = "inst_sending_name"
-      attr[:sap] = true
-    when "HomeInstitutionAddress"  
-      attr[:key] = "inst_adress"
-      attr[:value] = parseAddress(value)
-      attr[:sap] = true
-    when "FieldOfStudy"
-      attr[:key] = "specialization_area" 
-      attr[:value] = isced_fos(value)
-      attr[:sap] = true
-    when "LanguageProficiency" # TODO parse XML
-      attr[:key] = "unknown"
-    else
-      attr[:key] = "unknown"
+    rescue => ex
+      Rails.logger.error ex.to_s
     end
     attr
   end  

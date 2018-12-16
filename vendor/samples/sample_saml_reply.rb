@@ -1,0 +1,25 @@
+ {
+
+	"PersonIdentifier"=>"ES/ES/12345",
+	"FamilyName"=>"Garcia",
+	"FirstName"=>"javier",
+	"DateOfBirth"=>"1965-01-01",
+	"PlaceOfBirth"=>"Place of Birth",
+	"CurrentAddress"=>"PGVpZGFzLW5hdHVyYWw6RnVsbEN2YWRkcmVzcz5DdXJyZW50IEFkZHJlc3M8L2VpZGFzLW5hdHVyYWw6RnVsbEN2YWRkcmVzcz4K",
+	"Gender"=>"Male",
+	"Nationality"=>"ES",
+	"Phone"=>"+34123456789",
+	"CurrentDegree"=>"PhD",
+	"Degree"=>"6",
+	"DegreeAwardingInstitution"=>"Norwegian University of Science and Technology",
+	"DegreeCountry"=>"AT",
+	"FieldOfStudy"=>"52",
+	"GraduationYear"=>"2005",
+	"HomeInstitutionAddress"=>"PGVpZGFzLW5hdHVyYWw6RnVsbEN2YWRkcmVzcz5Ib21lIGluc3RpdHV0aW9uIGFkZHJlc3M8L2VpZGFzLW5hdHVyYWw6RnVsbEN2YWRkcmVzcz4K",
+	"HomeInstitutionCountry"=>"ES",
+	"HomeInstitutionName"=>"Universidad Politecnica de Madrid",
+	"TemporaryAddress"=>"PGVpZGFzLW5hdHVyYWw6RnVsbEN2YWRkcmVzcz5UZW1wb3JhcnkgYWRkcmVzczwvZWlkYXMtbmF0dXJhbDpGdWxsQ3ZhZGRyZXNzPgo=",
+	"LegalPersonIdentifier"=>"ES/ES/125457487Company",
+	"LegalName"=>"Current Legal Name",
+	"CurrentLevelOfStudy"=>"5"
+  }
