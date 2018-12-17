@@ -83,11 +83,11 @@ module SamlSessionsHelper
         attr[:value] = country_from_code(value)
       when "CurrentLevelOfStudy"
         attr[:key] = "purpose_of_stay" # TODO ISCED Version
-        if (value == 4)
+        if (value == 4 or value == "4")
           attr[:value] = ["undergraduate_courses"]
-        elsif (value == 5)
+        elsif (value == 5 or value == "5")
           attr[:value] = ["master_courses"]
-        elsif (value == 6)
+        elsif (value == 6 or value == "6")
           attr[:value] = ["thesis"]
         else
           attr[:value] = ["other"]
@@ -96,9 +96,9 @@ module SamlSessionsHelper
       when "CurrentDegree"
         attr[:key] = "current_diploma_degree"
         attr[:sap] = true
-      when "Degree"
-        attr[:key] = "current_diploma_degree"
-        attr[:sap] = true
+      # when "Degree"
+      #   attr[:key] = "current_diploma_degree"
+      #   attr[:sap] = true
       when "GraduationYear"
         attr[:key] = "year_attended"
         attr[:sap] = true
@@ -113,7 +113,7 @@ module SamlSessionsHelper
         attr[:key] = "specialization_area" 
         attr[:sap] = true
         attr[:value] = isced_fos(value)
-      when "LanguageProficiency" 
+      when "LanguageProficiency" # TODO Test
         attr[:key] = "unknown"
         # attr[:key] = "languages"
         attr[:sap] = true
