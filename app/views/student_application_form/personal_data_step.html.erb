@@ -70,13 +70,14 @@
         </div>
         <div class="progress-balls">
           <% final_steps_array = @user.student_application_form.completed_steps_array  %>
-          <a href="/student_application_form/personal_data_step"><span class='progress-ball current-step done-step'></span></a>
-        <% for i in 1..6 do %>
+          <button class="progress_btn" type="submit" name="step-0"><span class='progress-ball future-step'></span></button>
+
+          <% for i in 1..6 do %>
             <% classBall = final_steps_array[i-1] ? "done-step" :"todo-step " %>
             <% if from_ball == true %>
-              <%= link_to "<span class='progress-ball future-step #{classBall}'></span>".html_safe,  "#{RELATIVE_URL}/student_application_form/#{i}?from_ball=true"%>
+              <button class="progress_btn" type="submit" name="step-ball-<%= i %>"><span class='progress-ball future-step <%= classBall %>'></span></button>
             <% else %>
-              <%= link_to "<span class='progress-ball future-step #{classBall}'></span>".html_safe,  "#{RELATIVE_URL}/student_application_form/#{i}"%>
+              <button class="progress_btn" type="submit" name="step-<%= i %>"><span class='progress-ball future-step <%= classBall %>'></span></button>
             <% end %>
         <% end %>
         </div>

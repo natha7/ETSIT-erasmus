@@ -22,28 +22,28 @@
         <div class="progress-line">
         </div>
         <div class="progress-balls">
-        <a href="<%=student_application_form_path + "/personal_data_step" + (from_ball == true ? "?from_ball=true":"")%>"><span class='progress-ball previous-step done-step'></span></a>
-        <% for i in 1..6 do %>
+        <button class="progress_btn" value="personal_data" type="submit" name="step"><span class='progress-ball future-step'></span></button>
+          <% for i in 1..6 do %>
             <% classBall = final_steps_array[i-1] ? "done-step" :"todo-step " %>
             <%if @sap.step > i %>
               <% if from_ball == true %>
-                <%= link_to "<span class='progress-ball previous-step #{classBall}'></span>".html_safe, student_application_form_path + "/#{i}?from_ball=true"%>
+                <button class="progress_btn" type="submit" value="<%=i%>" name="step"><span class='progress-ball previous-step  <%= classBall %>'></span></button>
               <% else %>
-                <%= link_to "<span class='progress-ball previous-step #{classBall}'></span>".html_safe, student_application_form_path + "/#{i}"%>
+                <button class="progress_btn" type="submit" value="<%=i%>" name="step"><span class='progress-ball previous-step  <%= classBall %>'></span></button>
               <% end %>
             <%end%>
             <%if @sap.step === i %>
               <% if from_ball == true %>
-                <%= link_to "<span class='progress-ball current-step #{classBall}'></span>".html_safe, student_application_form_path + "/#{i}?from_ball=true"%>
+                <button class="progress_btn" type="submit" value="<%=i%>" name="step"><span class='progress-ball current-step  <%= classBall %>'></span></button>
               <% else %>
-                <%= link_to "<span class='progress-ball current-step #{classBall}'></span>".html_safe, student_application_form_path + "/#{i}"%>
+                <button class="progress_btn" type="submit" value="<%=i%>" name="step"><span class='progress-ball current-step  <%= classBall %>'></span></button>
               <% end %>
             <%end%>
             <%if @sap.step < i %>
               <% if from_ball == true %>
-                <%= link_to "<span class='progress-ball future-step #{classBall}'></span>".html_safe, student_application_form_path + "/#{i}?from_ball=true"%>
+                <button class="progress_btn" type="submit" value="<%=i%>" name="step"><span class='progress-ball future-step <%= classBall %>'></span></button>
               <% else %>
-                <%= link_to "<span class='progress-ball future-step #{classBall}'></span>".html_safe, student_application_form_path + "/#{i}"%>
+                <button class="progress_btn" type="submit" value="<%=i%>" name="step"><span class='progress-ball future-step <%= classBall %>'></span></button>
               <% end %>
             <%end%>
         <% end %>

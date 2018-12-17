@@ -31,7 +31,7 @@ module SamlSessionsHelper
   def langLevel(value) 
     res = false
     case value
-    when "B2,C1,C2"
+    when "B2","C1","C2"
       res = true
     end
     res
