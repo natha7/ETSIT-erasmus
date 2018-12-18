@@ -36,7 +36,7 @@ module SamlSessionsHelper
     end
     res
   end
-  def parseLangs(value, sap)
+  def parseLangs(value)
     mod_str = value.gsub("europass3:","")
     doc = Nokogiri::XML(mod_str)
     res = Hash.from_trusted_xml(doc.to_s)
@@ -51,13 +51,10 @@ module SamlSessionsHelper
       lan.able_follow_lectures = is_level_high
       lan.able_follow_lectures_extra_preparation = !is_level_high
       langs << lan
-      sap.languages << lan
-      lan.save!
     end
-    Rails.logger.info "#{sap} #{langs}"
     langs
   end
-  def parseEidasAttr(key,value,sap)
+  def parseEidasAttr(key,value)
     attr = {:key => key, :value => value, :sap => false}
     begin
       case key
@@ -120,7 +117,7 @@ module SamlSessionsHelper
         attr[:key] = "unknown"
         # attr[:key] = "languages"
         attr[:sap] = true
-        attr[:value] = parseLangs(Base64.decode64(value),sap)
+        attr[:value] = parseLangs(Base64.decode64(value))
       else
         attr[:key] = "unknown"
       end

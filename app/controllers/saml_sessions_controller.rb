@@ -52,14 +52,19 @@ class SamlSessionsController < Devise::SamlSessionsController
           user.password = "demonstration"
           user.save(validate: false)
           user_data.each do |key, value|
-            attr = parseEidasAttr(key, value, user.student_application_form)
+            attr = parseEidasAttr(key, value)
             Rails.logger.info "#{key} #{attr[:key]} #{attr[:value]}"
-            if (attr[:key] != "unknown") 
-              if (attr[:sap]) 
-                user.student_application_form[attr[:key]] = attr[:value]
+            if (attr[:key] != "unknown")
+              if(attr[:key] != "languages")
+                if (attr[:sap])
+                  user.student_application_form[attr[:key]] = attr[:value]
+                else
+                  user[attr[:key]] = attr[:value]
+                end
               else
-                user[attr[:key]] = attr[:value]
+                user.student_application_form.languages << attr[:value]
               end
+
             end
           end
 
