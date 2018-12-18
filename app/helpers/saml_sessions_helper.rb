@@ -36,7 +36,7 @@ module SamlSessionsHelper
     end
     res
   end
-  def parseLangs(value)
+  def parseLangs(value, sap)
     mod_str = value.gsub("europass3:","")
     doc = Nokogiri::XML(mod_str)
     res = Hash.from_trusted_xml(doc.to_s)
@@ -44,18 +44,19 @@ module SamlSessionsHelper
     res["ForeignLanguageList"]["ForeignLanguage"].each do |lang|
       level = lang["ProficiencyLevel"]
       is_level_high = langLevel(level["Listening"])
-      
+
       lan = Language.new
       lan.name = lang["Description"]["Label"]
       lan.currently_studying =  false 
       lan.able_follow_lectures = is_level_high
       lan.able_follow_lectures_extra_preparation = !is_level_high
       langs << lan
+      sap.languages << lan
       lan.save!
     end
     langs
   end
-  def parseEidasAttr(key,value)
+  def parseEidasAttr(key,value,sap)
     attr = {:key => key, :value => value, :sap => false}
     begin
       case key
@@ -115,10 +116,10 @@ module SamlSessionsHelper
         attr[:sap] = true
         attr[:value] = isced_fos(value)
       when "LanguageProficiency" # TODO Test
-        # attr[:key] = "unknown"
-        attr[:key] = "languages"
+        attr[:key] = "unknown"
+        # attr[:key] = "languages"
         attr[:sap] = true
-        attr[:value] = parseLangs(Base64.decode64(value))
+        attr[:value] = parseLangs(Base64.decode64(value),sap)
       else
         attr[:key] = "unknown"
       end
