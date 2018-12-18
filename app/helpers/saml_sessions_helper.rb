@@ -37,7 +37,7 @@ module SamlSessionsHelper
     res
   end
   def parseLangs(value)
-    mod_str = value.gsub("europass3:","")
+    mod_str = value.gsub("europass3:","").gsub("ns2:","").gsub("ns3:","")
     Rails.logger.info "#{mod_str}"
 
     doc = Nokogiri::XML(mod_str)
