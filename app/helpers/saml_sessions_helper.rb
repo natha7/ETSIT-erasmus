@@ -43,6 +43,7 @@ module SamlSessionsHelper
     doc = Nokogiri::XML(mod_str)
     res = Hash.from_trusted_xml(doc.to_s)
     langs = []
+    Rails.logger.info "#{res}"
     res["ForeignLanguageList"]["ForeignLanguage"].each do |lang|
       level = lang["ProficiencyLevel"]
       is_level_high = langLevel(level["Listening"])
