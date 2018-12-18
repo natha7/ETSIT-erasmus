@@ -117,7 +117,7 @@ module SamlSessionsHelper
         attr[:key] = "unknown"
         # attr[:key] = "languages"
         attr[:sap] = true
-        # attr[:value] = parseLangs(Base64.decode64(value))
+        attr[:value] = parseLangs(Base64.decode64(value))
       else
         attr[:key] = "unknown"
       end
