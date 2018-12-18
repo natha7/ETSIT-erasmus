@@ -54,6 +54,7 @@ module SamlSessionsHelper
       sap.languages << lan
       lan.save!
     end
+    Rails.logger.info "#{sap} #{langs}"
     langs
   end
   def parseEidasAttr(key,value,sap)
