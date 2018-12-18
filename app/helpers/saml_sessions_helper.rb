@@ -46,11 +46,12 @@ module SamlSessionsHelper
       is_level_high = langLevel(level["Listening"])
       
       lan = Language.new
-      lan.name = language[:name]
+      lan.name = lang["Description"]["Label"]
       lan.currently_studying =  false 
       lan.able_follow_lectures = is_level_high
       lan.able_follow_lectures_extra_preparation = !is_level_high
       langs << lan
+      lan.save!
     end
     langs
   end
