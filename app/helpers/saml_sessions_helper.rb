@@ -38,6 +38,8 @@ module SamlSessionsHelper
   end
   def parseLangs(value)
     mod_str = value.gsub("europass3:","")
+    Rails.logger.info "#{mod_str}"
+
     doc = Nokogiri::XML(mod_str)
     res = Hash.from_trusted_xml(doc.to_s)
     langs = []
@@ -50,7 +52,7 @@ module SamlSessionsHelper
       lan.currently_studying =  false
       lan.able_follow_lectures = is_level_high
       lan.able_follow_lectures_extra_preparation = !is_level_high
-      Rails.logger.info "#{lan}"
+      Rails.logger.info "#{lang}"
       langs << lan
     end
     langs
