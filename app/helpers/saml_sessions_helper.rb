@@ -114,8 +114,8 @@ module SamlSessionsHelper
         attr[:sap] = true
         attr[:value] = isced_fos(value)
       when "LanguageProficiency" # TODO Test
-        attr[:key] = "unknown"
-        # attr[:key] = "languages"
+        # attr[:key] = "unknown"
+        attr[:key] = "languages"
         attr[:sap] = true
         attr[:value] = parseLangs(Base64.decode64(value))
       else
