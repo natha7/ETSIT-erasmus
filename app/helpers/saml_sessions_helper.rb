@@ -46,17 +46,16 @@ module SamlSessionsHelper
       foreign_langs = [foreign_langs]
     end
     foreign_langs.each do |lang|
-        level = lang["ProficiencyLevel"]
-        is_level_high = langLevel(level["Listening"])
-        lan = Language.new
-        lan.name = lang["Description"]["Label"]
-        lan.currently_studying =  false
-        lan.able_follow_lectures = is_level_high
-        lan.able_follow_lectures_extra_preparation = !is_level_high
-        langs << lan
-      end
-      langs
+      level = lang["ProficiencyLevel"]
+      is_level_high = langLevel(level["Listening"])
+      lan = Language.new
+      lan.name = lang["Description"]["Label"]
+      lan.currently_studying =  false
+      lan.able_follow_lectures = is_level_high
+      lan.able_follow_lectures_extra_preparation = !is_level_high
+      langs << lan
     end
+    langs
 
   end
   def parseEidasAttr(key,value)
