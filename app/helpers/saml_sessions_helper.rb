@@ -44,7 +44,8 @@ module SamlSessionsHelper
     res = Hash.from_trusted_xml(doc.to_s)
     langs = []
     Rails.logger.info "#{res}"
-    res["ForeignLanguageList"]["ForeignLanguage"].each do |lang|
+    if (res["ForeignLanguageList"]["ForeignLanguage"].class == Hash)
+      lang = res["ForeignLanguageList"]["ForeignLanguage"]
       level = lang["ProficiencyLevel"]
       is_level_high = langLevel(level["Listening"])
 
@@ -55,8 +56,22 @@ module SamlSessionsHelper
       lan.able_follow_lectures_extra_preparation = !is_level_high
       Rails.logger.info "#{lang}"
       langs << lan
+    elsif (res["ForeignLanguageList"]["ForeignLanguage"].kind_of?(Array))
+      res["ForeignLanguageList"]["ForeignLanguage"].each do |lang|
+        level = lang["ProficiencyLevel"]
+        is_level_high = langLevel(level["Listening"])
+
+        lan = Language.new
+        lan.name = lang["Description"]["Label"]
+        lan.currently_studying =  false
+        lan.able_follow_lectures = is_level_high
+        lan.able_follow_lectures_extra_preparation = !is_level_high
+        Rails.logger.info "#{lang}"
+        langs << lan
+      end
+      langs
     end
-    langs
+
   end
   def parseEidasAttr(key,value)
     attr = {:key => key, :value => value, :sap => false}
