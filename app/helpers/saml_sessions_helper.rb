@@ -38,35 +38,21 @@ module SamlSessionsHelper
   end
   def parseLangs(value)
     mod_str = value.gsub("europass3:","").gsub("ns2:","").gsub("ns3:","")
-    Rails.logger.info "#{mod_str}"
-
     doc = Nokogiri::XML(mod_str)
     res = Hash.from_trusted_xml(doc.to_s)
     langs = []
-    Rails.logger.info "#{res}"
-    if (res["ForeignLanguageList"]["ForeignLanguage"].class == Hash)
-      lang = res["ForeignLanguageList"]["ForeignLanguage"]
-      level = lang["ProficiencyLevel"]
-      is_level_high = langLevel(level["Listening"])
-
-      lan = Language.new
-      lan.name = lang["Description"]["Label"]
-      lan.currently_studying =  false
-      lan.able_follow_lectures = is_level_high
-      lan.able_follow_lectures_extra_preparation = !is_level_high
-      Rails.logger.info "#{lang}"
-      langs << lan
-    elsif (res["ForeignLanguageList"]["ForeignLanguage"].kind_of?(Array))
-      res["ForeignLanguageList"]["ForeignLanguage"].each do |lang|
+    foreign_langs = res["ForeignLanguageList"]["ForeignLanguage"]
+    if (foreign_langs.class == Hash)
+      foreign_langs = [foreign_langs]
+    end
+    foreign_langs.each do |lang|
         level = lang["ProficiencyLevel"]
         is_level_high = langLevel(level["Listening"])
-
         lan = Language.new
         lan.name = lang["Description"]["Label"]
         lan.currently_studying =  false
         lan.able_follow_lectures = is_level_high
         lan.able_follow_lectures_extra_preparation = !is_level_high
-        Rails.logger.info "#{lang}"
         langs << lan
       end
       langs

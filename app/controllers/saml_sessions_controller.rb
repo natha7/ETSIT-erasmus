@@ -39,7 +39,7 @@ class SamlSessionsController < Devise::SamlSessionsController
 
     if @response != nil
       user_data = JSON.parse(@response)
-      Rails.logger.info "#{user_data}"
+      # Rails.logger.info "#{user_data}"
       if user_data != nil
         @user = User.find_by person_identifier: user_data["PersonIdentifier"]
         if !@user.nil?
@@ -53,7 +53,7 @@ class SamlSessionsController < Devise::SamlSessionsController
           user.save(validate: false)
           user_data.each do |key, value|
             attr = parseEidasAttr(key, value)
-            Rails.logger.info "#{key} #{attr[:key]} #{attr[:value]}"
+            # Rails.logger.info "#{key} #{attr[:key]} #{attr[:value]}"
             if (attr[:key] != "unknown")
               if(attr[:key] != "languages")
                 if (attr[:sap])
