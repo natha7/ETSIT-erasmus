@@ -47,9 +47,10 @@ module SamlSessionsHelper
 
       lan = Language.new
       lan.name = lang["Description"]["Label"]
-      lan.currently_studying =  false 
+      lan.currently_studying =  false
       lan.able_follow_lectures = is_level_high
       lan.able_follow_lectures_extra_preparation = !is_level_high
+      Rails.logger.info "#{lan}"
       langs << lan
     end
     langs
