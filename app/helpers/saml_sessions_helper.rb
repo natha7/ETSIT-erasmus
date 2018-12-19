@@ -96,6 +96,7 @@ module SamlSessionsHelper
         else
           attr[:value] = ["other"]
         end
+        attr[:value] = (attr[:value]).to_json
         attr[:sap] = true
       when "CurrentDegree"
         attr[:key] = "current_diploma_degree"
