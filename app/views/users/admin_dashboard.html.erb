@@ -8,11 +8,21 @@
 <% like_period = "%#{ params[:period]}%"    %>
 <% like_university = I18n.transliterate "%#{params[:university]}%"    %>
 
-<% users = User.where("lower(unaccent(first_name)) LIKE ? or lower(unaccent(family_name)) LIKE ?", 
- like_name.downcase,  like_name.downcase).joins(:student_application_form).merge( StudentApplicationForm.where("lower(academic_year) LIKE ? and lower(unaccent(inst_sending_name)) LIKE ?", like_period.downcase, like_university.downcase)).order(:family_name).reject{|t| t.role == "admin" || t.archived } %>
+<% users = User.where.not(role: "admin").where(archived: false).where("lower(unaccent(first_name)) LIKE ? or lower(unaccent(family_name)) LIKE ?",
+ like_name.downcase,  like_name.downcase)
+    .joins(:student_application_form)
+    .merge( StudentApplicationForm.where("lower(academic_year) LIKE ? and lower(unaccent(inst_sending_name)) LIKE ?", like_period.downcase, like_university.downcase))
+    .order("#{(params[:orderby].blank? ? :family_name : params[:orderby])} #{(params[:order].blank? or params[:order].downcase == "asc") ? "ASC" : "DESC"}")
+    .paginate(:per_page => 2, :page => params[:page].blank? ? 1 : params[:page])
+%>
 
-<% archived_users =  User.where("lower(unaccent(first_name)) LIKE ? or lower(unaccent(family_name)) LIKE ?", 
- like_name.downcase,  like_name.downcase).joins(:student_application_form).merge( StudentApplicationForm.where("lower(academic_year) LIKE ? and lower(unaccent(inst_sending_name)) LIKE ?", like_period.downcase, like_university.downcase)).order(:family_name).reject{|t| t.role == "admin" || !t.archived } %>
+<% archived_users = User.where.not(role: "admin").where(archived: true).where("lower(unaccent(first_name)) LIKE ? or lower(unaccent(family_name)) LIKE ?",
+ like_name.downcase,  like_name.downcase)
+    .joins(:student_application_form)
+    .merge( StudentApplicationForm.where("lower(academic_year) LIKE ? and lower(unaccent(inst_sending_name)) LIKE ?", like_period.downcase, like_university.downcase))
+    .order("#{(params[:orderby].blank? ? :family_name : params[:orderby])} #{(params[:order].blank? or params[:order].downcase == "asc") ? "ASC" : "DESC"}")
+   .paginate(:per_page => 1, :page => params[:pageReg].blank? ? 1 : params[:pageReg])
+%>
 
 <% settings = ProjectSettings.first_or_create! %>
 

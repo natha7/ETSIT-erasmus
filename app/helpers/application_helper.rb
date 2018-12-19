@@ -861,4 +861,36 @@ module ApplicationHelper
       "first"
     end
   end
+
+  def getFilterURL(value, params, main)
+    url = "/erasmus/admin_dashboard?"
+    if (!params[:period].blank?)
+      url += "period=#{params[:period]}&"
+    end
+    if (!params[:university].blank?)
+      url += "university=#{params[:university]}&"
+    end
+    if (!params[:progress_state].blank?)
+      url += "progress_state=#{params[:progress_state]}&"
+    end
+    if (!params[:page].blank?)
+      url += "page=#{params[:page]}&"
+    end
+    if (!params[:pageReg].blank?)
+      url += "pageReg=#{params[:pageReg]}&"
+    end
+    if (!params[:name].blank?)
+      url += "name=#{params[:name]}&"
+    end
+    url += "orderby=#{value}&order=#{params[:orderby] == value ? ((params[:order].blank? or params[:order].downcase == "desc")? "ASC" : "DESC") : "DESC"}"
+    unless main
+      url += "&archived=true"
+    end
+    url
+  end
+
+  def getFilterClass(value, params)
+    (params[:orderby] == value or (value === "family_name" and params[:orderby].blank?)) ? "order order-#{(params[:order].blank? or params[:order].downcase == "asc") ? 'asc': 'desc'}" : ""
+  end
  end
+

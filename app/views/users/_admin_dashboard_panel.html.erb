@@ -5,20 +5,23 @@
                <i class="caret mdi mdi-menu-down no-reverse"></i>
              </label>
       </span>
-      <div class="collapsible big <%= main && params[:nominees].blank? ? ' show':'' %>">
+      <div class="collapsible big <%= ((main && params[:nominees].blank? and params[:archived].blank?) or (!main and params[:nominees].blank? and !params[:archived].blank?)) ? ' show':'' %>">
       <% unless users.empty? %>
       <div id="registered-users" class="flex-table flex-registered" style="order:0;">
         <div class="table-header" id="registered-header">
-          <div data-field="name" class="flex-table-header flex-table-cell flex-table-email order order-desc">Student Name
+          <div data-field="name" class="flex-table-header flex-table-cell flex-table-email <%= getFilterClass("family_name", params) %>">
+            <a href="<%=getFilterURL("family_name", params, main)%>">Student Name</a>
           <i class="caret mdi mdi-menu-down reverse"></i>
           </div>
-          <div data-field="uni" class="flex-table-header flex-table-cell flex-table-univ">University
+          <div data-field="uni" class="flex-table-header flex-table-cell flex-table-univ <%= getFilterClass("inst_sending_name", params) %>">
+            <a href="<%=getFilterURL("inst_sending_name", params, main) %>">University</a>
           <i class="caret mdi mdi-menu-down reverse"></i>
           </div>
-          <div data-field="period" class="flex-table-header flex-table-cell flex-table-period">Period
+          <div data-field="period" class="flex-table-header flex-table-cell flex-table-period <%= getFilterClass("academic_year", params) %>">
+            <a href="<%=getFilterURL("academic_year", params, main) %> ">Period</a>
           <i class="caret mdi mdi-menu-down reverse"></i>
           </div>
-          <div data-field="form" class="flex-table-header flex-table-cell flex-table-app-form">Form
+          <div data-field="form" class="flex-table-header flex-table-cell flex-table-app-form"> Form
           <i class="caret mdi mdi-menu-down reverse"></i>
           </div>
           <div data-field="letter" class="flex-table-header flex-table-cell flex-table-mot-letter">Letter
@@ -33,17 +36,18 @@
           <div data-field="la" class="flex-table-header flex-table-cell flex-table-la">LA
           <i class="caret mdi mdi-menu-down reverse"></i>
           </div>
-          <div data-field="status" class="flex-table-header flex-table-cell flex-table-status">Status
+          <div data-field="status" class="flex-table-header flex-table-cell flex-table-status <%= getFilterClass("progress_status", params) %>">
+            <a href="<%=getFilterURL("progress_status", params, main) %>">Status</a>
           <i class="caret mdi mdi-menu-down reverse"></i>
           </div>
-          <div data-field="pctg" class="flex-table-header flex-table-cell flex-table-pctg">%
-          <i class="caret mdi mdi-menu-down reverse"></i>
+          <div data-field="pctg" class="flex-table-header flex-table-cell flex-table-pctg ">%
+            <i class="caret mdi mdi-menu-down reverse"></i>
           </div>
         </div>
         
         <% users.each_with_index do |user, index| %>
-          <div class="registered-item" style="order: <%=index+1%>;">
-            <div data-name="<%= user.family_name.split(" ").join("") %>" class="user-<%= user.id %>-id flex-table-cell flex-table-email">
+          <div class="registered-item"  >
+            <div data-name="<%= (defined? user.family_name ? user.family_name : "").split(" ").join("") %>" class="user-<%= user.id %>-id flex-table-cell flex-table-email">
               <span class="big-hidden">Email:</span><a href="<%= RELATIVE_URL %>/review_dashboard/<%=user.id%>"><span class="email"><%= user.family_name %>, <%= user.first_name %> </span></a>
             </div>
             <div data-uni="<%= user.student_application_form.inst_sending_name %>" class="user-<%= user.id %>-id flex-table-cell flex-table-univ">
@@ -107,11 +111,13 @@
               <%= "#{user.percentage}" %>
             </div>
           </div>
-        <% end %><br/>
-        
+        <% end %>
+        <div class="pagination"><%= will_paginate(users, :renderer => WillPaginate::ActionView::LinkRenderer) %>
+        </div>
       </div>
       <%else%>
           <p class="no-results">No results</p>
       <%end%>
       </div>
+
     </div>

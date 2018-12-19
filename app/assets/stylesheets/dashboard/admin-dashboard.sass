@@ -17,6 +17,18 @@
 		.flex-filters
 			flex-wrap: wrap
 
+.pagination
+	color: $etsit_blue
+	text-align: right
+	*
+		margin: 2px
+	.current
+		font-style: normal
+		font-weight: bold
+	.previous_page
+		margin-right: 10px
+	.next_page
+		margin-left: 10px
 .filters
 	background-color: #edf2f6
 	padding: 20px
@@ -94,7 +106,7 @@
 			cursor: pointer	
 		.flex-table-email
 			width: 17%
-			a:hover
+			&:not(.flex-table-header) a:hover
 				text-decoration: underline
 		.flex-table-univ
 			width: 16%

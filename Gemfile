@@ -44,7 +44,8 @@ gem 'terrapin'
 gem 'prawn', '~> 2.2.2'
 gem 'prawn-table'
 gem 'rubyzip', '>= 1.2.2' # will load new rubyzip version
-
+gem 'will_paginate', '~> 3.1.0'
+gem 'bootstrap-will_paginate', '0.0.10'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 
