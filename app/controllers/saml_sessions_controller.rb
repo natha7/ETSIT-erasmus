@@ -39,7 +39,7 @@ class SamlSessionsController < Devise::SamlSessionsController
 
     if @response != nil
       user_data = JSON.parse(@response)
-      # Rails.logger.info "#{user_data}"
+      Rails.logger.info "#{user_data}"
       if user_data != nil
         @user = User.find_by person_identifier: user_data["PersonIdentifier"]
         if !@user.nil?

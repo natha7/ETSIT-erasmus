@@ -96,6 +96,7 @@ module SamlSessionsHelper
         else
           attr[:value] = ["other"]
         end
+        Rails.logger.info "#{attr[:value]}"
         attr[:value] = (attr[:value]).to_json
         attr[:sap] = true
       when "CurrentDegree"
