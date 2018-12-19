@@ -13,7 +13,7 @@
     .joins(:student_application_form)
     .merge( StudentApplicationForm.where("lower(academic_year) LIKE ? and lower(unaccent(inst_sending_name)) LIKE ?", like_period.downcase, like_university.downcase))
     .order("#{(params[:orderby].blank? ? :family_name : params[:orderby])} #{(params[:order].blank? or params[:order].downcase == "asc") ? "ASC" : "DESC"}")
-    .paginate(:per_page => 2, :page => params[:page].blank? ? 1 : params[:page])
+    .paginate(:per_page => 30, :page => params[:page].blank? ? 1 : params[:page])
 %>
 
 <% archived_users = User.where.not(role: "admin").where(archived: true).where("lower(unaccent(first_name)) LIKE ? or lower(unaccent(family_name)) LIKE ?",
@@ -21,7 +21,7 @@
     .joins(:student_application_form)
     .merge( StudentApplicationForm.where("lower(academic_year) LIKE ? and lower(unaccent(inst_sending_name)) LIKE ?", like_period.downcase, like_university.downcase))
     .order("#{(params[:orderby].blank? ? :family_name : params[:orderby])} #{(params[:order].blank? or params[:order].downcase == "asc") ? "ASC" : "DESC"}")
-   .paginate(:per_page => 1, :page => params[:pageReg].blank? ? 1 : params[:pageReg])
+   .paginate(:per_page => 30, :page => params[:pageReg].blank? ? 1 : params[:pageReg])
 %>
 
 <% settings = ProjectSettings.first_or_create! %>
