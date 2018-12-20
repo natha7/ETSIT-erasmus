@@ -632,7 +632,7 @@ $(document).on('turbolinks:load', function() {
     /**
      * Add academic years available
      */
-   $('#add_academic_years').click(function(e){
+    $('#add_academic_years').click(function(e){
         var $multiple = $('<div/>').attr("class","multiple-item-flex-container") ;
         var $input = $('<input/>').attr("type","text").attr("name","academic_years[]").attr("required","required");
         var $button = $("<button/>").attr("class","delete-settings-button transparent-button small-button") ;
@@ -699,6 +699,41 @@ $(document).on('turbolinks:load', function() {
      * Close CSV modal
      */
     $('#csv-dialog-close').click(
+        function(e) {
+            $('#acceptance-letter-dialog').dialog('close');
+        }
+    );
+
+
+    /**
+     * Generate Acceptance Letter Modal
+     */
+    $('#acceptance-letter-dialog-button').click(function(e){
+        var availWidth = $('html').width();
+        availWidth = availWidth > 900 ? 700 : (availWidth < 500 ? availWidth - 10 : availWidth*0.7)
+        var ALDialog = $('#acceptance-letter-dialog').dialog({
+            modal:true,
+            minWidth: availWidth,
+            show: {
+                effect: "scale",
+                duration: 200
+            },
+            hide: {
+                effect: "explode",
+                duration: 200
+            },
+            open: function () {
+                $('.ui-widget-overlay').on('click', function () {
+                    ALDialog.dialog('close');
+                });
+            },
+        });
+    });
+
+    /**
+     * Close Acceptance Letter Modal
+     */
+    $('#acceptance-letter-close').click(
         function(e) {
             $('#csv-dialog').dialog('close');
         }

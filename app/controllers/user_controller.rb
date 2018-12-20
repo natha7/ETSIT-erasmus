@@ -1,9 +1,11 @@
 require "prawn"
+require 'rubygems'
+require 'zip'
 
 class UserController < ApplicationController
 	before_action :authenticate_user!, except: [:digital_certificate, :token_registration, :create_user, :register_with_email_and_password, :register_with_eidas]
 	before_action :validate_not_user?, only: [:register_with_email_and_password, :register_with_eidas]
-	before_action :validate_admin?, only: [:admin_dashboard, :set_user_status, :review_dashboard, :update_settings, :download_all_files, :generate_csv, :generate_acceptance_letters, :delete]
+	before_action :validate_admin?, only: [:admin_dashboard, :set_user_status, :review_dashboard, :update_settings, :download_all_files, :generate_csv, :generate_acceptance_letters, :delete, :generate_acceptance_letter_docx]
 	include PdfHelper
 
 	### ADMIN
@@ -202,8 +204,6 @@ class UserController < ApplicationController
 	end
 
 	def download_all_files
-		require 'rubygems'
-		require 'zip'
 		user = User.find(params[:user])
 		user_name = user.first_name + " " + user.family_name
 		files_to_download = [ user.signed_student_application_form,   user.motivation_letter,   user.curriculum_vitae,   user.transcript_of_records,   user.learning_agreement,   user.valid_insurance_policy,   user.photo,   user.ni_passport,   user.recommendation_letter_1,   user.recommendation_letter_2,   user.official_gpa,   user.english_test_score, user.spanish_test_score]
@@ -267,6 +267,7 @@ class UserController < ApplicationController
 	end
 
 	def generate_acceptance_letter
+		binding.pry
 		unless current_user.role == 'admin'
 			if (current_user.progress_status == "accepted")
 				headers['Content-Disposition'] = "attachment; filename=\"acceptance_letter.pdf\""
@@ -277,11 +278,22 @@ class UserController < ApplicationController
 		else
 			if User.exists?(params[:user])
 				user = User.find(params[:user])
-				send_data create_acceptance_letter_pdf(user), :filename => "acceptance_letter.pdf", :type => "application/pdf"
+					send_data create_acceptance_letter_pdf(user, true), :filename => "acceptance_letter.pdf", :type => "application/pdf"
 			else
 				redirect_to admin_dashboard_path
 			end
 		end
+	end
+
+	def generate_acceptance_letter_docx
+			if User.exists?(params[:user])
+				user = User.find(params[:user])
+				headers['Content-Disposition'] = "attachment; filename=\"acceptance_letter.docx\""
+				str = render_to_string "layouts/acceptance_letter", :locals => {:user=>user}, :layout => false
+				send_data str, :filename => "acceptance_letter.docx", :type => "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+			else
+				redirect_to admin_dashboard_path
+			end
 	end
 
 	def generate_acceptance_letters
@@ -290,8 +302,14 @@ class UserController < ApplicationController
 		users = User.all.reject{|t| t.role == "admin" or t.progress_status != "accepted"}
 		compressed_filestream = Zip::OutputStream.write_buffer do |stream|
 			users.each do |user|
-				stream.put_next_entry(user.family_name + " " + user.first_name + ".pdf")
-				stream.write create_acceptance_letter_pdf(user)
+				if (params[:downloadformat] == "docx")
+					str = render_to_string "layouts/acceptance_letter", :locals => {:user=>user, :logos=>params[:logos]}, :layout => false
+					stream.put_next_entry(user.family_name + " " + user.first_name + ".docx")
+					stream.write str
+				else
+					stream.put_next_entry(user.family_name + " " + user.first_name + ".pdf")
+					stream.write create_acceptance_letter_pdf(user, params[:logos])
+				end
 			end
 		end
 		compressed_filestream .rewind

@@ -1,0 +1,61 @@
+<% result = PdfHelper::calculate_year(user.student_application_form.academic_year) %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body style='margin: 0cm;'>
+<style type='text/css'>
+  @page { margin-left: 2.2cm; margin-right: 2.2cm }
+  * { font-family: Arial; }
+  p { color: #000000; font-family: Arial; font-size: 14pt;}
+  td p { color: #000000 }
+  h1 { color: #000000 }
+  h2 { color: #000000 }
+  h2.cjk { font-family: 'Arial'}
+  td { font-family: Arial; font-size: 14pt; }
+</style>
+<% if !logos.blank?%>
+  <img src="<%= "#{request.base_url + RELATIVE_URL}/assets/logoUPM.jpg" %>" width="60" style="float: left;" />
+  <img src="<%= "#{request.base_url + RELATIVE_URL}/assets/logoescuela.jpg" %>" width="140" style="float: right;" />
+  <br style="clear: both;"/>
+<%else %>
+  <br/>
+<%end %>
+<h1 style='text-align:center; margin: 0cm; font-size: 12pt; font-family: Arial; color: #4664A2; font-weight: normal; margin-top: 1.7cm; border: 1px solid #ffffff;'>UNIVERSIDAD POLITÉCNICA DE MADRID<br/>ESCUELA TÉCNICA SUPERIOR DE INGENIEROS DE TELECOMUNICACIÓN</h1>
+<br/><table border='0' width='100%' style='margin: 0cm; border-width: 0pt !important; width: 16cm; font-size: 13pt; display: block; font-family: Arial;'>
+<tr><td> <u>TO:</u> </td><td><b><%= user.family_name +  " " + user.first_name %></b></td></tr>
+<tr><td> <u>HOME UNIVERSITY:</u></td><td><b><%= user.student_application_form.inst_sending_name %></b></td></tr>
+<tr><td> <u>PROGRAMME:</u> </td> <td><b><%= user.student_application_form.programme %></b></td></tr>
+<tr><td> <u>PERIOD OF STAY:</u> </td> <td><b><%= user.student_application_form.academic_year %></b></td></tr>
+</table><br/>
+<br/>
+<br/>
+<div style='margin: 0cm;'>
+  <h2 style='font-size: 16pt; font-family: Arial;'><u>SUBJECT:</u> Acceptance Letter</h2>
+  <br/>
+  <br/>
+  <p style='text-align:right; font-size: 14pt;'><%= PdfHelper::get_time_and_place %></p>
+  <br/>
+  <br/>
+  <p>Dear <%= user.first_name %>,</p>
+  <br/>
+  <p style='text-align: justify;'>We are pleased to let you know that you have been admitted to the <i>Escuela Técnica Superior de Ingenieros de Telecomunicación</i> of the
+    <i>Universidad Politécnica de Madrid</i> in the framework of <%= user.student_application_form.programme%> Programme to follow courses during <%= result%>.</p>
+  <br/>
+  <p style='text-align: justify;'>More information regarding your stay in Madrid will be sent closer to your arrival date.
+    In the meantime, please do not hesitate to contact theInternational Office if you have any questions.</p>
+  <br/>
+  <br/>
+  <br/>
+  <p>Yours sincerely,</p>
+  <br/><br/><br/><br/><br/>
+  <br/>
+  <br/>
+  <p>Luis Salgado</p>
+  <p>Vice-Dean for International Relations and Corporate Partnership</p>
+  <p>International Office ETSIT - UPM</p>
+</div>
+</body>
+</html>

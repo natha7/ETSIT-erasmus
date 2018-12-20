@@ -273,7 +273,6 @@ module ApplicationHelper
     ]
   end
 
-
   def isced_fos(fos)
     res = ""
     equivalence = {
@@ -317,6 +316,7 @@ module ApplicationHelper
     end
     res
     end
+
   def country_from_code(code)
     result = ""
     codes = { "" => "",

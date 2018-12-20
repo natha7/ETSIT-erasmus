@@ -300,9 +300,33 @@
   </form>
 </div>
 
+<div id="acceptance-letter-dialog" >
+  <h2 class="title">Generate acceptance letters</h2>
+  <button class="transparent-button action-button right close" id="acceptance-letter-dialog-close"><i class="mdi mdi-close"></i></button>
+    <form method="get" action="<%= RELATIVE_URL %>/generate_acceptance_letters">
+    <div>
+    <h3 class="al-format">Format</h3>
+    <input type="radio" name="downloadformat" value="pdf" checked/>
+    <label for="downloadformat">PDF</label>
+    <input type="radio" name="downloadformat" value="docx"/>
+    <label for="downloadformat">DOCX</label><br/>
+    <label for="logos">Include logos</label>
+    <input type="checkbox" name="logos"/>
+  </div>
+<p class="align-right">
+
+  <button type="submit" class="custom-button primary">Download</button>
+</p>
+<!--    <a href="<%#= RELATIVE_URL %>/generate_csv" download="students.csv"><u>Download csv</u></a>-->
+</form>
+</div>
+
+
 
 <div class="intro-paragraph right s12">
-  <a download href="<%= "#{RELATIVE_URL}/generate_acceptance_letters" %>"><button class="custom-button primary">Generate Acceptance Letters</button></a>
+<!--  <a download href="<%#= "#{RELATIVE_URL}/generate_acceptance_letters" %>">-->
+    <button id="acceptance-letter-dialog-button" class="custom-button primary">Generate Acceptance Letters</button>
+<!--  </a>-->
   <button class="custom-button primary" id="csv-dialog-button">Download CSV</button>
 </div>
 
