@@ -17,13 +17,13 @@
   td { font-family: Arial; font-size: 14pt; }
 </style>
 <% if !logos.blank?%>
-  <img src="<%= "#{request.base_url + RELATIVE_URL}/assets/logoUPM.jpg" %>" width="60" style="float: left;" />
-  <img src="<%= "#{request.base_url + RELATIVE_URL}/assets/logoescuela.jpg" %>" width="140" style="float: right;" />
+  <img src="<%= "#{request.base_url + RELATIVE_URL}/assets/logoUPM.jpg" %>" data-width="60" width="60" style="float: left;" />
+  <img src="<%= "#{request.base_url + RELATIVE_URL}/assets/logoescuela.jpg" %>" data-width="140" width="140" style="float: right;" />
   <br style="clear: both;"/>
 <%else %>
   <br/>
 <%end %>
-<h1 style='text-align:center; margin: 0cm; font-size: 12pt; font-family: Arial; color: #4664A2; font-weight: normal; margin-top: 1.7cm; border: 1px solid #ffffff;'>UNIVERSIDAD POLITÉCNICA DE MADRID<br/>ESCUELA TÉCNICA SUPERIOR DE INGENIEROS DE TELECOMUNICACIÓN</h1>
+<h1 class="center" data-style="#4664A2" style='text-align:center; margin: 0cm; font-size: 12pt; font-family: Arial; color: #4664A2; font-weight: normal; margin-top: 1.7cm; border: 1px solid #ffffff;'>UNIVERSIDAD POLITÉCNICA DE MADRID<br/>ESCUELA TÉCNICA SUPERIOR DE INGENIEROS DE TELECOMUNICACIÓN</h1>
 <br/><table border='0' width='100%' style='margin: 0cm; border-width: 0pt !important; width: 16cm; font-size: 13pt; display: block; font-family: Arial;'>
 <tr><td> <u>TO:</u> </td><td><b><%= user.family_name +  " " + user.first_name %></b></td></tr>
 <tr><td> <u>HOME UNIVERSITY:</u></td><td><b><%= user.student_application_form.inst_sending_name %></b></td></tr>
@@ -41,11 +41,9 @@
   <br/>
   <p>Dear <%= user.first_name %>,</p>
   <br/>
-  <p style='text-align: justify;'>We are pleased to let you know that you have been admitted to the <i>Escuela Técnica Superior de Ingenieros de Telecomunicación</i> of the
-    <i>Universidad Politécnica de Madrid</i> in the framework of <%= user.student_application_form.programme%> Programme to follow courses during <%= result%>.</p>
+  <p style='text-align: justify;'>We are pleased to let you know that you have been admitted to the <i>Escuela Técnica Superior de Ingenieros de Telecomunicación</i> of the <i>Universidad Politécnica de Madrid</i> in the framework of <%= user.student_application_form.programme%> Programme to follow courses during <%= result%>.</p>
   <br/>
-  <p style='text-align: justify;'>More information regarding your stay in Madrid will be sent closer to your arrival date.
-    In the meantime, please do not hesitate to contact theInternational Office if you have any questions.</p>
+  <p style='text-align: justify;'>More information regarding your stay in Madrid will be sent closer to your arrival date. In the meantime, please do not hesitate to contact theInternational Office if you have any questions.</p>
   <br/>
   <br/>
   <br/>

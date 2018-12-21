@@ -1,11 +1,12 @@
 require "prawn"
 require 'rubygems'
 require 'zip'
+# require 'htmltoword'
 
 class UserController < ApplicationController
 	before_action :authenticate_user!, except: [:digital_certificate, :token_registration, :create_user, :register_with_email_and_password, :register_with_eidas]
 	before_action :validate_not_user?, only: [:register_with_email_and_password, :register_with_eidas]
-	before_action :validate_admin?, only: [:admin_dashboard, :set_user_status, :review_dashboard, :update_settings, :download_all_files, :generate_csv, :generate_acceptance_letters, :delete, :generate_acceptance_letter_docx]
+	before_action :validate_admin?, only: [:admin_dashboard, :set_user_status, :review_dashboard, :update_settings, :download_all_files, :generate_csv, :generate_acceptance_letters, :delete]
 	include PdfHelper
 
 	### ADMIN
@@ -267,9 +268,8 @@ class UserController < ApplicationController
 	end
 
 	def generate_acceptance_letter
-		binding.pry
 		unless current_user.role == 'admin'
-			if (current_user.progress_status == "accepted")
+			if current_user.progress_status == "accepted"
 				headers['Content-Disposition'] = "attachment; filename=\"acceptance_letter.pdf\""
 				send_data create_acceptance_letter_pdf(current_user), :filename => "acceptance_letter.pdf", :type=> "application/pdf", :disposition => request.format.pdf? ? "attachment" : "inline"
 			else
@@ -278,33 +278,31 @@ class UserController < ApplicationController
 		else
 			if User.exists?(params[:user])
 				user = User.find(params[:user])
-					send_data create_acceptance_letter_pdf(user, true), :filename => "acceptance_letter.pdf", :type => "application/pdf"
+				if params[:downloadformat] == "docx"
+					headers['Content-Disposition'] = "attachment; filename=\"acceptance_letter.docx\""
+					str = render_to_string "layouts/acceptance_letter", :locals => {:user=>user, :logos=>params[:logos]}, :layout => false
+					# document = Htmltoword::Document.create(str)
+					# send_data document, :filename => "acceptance_letter.docx", :type => "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+					# send_data str, :filename => "acceptance_letter.docx", :type => "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+					send_data str, :filename => "acceptance_letter.rtf", :type => "application/rtf"
+				else
+					send_data create_acceptance_letter_pdf(user, params[:logos]), :filename => "acceptance_letter.pdf", :type => "application/pdf"
+				end
 			else
 				redirect_to admin_dashboard_path
 			end
 		end
 	end
 
-	def generate_acceptance_letter_docx
-			if User.exists?(params[:user])
-				user = User.find(params[:user])
-				headers['Content-Disposition'] = "attachment; filename=\"acceptance_letter.docx\""
-				str = render_to_string "layouts/acceptance_letter", :locals => {:user=>user}, :layout => false
-				send_data str, :filename => "acceptance_letter.docx", :type => "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-			else
-				redirect_to admin_dashboard_path
-			end
-	end
-
 	def generate_acceptance_letters
-		require 'rubygems'
-		require 'zip'
 		users = User.all.reject{|t| t.role == "admin" or t.progress_status != "accepted"}
 		compressed_filestream = Zip::OutputStream.write_buffer do |stream|
 			users.each do |user|
-				if (params[:downloadformat] == "docx")
+				if params[:downloadformat] == "docx"
 					str = render_to_string "layouts/acceptance_letter", :locals => {:user=>user, :logos=>params[:logos]}, :layout => false
-					stream.put_next_entry(user.family_name + " " + user.first_name + ".docx")
+					# document = Htmltoword::Document.create(str)
+					stream.put_next_entry(user.family_name + " " + user.first_name + ".rtf")
+					# stream.write document
 					stream.write str
 				else
 					stream.put_next_entry(user.family_name + " " + user.first_name + ".pdf")

@@ -40,7 +40,7 @@ gem 'terrapin'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
-
+# gem 'htmltoword'
 gem 'prawn', '~> 2.2.2'
 gem 'prawn-table'
 gem 'rubyzip', '>= 1.2.2' # will load new rubyzip version

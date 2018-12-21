@@ -269,7 +269,6 @@
 		.right-column .row
 			.collapsible
 				&.show
-					&.big
 				.align-right
 					flex-direction: column
 					.file-name
@@ -361,13 +360,28 @@
 		display: inline-block
 	.close
 		margin: -18px
-	.al-format
-		display: inline-block
-		margin-right: 10px
-	label
-		margin-right: 10px
-		color: #555
-	input
-		padding: 3px 4px 4px 4px
-		font-family: inherit
-		font-size: 1em
+	.acceptance-letter-form
+		background-color: #fafafa
+		padding: 0px 20px
+		display: flex
+		justify-content: space-between
+		.last, .first
+			display: flex
+			flex-flow: row nowrap
+			justify-content: flex-start
+			align-items: center
+		.al-format
+			display: inline-block
+			vertical-align: middle
+			margin-right: 10px
+		label
+			margin-right: 10px
+			color: #555
+			vertical-align: middle
+		input
+			padding: 3px 4px 4px 4px
+			font-family: inherit
+			font-size: 1em
+			vertical-align: middle
+			&#logos-checkbox
+				margin-left: 55px

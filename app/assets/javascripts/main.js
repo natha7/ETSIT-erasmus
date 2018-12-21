@@ -726,16 +726,16 @@ $(document).on('turbolinks:load', function() {
                 $('.ui-widget-overlay').on('click', function () {
                     ALDialog.dialog('close');
                 });
-            },
+            }
         });
     });
 
     /**
      * Close Acceptance Letter Modal
      */
-    $('#acceptance-letter-close').click(
+    $('#acceptance-letter-dialog-close').click(
         function(e) {
-            $('#csv-dialog').dialog('close');
+            $('#acceptance-letter-dialog').dialog('close');
         }
     );
 

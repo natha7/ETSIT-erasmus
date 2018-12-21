@@ -404,11 +404,6 @@ module PdfHelper
         end.render
     end
 
-    def create_acceptance_letter_docx(user)
-      doc =  ""
-      doc
-    end
-
     def PdfHelper::get_time_and_place
         now = Time.now
       "Madrid, #{now.strftime("%B #{now.day.ordinalize} %Y")}"
