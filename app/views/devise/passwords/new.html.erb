@@ -1,5 +1,4 @@
 <h1 class="title">Forgot your password?</h1>
-
 <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
   <%= devise_error_messages! %>
   <div class="flex-container password-container">

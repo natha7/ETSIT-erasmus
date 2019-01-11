@@ -2,7 +2,7 @@ class HomeController < ApplicationController
 
 	def filter_double_erasmus
 		if request.path.scan(/\/erasmus/).length > 1
-			new_path =  request.path.gsub(/^\/erasmus/,"")
+			new_path  =  request.path.gsub(/^\/erasmus/,"")
 			redirect_to new_path
 		end
 
