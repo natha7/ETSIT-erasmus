@@ -29,7 +29,7 @@ Rails.application.configure do
   # Do not fallback to assets pipeline if a precompiled asset is missed.
   config.assets.compile = false
 
-  config.action_mailer.default_url_options = { :host => "pruebas.etsit.upm.es/erasmus" }
+  config.action_mailer.default_url_options = { :host => "appsrv.etsit.upm.es/erasmus" }
 
   # Don't care if the mailer can't send.
   config.action_mailer.perform_caching = false
@@ -45,11 +45,11 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.default_options = {from: 'no-reply@pruebas.etsit.upm.es'}
+  config.action_mailer.default_options = {from: 'no-reply@appsrv.etsit.upm.es'}
   config.action_mailer.smtp_settings = {
       address:              'smtp.sendgrid.net',
       port:                 25,
-      domain:               'pruebas.etsit.upm.es',
+      domain:               'appsrv.etsit.upm.es',
       user_name:            'apikey',
       password:             econfig["mail_api_key"],
       authentication:       'plain',
