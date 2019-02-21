@@ -34,7 +34,7 @@
 <% admin_name = current_user.first_name.blank? ? "Administrator" : (current_user.first_name + " " + current_user.family_name) %>
 <h1 class="title"> Hi, <%=admin_name%></h1>
 <p class="intro-paragraph">Keep in mind that the deadline to receive application packages is <span class="red"><strong><%= settings.deadline_first_semeter %></strong></span> for the fall
-  semester or academic year <%= settings.next_academic_year %>, and <span class="red"><strong><%= settings.deadline_second_semester %> </strong></span> for the second semester of this current academic year <%= settings.current_academic_year %>. For double degree students, the deadline is <span class="red"><strong><%= settings.deadline_double_degree %> </strong></span>. Please <u>check registered users, documents required in pdf, and application packages before the deadline</u> .</p>
+  semester or academic year <%= settings.next_academic_year %>, and <span class="red"><strong><%= settings.deadline_second_semester %> </strong></span> for the second semester of the academic year <%= settings.current_academic_year %>. For double degree students, the deadline is <span class="red"><strong><%= settings.deadline_double_degree %> </strong></span>. Please <u>check registered users, documents required in pdf, and application packages before the deadline</u> .</p>
 
 <br/>
 <div class="filters">
