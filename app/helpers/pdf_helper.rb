@@ -92,7 +92,7 @@ module PdfHelper
 
 		# Add header to all pages
 		repeat(:all) do
-		  header(logos)
+		  header
 		end
 
 		# Add page number to all pages
