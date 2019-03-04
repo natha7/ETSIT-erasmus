@@ -1,5 +1,5 @@
 namespace :db do
-	#rake db:create_admin user= password=
+	#rake db:create_admin email= password=
 	desc "Create admin Role using email=, password="
 	task :create_admin => :environment do 
 		user = User.new
