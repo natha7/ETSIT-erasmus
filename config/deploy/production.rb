@@ -55,7 +55,7 @@ server "138.4.22.150",
        roles: %w{web app db},
        ssh_options: {
            user: "ubuntu", # overrides user setting above
-           keys: %w(/home/ebarra/trabajo/eID4U/erasmus-test.pem),
+           keys: %w(/home/slp/Proyectos/EIDAS/erasmus-test.pem),
            auth_methods: %w(publickey password)
            #    # password: "please use keys"
        }
