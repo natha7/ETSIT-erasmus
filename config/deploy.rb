@@ -3,7 +3,7 @@ lock "~> 3.11.0"
 
 set :application, "eid4u"
 set :repo_url, 'https://github.com/ging/ETSIT-erasmus.git'
-set :branch, :test
+set :branch, "test"
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
