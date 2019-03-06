@@ -49,13 +49,13 @@
 #
 # The server-based syntax can be used to override options:
 # ------------------------------------
- server "host028.etsit.upm.es",
-   user: "ging",
-   roles: %w{web app db},
-   ssh_options: {
-     user: "ging", # overrides user setting above
-     keys: %w(/home/berto/dit_serv),
-     auth_methods: %w(publickey password)
-#    # password: "please use keys"
-   }
 
+server "138.4.22.150",
+       user: "ubuntu",
+       roles: %w{web app db},
+       ssh_options: {
+           user: "ubuntu", # overrides user setting above
+           keys: %w(/home/ebarra/trabajo/eID4U/erasmus-test.pem),
+           auth_methods: %w(publickey password)
+           #    # password: "please use keys"
+       }

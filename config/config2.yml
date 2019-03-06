@@ -1,5 +1,5 @@
 sp_options:
- entity_id: "https://appsrv.etsit.upm.es/erasmus/users/eidas/metadata"
+ entity_id: "https://erasmus-eid4u.dit.upm.es/erasmus/users/eidas/metadata"
  idp_fingerprint: "08:1E:68:50:CE:1F:F8:F6:FB:38:91:51:E0:62:38:DA:09:E7:5F:0B"
  idp_fingerprint_cipher: "http://www.w3.org/2000/09/xmldsig#sha1"
  assert_endpoint: "https://idm.vishub.org/saml2/ReturnPage"
