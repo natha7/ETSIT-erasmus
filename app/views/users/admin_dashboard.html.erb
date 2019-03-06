@@ -117,6 +117,7 @@
         <div class="nominee-item">
           <div class="nominee-<%= nominee.id %>-id flex-table-cell flex-table-email-nominee">
             <span class="big-hidden">Email:</span><span class="email"><%= nominee.email %></span>
+            <span class="big-hidden">Email:</span><span class="email"><%= nominee.registration_token %></span>
           </div>
           <div class="nominee-<%= nominee.id %>-id flex-table-cell flex-table-resend">
             <span class="dashboard-icon">
@@ -149,7 +150,7 @@
   <%= render partial: "users/admin_dashboard_panel", :locals => {
       :title => "Archived users", :users => archived_users, :main => false}  %>      
   </div>
-  <div id="edit-picture-dialog" > 
+  <div id="edit-picture-dialog" class="modal">
     <h2 class="title">Edit your picture</h2>
     <button class="transparent-button action-button right close" id="edit-picture-dialog-close"><i class="mdi mdi-close"></i></button>
     <div class="flex-container">
@@ -173,7 +174,7 @@
 
   </div>
 
-<div id="several-nominee-dialog" > 
+<div id="several-nominee-dialog" class="modal">
       <h2 class="title">Nominate several students</h2>
       <button class="transparent-button action-button right close" id="several-nominee-dialog-close"><i class="mdi mdi-close"></i></button>
         <div class="several-nominee-actions">
@@ -193,7 +194,7 @@
 
   <br/><br/> </div>
 
-<div id="admin-settings-dialog" >
+<div id="admin-settings-dialog" class="modal">
   <h2 class="title">Settings</h2>
   <button class="transparent-button action-button right close" id="admin-settings-dialog-close"><i class="mdi mdi-close"></i></button>
   <%= form_for ProjectSettings.first_or_initialize, url: RELATIVE_URL + "/update_settings", :html => { :id => "id" }, :method => :post do |f| %>
@@ -252,7 +253,7 @@
 <%end %>
 </div>
 
-<div id="csv-dialog" >
+<div id="csv-dialog" class="modal">
   <h2 class="title">Download CSV</h2>
   <button class="transparent-button action-button right close" id="csv-dialog-close"><i class="mdi mdi-close"></i></button>
   <form method="get" action="<%= RELATIVE_URL %>/generate_csv">
@@ -300,7 +301,7 @@
   </form>
 </div>
 
-<div id="acceptance-letter-dialog" >
+<div id="acceptance-letter-dialog" class="modal">
   <h2 class="title">Generate acceptance letters</h2>
   <button class="transparent-button action-button right close" id="acceptance-letter-dialog-close"><i class="mdi mdi-close"></i></button>
     <form method="get" action="<%= RELATIVE_URL %>/generate_acceptance_letters">

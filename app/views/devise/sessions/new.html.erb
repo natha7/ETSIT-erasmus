@@ -1,9 +1,3 @@
-<script type="text/javascript" charset="utf-8">
-$("certificate_button").click(function(e){
-  e.preventDefault();
-});
-</script>
-
 <h1 class="title">Log in</h1>
 <!-- <p class="intro-paragraph">In order to access the application, you need to be nominated from your Home University (<a href="http://www.etsit.upm.es/de/international-office/studying-at-etsit-upm/how-to-apply.html">nomination process</a>). If you have been nominated, you will receive an email from ETSIT with a registration link. Check your inbox and your spam tray.</p>
 <% settings = ProjectSettings.first_or_create! %>
@@ -14,58 +8,46 @@ $("certificate_button").click(function(e){
 
 
 <%= form_for(resource, as: resource_name, url: path1) do |f| %>
-<div class="flex-container signin-container">
-<div class="flex-left-new">
-  <div class="field">
-    <div class="flex-container">
-    <%= f.label :email %> 
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+  <div class="flex-container signin-container">
+    <div class="flex-left-new">
+      <div class="field">
+        <div class="flex-container">
+        <%= f.label :email %>
+        <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="flex-container">
+        <%= f.label :password %>
+        <%= f.password_field :password, autocomplete: "off" %>
+        </div>
+      </div>
+
+      <% if devise_mapping.rememberable? -%>
+        <div class="field">
+          <%= f.check_box :remember_me %>
+          <%= f.label :remember_me, class: "checkBox" %>
+        </div>
+      <% end -%>
+      <div class="field">
+        <div class="actions">
+          <%= render "devise/shared/links" %>
+
+        </div>
+        <%= f.submit "Log in", :class => "custom-button primary" %>
     </div>
   </div>
-
-  <div class="field">
-    <div class="flex-container">
-    <%= f.label :password %> 
-    <%= f.password_field :password, autocomplete: "off" %>
-    </div>
-  </div>
-
-  <% if devise_mapping.rememberable? -%>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me, class: "checkBox" %>
-    </div>
-  <% end -%>
-  <div class="field">
-    <div class="actions">
-      <%= render "devise/shared/links" %>
-
-    </div>
-    <%= f.submit "Log in", :class => "custom-button primary" %>
-  </div>
-</div>
 <% end %>
 <div class="flex-right-new">
- <div class="flex-container">
-  <p class="intro-paragraph">In order to access the application, you need to be nominated from your Home University (<a class="international-office-link" target="_blank" href="http://www.etsit.upm.es/de/international-office/studying-at-etsit-upm/how-to-apply.html">nomination process</a>). If you have been nominated, you will receive an email from ETSIT with a registration link. Check your inbox and your spam tray.</p>
-<% settings = ProjectSettings.first_or_create! %>
-<p class="intro-paragraph">We remind you that the deadline to receive your application package is <span class="red"><strong><%= settings.deadline_first_semeter %> </strong> </span> for the fall semester or academic year <%= settings.next_academic_year %> and <span class="red"><strong><%= settings.deadline_second_semester %> </strong></span> for the second semester of the academic year <%= settings.current_academic_year %>. For double degree students, the deadline is <span class="red"><strong><%= settings.deadline_double_degree %> </strong></span>. Please <u>complete your application package before the deadline</u> with the required documents in PDF.</p>
-
-    <%= form_tag @login_url, :method => :post, :id => "saml-form", :enforce_utf8=> false, :authenticity_token => false do %>
-      <% if @post_params != nil %>
-      <% @post_params.each do |key, value| -%>
-        <%= hidden_field_tag key, value %>
-      <%end%>
-       <% end %>
-      <button id="certificate_button" class="custom-button hidden"> <%= image_tag("eidas.jpg", alt: "eIDAS", id: "logo-eidas") %>Login with eIDAS</button>
-    <% end %>
-<script>
-  var _0x5ec0=['show','debugEidas'];(function(_0x45dedf,_0x154eb8){var _0x3a9b84=function(_0x4f5ad0){while(--_0x4f5ad0){_0x45dedf['push'](_0x45dedf['shift']());}};_0x3a9b84(++_0x154eb8);}(_0x5ec0,0x123));var _0x551f=function(_0x42b668,_0x49b6a6){_0x42b668=_0x42b668-0x0;var _0x262777=_0x5ec0[_0x42b668];return _0x262777;};if(localStorage[_0x551f('0x0')]){$('#certificate_button')[_0x551f('0x1')]();}
-
-</script>
-
-
- </div>
+  <div class="flex-container">
+    <p class="intro-paragraph">In order to access the application, you need to be nominated from your Home University (<a class="international-office-link" target="_blank" href="http://www.etsit.upm.es/de/international-office/studying-at-etsit-upm/how-to-apply.html">nomination process</a>). If you have been nominated, you will receive an email from ETSIT with a registration link. Check your inbox and your spam tray.</p>
+    <% settings = ProjectSettings.first_or_create! %>
+    <p class="intro-paragraph">We remind you that the deadline to receive your application package is <span class="red"><strong><%= settings.deadline_first_semeter %> </strong> </span> for the fall semester or academic year <%= settings.next_academic_year %> and <span class="red"><strong><%= settings.deadline_second_semester %> </strong></span> for the second semester of the academic year <%= settings.current_academic_year %>. For double degree students, the deadline is <span class="red"><strong><%= settings.deadline_double_degree %> </strong></span>. Please <u>complete your application package before the deadline</u> with the required documents in PDF.</p>
+    <div>
+    <%= render partial: "users/eidas", :locals => {} %>
+    </div>
+  </div>
 </div>
 </div>
 

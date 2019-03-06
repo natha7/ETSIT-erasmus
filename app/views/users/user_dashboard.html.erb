@@ -25,7 +25,7 @@
 					<div class="second-container">
 				<span class="second-container-left dashboard-section" id="application-form-tab">
 					<span class="red">*</span>
-					<label> 
+					<label>
 					Application Form
 						<i class="caret mdi mdi-menu-down reverse"></i>
 					</label>
@@ -170,28 +170,28 @@
 					</div>
 				<% end %>
 			</div>
-				<div id="edit-picture-dialog" >
-					<h2 class="title">Edit your picture</h2>
-					<button class="transparent-button action-button right close" id="edit-picture-dialog-close"><i class="mdi mdi-close"></i></button>
-					<div class="flex-container">
-						<div class="image-container"><img id="edit-picture-dialog-picture" class="picture" src="<%= current_user.photo.url == "/erasmus/images/placeholder.png" ? ActionController::Base.helpers.image_path('placeholder.png') : current_user.photo%>"/></div>
-						<canvas id="canvas"></canvas>
-						<div class="image-edit-actions">
-							<input class="input-file" type="file" name="photo2" accept="image/*"></input>
-							<%= form_for current_user, url: RELATIVE_URL + "/user/file_upload_ajax", html: { multipart: true }, :method => :POST do |form| %>
-								<br></br>
-								<div class="messages-from-server">
-
-								</div>
-								<div class="align-right">
-									<%= form.submit "Upload", :class => "custom-button" %>
-									<img id="spinner" src="<%= RELATIVE_URL %>/assets/spinner.gif" class="hidden"/>
-								</div>
-							<% end %>
-						</div>
-					</div>
+<div id="edit-picture-dialog" class="modal">
+	<h2 class="title">Edit your picture</h2>
+	<button class="transparent-button action-button right close" id="edit-picture-dialog-close"><i class="mdi mdi-close"></i></button>
+	<div class="flex-container">
+		<div class="image-container"><img id="edit-picture-dialog-picture" class="picture" src="<%= current_user.photo.url == "/erasmus/images/placeholder.png" ? ActionController::Base.helpers.image_path('placeholder.png') : current_user.photo%>"/></div>
+		<canvas id="canvas"></canvas>
+		<div class="image-edit-actions">
+			<input class="input-file" type="file" name="photo2" accept="image/*"></input>
+			<%= form_for current_user, url: RELATIVE_URL + "/user/file_upload_ajax", html: { multipart: true }, :method => :POST do |form| %>
+				<br></br>
+				<div class="messages-from-server">
 
 				</div>
+				<div class="align-right">
+					<%= form.submit "Upload", :class => "custom-button" %>
+					<img id="spinner" src="<%= RELATIVE_URL %>/assets/spinner.gif" class="hidden"/>
+				</div>
+			<% end %>
+		</div>
+	</div>
+
+</div>
 
 
 

@@ -1,8 +1,14 @@
 @import "../variables"
 @import "../mixins"
-#edit-picture-dialog, #info-degrees-dialog
-	padding: 25px
+.modal
+	padding: 25px !important
 	display: none
+	.close
+		margin: -18px
+	.title
+		margin-top: 0
+		display: inline-block
+#edit-picture-dialog, #info-degrees-dialog
 	ul
 		padding-left: 0px
 		.info-degree
@@ -62,8 +68,6 @@
 	.registered_at
 		line-height: 34px
 #several-nominee-dialog
-	padding: 25px
-	display: none
 	canvas#canvas
 		width: 150px
 		height: 150px
@@ -71,18 +75,11 @@
 	.title
 		margin-top: 0
 		display: inline-block
-	.close
-		margin: -18px
 	.flex-container
-		.image-container
-			display: inline-block
-			.picture
-				width: 150px
 		.several-nominee-actions
 			display: inline-block
 			vertical-align: top
 			padding: 10px
-			.input-file
 			.custom-button
 				margin: 10px
 			.messages-from-server
@@ -284,13 +281,6 @@
 	#acceptance_letter_button
 		display: inline-block
 #admin-settings-dialog
-	padding: 25px
-	display: none
-	.title
-		margin-top: 0
-		display: inline-block
-	.close
-		margin: -18px
 	.flex-container
 		.multiple-item-container
 			flex: 1
@@ -318,13 +308,6 @@
 				font-family: inherit
 				font-size: 1em
 #csv-dialog
-	padding: 25px
-	display: none
-	.title
-		margin-top: 0
-		display: inline-block
-	.close
-		margin: -18px
 	.floating
 		float: right
 		margin-top: -35px
@@ -353,13 +336,6 @@
 				margin-bottom: 4px
 
 #acceptance-letter-dialog
-	padding: 25px
-	display: none
-	.title
-		margin-top: 0
-		display: inline-block
-	.close
-		margin: -18px
 	.acceptance-letter-form
 		background-color: #fafafa
 		padding: 0px 20px

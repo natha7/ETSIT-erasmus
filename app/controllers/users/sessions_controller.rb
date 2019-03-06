@@ -11,7 +11,7 @@ class Users::SessionsController < Devise::SessionsController
     @post_params = request.create_params(saml_config(idp_entity_id), 'RelayState' => 'MyRelayState')
     #@post_params["postLocationUrl"] = "http://pruebas.etsit.upm.es"
     #@post_params["redirectLocationUrl"] = "http://pruebas.etsit.upm.es"
-    @post_params["country"] = "ES"
+    # @post_params["country"] = "ES"
     #@post_params["sendMethods"] = "POST"
     @login_url = saml_config(idp_entity_id).idp_sso_target_url
 

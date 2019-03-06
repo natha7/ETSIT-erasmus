@@ -700,7 +700,7 @@ $(document).on('turbolinks:load', function() {
      */
     $('#csv-dialog-close').click(
         function(e) {
-            $('#acceptance-letter-dialog').dialog('close');
+            $('#csv-dialog').dialog('close');
         }
     );
 
@@ -736,6 +736,40 @@ $(document).on('turbolinks:load', function() {
     $('#acceptance-letter-dialog-close').click(
         function(e) {
             $('#acceptance-letter-dialog').dialog('close');
+        }
+    );
+
+    /**
+     * Register with eidas choose country Modal
+     */
+    $('#eidas-country-choice-dialog-button').click(function(e){
+        var availWidth = $('html').width();
+        availWidth = availWidth > 900 ? 700 : (availWidth < 500 ? availWidth - 10 : availWidth*0.7)
+        var ALDialog = $('#eidas-country-choice-dialog').dialog({
+            modal:true,
+            minWidth: availWidth,
+            show: {
+                effect: "scale",
+                duration: 200
+            },
+            hide: {
+                effect: "explode",
+                duration: 200
+            },
+            open: function () {
+                $('.ui-widget-overlay').on('click', function () {
+                    ALDialog.dialog('close');
+                });
+            }
+        });
+    });
+
+    /**
+     * Close Eidas Modal
+     */
+    $('#eidas-country-choice-dialog-close').click(
+        function(e) {
+            $('#eidas-country-choice-dialog').dialog('close');
         }
     );
 

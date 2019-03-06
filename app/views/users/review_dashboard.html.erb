@@ -179,7 +179,7 @@
 </p>
 
 
-<div id="delete-user-dialog" >
+<div id="delete-user-dialog" class="modal" >
 	<h2 class="title">Delete user</h2>
 	<button class="transparent-button action-button right close" id="delete-user-dialog-close"><i class="mdi mdi-close"></i></button>
 	<div class="flex-container">
@@ -196,7 +196,7 @@
 
 </div>
 
-<div id="acceptance-letter-dialog" >
+<div id="acceptance-letter-dialog" class="modal">
 	<h2 class="title">Generate acceptance letters</h2>
 	<button class="transparent-button action-button right close" id="acceptance-letter-dialog-close"><i class="mdi mdi-close"></i></button>
 	<form method="get" action="<%="#{RELATIVE_URL}/generate_acceptance_letter/#{current_user.id}" %>">
