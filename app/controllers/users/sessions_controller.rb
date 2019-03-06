@@ -21,7 +21,7 @@ class Users::SessionsController < Devise::SessionsController
     begin
           @post_params["SAMLRequest"] = node_command.run
           @post_params["RelayState"] = "MyRelayState"
-          @post_params["country"] = "ES"
+          # @post_params["country"] = "ES"
           @login_url = CONFIG["idp_options"]["sso_login_url"]
     rescue Terrapin::ExitStatusError => e
       puts e.message
