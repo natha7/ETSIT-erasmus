@@ -101,7 +101,6 @@ class UserController < ApplicationController
 				end
 
 			else
-				binding.pry
 				flash[:error] = current_user.errors.full_messages.to_sentence
 				redirect_back fallback_location: root_path
 			end
