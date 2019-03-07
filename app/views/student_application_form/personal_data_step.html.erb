@@ -16,31 +16,39 @@
     <%= devise_error_messages! %>
     <div class="edit_student_application_flex personal_data">
     <div class="field field50">
+      <div class="flex-container">
       <%= f.label :first_name %><br />
       <%= f.text_field :first_name, autofocus: true, autocomplete: "given-name", class: "width100" %>
+      </div>
     </div>
 
     <div class="field field50">
+      <div class="flex-container">
       <%= f.label :family_name %><br />
       <%= f.text_field :family_name, autofocus: true, autocomplete: "family-name", class: "width100" %>
     </div>
-
+    </div>
     <div class="field">
+      <div class="flex-container">
       <%= f.label :birth_date %><br />
       <%= f.date_field :birth_date, autofocus: true, autocomplete: "bday" %>
     </div>
-
+    </div>
       <div class="field">
+        <div class="flex-container">
         <%= f.label :born_place %><br />
         <%= f.text_field :born_place, autofocus: true, autocomplete: "bornplace" %>
       </div>
-
+      </div>
 
     <div class="field">
+      <div class="flex-container">
       <%= f.label :nationality %><br />
       <%= f.select :nationality, country_list, autocomplete: "country-name" %>
     </div>
+    </div>
     <div class="field">
+      <div class="flex-container">
         <%= f.label :sex %><br />
         <%= f.select :sex, [
             '',
@@ -48,21 +56,47 @@
             'Female',
             'Other'
         ] , autocomplete: "gender-identity"%>
+      </div>
     </div>
-    <div class="field field100">
+    <div class="field field100" >
+      <div class="flex-container">
       <%= f.label :permanent_adress %><br />
-      <%= f.text_field :permanent_adress, autofocus: true, autocomplete: "street-address" %>
+      <%= f.text_field :permanent_adress, autofocus: true, autocomplete: "street-address", class: "width100"  %>
     </div>
-
-    <div class="field field50">
+    </div>
+    <div class="field field50" >
+      <div class="flex-container">
       <%= f.label :phone_number %><br />
       <%= f.telephone_field :phone_number, autofocus: true, autocomplete: "tel", class: "width100" %>
     </div>
-
-    <div class="field field50">
-      <%= f.label :email %><br />
-      <%= f.email_field :email, value: @user.email, autofocus: true, autocomplete: "email", disabled: true, class: "width100"  %>
     </div>
+
+      <div class="field field50">
+        <div class="flex-container">
+
+          <%= f.label :email %><br />
+          <%= f.email_field :email, value: @user.email, autofocus: true, autocomplete: "email", disabled: true, class: "width100"  %>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="flex-container">
+        <%= f.label :password %>
+        <% if @minimum_password_length %>
+          <em>(<%= @minimum_password_length %> characters minimum)</em>
+        <% end %><br />
+        <%= f.password_field :password, autocomplete: "off"  %>
+      </div>
+    </div>
+      <div class="field ">
+        <div class="flex-container">
+
+        <%= f.label :password_confirmation %><br />
+        <%= f.password_field :password_confirmation, autocomplete: "off"  %>
+      </div>
+    </div>
+
+
     </div>
    <div class="container actions">
     <div class="progress-bar">
@@ -71,15 +105,14 @@
         <div class="progress-balls">
           <% final_steps_array = @user.student_application_form.completed_steps_array  %>
           <button class="progress_btn" type="submit" name="step-0"><span class='progress-ball future-step'></span></button>
-
-          <% for i in 1..6 do %>
-            <% classBall = final_steps_array[i-1] ? "done-step" :"todo-step " %>
-            <% if from_ball == true %>
-              <button class="progress_btn" type="submit" name="step-ball-<%= i %>"><span class='progress-ball future-step <%= classBall %>'></span></button>
-            <% else %>
-              <button class="progress_btn" type="submit" name="step-<%= i %>"><span class='progress-ball future-step <%= classBall %>'></span></button>
-            <% end %>
-        <% end %>
+            <% for i in 1..6 do %>
+              <% classBall = final_steps_array[i-1] ? "done-step" :"todo-step " %>
+              <% if from_ball == true %>
+                <button class="progress_btn" type="submit" name="step-ball-<%= i %>"><span class='progress-ball future-step <%= classBall %>'></span></button>
+              <% else %>
+                <button class="progress_btn" type="submit" name="step-<%= i %>"><span class='progress-ball future-step <%= classBall %>'></span></button>
+              <% end %>
+          <% end %>
         </div>
     </div>
     <div class="progress-buttons">

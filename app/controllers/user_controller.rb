@@ -66,31 +66,46 @@ class UserController < ApplicationController
   	end
 
 	def update_personal_data
-		current_user.assign_attributes(params.require(:user).permit(
-				 :first_name,
-				 :family_name,
-				 :birth_date,
-				 :born_place,
-				 :nationality,
-				 :sex,
-				 :permanent_adress,
-				 :phone_number
-			))
-		
-		current_user.student_application_form.step = 1
-		from_ball = params[:from_ball] == "true"
-		if current_user.save
-			if !from_ball
-				redirect_to student_application_form_path
-			else
-				redirect_to student_application_form_path(:from_ball => from_ball)
+		updated_user = params.require(:user)
+
+		if updated_user[:password] != updated_user[:password_confirmation]
+			flash[:error] = "Passwords do not match"
+			redirect_back fallback_location: root_path
+		else
+			if updated_user[:password].blank?
+				updated_user.delete("password")
+				updated_user.delete("password_confirmation")
 			end
 
-		else
-			flash[:error] = current_user.errors.full_messages.to_sentence
-			redirect_back fallback_location: root_path
+			current_user.assign_attributes(updated_user.permit(
+					:first_name,
+					:family_name,
+					:birth_date,
+					:born_place,
+					:nationality,
+					:sex,
+					:permanent_adress,
+					:phone_number,
+					:password,
+					:password_confirmation
+			))
+
+			current_user.student_application_form.step = 1
+			from_ball = params[:from_ball] == "true"
+			if current_user.save
+				sign_in(current_user, :bypass => true)
+				if !from_ball
+					redirect_to student_application_form_path
+				else
+					redirect_to student_application_form_path(:from_ball => from_ball)
+				end
+
+			else
+				binding.pry
+				flash[:error] = current_user.errors.full_messages.to_sentence
+				redirect_back fallback_location: root_path
+			end
 		end
-		
 	end
 
 	def file_upload

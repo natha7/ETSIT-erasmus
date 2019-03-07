@@ -1,5 +1,5 @@
 class NomineeMailer < ApplicationMailer
-	default from: 'no-reply@eid4u.org'
+	default from: 'no-reply@erasmus-eid4u.dit.upm.es'
 
 	def user_creation_email(nominee, url)
 		@nominee = nominee
