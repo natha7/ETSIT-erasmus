@@ -88,6 +88,9 @@
         <% end %><br />
         <%= f.password_field :password, autofocus: true, autocomplete: "off", required: first_time  %>
       </div>
+        <% if !first_time  %>
+          <p class="intro-paragraph" style="text-align: right; margin: 0px; font-size: 0.8em; ">Leave blank if unchanged</p>
+        <% end %>
     </div>
       <div class="field ">
         <div class="flex-container">
@@ -97,9 +100,8 @@
       </div>
     </div>
 
-
     </div>
-   <div class="container actions">
+    <div class="container actions">
     <div class="progress-bar">
         <div class="progress-line">
         </div>
