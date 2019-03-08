@@ -72,11 +72,11 @@ class UserController < ApplicationController
 			flash[:error] = "Passwords do not match"
 			redirect_back fallback_location: root_path
 		else
-			if updated_user[:password].blank?
+
+			if updated_user[:password].blank? && params[:register].blank?
 				updated_user.delete("password")
 				updated_user.delete("password_confirmation")
 			end
-
 			current_user.assign_attributes(updated_user.permit(
 					:first_name,
 					:family_name,

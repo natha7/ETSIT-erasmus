@@ -76,7 +76,7 @@ class SamlSessionsController < Devise::SamlSessionsController
           flash[:notice] = "You have correctly registered with eIDAS"
           sign_in(:user, user)
           @user = user
-          redirect_to RELATIVE_URL + "/student_application_form/personal_data_step"
+          redirect_to RELATIVE_URL + "/student_application_form/personal_data_step?register=true"
         else
          flash[:error] = "You have not registered with eIDAS"
          redirect_to(:root)

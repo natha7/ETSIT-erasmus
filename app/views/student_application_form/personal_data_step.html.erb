@@ -1,7 +1,8 @@
 
 <div class="student-application-form">
   <% from_ball = !params[:from_ball].nil?%>
-  <%= form_for(@user, url: student_application_form_personal_data_path(:from_ball => from_ball), method: :post) do |f| %>
+  <% first_time = !params[:register].nil? %>
+  <%= form_for(@user, url: student_application_form_personal_data_path(:from_ball => from_ball, :register => first_time || nil ), method: :post) do |f| %>
     <% if params.has_key?(:from_ball) %>
     <div class="align-right">
       <a href="<%=user_dashboard_path%>" class="back-save-dashboard">
@@ -18,33 +19,33 @@
     <div class="field field50">
       <div class="flex-container">
       <%= f.label :first_name %><br />
-      <%= f.text_field :first_name, autofocus: true, autocomplete: "given-name", class: "width100" %>
+      <%= f.text_field :first_name, autofocus: true, autocomplete: "given-name", class: "width100", required: true %>
       </div>
     </div>
 
     <div class="field field50">
       <div class="flex-container">
       <%= f.label :family_name %><br />
-      <%= f.text_field :family_name, autofocus: true, autocomplete: "family-name", class: "width100" %>
+      <%= f.text_field :family_name, autofocus: true, autocomplete: "family-name", class: "width100", required: true  %>
     </div>
     </div>
     <div class="field">
       <div class="flex-container">
       <%= f.label :birth_date %><br />
-      <%= f.date_field :birth_date, autofocus: true, autocomplete: "bday" %>
+      <%= f.date_field :birth_date, autofocus: true, autocomplete: "bday", required: true %>
     </div>
     </div>
       <div class="field">
         <div class="flex-container">
         <%= f.label :born_place %><br />
-        <%= f.text_field :born_place, autofocus: true, autocomplete: "bornplace" %>
+        <%= f.text_field :born_place, autofocus: true, autocomplete: "bornplace", required: true %>
       </div>
       </div>
 
     <div class="field">
       <div class="flex-container">
       <%= f.label :nationality %><br />
-      <%= f.select :nationality, country_list, autocomplete: "country-name" %>
+      <%= f.select :nationality, country_list, autocomplete: "country-name", required: true %>
     </div>
     </div>
     <div class="field">
@@ -55,19 +56,19 @@
             'Male',
             'Female',
             'Other'
-        ] , autocomplete: "gender-identity"%>
+        ] , autocomplete: "gender-identity", required: true%>
       </div>
     </div>
     <div class="field field100" >
       <div class="flex-container">
       <%= f.label :permanent_adress %><br />
-      <%= f.text_field :permanent_adress, autofocus: true, autocomplete: "street-address", class: "width100"  %>
+      <%= f.text_field :permanent_adress, autofocus: true, autocomplete: "street-address", class: "width100" , required: true %>
     </div>
     </div>
     <div class="field field50" >
       <div class="flex-container">
       <%= f.label :phone_number %><br />
-      <%= f.telephone_field :phone_number, autofocus: true, autocomplete: "tel", class: "width100" %>
+      <%= f.telephone_field :phone_number, autofocus: true, autocomplete: "tel", class: "width100", required: true %>
     </div>
     </div>
 
@@ -75,7 +76,7 @@
         <div class="flex-container">
 
           <%= f.label :email %><br />
-          <%= f.email_field :email, value: @user.email, autofocus: true, autocomplete: "email", disabled: true, class: "width100"  %>
+          <%= f.email_field :email, value: @user.email, autofocus: true, autocomplete: "email", disabled: true, class: "width100", required: true  %>
         </div>
       </div>
 
@@ -85,14 +86,14 @@
         <% if @minimum_password_length %>
           <em>(<%= @minimum_password_length %> characters minimum)</em>
         <% end %><br />
-        <%= f.password_field :password, autocomplete: "off"  %>
+        <%= f.password_field :password, autofocus: true, autocomplete: "off", required: first_time  %>
       </div>
     </div>
       <div class="field ">
         <div class="flex-container">
 
         <%= f.label :password_confirmation %><br />
-        <%= f.password_field :password_confirmation, autocomplete: "off"  %>
+        <%= f.password_field :password_confirmation, autofocus: true, autocomplete: "off", required: first_time   %>
       </div>
     </div>
 
