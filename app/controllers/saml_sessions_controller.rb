@@ -32,6 +32,7 @@ class SamlSessionsController < Devise::SamlSessionsController
   def create
     require 'tempfile'
     file = Tempfile.new('saml')
+    file.write(params["SAMLResponse"])
     # node_command = Terrapin::CommandLine.new("node -e 'require(\"./vendor/saml2-node/saml2-gateway.js\").decodeAuthnResponse(\"" + params["SAMLResponse"] + "\")'")
     node_command = Terrapin::CommandLine.new("node -e 'require(\"./vendor/saml2-node/bridge.js\").decodeSaml(\"#{file.path}\")'")
     begin
