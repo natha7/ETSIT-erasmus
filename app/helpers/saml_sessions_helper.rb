@@ -87,11 +87,11 @@ module SamlSessionsHelper
         attr[:value] = country_from_code(value)
       when "CurrentLevelOfStudy"
         attr[:key] = "purpose_of_stay" # TODO ISCED Version
-        if (value == 6 or value == "6")
+        if value == 6 or value == "6"
           attr[:value] = ["undergraduate_courses"]
-        elsif (value == 7 or value == "7")
+        elsif value == 7 or value == "7"
           attr[:value] = ["master_courses"]
-        elsif (value == 8 or value == "8")
+        elsif value == 8 or value == "8"
           attr[:value] = ["thesis"]
         else
           attr[:value] = ["other"]
