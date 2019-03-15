@@ -36,12 +36,13 @@ class SamlSessionsController < Devise::SamlSessionsController
     file.rewind
     # node_command = Terrapin::CommandLine.new("node -e 'require(\"./vendor/saml2-node/saml2-gateway.js\").decodeAuthnResponse(\"" + params["SAMLResponse"] + "\")'")
     node_command = Terrapin::CommandLine.new("node -e 'require(\"./vendor/saml2-node/bridge.js\").decodeSaml(\"#{file.path}\")'")
+    Rails.logger.info file.path
     begin
       @response = node_command.run
     rescue Terrapin::ExitStatusError => e
       puts e.message
     ensure
-      file.unlink
+      # file.unlink
     end
     Rails.logger.info @response
     if @response != nil
