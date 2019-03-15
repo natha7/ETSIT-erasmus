@@ -48,23 +48,24 @@ class SamlSessionsController < Devise::SamlSessionsController
         elsif !session[:nominee].blank?
           user = User.new
           user.email = session[:nominee]
-          # TODO Qué pasa cuando un parámetro de user data viene vacío?
           user.password = "demonstration"
           user.save(validate: false)
           user_data.each do |key, value|
             attr = parseEidasAttr(key, value)
             # Rails.logger.info "#{key} #{attr[:key]} #{attr[:value]}"
-            if (attr[:key] != "unknown")
-              if(attr[:key] != "languages")
-                if (attr[:sap])
+            if attr[:key] != "unknown"
+              if attr[:key] == "languages"
+                user.student_application_form.languages << attr[:value]
+              elsif attr[:key] == "photo"
+                user.photo = attr[:value]
+                user.photo_file_name = "photo.jpg"
+              else
+                if attr[:sap]
                   user.student_application_form[attr[:key]] = attr[:value]
                 else
                   user[attr[:key]] = attr[:value]
                 end
-              else
-                user.student_application_form.languages << attr[:value]
               end
-
             end
           end
 

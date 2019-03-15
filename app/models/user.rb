@@ -138,8 +138,6 @@ class User < ApplicationRecord
       role != "admin"
   end
 
- 
-
   def clean_paperclip_errors
     errors.delete(:signed_student_application_form)
     errors.delete(:motivation_letter)

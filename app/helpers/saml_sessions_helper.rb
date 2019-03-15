@@ -77,9 +77,9 @@ module SamlSessionsHelper
         attr[:value] = parseAddress(value)
       when "Gender"
         attr[:key] = "sex"
-      when "CurrentPhoto" # TODO save & max size
+      when "CurrentPhoto" # TODO test & max size
         attr[:key] = "photo"
-        attr[:value] = Base64.decode64(value)
+        attr[:value] = "data:image/jpeg;base64,#{Base64.decode64(value)}"
       when "Phone"
         attr[:key] = "phone_number" 
       when "Nationality"
