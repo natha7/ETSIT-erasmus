@@ -58,6 +58,8 @@ exports.getMetadata = function() {
 };
 
 exports.decodeAuthnResponse = function(samlResponse){
+    process.stderr.write(1234)
+    process.stderr.write(samlResponse)
     sp.post_assert(idp, {request_body: {"SAMLResponse": samlResponse, "RelayState": "MyRelayState"}}, function(err, saml_response){
         var final_response = saml_response;
         var attributes = final_response.user.attributes;
