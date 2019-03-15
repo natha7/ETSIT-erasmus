@@ -43,7 +43,7 @@ class SamlSessionsController < Devise::SamlSessionsController
     ensure
       file.unlink
     end
-
+    Rails.logger.info @response
     if @response != nil
       user_data = JSON.parse(@response)
       Rails.logger.info "#{user_data}"

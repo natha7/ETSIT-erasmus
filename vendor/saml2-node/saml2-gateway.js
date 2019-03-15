@@ -58,17 +58,20 @@ exports.getMetadata = function() {
 };
 
 exports.decodeAuthnResponse = function(samlResponse){
-    process.stderr.write(1234)
-    process.stderr.write(samlResponse)
-    sp.post_assert(idp, {request_body: {"SAMLResponse": samlResponse, "RelayState": "MyRelayState"}}, function(err, saml_response){
-        var final_response = saml_response;
-        var attributes = final_response.user.attributes;
-        var mapped_attributes = {};
-        Object.keys(attributes).forEach( element =>{
-            mapped_attributes = {...mapped_attributes, ...{[element]: attributes[element][0]}}
+    try{
+        sp.post_assert(idp, {request_body: {"SAMLResponse": samlResponse, "RelayState": "MyRelayState"}}, function(err, saml_response){
+            var final_response = saml_response;
+            var attributes = final_response.user.attributes;
+            var mapped_attributes = {};
+            Object.keys(attributes).forEach( element =>{
+                mapped_attributes = {...mapped_attributes, ...{[element]: attributes[element][0]}}
         });
-        process.stdout.write(JSON.stringify(mapped_attributes));
-    });
+            process.stdout.write(JSON.stringify(mapped_attributes));
+        });
+    } catch ( e) {
+        process.stdout.write(e)
+    }
+
 };
 
 exports.getAuthnRequest = function(){
