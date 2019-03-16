@@ -41,9 +41,9 @@ class SamlSessionsController < Devise::SamlSessionsController
       @response = node_command.run
       @response_original = node_command_original.run
     rescue Terrapin::ExitStatusError => e
-      Rails.logger.error e.message
+      Rails.logger.info e.message
     rescue Exception => error
-      Rails.logger.error error.inspect
+      Rails.logger.info error.inspect
     ensure
       file.unlink
     end
@@ -103,7 +103,7 @@ class SamlSessionsController < Devise::SamlSessionsController
       end
     else
      flash[:error] = "Something went wrong"
-     Rails.logger.error = "SAML response could not be decoded"
+     Rails.logger.info = "SAML response could not be decoded"
      redirect_to(:root)
     end
 
