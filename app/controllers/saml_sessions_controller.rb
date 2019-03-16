@@ -34,20 +34,25 @@ class SamlSessionsController < Devise::SamlSessionsController
     file = Tempfile.new('saml')
     file.write(params["SAMLResponse"])
     file.rewind
-    node_command = Terrapin::CommandLine.new("node -e 'require(\"./vendor/saml2-node/saml2-gateway.js\").decodeAuthnResponse(\"" + params["SAMLResponse"] + "\")'")
-    node_command_copy = Terrapin::CommandLine.new("node -e 'require(\"./vendor/saml2-node/bridge.js\").decodeSaml(\"#{file.path}\")'")
+    node_command_original = Terrapin::CommandLine.new("node -e 'require(\"./vendor/saml2-node/saml2-gateway.js\").decodeAuthnResponse(\"" + params["SAMLResponse"] + "\")'")
+    node_command = Terrapin::CommandLine.new("node -e 'require(\"./vendor/saml2-node/bridge.js\").decodeSaml(\"#{file.path}\")'")
     Rails.logger.info file.path
     begin
       @response = node_command.run
-      @rc = node_command.run
+      @response_original = node_command_original.run
     rescue Terrapin::ExitStatusError => e
-      puts e.message
+      Rails.logger.error e.message
     ensure
       file.unlink
     end
+    Rails.logger.info "RAW ///////////////////////////////////////////////////////"
+    Rails.logger.info params["SAMLResponse"]
+    Rails.logger.info "******************* SAML Response begin *******************"
     Rails.logger.info @response
-    Rails.logger.info "div"
-    Rails.logger.info @rc
+    Rails.logger.info "******************* SAML Response end *********************"
+    Rails.logger.info "************** SAML Response ORIGINAL begin ***************"
+    Rails.logger.info @response_original
+    Rails.logger.info "************** SAML Response ORIGINAL end *****************"
     if @response != nil
       user_data = JSON.parse(@response)
       Rails.logger.info "#{user_data}"
