@@ -103,7 +103,7 @@ class SamlSessionsController < Devise::SamlSessionsController
       end
     else
      flash[:error] = "Something went wrong"
-     Rails.logger.info = "SAML response could not be decoded"
+     Rails.logger.info "SAML response could not be decoded"
      redirect_to(:root)
     end
 
