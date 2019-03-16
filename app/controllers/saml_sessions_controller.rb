@@ -31,7 +31,7 @@ class SamlSessionsController < Devise::SamlSessionsController
 
   def create
     require 'tempfile'
-    file = Tempfile.new('saml')
+    file = Tempfile.new("saml")
     file.write(params["SAMLResponse"])
     file.rewind
     node_command_original = Terrapin::CommandLine.new("node -e 'require(\"./vendor/saml2-node/saml2-gateway.js\").decodeAuthnResponse(\"" + params["SAMLResponse"] + "\")'")
@@ -42,17 +42,19 @@ class SamlSessionsController < Devise::SamlSessionsController
       @response_original = node_command_original.run
     rescue Terrapin::ExitStatusError => e
       Rails.logger.error e.message
+    rescue Exception => error
+      Rails.logger.error error.inspect
     ensure
       file.unlink
     end
-    Rails.logger.info "RAW ///////////////////////////////////////////////////////"
+    Rails.logger.info "/////////////////////////// RAW ///////////////////////////////////"
     Rails.logger.info params["SAMLResponse"]
-    Rails.logger.info "******************* SAML Response begin *******************"
+    Rails.logger.info "******************* SAML Response decoded begin *******************"
     Rails.logger.info @response
-    Rails.logger.info "******************* SAML Response end *********************"
-    Rails.logger.info "************** SAML Response ORIGINAL begin ***************"
+    Rails.logger.info "******************* SAML Response decoded end *********************"
+    Rails.logger.info "************** SAML Response decoded ORIGINAL begin ***************"
     Rails.logger.info @response_original
-    Rails.logger.info "************** SAML Response ORIGINAL end *****************"
+    Rails.logger.info "************** SAML Response decoded ORIGINAL end *****************"
     if @response != nil
       user_data = JSON.parse(@response)
       Rails.logger.info "#{user_data}"
@@ -101,6 +103,7 @@ class SamlSessionsController < Devise::SamlSessionsController
       end
     else
      flash[:error] = "Something went wrong"
+     Rails.logger.error = "SAML response could not be decoded"
      redirect_to(:root)
     end
 
