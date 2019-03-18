@@ -76,7 +76,8 @@ class SamlSessionsController < Devise::SamlSessionsController
                 user.student_application_form.languages << attr[:value]
               elsif attr[:key] == "photo"
                 user.photo = attr[:value]
-                user.photo_file_name = "photo.jpg"
+                user.photo_file_name = attr[:name]
+                user.photo_content_type = attr[:content_type]
               else
                 if attr[:sap]
                   user.student_application_form[attr[:key]] = attr[:value]

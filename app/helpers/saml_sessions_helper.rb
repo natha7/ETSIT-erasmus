@@ -79,7 +79,11 @@ module SamlSessionsHelper
         attr[:key] = "sex"
       when "CurrentPhoto" # TODO test & max size
         attr[:key] = "photo"
-        attr[:value] = "data:image/jpeg;base64,#{Base64.decode64(value)}"
+        decodedImage = Nokogiri::XML( Base64.decode64(value))
+        attr[:value] =Hash.from_trusted_xml(decodedImage.to_s)["document"]
+        attr[:name] = decodedImage.children[0].attributes["name"].value
+        attr[:content_type] = decodedImage.children[0].attributes["contentType"].value
+        # attr[:value] = "data:image/jpeg;base64,#{Base64.decode64(value)}"
       when "Phone"
         attr[:key] = "phone_number" 
       when "Nationality"

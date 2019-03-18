@@ -62,8 +62,8 @@ exports.decodeAuthnResponse = function(samlResponse){
         var final_response = saml_response;
         var attributes = final_response.user.attributes;
         var mapped_attributes = {};
-        Object.keys(attributes).forEach( element =>{
-            mapped_attributes = {...mapped_attributes, ...{[element]: attributes[element][0]}}
+        Object.keys(attributes).forEach( element => {
+            mapped_attributes = { ...mapped_attributes, ...{ [element]: attributes[element][0]} }
         });
         process.stdout.write(JSON.stringify(mapped_attributes));
     });
