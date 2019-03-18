@@ -47,14 +47,6 @@ class SamlSessionsController < Devise::SamlSessionsController
     ensure
       file.unlink
     end
-    Rails.logger.info "/////////////////////////// RAW ///////////////////////////////////"
-    Rails.logger.info params["SAMLResponse"]
-    Rails.logger.info "******************* SAML Response decoded begin *******************"
-    Rails.logger.info @response
-    Rails.logger.info "******************* SAML Response decoded end *********************"
-    Rails.logger.info "************** SAML Response decoded ORIGINAL begin ***************"
-    Rails.logger.info @response_original
-    Rails.logger.info "************** SAML Response decoded ORIGINAL end *****************"
     if @response != nil
       user_data = JSON.parse(@response)
       Rails.logger.info "#{user_data}"
@@ -70,8 +62,6 @@ class SamlSessionsController < Devise::SamlSessionsController
           user.save(validate: false)
           user_data.each do |key, value|
             attr = parseEidasAttr(key, value)
-            # Rails.logger.info "#{key} #{attr[:key]} #{attr[:value]}"
-            if attr[:key] != "unknown"
               if attr[:key] == "languages"
                 user.student_application_form.languages << attr[:value]
               elsif attr[:key] == "photo"
@@ -79,11 +69,14 @@ class SamlSessionsController < Devise::SamlSessionsController
                 user.photo_file_name = attr[:name]
                 user.photo_content_type = attr[:content_type]
               else
-                if attr[:sap]
-                  user.student_application_form[attr[:key]] = attr[:value]
-                else
-                  user[attr[:key]] = attr[:value]
-                end
+                begin
+                  if attr[:sap]
+                    user.student_application_form[attr[:key]] = attr[:value]
+                  else
+                    user[attr[:key]] = attr[:value]
+                  end
+                rescue Exception => error
+                  Rails.logger.info error.inspect
               end
             end
           end
@@ -116,7 +109,7 @@ class SamlSessionsController < Devise::SamlSessionsController
       xml = node_command.run
       xml_doc  = Nokogiri::XML(xml)
     rescue Terrapin::ExitStatusError => e
-      puts e.message
+      Raisl.logger.info e.message
     end
     response.headers["Content-Type"] = "application/xml"
 
