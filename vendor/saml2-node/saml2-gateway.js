@@ -5,7 +5,7 @@ var fs = require('fs');
 
 var idp_options = {
     sso_login_url: eidas.idp_host,
-    sso_logout_url: "https://"+eidas.gateway_host+"/users/eidas/logout",
+    sso_logout_url: "https://" + eidas.gateway_host + "/users/eidas/logout",
     certificates: []
 };
 var idp = new saml2.IdentityProvider(idp_options);
@@ -35,11 +35,11 @@ var contact = {
 
 
 var sp_options = {
-    entity_id: "https://"+ eidas.gateway_host +"/users/eidas/metadata",
-    private_key: fs.readFileSync(__dirname +"/../certs/key.pem").toString(),
-    certificate: fs.readFileSync(__dirname +"/../certs/cert.pem").toString(),
-    assert_endpoint: "https://"+eidas.gateway_host+"/users/eidas/auth",
-    audience: "https://"+eidas.gateway_host+"/users/eidas/metadata",
+    entity_id: "https://" + eidas.gateway_host + "/users/eidas/metadata",
+    private_key: fs.readFileSync(__dirname + "/../certs/key.pem").toString(),
+    certificate: fs.readFileSync(__dirname + "/../certs/cert.pem").toString(),
+    assert_endpoint: "https://" + eidas.gateway_host + "/users/eidas/auth",
+    audience: "https://" + eidas.gateway_host + "/users/eidas/metadata",
     sign_get_request: true,
     nameid_format: "urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified",
     provider_name: organization.nif,
@@ -70,7 +70,7 @@ exports.decodeAuthnResponse = function(samlResponse){
 };
 
 exports.getAuthnRequest = function(){
-    var array_natural = ["PersonIdentifier" , "FamilyName", "FirstName", "DateOfBirth", "PlaceOfBirth", "CurrentAddress", "Gender","CurrentPhoto", "Nationality", "Phone", "CurrentDegree", "Degree", "DegreeAwardingInstitution", "DegreeCountry", "CurrentLevelOfStudy", "FieldOfStudy", "GraduationYear", "LanguageCertificates", "LanguageProficiency", "HomeInstitutionAddress", "HomeInstitutionCountry", "HomeInstitutionName", "TemporaryAddress"];
+    var array_natural = ["PersonIdentifier" , "FamilyName", "FirstName", "DateOfBirth", "PlaceOfBirth", "CurrentAddress", "Gender","CurrentPhoto", "Nationality", "Phone", "CurrentDegree", "Degree", "CurrentLevelOfStudy", "FieldOfStudy", "GraduationYear", "LanguageCertificates", "LanguageProficiency", "HomeInstitutionAddress", "HomeInstitutionName"];
     var array_legal = ["LegalPersonIdentifier", "LegalName"];
     var array_representative = [];
 

@@ -79,11 +79,11 @@ module SamlSessionsHelper
         attr[:key] = "sex"
       when "CurrentPhoto" # TODO test & max size
         attr[:key] = "photo"
-        decodedImage = Nokogiri::XML( Base64.decode64(value))
-        attr[:name] = decodedImage.children[0].attributes["name"].value
-        attr[:content_type] = decodedImage.children[0].attributes["contentType"].value
+        decoded_image = Nokogiri::XML( Base64.decode64(value))
+        attr[:name] = decoded_image.children[0].attributes["name"].value
+        attr[:content_type] = decoded_image.children[0].attributes["contentType"].value
+        attr[:value] ="data:#{attr[:content_type]};base64,#{Hash.from_trusted_xml(decoded_image.to_s)["document"]}"
         # attr[:value] = "data:image/jpeg;base64,#{Base64.decode64(value)}"
-        attr[:value] ="data:#{attr[:content_type]};base64,#{Hash.from_trusted_xml(decodedImage.to_s)["document"]}"
       when "Phone"
         attr[:key] = "phone_number" 
       when "Nationality"
@@ -140,7 +140,7 @@ module SamlSessionsHelper
   def get_eidas_requested_attrs
     requested_attributes = REQUESTED_EIDAS_ATTRS
 
-    array_natural = ["PersonIdentifier" , "FamilyName", "FirstName", "DateOfBirth", "PlaceOfBirth", "CurrentAddress", "Gender","CurrentPhoto", "Nationality", "Phone", "CurrentDegree", "Degree", "DegreeAwardingInstitution", "DegreeCountry", "FieldOfStudy", "GraduationYear", "LanguageCertificates", "LanguageProficiency", "HomeInstitutionAddress", "HomeInstitutionCountry", "HomeInstitutionName", "TemporaryAddress"]
+    array_natural = ["PersonIdentifier" , "FamilyName", "FirstName", "DateOfBirth", "PlaceOfBirth", "CurrentAddress", "Gender","CurrentPhoto", "Nationality", "Phone", "CurrentDegree", "Degree", "FieldOfStudy", "GraduationYear", "LanguageCertificates", "LanguageProficiency", "HomeInstitutionAddress", "HomeInstitutionName"]
     array_legal = ["LegalPersonIdentifier", "LegalName"]
     array_representative = []
     attrs = []

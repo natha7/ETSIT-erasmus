@@ -274,12 +274,6 @@
                "@NameFormat": "urn:oasis:names:tc:SAML:2.0:attrname-format:uri",
                "@isRequired": "false"
           },
-          "TemporaryAddress": {
-               "@FriendlyName":"TemporaryAddress",
-               "@Name": "http://eidas.europa.eu/attributes/sectorspecific/eid4u/naturalperson/TemporaryAddress",
-               "@NameFormat": "urn:oasis:names:tc:SAML:2.0:attrname-format:uri",
-               "@isRequired": "false"
-          },
           "IdExpiryDate": {
                "@FriendlyName":"IdExpiryDate",
                "@Name": "http://eidas.europa.eu/attributes/sectorspecific/eid4u/naturalperson/id/ExpiryDate",
@@ -322,18 +316,6 @@
                "@NameFormat": "urn:oasis:names:tc:SAML:2.0:attrname-format:uri",
                "@isRequired": "false"
           },
-          "DegreeAwardingInstitution": {
-               "@FriendlyName":"DegreeAwardingInstitution",
-               "@Name": "http://eidas.europa.eu/attributes/sectorspecific/eid4u/studies/DegreeAwardingInstitution",
-               "@NameFormat": "urn:oasis:names:tc:SAML:2.0:attrname-format:uri",
-               "@isRequired": "false"
-          },
-          "DegreeCountry": {
-               "@FriendlyName":"DegreeCountry",
-               "@Name": "http://eidas.europa.eu/attributes/sectorspecific/eid4u/studies/DegreeCountry",
-               "@NameFormat": "urn:oasis:names:tc:SAML:2.0:attrname-format:uri",
-               "@isRequired": "false"
-          },
           "FieldOfStudy": {
                "@FriendlyName":"FieldOfStudy",
                "@Name": "http://eidas.europa.eu/attributes/sectorspecific/eid4u/studies/FieldOfStudy",
@@ -361,12 +343,6 @@
           "HomeInstitutionAddress": {
                "@FriendlyName":"HomeInstitutionAddress",
                "@Name": "http://eidas.europa.eu/attributes/sectorspecific/eid4u/studies/homeinstitution/Address",
-               "@NameFormat": "urn:oasis:names:tc:SAML:2.0:attrname-format:uri",
-               "@isRequired": "false"
-          },
-          "HomeInstitutionCountry": {
-               "@FriendlyName":"HomeInstitutionCountry",
-               "@Name": "http://eidas.europa.eu/attributes/sectorspecific/eid4u/studies/homeinstitution/Country",
                "@NameFormat": "urn:oasis:names:tc:SAML:2.0:attrname-format:uri",
                "@isRequired": "false"
           },
