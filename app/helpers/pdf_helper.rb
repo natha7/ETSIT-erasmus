@@ -17,8 +17,16 @@ module PdfHelper
         #         :italic => Rails.root.join("app/assets/fonts/SourceSansPro-Italic.ttf")
         #     }
         # )
-        #font "SourceSansPro"
-        font "Helvetica"
+        # font "SourceSansPro"
+        font_families.update(
+            "Helvetica2" => {
+                :normal => Rails.root.join("app/assets/fonts/Helvetica.ttf"),
+                :bold => Rails.root.join("app/assets/fonts/Helvetica-Bold.ttf"),
+                :italic => Rails.root.join("app/assets/fonts/Helvetica-Oblique.ttf")
+            }
+        )
+        font "Helvetica2"
+        # font "Helvetica"
 
     	# Blue box with logo
     	def header
@@ -144,7 +152,7 @@ module PdfHelper
         day = user.birth_date.blank? ? "" : user.birth_date.strftime("%b, #{user.birth_date.day.ordinalize} %Y")
         check_field(day)
         label("Place of birth")
-        check_field(user.born_place)
+        check_field(user.born_place.force_encoding("UTF-8"))
         label("Gender")
         check_field(user.sex)
         label("Address")
