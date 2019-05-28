@@ -64,7 +64,7 @@
 					</div>
 
 					<div class="collapsible big show">
-						<p class="intro-paragraph alert">Once you are done, you must <u>download</u> your application form and <u>upload</u> it signed by your Institutional Coordinator with the name and the code of the selected courses at ETSIT
+						<p class="intro-paragraph alert">Once you are done, you must <u>download</u> your application form and <u>upload</u> it signed.
 						</p>
 						<% url = finish_and_uploaded ? (user_file_delete_url(:id => current_user.id, :attachment => :signed_student_application_form)) : user_file_upload_path %>
 						<% method = finish_and_uploaded ? :delete : :POST %>
