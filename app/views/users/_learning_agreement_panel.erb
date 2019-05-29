@@ -18,7 +18,7 @@
   <% if !current_user.learning_agreement_subjects.blank? %>
     <% current_user.learning_agreement_subjects.each do |subject|%>
       <% total += subject.ects %>
-      <div class="la-row la-form-row">
+      <div class="la-row la-form-row" lang="en-US">
         <select class="la-degree" name="user[learning_agreement_subjects][][degree]" value="<%= subject.degree %>" <%= admin ? "disabled":"" %>>
           <option value="" disabled required ></option>
           <option value="GITST" <%= subject.degree == "GITST" ? "selected" : "" %>>GITST</option>
@@ -44,7 +44,7 @@
     <%end %>
   <%end %>
   <%unless admin %>
-  <div class="la-row la-form-row">
+  <div class="la-row la-form-row" lang="en-US">
     <select class="la-degree" name="user[learning_agreement_subjects][][degree]">
       <option value="" disabled selected required></option>
       <option value="GITST">GITST</option>
@@ -77,7 +77,7 @@
     <% if admin and current_user.learning_agreement_subjects.length == 0 %>
       <center class="intro-paragraph"><em>No subjects selected</em></center>
     <%else %>
-      <span class="right la-total-label">Total: &nbsp;  <b><span id="total-ects"><%= total %></span></b> &nbsp;ECTS</span>
+      <span class="right la-total-label">Total: &nbsp;  <b><span id="total-ects"><%= total.round(2) %></span></b> &nbsp;ECTS</span>
     <% end %>
   </div>
 

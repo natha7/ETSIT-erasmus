@@ -355,7 +355,8 @@ $(document).on('turbolinks:load', function() {
         $('input.la-ects').each(function(a,b){
             total += b.value && !isNaN(parseFloat(b.value)) ? parseFloat(b.value) : 0;
         });
-        $('#total-ects').text(total)
+        total = Math.round(total * 100) / 100;
+        $('#total-ects').text(total);
     }
 
     /**
