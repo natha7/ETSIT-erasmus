@@ -363,6 +363,7 @@ $(document).on('turbolinks:load', function() {
      * Autocomplete Argument for subject selection by name
      * @param degree
      */
+
     var subjectAutoComplete = function(degree){
         var callback = function(e, term){
             var item = term.item;
@@ -435,21 +436,40 @@ $(document).on('turbolinks:load', function() {
         };
     };
 
-
     /**
      * Learning agreement subject list render function
      *
      */
+
+    var getDegreeFullName = function(initials) {
+        var list = {
+            "GITST": "Grado en Ingeniería de Tecnologías y Servicios de Telecomunicación ",
+            "GIB": "Grado en Ingeniería Biomédica",
+            "MUIT": "Máster Universitario en Ingeniería de Telecomunicación",
+            "MUIB": "Máster Universitario en Ingeniería Biomédica",
+            "MUSTC": "Master of Science in Signal Theory and Communications",
+            "MUCS": "Máster Universitario en Ciberseguridad",
+            "MUESFV": "Máster Universitario en Energía Solar Fotovoltaica",
+            "MUISE": "Máster Universitario en Ingeniería de Sistemas Electrónicos",
+            "MUIRST": "Máster Universitario en Ingeniería de Redes y Servicios Telemáticos ",
+            "MUTECI": "Máster Universitario en Tratamiento Estadístico-Computacional de la Información",
+            "MUIF": "Máster Universitario en Ingeniería Fotónica"
+        };
+        if (list[initials]) {
+            return list[initials] + " (" + initials + ")";
+        }
+        return  initials || "Other";
+    };
+
     var renderFunction = function( ul, item ) {
         return $( "<li>" )
             .append( "<div>" +
                 (item.name ? ("<b>" + item.name + "</b>" + (item.acron ? " ("+item.acron+")" : "") + "<br>") : "") +
                 (item.nombre ? (item.name ? "" : "<b>") + (item.nombre + (item.name ? "" : ( "</b>" + (item.acron ? " ("+item.acron+")" : ""))) + "<br>"):"" ) +
                 (item.ects ? "<span style='color: grey;'>" + item.ects + " ECTS" + "</span>" : "") +
-                (item.degree ? "<br><span style='color: #4664A2;'>" + item.degree + "</span></div>" : ""))
+                (item.degree ? "<br><span style='color: #4664A2;'>" + getDegreeFullName(item.degree) + "</span></div>" : ""))
             .appendTo( ul );
     };
-
 
     /**
      * Callback for reapplying the autocomplete to subject and code fields when the degree has already been selected
@@ -524,6 +544,8 @@ $(document).on('turbolinks:load', function() {
     if ($(".la-subject-existing .la-name, .la-subject-existing .la-code").data("ui-autocomplete")) {
         $(".la-subject-existing .la-name, .la-subject-existing .la-code").data("ui-autocomplete")._trigger("change");
     }
+
+
 
     /**
      * Recalculate ECTS total
