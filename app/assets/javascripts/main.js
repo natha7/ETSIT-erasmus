@@ -531,21 +531,27 @@ $(document).on('turbolinks:load', function() {
         var degree = $e.prev().prev().val();
         $e.autocomplete(subjectAutoComplete(degree)).autocomplete( "instance" )._renderItem = renderFunction;
     });
-    $("#la-subject-new .la-name").autocomplete(subjectAutoComplete()).autocomplete( "instance" )._renderItem = renderFunction;
+    var laName = $("#la-subject-new .la-name");
+    if (laName && laName.length > 0) {
+        laName.autocomplete(subjectAutoComplete()).autocomplete( "instance" )._renderItem = renderFunction;
+    }
     $(".la-subject-existing .la-code").each(function(i,e){
         var $e=$(e);
         var degree = $e.prev().val();
         $e.autocomplete(codeAutoComplete(degree)).autocomplete( "instance" )._renderItem = renderFunction;
     });
-    $("#la-subject-new .la-code").autocomplete(codeAutoComplete()).autocomplete( "instance" )._renderItem = renderFunction;
-
-    $("#la-subject-new .la-name, #la-subject-new .la-code").data("ui-autocomplete")._trigger("change");
-
-    if ($(".la-subject-existing .la-name, .la-subject-existing .la-code").data("ui-autocomplete")) {
-        $(".la-subject-existing .la-name, .la-subject-existing .la-code").data("ui-autocomplete")._trigger("change");
+    var laCode = $("#la-subject-new .la-code");
+    if (laCode && laCode.length > 0) {
+        $("#la-subject-new .la-code").autocomplete(codeAutoComplete()).autocomplete( "instance" )._renderItem = renderFunction;
+    }
+    var multiLa = $("#la-subject-new .la-name, #la-subject-new .la-code");
+    if (multiLa && multiLa.length > 0){
+        multiLa.data("ui-autocomplete")._trigger("change");
     }
 
-
+    if (laName && laCode && laName.length > 0 && laCode.length > 0 && $(".la-subject-existing .la-name, .la-subject-existing .la-code").data("ui-autocomplete")) {
+        $(".la-subject-existing .la-name, .la-subject-existing .la-code").data("ui-autocomplete")._trigger("change");
+    }
 
     /**
      * Recalculate ECTS total
