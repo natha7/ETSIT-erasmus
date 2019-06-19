@@ -408,7 +408,7 @@ $(document).on('turbolinks:load', function() {
             if (item) {
                 $(this).prev().val(item.degree);
                 $(this).autocomplete(codeAutoComplete(item.degree)).autocomplete( "instance" )._renderItem = renderFunction;
-                $(this).next().val(item.name);
+                $(this).next().val(item.name || item.nombre || item.acron);
                 $(this).next().next().val(item.ects || 0);
                 ectsChange();
             }
@@ -916,11 +916,10 @@ $(document).on('turbolinks:load', function() {
     $('.progressStatus').on('change', function(e){
         var newval=$(this).val();
         var confirmed = true;
-        console.log(newval)
         if (newval === "accepted") {
-            confirmed = confirm("This student will be accepted, and the application will send an email to welcoming him/her. Are you sure you want to change the status for this user?")
+            confirmed = confirm("This student will be accepted, and the application will send an email to welcoming him/her. Are you sure you want to change the status for this user?");
         }
-        if(confirmed){
+        if (confirmed) {
             this.form.submit();
         } else {
             this.value=this.getAttribute("PrvSelectedValue");
