@@ -874,7 +874,7 @@ $(document).on('turbolinks:load', function() {
      */
     $('#csv-dialog-close').click(
         function(e) {
-            $('#acceptance-letter-dialog').dialog('close');
+            $('#csv-dialog').dialog('close');
         }
     );
 
