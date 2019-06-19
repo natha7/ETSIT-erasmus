@@ -913,6 +913,19 @@ $(document).on('turbolinks:load', function() {
         }
     );
 
+    $('.progressStatus').on('change', function(e){
+        var newval=$(this).val();
+        var confirmed = true;
+        console.log(newval)
+        if (newval === "accepted") {
+            confirmed = confirm("This student will be accepted, and the application will send an email to welcoming him/her. Are you sure you want to change the status for this user?")
+        }
+        if(confirmed){
+            this.form.submit();
+        } else {
+            this.value=this.getAttribute("PrvSelectedValue");
+        }
+    });
 
     /**
      * Sort rows for registered users
