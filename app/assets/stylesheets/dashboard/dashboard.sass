@@ -263,19 +263,48 @@
 @media (max-width: 768px)
 	.dashboard-container
 		flex-direction: column
-		.right-column .row
-			.collapsible
-				&.show
-				.align-right
-					flex-direction: column
-					.file-name
-						margin-bottom: 5px
-					a
-						width: 100%
-					a .custom-button
-						margin: 0px
-						width: 100%
-						margin-top: 5px
+		.right-column
+			.row
+				.collapsible
+					&.show
+					.align-right
+						flex-direction: column
+						.file-name
+							margin-bottom: 5px
+						a
+							width: 100%
+						a .custom-button
+							margin: 0px
+							width: 100%
+							margin-top: 5px
+				.learning-agreement-transcription
+					.la-row
+						display: block
+						justify-items: center
+						justify-content: space-between
+						padding-bottom: 10px
+						&:last-child
+							padding-bottom: 10px
+							border-bottom: 2px solid #ddd
+						input, label, select
+							padding: 5px
+							margin-right: 0px
+							margin-bottom: 4px
+						.la-degree
+							width: 99.5%
+						.la-code
+							width: 95%
+						.la-name
+							width: 95%
+						.la-ects
+							width: calc(95% - 35px)
+						&.la-header
+							font-weight: bold
+							border-bottom: 2px solid #ddd
+							margin-bottom: 10px
+							.info-icon
+								color: #4664A2
+								cursor: help
 	#acceptance_letter
 		display: none
 	#acceptance_letter_button

@@ -355,33 +355,207 @@ $(document).on('turbolinks:load', function() {
         $('input.la-ects').each(function(a,b){
             total += b.value && !isNaN(parseFloat(b.value)) ? parseFloat(b.value) : 0;
         });
-        $('#total-ects').text(total)
+        total = Math.round(total * 100) / 100;
+        $('#total-ects').text(total);
     }
+
+    /**
+     * Autocomplete Argument for subject selection by name
+     * @param degree
+     */
+
+    var subjectAutoComplete = function(degree){
+        var callback = function(e, term){
+            var item = term.item;
+            if (item) {
+                $(this).prev().prev().val(item.degree);
+                $(this).autocomplete(subjectAutoComplete(item.degree)).autocomplete( "instance" )._renderItem = renderFunction;
+                $(this).next().val(item.ects || 0);
+                $(this).prev().val(item.code || 0);
+                ectsChange();
+            }
+        };
+        return {
+            source: data
+                .filter(function(d){
+                    return !degree || d.degree === degree
+                })
+                .map(function(subject){
+                    return {
+                        label: subject.name + " / " + subject.nombre + " ("+ subject.acron +") " + subject.code,
+                        value: subject.name || subject.nombre || subject.acron ,
+                        ects: subject.ects,
+                        code: subject.code,
+                        acron: subject.acron,
+                        name: subject.name,
+                        nombre: subject.nombre,
+                        degree: subject.degree
+                    }
+                }),
+            minLength: 0,
+            delay: 0,
+            change: callback,
+            select: callback
+        }
+    };
+    /**
+     * Autocomplete Argument for subject selection by code
+     * @param degree
+     */
+    var codeAutoComplete = function(degree){
+        var callback = function(e, term){
+            var item = term.item;
+            if (item) {
+                $(this).prev().val(item.degree);
+                $(this).autocomplete(codeAutoComplete(item.degree)).autocomplete( "instance" )._renderItem = renderFunction;
+                $(this).next().val(item.name || item.nombre || item.acron);
+                $(this).next().next().val(item.ects || 0);
+                ectsChange();
+            }
+
+        };
+        return {
+            source: data
+                .filter(function(d){return !degree || d.degree === degree})
+                .map(function(subject){
+                    return {
+                        label: subject.name + " ("+ subject.acron+") " + subject.code,
+                        acron: subject.acron,
+                        value: subject.code,
+                        ects: subject.ects,
+                        name: subject.name,
+                        nombre: subject.nombre,
+                        degree: subject.degree
+                    }
+                }),
+            minLength: 0,
+            delay: 0,
+            change: callback,
+            select: callback
+
+        };
+    };
+
+    /**
+     * Learning agreement subject list render function
+     *
+     */
+
+    var getDegreeFullName = function(initials) {
+        var list = {
+            "GITST": "Grado en Ingeniería de Tecnologías y Servicios de Telecomunicación ",
+            "GIB": "Grado en Ingeniería Biomédica",
+            "MUIT": "Máster Universitario en Ingeniería de Telecomunicación",
+            "MUIB": "Máster Universitario en Ingeniería Biomédica",
+            "MUSTC": "Master of Science in Signal Theory and Communications",
+            "MUCS": "Máster Universitario en Ciberseguridad",
+            "MUESFV": "Máster Universitario en Energía Solar Fotovoltaica",
+            "MUISE": "Máster Universitario en Ingeniería de Sistemas Electrónicos",
+            "MUIRST": "Máster Universitario en Ingeniería de Redes y Servicios Telemáticos ",
+            "MUTECI": "Máster Universitario en Tratamiento Estadístico-Computacional de la Información",
+            "MUIF": "Máster Universitario en Ingeniería Fotónica"
+        };
+        if (list[initials]) {
+            return list[initials] + " (" + initials + ")";
+        }
+        return  initials || "Other";
+    };
+
+    var renderFunction = function( ul, item ) {
+        return $( "<li>" )
+            .append( "<div>" +
+                (item.name ? ("<b>" + item.name + "</b>" + (item.acron ? " ("+item.acron+")" : "") + "<br>") : "") +
+                (item.nombre ? (item.name ? "" : "<b>") + (item.nombre + (item.name ? "" : ( "</b>" + (item.acron ? " ("+item.acron+")" : ""))) + "<br>"):"" ) +
+                (item.ects ? "<span style='color: grey;'>" + item.ects + " ECTS" + "</span>" : "") +
+                (item.degree ? "<br><span style='color: #4664A2;'>" + getDegreeFullName(item.degree) + "</span></div>" : ""))
+            .appendTo( ul );
+    };
+
+    /**
+     * Callback for reapplying the autocomplete to subject and code fields when the degree has already been selected
+     * @param e
+     */
+    var changeDegree = function(e){
+        $(this).next().autocomplete(codeAutoComplete(e.target.value)).autocomplete( "instance" )._renderItem = renderFunction;
+        $(this).next().next().autocomplete(subjectAutoComplete(e.target.value)).autocomplete( "instance" )._renderItem = renderFunction;
+    };
+
+    $('.la-degree').on("change", changeDegree);
+
+    /**
+     * Delete subject from Learning Agreement
+     * @param e
+     */
+    var deleteLaButtonCallback = function(e){
+        if($('.la-form-row').length > 1) {
+            $(this).closest('.la-form-row').remove();
+
+        } else {
+            var $lastChild = $('.la-form-row:last-child');
+            $lastChild.find(".la-code").autocomplete(codeAutoComplete()).autocomplete( "instance" )._renderItem = renderFunction;
+            $lastChild.find(".la-name").autocomplete(subjectAutoComplete()).autocomplete( "instance" )._renderItem = renderFunction;
+            $lastChild.find("input").val("");
+            $lastChild.find("select").val("");
+        }
+        ectsChange(e);
+
+    };
+    $('.delete-la-button').click(deleteLaButtonCallback);
 
     /**
      * Add a new learning agreement subject
      */
     $('#add-la-subject').click(function(e){
         var transc = $('.learning-agreement-transcription');
-        var clone = $('.la-form-row:last-child').clone(true, true);
-        clone.find("input").val("");
-        clone.find("select").val("");
+        var clone = $('.la-form-row:last-child').clone();
+        var input = clone.find("input");
+        input.val("");
+        var select = clone.find("select");
+        select.val("");
+        select.on("change",changeDegree);
+        clone.attr("id", "la-subject-" + Date.now());
         clone.insertAfter('.la-form-row:last-child');
+        $(input[0]).autocomplete(codeAutoComplete()).autocomplete( "instance" )._renderItem = renderFunction;
+        $(input[1]).autocomplete(subjectAutoComplete()).autocomplete( "instance" )._renderItem = renderFunction;
+        $(input[0]).data("ui-autocomplete")._trigger("change");
+        $(input[1]).data("ui-autocomplete")._trigger("change");
+        var deleteB = clone.find(".delete-la-button");
+        deleteB.click(deleteLaButtonCallback);
     });
 
-    $('.delete-la-button').click(function(e){
-        if($('.la-form-row').length > 1) {
-            $(this).closest('.la-form-row').remove();
-
-        } else {
-            var $lastChild = $('.la-form-row:last-child');
-            $lastChild.find("input").val("");
-            $lastChild.find("select").val("");
-        }
-        ectsChange(e);
-
+    /**
+     * Add autocomplete to existing subjects
+     */
+    $(".la-subject-existing .la-name").each(function(i,e){
+        var $e=$(e);
+        var degree = $e.prev().prev().val();
+        $e.autocomplete(subjectAutoComplete(degree)).autocomplete( "instance" )._renderItem = renderFunction;
     });
+    var laName = $("#la-subject-new .la-name");
+    if (laName && laName.length > 0) {
+        laName.autocomplete(subjectAutoComplete()).autocomplete( "instance" )._renderItem = renderFunction;
+    }
+    $(".la-subject-existing .la-code").each(function(i,e){
+        var $e=$(e);
+        var degree = $e.prev().val();
+        $e.autocomplete(codeAutoComplete(degree)).autocomplete( "instance" )._renderItem = renderFunction;
+    });
+    var laCode = $("#la-subject-new .la-code");
+    if (laCode && laCode.length > 0) {
+        $("#la-subject-new .la-code").autocomplete(codeAutoComplete()).autocomplete( "instance" )._renderItem = renderFunction;
+    }
+    var multiLa = $("#la-subject-new .la-name, #la-subject-new .la-code");
+    if (multiLa && multiLa.length > 0){
+        multiLa.data("ui-autocomplete")._trigger("change");
+    }
 
+    if (laName && laCode && laName.length > 0 && laCode.length > 0 && $(".la-subject-existing .la-name, .la-subject-existing .la-code").data("ui-autocomplete")) {
+        $(".la-subject-existing .la-name, .la-subject-existing .la-code").data("ui-autocomplete")._trigger("change");
+    }
+
+    /**
+     * Recalculate ECTS total
+     */
     var $laECTS = $('input.la-ects');
     $laECTS.keyup(ectsChange);
     $laECTS.change(ectsChange);
@@ -773,6 +947,18 @@ $(document).on('turbolinks:load', function() {
         }
     );
 
+    $('.progressStatus').on('change', function(e){
+        var newval=$(this).val();
+        var confirmed = true;
+        if (newval === "accepted") {
+            confirmed = confirm("This student will be accepted, and the application will send an email to welcoming him/her. Are you sure you want to change the status for this user?");
+        }
+        if (confirmed) {
+            this.form.submit();
+        } else {
+            this.value=this.getAttribute("PrvSelectedValue");
+        }
+    });
 
     /**
      * Sort rows for registered users

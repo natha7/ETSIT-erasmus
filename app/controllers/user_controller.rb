@@ -20,7 +20,7 @@ class UserController < ApplicationController
 	  	begin
 	     	#UserMailer.reviewed_application_mail(current_user).deliver_now
 	     	url = request.base_url + RELATIVE_URL
-			UserMailer.reviewed_application_mail(url, user).deliver_now
+	     	UserMailer.reviewed_application_mail(url, user).deliver_now
 		rescue
 	     	flash[:error] = "E-mail to #{user.email} could not be sent"
 	    end

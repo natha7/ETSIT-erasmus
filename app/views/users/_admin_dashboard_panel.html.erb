@@ -98,7 +98,7 @@
                 <%= user.progress_status.humanize.capitalize %>
               <% else #elsif user.progress_status == "finished"  %>
                 <%= form_for(user, url: set_user_status_path,  method: :post) do |f|%>
-                  <%= f.select :progress_status, User.progress_statuses.map{|k,v| [k.humanize.capitalize, k]}, {}, {value: user.progress_status, class: 'form-control', :disabled => !main,  onfocus: 'this.setAttribute("PrvSelectedValue",this.value);', onchange: 'var newval=$(this).val();if(confirm("This student will be accepted, and the application will send an email to welcoming him/her. Are you sure you want to change the status for this user?")){this.form.submit();}else{this.value=this.getAttribute("PrvSelectedValue");}'}%>
+                  <%= f.select :progress_status, User.progress_statuses.map{|k,v| [k.humanize.capitalize, k]}, {}, {value: user.progress_status, class: 'form-control progressStatus', :disabled => !main,  onfocus: 'this.setAttribute("PrvSelectedValue",this.value);'}%>
 
                   <%= f.hidden_field :id, :value => user.id %>
                 <% end %>
