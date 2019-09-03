@@ -1,5 +1,5 @@
 class UserMailer < ApplicationMailer
-	default from: 'no-replyerasmus-eid4u.dit.upm.es'
+	default from: 'no-reply@erasmus-eid4u.dit.upm.es'
 	
 	 def finished_application_mail_to_admins(url, user)
 	 	@user = user
