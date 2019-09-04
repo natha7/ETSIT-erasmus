@@ -141,7 +141,7 @@ module SamlSessionsHelper
     requested_attributes = REQUESTED_EIDAS_ATTRS
 
     array_natural = ["PersonIdentifier" , "FamilyName", "FirstName", "DateOfBirth", "PlaceOfBirth", "CurrentAddress", "Gender","CurrentPhoto", "Nationality", "Phone", "CurrentDegree", "Degree", "FieldOfStudy", "GraduationYear", "LanguageCertificates", "LanguageProficiency", "HomeInstitutionAddress", "HomeInstitutionName"]
-    array_legal = ["LegalPersonIdentifier", "LegalName"]
+    array_legal = [] # ["LegalPersonIdentifier", "LegalName"]
     array_representative = []
     attrs = []
 
