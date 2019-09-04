@@ -13,7 +13,7 @@ var idp = new saml2.IdentityProvider(idp_options);
 var organization = {
     name: eidas.organization.name,
     url: eidas.organization.url,
-    nif: "EIDAS-ERASMUS"
+    nif: eidas.organization.nif
 };
 
 var contact = {
