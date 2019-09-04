@@ -71,7 +71,7 @@ exports.decodeAuthnResponse = function(samlResponse){
 
 exports.getAuthnRequest = function(){
     var array_natural = ["PersonIdentifier" , "FamilyName", "FirstName", "DateOfBirth", "PlaceOfBirth", "CurrentAddress", "Gender","CurrentPhoto", "Nationality", "Phone", "CurrentDegree", "Degree", "CurrentLevelOfStudy", "FieldOfStudy", "GraduationYear", "LanguageCertificates", "LanguageProficiency", "HomeInstitutionAddress", "HomeInstitutionName"];
-    var array_legal = ["LegalPersonIdentifier", "LegalName"];
+    var array_legal = [] // ["LegalPersonIdentifier", "LegalName"];
     var array_representative = [];
 
     var extensions = {
