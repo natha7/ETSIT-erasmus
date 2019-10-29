@@ -36,9 +36,9 @@ module SamlSessionsHelper
     end
     res
   end
-  def parseLang(lang)
+  def parseLang(lang = {})
     lang_res = lang["Label"]
-    code = lang["Code"]
+    code = lang["Code"] 
     lang_ref = {
       "bg" => "Bulgarian",
       "es" => "Spanish",
@@ -174,7 +174,7 @@ module SamlSessionsHelper
   def get_eidas_requested_attrs
     requested_attributes = REQUESTED_EIDAS_ATTRS
 
-    array_natural = ["PersonIdentifier" , "FamilyName", "FirstName", "DateOfBirth", "PlaceOfBirth", "CurrentAddress", "Gender","CurrentPhoto", "Nationality", "Phone", "CurrentDegree", "Degree", "FieldOfStudy", "GraduationYear", "LanguageCertificates", "LanguageProficiency", "HomeInstitutionAddress", "HomeInstitutionName"]
+    array_natural = ["PersonIdentifier" , "FamilyName", "FirstName", "DateOfBirth", "PlaceOfBirth", "CurrentAddress", "Gender","CurrentPhoto", "Nationality", "Phone", "CurrentDegree", "FieldOfStudy", "GraduationYear", "LanguageCertificates", "LanguageProficiency", "HomeInstitutionAddress", "HomeInstitutionName"]
     array_legal = [] # ["LegalPersonIdentifier", "LegalName"]
     array_representative = []
     attrs = []
