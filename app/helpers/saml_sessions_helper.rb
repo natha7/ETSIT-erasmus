@@ -36,6 +36,40 @@ module SamlSessionsHelper
     end
     res
   end
+  def parseLang(lang)
+    lang_res = lang["Label"]
+    code = lang["Code"]
+    lang_ref = {
+      "bg" => "Bulgarian",
+      "es" => "Spanish",
+      "cs" => "Czech",
+      "da" => "Danish",
+      "de" => "German",
+      "et" => "Estonian",
+      "el" => "Greek",
+      "en" => "English",
+      "fr" => "French",
+      "ga" => "Irish",
+      "hr" => "Croatian",
+      "it" => "Italian",
+      "lv" => "Latvian",
+      "lt" => "Lithuanian",
+      "hu" => "Hungarian",
+      "mt" => "Maltese",
+      "nl" => "Dutch",
+      "pl" => "Polish",
+      "pt" => "Portuguese",
+      "ro" => "Romanian",
+      "sk" => "Slovak",
+      "sl" => "Slovenian",
+      "fi" => "Finnish",
+      "sv" => "Swedish"
+    }
+    if (lang_ref.key?(code.to_s))
+      lang_res = lang_ref[code.to_s]
+    end
+    lang_res
+  end
   def parseLangs(value)
     mod_str = value.gsub("europass3:","").gsub("ns2:","").gsub("ns3:","")
     doc = Nokogiri::XML(mod_str)
@@ -49,7 +83,7 @@ module SamlSessionsHelper
       level = lang["ProficiencyLevel"]
       is_level_high = langLevel(level["Listening"])
       lan = Language.new
-      lan.name = lang["Description"]["Label"]
+      lan.name = parseLang(lang["Description"])
       lan.currently_studying =  false
       lan.able_follow_lectures = is_level_high
       lan.able_follow_lectures_extra_preparation = !is_level_high
