@@ -150,3 +150,11 @@ The following files are needed in order to run the project:
 ```
 rails s
 ```
+Open browser on `http://localhost:3000/erasmus`
+
+**Create an admin user:**
+
+Use this rake task in order to create an admin user to manage the incoming students
+```
+rake db:create_admin email=admin@myuniversity.org password=1234
+```
