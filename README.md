@@ -5,6 +5,7 @@ Application for managing the registration process of incoming students at ETSIT-
 Currently working towards supporting the eIDAS specification.
 
 ## Installation
+This is a step-by-step guide on how to install the ETSIT-erasmus application from scratch. If you already have rails installed, you can skip the first part. There is a comprehensive guide for each one of the three main operating systems.
 
 ### Ubuntu
 
