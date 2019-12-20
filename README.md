@@ -59,13 +59,7 @@ CREATE DATABASE logapp_test OWNER loguser;
 \q (exit from postgreSQL console)
 ```
 
-**To purge database and recreate:**
-```
-rake db:drop db:create db:migrate db:populate
-```
-**To start rails:**
-```
-rails s
+
 ```
 
 ### Windows
@@ -87,7 +81,7 @@ bundle exec rake db:migrate
 rails s
 ```
 
-# MAC
+### MacIntosh
 
 ```bash
 brew install git
@@ -134,11 +128,19 @@ CREATE DATABASE logapp_test OWNER loguser;
 \q (exit from postgreSQL console)
 ```
 
-**To start database and populate:**
+## Running the application
+
+**To purge database and recreate:**
 ```
-rake db:migrate db:populate
+rake db:drop db:create db:migrate db:populate
 ```
 
+**Create an admin user:**
+
+Use this rake task in order to create an admin user to manage the incoming students
+```
+rake db:create_admin email=admin@myuniversity.org password=1234
+```
 
 The following files are needed in order to run the project: 
 - config/config.yml
@@ -153,9 +155,3 @@ rails s
 ```
 Open browser on `http://localhost:3000/erasmus`
 
-**Create an admin user:**
-
-Use this rake task in order to create an admin user to manage the incoming students
-```
-rake db:create_admin email=admin@myuniversity.org password=1234
-```
