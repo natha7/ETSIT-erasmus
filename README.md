@@ -1,9 +1,10 @@
-# README
-
+# ETSIT-erasmus
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/bccabf42125f4b20b005d05a68835527)](https://app.codacy.com/app/sonsoleslp/ETSIT-erasmus?utm_source=github.com&utm_medium=referral&utm_content=ging/ETSIT-erasmus&utm_campaign=Badge_Grade_Dashboard)
+Application for managing the registration process of incoming students.
 
+## Installation
 
-# LINUX
+### Ubuntu
 
 ```bash
 sudo apt-get install git
@@ -67,7 +68,7 @@ rake db:drop db:create db:migrate db:populate
 rails s
 ```
 
-# WINDOWS
+### Windows
 
 Download ruby version 2.5.1 for your system in https://rubyinstaller.org/downloads/
 
