@@ -32,9 +32,6 @@ rbenv use
 gem install bundler
 sudo apt-get install postgresql postgresql-contrib libpq-dev
 bundle install
-
-
-
 ```
 Create user and give ownership as in config/database.yml
 
@@ -42,13 +39,11 @@ Create user and give ownership as in config/database.yml
 ```
 sudo -u postgres psql (to enter in the postgreSQL console)  
 CREATE ROLE loguser WITH CREATEDB LOGIN PASSWORD 'password';
-
 ```
 Now, execute the following command in the postgreSQL console to make your user superuser. This way, the 'loguser' user will have access rights to the databases.
 
 ```
 ALTER USER loguser WITH superuser;
-
 ```
 
 Afterwards, we create the databases needed.
@@ -60,8 +55,6 @@ CREATE DATABASE logapp_test OWNER loguser;
 \q (exit from postgreSQL console)
 ```
 
-
-```
 
 ### Windows
 
@@ -102,7 +95,6 @@ Reboot Terminal
 brew install postgres
 gem install bundler
 bundle install
-
 ```
 Create user and give ownership as in config/database.yml
 
@@ -110,13 +102,11 @@ Create user and give ownership as in config/database.yml
 ```
 sudo -u postgres psql (to enter in the postgreSQL console)  
 CREATE ROLE loguser WITH CREATEDB LOGIN PASSWORD 'password';
-
 ```
 Now, execute the following command in the postgreSQL console to make your user superuser. This way, the 'loguser' user will have access rights to the databases.
 
 ```
 ALTER USER loguser WITH superuser;
-
 ```
 
 Afterwards, we create the databases needed.
