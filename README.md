@@ -29,13 +29,20 @@ Reboot terminal
 ```
 sudo apt-get install -y libssl-dev libreadline-dev zlib1g-dev
 rbenv install 2.5.1
-rbenv use 
 ```
 
 ```
-gem install bundler
+sudo gem install bundler
 sudo apt-get install postgresql postgresql-contrib libpq-dev
-bundle install
+sudo gem update --system
+```
+Nokogiri might give problems when trying to install bundler. To fix them:
+```
+sudo apt-get install libxslt-dev libxml2-dev
+sudo apt-get install build-essential patch ruby-dev zlib1g-dev liblzma-dev (insert s and not S to accept)
+gem install nokogiri
+bundle update --bundler
+gem install bundler
 ```
 Create user and give ownership as in config/database.yml
 
@@ -58,7 +65,23 @@ CREATE DATABASE logapp_prod OWNER loguser;
 CREATE DATABASE logapp_test OWNER loguser;
 \q (exit from postgreSQL console)
 ```
+Modify the file 'pg_hba.conf' opening a terminal at folder '/etc/postgresql/(your version)/main' using the command:
+sudo nano ./pg_hba.conf
 
+Substitute the line:
+```
+# 'local' is for Unix domain socket connections only
+local   all             postgres                   peer
+```
+for:
+```
+# 'local' is for Unix domain socket connections only
+local   all             postgres                   md5
+```
+To allow password access and then restart the service:
+```
+/etc/init.d/postgresql restart
+```
 
 ### Windows
 
@@ -125,7 +148,15 @@ CREATE DATABASE logapp_test OWNER loguser;
 
 ## Running the application
 
+The following files are needed in order to run the project: 
+- config/config.yml
+- config/secrets.yml
+- vendor/certs/key.pem (you need to create the folder 'certs')
+- vendor/certs/cert.pem
+- vendor/saml2-node/eidas.json
+
 **To purge database and recreate:**
+Rename 'database.yml.example' to 'database.yml'
 ```
 rake db:drop db:create db:migrate db:populate
 ```
@@ -134,15 +165,8 @@ rake db:drop db:create db:migrate db:populate
 
 Use this rake task in order to create an admin user to manage the incoming students
 ```
-rake db:create_admin email=admin@myuniversity.org password=1234
+rake db:create_admin email=admin@myuniversity.org password=password
 ```
-
-The following files are needed in order to run the project: 
-- config/config.yml
-- config/secrets.yml
-- vendor/certs/key.pem
-- vendor/certs/cert.pem
-- vendor/saml2-node/eidas.json
 
 **To start rails:**
 ```
