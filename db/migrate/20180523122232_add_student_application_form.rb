@@ -59,6 +59,7 @@ class AddStudentApplicationForm < ActiveRecord::Migration[5.2]
 			t.integer :code
 			t.string :subject
 			t.string :degree
+			t.string :semester
 			t.float :ects
 		end
 

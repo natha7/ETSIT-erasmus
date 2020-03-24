@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 2018_12_05_201423) do
     t.integer "code"
     t.string "subject"
     t.string "degree"
+    t.string "semester"
     t.float "ects"
     t.bigint "user_id"
     t.index ["user_id"], name: "index_learning_agreement_subjects_on_user_id"

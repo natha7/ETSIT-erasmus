@@ -9,6 +9,7 @@
     <label class="la-degree">Degree <i class="info-icon mdi mdi-information-outline"></i></label>
     <label class="la-code">Code</label>
     <label class="la-name">Name</label>
+    <label class="la-semester"><span style="display:inline-block; width: -20px;"></span>Semester</label>
     <label class="la-ects">ECTS</label>
     <% unless admin %>
      <label class=""></label>
@@ -36,6 +37,11 @@
         </select>
         <input class="la-code" name="user[learning_agreement_subjects][][code]" value="<%= subject.code %>" <%= admin ? "disabled":"" %> />
         <input class="la-name" name="user[learning_agreement_subjects][][subject]" value="<%= subject.subject %>" <%= admin ? "disabled":"" %> />
+        <select class="la-semester" name="user[learning_agreement_subjects][][semester]" value="<%= subject.semester %>" <%= admin ? "disabled":"" %>>
+          <option selected="selected" value="" disabled required ></option>
+          <option value="Fall" <%= subject.semester == "Fall" ? "selected" : "" %>>Fall</option>
+          <option value="Spring" <%= subject.semester == "Spring" ? "selected" : "" %>>Spring</option>
+        </select>
         <input class="la-ects" name="user[learning_agreement_subjects][][ects]" value="<%= subject.ects %>" type="number" min="0" step="any" max="400" <%= admin ? "disabled":"" %> />
         <% unless admin %>
           <button class="delete-la-button transparent-button small-button secondary" type="button"><i class="mdi mdi-close"></i></button>
@@ -62,6 +68,11 @@
     </select>
     <input class="la-code" name="user[learning_agreement_subjects][][code]" />
     <input class="la-name" name="user[learning_agreement_subjects][][subject]" />
+    <select class="la-semester" name="user[learning_agreement_subjects][][semester]" <%= admin ? "disabled":"" %>>
+          <option value="" disabled required ></option>
+          <option value="Fall" >Fall</option>
+          <option value="Spring">Spring</option>
+    </select>
     <input class="la-ects" name="user[learning_agreement_subjects][][ects]" type="number" min="0" step="any"  max="400"  />
     <button class="delete-la-button transparent-button small-button secondary" type="button"><i class="mdi mdi-close"></i></button>
   </div>

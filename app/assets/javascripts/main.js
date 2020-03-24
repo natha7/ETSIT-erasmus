@@ -389,7 +389,8 @@ $(document).on('turbolinks:load', function() {
                         acron: subject.acron,
                         name: subject.name,
                         nombre: subject.nombre,
-                        degree: subject.degree
+                        degree: subject.degree,
+                        semester: subject.semester
                     }
                 }),
             minLength: 0,
@@ -425,7 +426,8 @@ $(document).on('turbolinks:load', function() {
                         ects: subject.ects,
                         name: subject.name,
                         nombre: subject.nombre,
-                        degree: subject.degree
+                        degree: subject.degree,
+                        semester: subject.semester
                     }
                 }),
             minLength: 0,

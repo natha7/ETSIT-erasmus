@@ -121,6 +121,7 @@ class UserController < ApplicationController
 						sj.subject = subject[:subject]
 						sj.code = subject[:code]
 						sj.degree = subject[:degree]
+						sj.semester = subject[:semester]
 						sj.ects = subject[:ects]
 						current_user.learning_agreement_subjects << sj
 						sj.save!
@@ -239,7 +240,7 @@ class UserController < ApplicationController
 		subjects = !params["user"]["learning_agreement_subjects"].blank?
 		sap = params["user"]["student_application_form"].blank? ? [] : params["user"]["student_application_form"].keys
 		csv_string = CSV.generate(:col_sep => ";" ) do |csv|
-			heading = keys.collect {|i| i.humanize } + (sap ? sap : []).collect {|i| i.humanize } + (subjects ? ["Subject", "Subject Code", "Degree", "ects"] : [])
+			heading = keys.collect {|i| i.humanize } + (sap ? sap : []).collect {|i| i.humanize } + (subjects ? ["Subject", "Subject Code", "Degree", "semester" "ects"] : [])
 			csv << heading
 			users.each do |user|
 				attrs = []
@@ -256,7 +257,7 @@ class UserController < ApplicationController
 
 				if subjects and user.learning_agreement_subjects and user.learning_agreement_subjects.length > 0
 					user.learning_agreement_subjects.each do |s|
-						csv << attrs + [s.subject, s.code, s.degree, s.ects]
+						csv << attrs + [s.subject, s.code, s.degree, s.semester, s.ects]
 					end
 				else
 					csv << attrs
