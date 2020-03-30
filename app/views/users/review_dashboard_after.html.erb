@@ -1,0 +1,12 @@
+<div class="align-right">
+
+    <div class="file-name">
+        <%= form.file_field :tor %>
+    </div>
+    <div class="file-name"><i class="mdi mdi-file"></i> <span class=""> <%= link_to  current_user.tor_file_name,  current_user.tor %></span></div>
+
+    <button class="custom-button primary" type="submit" <%="disabled" %> id="upload-signed">Upload ToR</button>
+
+    <a href="<%=tor_path%>"><button class="custom-button primary">Edit data</button></a>
+
+</div>

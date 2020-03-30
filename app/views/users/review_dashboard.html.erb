@@ -19,8 +19,7 @@
 
 	<% settings = ProjectSettings.first_or_create! %>
 
-	<p class="intro-paragraph">Keep in mind that the deadline to receive application packages is <span class="red"><strong><%= settings.deadline_first_semeter %></strong></span> for the fall
-		semester or academic year <%= settings.next_academic_year %>, and <span class="red"><strong><%= settings.deadline_second_semester %> </strong></span> for the second semester of the academic year <%= settings.current_academic_year %>. For double degree students, the deadline is <span class="red"><strong><%= settings.deadline_double_degree %> </strong></span>. Please <u>check registered users, documents required in pdf, and application packages before the deadline</u> .</p>
+	<p class="intro-paragraph">Select the state you wish to review.</p>
 	<br/>
 	<div class="dashboard-container">
 		<div class="left-column">
@@ -33,146 +32,24 @@
 				<p><%= current_user.first_name %> <%= current_user.family_name %></p>
 			</div>
 		</div>
-		<% sap = current_user.student_application_form %>
-		<% is_signed = !(current_user.signed_student_application_form_file_name.blank?) %>
-		<% finish_app_form = sap.completed_percentage(is_signed) === '99%'%>
-		<% finish_and_uploaded = sap.completed_percentage(is_signed) === '100%'%>
 		<div class="right-column">
 			<div class="row">
 				<div class="second-container">
-				<span class="second-container-left dashboard-section" id="application-form-tab">
+				<span class="second-container-left dashboard-section" id="before-the-mobility-tab">
 					<span class="red">&nbsp; </span>
-					<label>
-						Application Form<i class="caret mdi mdi-menu-down reverse"></i>
-					</label>
+					<a href="<%="#{RELATIVE_URL}/review_dashboard_before/#{params[:user]}"%>">
+						<label>
+						Before the Mobility<i class="caret mdi mdi-menu-down reverse"></i>
+						</label>
+					</a>
 				</span>
-					<div class="second-container-medium">
-						<div class="progress-bar">
-							<div class="progress-line">
-							</div>
-							<div class="progress-balls">
-								<a href="<%= RELATIVE_URL %>/review_student_application_form/<%= current_user.id.to_s%>}/personal_data_step" title="Personal Data">
-									<span class='progress-ball done-step'></span>
-								</a>
-								<% final_steps_array = sap.completed_steps_array %>
-								<% titles = ["Study year","Sending Institution", "Purpose of stay",  "Language Competence", "Work Experience", "Previous and current studies"] %>
-								<% for i in 1..6 do %>
-									<% classBall = final_steps_array[i-1] ? "done-step" : "todo-step" %>
-									<% ball = "<span class='progress-ball  #{classBall}'></span>"%>
-									<%= link_to ball.html_safe, "#{RELATIVE_URL}/review_student_application_form/#{current_user.id}" + "/#{i}?from_ball=true", :title => titles[i-1] %>
-								<% end %>
-							</div>
-						</div>
-					</div>
-					<div class="second-container-right">
-						<span class="student-application-form-progress"><%=sap.completed_percentage(is_signed)%></span>
-						<%if finish_app_form %>
-							<span class="check_mark" style="float: none;" title="User has not uploaded the application form signed"><i class="mdi mdi-help orange"></i></span>
-						<%end%>
-						<%if finish_and_uploaded %>
-							<span class="check_mark" style="float: none;"><i class="mdi mdi-check green"></i></span>
-						<%end%>
-					</div>
-				</div>
-				<div class="collapsible big show">
-					<!--				<p class="intro-paragraph">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>-->
-					<div class="align-right">
-						<a download="application_form.pdf" href="<%="#{RELATIVE_URL}/generate_pdf/#{current_user.id}"%>"><button class="custom-button">Download</button></a>
-						<% notSigned = current_user.signed_student_application_form.blank? %>
-						<% if notSigned %>
-							<button class="custom-button primary" disabled >Download signed</button>
-						<% else %>
-							<a download="application_form.pdf" href="<%= current_user.signed_student_application_form.url %>"><button class="custom-button primary" >Download signed</button></a>
-						<% end %>
-						<a href="<%="#{RELATIVE_URL}/review_student_application_form/#{current_user.id}/1"%>"><button class="custom-button" >Review data</button></a>
-
-					</div>
-
 				</div>
 			</div>
 
-			<%= render partial: "users/user_dashboard_panel", :locals => {
-					:admin => true,
-					:name => :learning_agreement,
-					:current_user => current_user,
-					:content => current_user.learning_agreement,
-					:file_name => current_user.learning_agreement_file_name,
-					:label => "Learning Agreement"}  %>
-			<%= render partial: "users/user_dashboard_panel", :locals => {
-					:admin => true,
-					:name => :motivation_letter,
-					:content => current_user.motivation_letter,
-					:file_name => current_user.motivation_letter_file_name,
-					:label => "Motivation Letter" } %>
-			<%= render partial: "users/user_dashboard_panel", :locals => {
-					:admin => true,
-					:name => :curriculum_vitae,
-					:content => current_user.curriculum_vitae,
-					:file_name => current_user.curriculum_vitae_file_name,
-					:label => "Curriculum Vitae"}  %>
-			<%= render partial: "users/user_dashboard_panel", :locals => {
-					:admin => true,
-					:name => :transcript_of_records,
-					:content => current_user.transcript_of_records,
-					:file_name => current_user.transcript_of_records_file_name,
-					:label => "Transcript of Records"}  %>
-
-			<%= render partial: "users/user_dashboard_panel", :locals => {
-					:admin => true,
-					:name => :valid_insurance_policy,
-					:content => current_user.valid_insurance_policy,
-					:file_name => current_user.valid_insurance_policy_file_name,
-					:label => "Valid Insurance Policy"}  %>
-			<%= render partial: "users/user_dashboard_panel", :locals => {
-					:admin => true,
-					:name => :ni_passport,
-					:content => current_user.ni_passport,
-					:file_name => current_user.ni_passport_file_name,
-					:label => "Identity card / Passport"}  %>
-			<%= render partial: "users/user_dashboard_panel", :locals => {
-					:admin => true,
-					:name => :english_test_score,
-					:content => current_user.english_test_score,
-					:file_name => current_user.english_test_score_file_name,
-					:label => "English Language Certificate"}  %>
-			<%= render partial: "users/user_dashboard_panel", :locals => {
-					:admin => true,
-					:name => :spanish_test_score,
-					:content => current_user.spanish_test_score,
-					:file_name => current_user.spanish_test_score_file_name,
-					:label => "Spanish Language Certificate"}  %>
-			<%if current_user.seeking_degree %>
-				<div id="degree-seeking" class="<%= current_user.seeking_degree ? "" : "hidden" %>">
-					<%= render partial: "users/user_dashboard_panel", :locals => {
-							:admin => true,
-							:name => :recommendation_letter_1,
-							:content => current_user.recommendation_letter_1,
-							:file_name => current_user.recommendation_letter_1_file_name,
-							:label => "Recommendation letter 1"}  %>
-					<%= render partial: "users/user_dashboard_panel", :locals => {
-							:admin => true,
-							:name => :recommendation_letter_2,
-							:content => current_user.recommendation_letter_2,
-							:file_name => current_user.recommendation_letter_2_file_name,
-							:label => "Recommendation letter 2"}  %>
-					<%= render partial: "users/user_dashboard_panel", :locals => {
-							:admin => true,
-							:name => :official_gpa,
-							:content => current_user.official_gpa,
-							:file_name => current_user.official_gpa_file_name,
-							:label => "Official GPA"}  %>
-
-				</div>
-			<% end %>
 		</div>
 <%end%>
 </div>
 <p class="intro-paragraph  footer-paragraph s12">
-	<a download href="<%= "#{RELATIVE_URL}/download_all_files/#{current_user.id}" %>"><button class="custom-button primary">Download all files</button></a>
-	<!--	<%#if current_user.progress_status === "accepted" %><a download href="<%#= "#{RELATIVE_URL}/generate_acceptance_letter/#{current_user.id}" %>">
-		<button class="custom-button primary">Generate Acceptance Letter</button>
-	</a><%#end%>-->
-	<button id="acceptance-letter-dialog-button" class="custom-button primary">Generate Acceptance Letter</button>
 	<button class="custom-button primary" id="delete-user">Delete user</button>
 	<br/>
 	<span class="registered_at"><b>Registered</b>: <%=current_user.created_at.in_time_zone("Madrid").strftime("%d-%m-%Y %r") %>. &nbsp; &nbsp;  &nbsp; <b>Last updated:</b>  <%=current_user.updated_at.in_time_zone("Madrid").strftime("%d-%m-%Y %r") %></span>
@@ -193,29 +70,5 @@
 			<%= button_to "Delete permanently", "#{RELATIVE_URL}/users/delete/#{current_user.id}", :method=> :delete,  data: { confirm: "This action is permanent. Are you sure you want to delete this user?" }, :class => "custom-button red-button", :form_class =>"inline"%>
 		</div>
 	</div>
-
-</div>
-
-<div id="acceptance-letter-dialog" >
-	<h2 class="title">Generate acceptance letters</h2>
-	<button class="transparent-button action-button right close" id="acceptance-letter-dialog-close"><i class="mdi mdi-close"></i></button>
-	<form method="get" action="<%="#{RELATIVE_URL}/generate_acceptance_letter/#{current_user.id}" %>">
-		<div class="acceptance-letter-form">
-			<div class="first">
-				<h3 class="al-format">Format</h3>
-				<input type="radio" name="downloadformat" value="pdf" checked/>
-				<label for="downloadformat">PDF</label>
-				<input type="radio" name="downloadformat" value="docx"/>
-				<label for="downloadformat">DOCX</label>
-			</div>
-			<div class="last">
-				<input id="logos-checkbox" type="checkbox" name="logos"/>
-				<label for="logos">Include logos</label>
-			</div>
-		</div>
-		<p class="align-right">
-
-			<button type="submit" class="custom-button primary">Download</button>
-		</p>
-	</form>
+	
 </div>

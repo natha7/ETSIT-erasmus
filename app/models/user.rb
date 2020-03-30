@@ -16,8 +16,14 @@ class User < ApplicationRecord
   devise :database_authenticatable,  :registerable, :saml_authenticatable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  #before
   has_one :student_application_form
   has_many :learning_agreement_subjects
+  #during
+
+  #after
+  has_one :tor
+  has_one :acceptance_letter_host
 
   accepts_nested_attributes_for :student_application_form
   has_attached_file :signed_student_application_form, :url=> "/erasmus/attachment/ssaf/:id/:basename.:extension"

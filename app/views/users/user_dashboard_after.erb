@@ -1,0 +1,19 @@
+<div class="align-right">
+
+	<a href="mailto:international@etsit.upm.es" class="inline"><button class="custom-button primary">OI Contact</button></a>
+	<%= button_to "Log out", destroy_user_session_path, :method=> :delete, :class => "custom-button ", :form_class => "inline" %>
+</div>
+<% settings = ProjectSettings.first_or_create! %>
+<% unless current_user.role != 'admin'%>
+	<br/><br/>
+	<p class="no-results">You do not have permission to access this page</p>
+<% else %>
+	<h1 class="section-title"> After the mobility </h1>
+	<h1 class="welcome-title"> Hi, <%= current_user.first_name %></h1>
+	<% if current_user.progress_status == "after-finished" %>
+		<a download href="<%= "#{RELATIVE_URL}/download_tor/" %>"><button class="custom-button primary">Download Transcript of Records</button></a>
+		<a download href="<%= "#{RELATIVE_URL}/download_acceptance_letter/" %>"><button class="custom-button primary">Download Acceptance Letter</button></a>
+	<% else %>
+	<p> Your Transcript of Records and Acceptance Letter have not been uploaded yet. You will be notified by email when the International Office uploads them.</p>
+	<% end %>
+<% end %>

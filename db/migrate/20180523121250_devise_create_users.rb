@@ -40,6 +40,8 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.2]
       t.attachment :valid_insurance_policy
       t.attachment :ni_passport
       t.attachment :photo
+      t.attachment :tor
+      t.attachment :acceptance_letter_host
 
       #Aditional
       t.attachment :recommendation_letter_1

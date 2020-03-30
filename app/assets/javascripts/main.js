@@ -959,3 +959,11 @@ $(document).on('turbolinks:load', function() {
 });
 
 
+/**
+     * Change status to During the Mobility
+     */
+    
+    $('#change-status-during-dialog-button').click(function(e){
+        current_user.progress_status = "during-initial";
+    });
+    

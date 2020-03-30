@@ -31,11 +31,21 @@ class UserController < ApplicationController
 
 	### USER
 	def user_dashboard
+		if current_user.progress_status.include? "after"
+			render "users/user_dashboard_after"
+		elsif current_user.progress_status.include? "during"
+			render "users/user_dashboard_during"
+		else
 		render "users/user_dashboard"
+		end
 	end
 
 	def review_dashboard
 		render "users/review_dashboard"
+	end
+
+	def review_dashboard_before
+		render "users/review_dashboard_before"
 	end
 
 	def register_with_email_and_password
@@ -351,4 +361,12 @@ class UserController < ApplicationController
 		user.destroy!
 		redirect_to admin_dashboard_path
 	end
+end
+
+def download_tor
+	send_file user.tor, :disposition => 'attachment'
+end
+
+def download_acceptance_letter
+	send_file user.acceptance_letter_host, :disposition => 'attachment'
 end
