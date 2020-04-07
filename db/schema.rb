@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_05_201423) do
+ActiveRecord::Schema.define(version: 2020_04_07_064000) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -138,14 +138,6 @@ ActiveRecord::Schema.define(version: 2018_12_05_201423) do
     t.string "photo_content_type"
     t.integer "photo_file_size"
     t.datetime "photo_updated_at"
-    t.string "tor_file_name"
-    t.string "tor_content_type"
-    t.integer "tor_file_size"
-    t.datetime "tor_updated_at"
-    t.string "acceptance_letter_host_file_name"
-    t.string "acceptance_letter_host_content_type"
-    t.integer "acceptance_letter_host_file_size"
-    t.datetime "acceptance_letter_host_updated_at"
     t.string "recommendation_letter_1_file_name"
     t.string "recommendation_letter_1_content_type"
     t.integer "recommendation_letter_1_file_size"
@@ -173,6 +165,14 @@ ActiveRecord::Schema.define(version: 2018_12_05_201423) do
     t.datetime "spanish_test_score_updated_at"
     t.string "person_identifier", default: ""
     t.boolean "archived", default: false
+    t.string "tor_file_name"
+    t.string "tor_content_type"
+    t.integer "tor_file_size"
+    t.datetime "tor_updated_at"
+    t.string "attendance_certificate_file_name"
+    t.string "attendance_certificate_content_type"
+    t.integer "attendance_certificate_file_size"
+    t.datetime "attendance_certificate_updated_at"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

@@ -29,35 +29,10 @@
             <a href="<%="#{RELATIVE_URL}/review_dashboard/#{params[:user]}/after"%>"><button class='custom-button primary' disabled>After the Mobility</button></a>
         <% end %>
     </div>
+
 	<br>
 	<h1 class="title"> You are reviewing <%= current_user.first_name %>'s application</h1>
-	<div class="align-center"><h1 class="title"> After the Mobility </h1></div>
+	<div class="align-center"><h1 class="title"> During the Mobility </h1></div>
 
-    <div class="dashboard-container">
-		<div class="left-column">
-			<div class="picture-container">
-				<img class="picture tiny" src="<%=admin.photo.url == "/erasmus/images/placeholder.png" ? ActionController::Base.helpers.image_path('placeholder.png') : admin.photo %>"/>
-				<p><%= admin.first_name.blank? ? "Administrator" : (admin.first_name + " " + admin.family_name) %></p>
-			</div>
-			<div class="picture-container">
-				<img class="picture" src="<%= current_user.photo.url == "/erasmus/images/placeholder.png" ? ActionController::Base.helpers.image_path('placeholder.png') : current_user.photo %>"/>
-				<p><%= current_user.first_name %> <%= current_user.family_name %></p>
-			</div>
-		</div>
-        <div class="right-column">
-            <%= render partial: "users/review_dashboard_panel", :locals => {
-                                :admin => true,
-                                :user => current_user,
-                                :name => :tor,
-                                :content => current_user.tor,
-                                :file_name => current_user.tor_file_name,
-                                :label => "Transcript of Records" } %>
-            <%= render partial: "users/review_dashboard_panel", :locals => {
-                                :admin => true,
-                                :user => current_user,
-                                :name => :attendance_certificate,
-                                :content => current_user.attendance_certificate,
-                                :file_name => current_user.attendance_certificate_file_name,
-                                :label => "Attendance Certificate" } %>
-        </div>
-<% end %>
+	<% settings = ProjectSettings.first_or_create! %>
+<%end%>

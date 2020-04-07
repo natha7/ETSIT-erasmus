@@ -8,12 +8,45 @@
 	<br/><br/>
 	<p class="no-results">You do not have permission to access this page</p>
 <% else %>
+	<div class="align-center">
+        <% if current_user.progress_status.include? "after"%>
+            <a href="<%="#{RELATIVE_URL}/user_dashboard/before"%>"><button class='custom-button primary'>Before the Mobility</button></a>
+            <a href="<%="#{RELATIVE_URL}/user_dashboard/during"%>"><button class='custom-button primary'>During the Mobility</button></a>
+            <a href="<%="#{RELATIVE_URL}/user_dashboard/after"%>"><button class='custom-button primary'>After the Mobility</button></a>
+        <% elsif current_user.progress_status.include? "during"%>%>
+            <a href="<%="#{RELATIVE_URL}/user_dashboard/before"%>"><button class='custom-button primary'>Before the Mobility</button></a>
+            <a href="<%="#{RELATIVE_URL}/user_dashboard/during"%>"><button class='custom-button primary'>During the Mobility</button></a>
+            <a href="<%="#{RELATIVE_URL}/user_dashboard/after"%>"><button class='custom-button primary' disabled>After the Mobility</button></a>
+        <% else%>
+            <a href="<%="#{RELATIVE_URL}/user_dashboard/before"%>"><button class='custom-button primary'>Before the Mobility</button></a>
+            <a href="<%="#{RELATIVE_URL}/user_dashboard/during"%>"><button class='custom-button primary' disabled>During the Mobility</button></a>
+            <a href="<%="#{RELATIVE_URL}/user_dashboard/after"%>"><button class='custom-button primary' disabled>After the Mobility</button></a>
+        <% end %>
+    </div>
 	<h1 class="section-title"> After the mobility </h1>
 	<h1 class="welcome-title"> Hi, <%= current_user.first_name %></h1>
-	<% if current_user.progress_status == "after-finished" %>
-		<a download href="<%= "#{RELATIVE_URL}/download_tor/" %>"><button class="custom-button primary">Download Transcript of Records</button></a>
-		<a download href="<%= "#{RELATIVE_URL}/download_acceptance_letter/" %>"><button class="custom-button primary">Download Acceptance Letter</button></a>
-	<% else %>
-	<p> Your Transcript of Records and Acceptance Letter have not been uploaded yet. You will be notified by email when the International Office uploads them.</p>
-	<% end %>
+    <div class="dashboard-container">
+			<div class="left-column">
+				<div class="picture-container">
+				<img class="picture" src="<%= current_user.photo.url == "/erasmus/images/placeholder.png" ? ActionController::Base.helpers.image_path('placeholder.png') : current_user.photo %>"/>
+				<p><%= current_user.first_name %> <%= current_user.family_name %></p>
+			</div>
+            </div>
+            <div class="right-column">
+            <%= render partial: "users/review_dashboard_panel", :locals => {
+                                :admin => false,
+                                :user => current_user,
+                                :name => :tor,
+                                :content => current_user.tor,
+                                :file_name => current_user.tor_file_name,
+                                :label => "Transcript of Records" } %>
+            <%= render partial: "users/review_dashboard_panel", :locals => {
+                                :admin => false,
+                                :user => current_user,
+                                :name => :attendance_certificate,
+                                :content => current_user.attendance_certificate,
+                                :file_name => current_user.attendance_certificate_file_name,
+                                :label => "Attendance Certificate" } %>
+        </div>
+	
 <% end %>

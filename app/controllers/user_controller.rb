@@ -32,20 +32,50 @@ class UserController < ApplicationController
 	### USER
 	def user_dashboard
 		if current_user.progress_status.include? "after"
-			render "users/user_dashboard_after"
+			redirect_to user_dashboard_after_path
 		elsif current_user.progress_status.include? "during"
-			render "users/user_dashboard_during"
+			redirect_to user_dashboard_during_path
 		else
-		render "users/user_dashboard"
+			redirect_to user_dashboard_before_path
 		end
 	end
 
+	def user_dashboard_before
+		render "users/user_dashboard_before"
+	end
+
+	def user_dashboard_during
+		render "users/user_dashboard_during"
+	end
+
+	def user_dashboard_after
+		render "users/user_dashboard_after"
+	end
+
 	def review_dashboard
-		render "users/review_dashboard"
+		admin = current.user
+		if current_user.progress_status.include? "after"
+			redirect_to user_review_dashboard_after_path
+		elsif current_user.progress_status.include? "during"
+			redirect_to user_review_dashboard_during_path
+		else
+			redirect_to user_review_dashboard_before_path
+		end
 	end
 
 	def review_dashboard_before
+		current_user = User.find(params[:user])
 		render "users/review_dashboard_before"
+	end
+
+	def review_dashboard_during
+		current_user = User.find(params[:user])
+		render "users/review_dashboard_during"
+	end
+
+	def review_dashboard_after
+		current_user = User.find(params[:user])
+		render "users/review_dashboard_after"
 	end
 
 	def register_with_email_and_password
@@ -61,7 +91,6 @@ class UserController < ApplicationController
 	end
 
 	def finish_app_form
-		user = current_user
 	    if user.role == "user" && user.progress_status == "in_process" && user.percentage_num.to_i == 100
 	      user.progress_status = :finished
 	     begin
@@ -118,6 +147,27 @@ class UserController < ApplicationController
 			flash[:error] = "File not valid"
 		end
 		redirect_to user_dashboard_path
+	end
+
+	def review_file_upload_after
+		user_to_edit = User.find(params[:user_to_edit]);
+		unless params[:user].blank?
+			keys = params[:user].keys
+			if keys.length == 1
+				user_to_edit.assign_attributes({keys[0] => params[:user][keys[0]]})
+			elsif keys.length == 2 and keys[0] == "ni_type"
+				user_to_edit.assign_attributes({keys[0] => params[:user][keys[0]], keys[1] => params[:user][keys[1]]})
+			end
+			unless user_to_edit.save
+				flash[:error] = user_to_edit.errors.full_messages.to_sentence
+			end
+			if user_to_edit.tor.blank? == false && user_to_edit.attendance_certificate.blank? == false
+				user_to_edit.progress_status = "after_finished"
+			end
+		else 
+			flash[:error] = "File not valid"
+		end
+		redirect_back(fallback_location:"review_dashboard/:user/after")
 	end
 
 	def submit_la
@@ -368,5 +418,5 @@ def download_tor
 end
 
 def download_acceptance_letter
-	send_file user.acceptance_letter_host, :disposition => 'attachment'
+	send_file user.attendance_certificate, :disposition => 'attachment'
 end

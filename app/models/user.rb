@@ -6,7 +6,7 @@ class User < ApplicationRecord
   enum ni_type: [:id, :passport]
   attr_accessor :signed_student_application_form_name, :signed_student_application_form_content_type, :signed_student_application_form_file_size, :isigned_student_application_form_updated_at
 
-  enum progress_status: [:in_process, :finished, :rejected, :accepted, :renounce]
+  enum progress_status: [:in_process, :finished, :rejected, :accepted, :renounce,:after_finished]
   before_create :set_default_role
   before_create :set_default_progress_status
 
@@ -23,7 +23,7 @@ class User < ApplicationRecord
 
   #after
   has_one :tor
-  has_one :acceptance_letter_host
+  has_one :attendance_certificate
 
   accepts_nested_attributes_for :student_application_form
   has_attached_file :signed_student_application_form, :url=> "/erasmus/attachment/ssaf/:id/:basename.:extension"
@@ -39,7 +39,8 @@ class User < ApplicationRecord
   has_attached_file :official_gpa, :url=> "/erasmus/attachment/og/:id/:basename.:extension"
   has_attached_file :english_test_score, :url=> "/erasmus/attachment/ets/:id/:basename.:extension"
   has_attached_file :spanish_test_score, :url=> "/erasmus/attachment/sts/:id/:basename.:extension"
-
+  has_attached_file :tor, :url=> "/erasmus/attachment/tor/:id/:basename.:extension"
+  has_attached_file :attendance_certificate, :url=> "/erasmus/attachment/alh/:id/:basename.:extension"
 
   before_create :create_student_application_form
   after_validation :clean_paperclip_errors
@@ -58,6 +59,8 @@ class User < ApplicationRecord
   validates_attachment_content_type :official_gpa, :content_type => ["application/pdf", "application/doc", "application/docx", "image/jpeg", "image/gif", "image/png", "image/jpg", "image/bmp"]
   validates_attachment_content_type :english_test_score, :content_type => ["application/pdf", "application/doc", "application/docx", "image/jpeg", "image/gif", "image/png", "image/jpg", "image/bmp"]
   validates_attachment_content_type :spanish_test_score, :content_type => ["application/pdf", "application/doc", "application/docx", "image/jpeg", "image/gif", "image/png", "image/jpg", "image/bmp"]
+  validates_attachment_content_type :tor, :content_type => ["application/pdf", "application/doc", "application/docx", "image/jpeg", "image/gif", "image/png", "image/jpg", "image/bmp"]
+  validates_attachment_content_type :attendance_certificate, :content_type => ["application/pdf", "application/doc", "application/docx", "image/jpeg", "image/gif", "image/png", "image/jpg", "image/bmp"]
 
   validates_attachment_size :signed_student_application_form, :less_than => 4.megabytes
   validates_attachment_size :motivation_letter, :less_than => 4.megabytes
@@ -72,6 +75,8 @@ class User < ApplicationRecord
   validates_attachment_size :official_gpa, :less_than => 4.megabytes
   validates_attachment_size :english_test_score, :less_than => 4.megabytes
   validates_attachment_size :spanish_test_score, :less_than => 4.megabytes
+  validates_attachment_size :tor, :less_than => 4.megabytes
+  validates_attachment_size :attendance_certificate, :less_than => 4.megabytes
 
   validates_presence_of :first_name, message: 'You must provide your first name.', if: :not_admin?
   validates_presence_of :family_name, message: 'You must provide your family name.', if: :not_admin?
@@ -161,6 +166,8 @@ class User < ApplicationRecord
     errors.delete(:english_test_score)
     errors.delete(:spanish_test_score)
     errors.delete(:email)
+    errors.delete(:tor)
+    errors.delete(:attendance_certificate)
   end
   
 end

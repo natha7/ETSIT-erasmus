@@ -1,0 +1,45 @@
+<%if admin === true%>
+	<% current_user = User.find(params[:user]) %>
+<%end%>
+<div class="row">
+	<span class="dashboard-section" id="motivation-letter-tab">
+		<%unless admin === true%>
+				<span class="red">*</span>
+		<%else %>
+				<span class="red">&nbsp; </span>
+		<%end%>
+		<label for=<%=name%>>
+			<%=label%><i class="caret mdi mdi-menu-down no-reverse"></i>
+		</label>
+	</span>
+
+	<%unless content.blank? %>
+		<span class="check_mark"><i class="mdi mdi-check green"></i></span>
+		<div class="collapsible">
+			<div class="align-right">
+				<div class="file-name"><i class="mdi mdi-file"></i> <span class=""> <%= link_to  file_name,  content.url %></span></div>
+				<%if admin === true  %>
+					<%= button_to "Delete", user_file_delete_url(:id => current_user.id, :attachment => name), :method=> :delete, :class => "custom-button" , :form_class =>   "deletion" %>
+			<%end%>
+				<a href="<%=  content.url%>" download="<%=  file_name %>"><button class="custom-button primary">Download</button></a>
+			</div>
+		</div>
+	<% else %>
+		<div class="collapsible">
+			<%if admin === true  %>
+				<%= form_for current_user, url: user_review_file_upload_after_path(:user_to_edit => current_user), html: { multipart: true , }, :method => :POST do |form| %>
+					
+				<div class="align-right">
+					<div class="file-name">
+						<%= form.file_field name %>
+					</div>
+					<%= form.submit "Upload", :class => "custom-button primary" %>
+				</div>
+
+				<% end %>
+			<%else%>
+				<p class="no-results">Not yet uploaded</p>
+			<%end%>	
+		</div>
+	<%end%>
+</div>

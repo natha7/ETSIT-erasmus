@@ -14,11 +14,24 @@
 		<%= button_to "Log out", destroy_user_session_path, :method=> :delete, :class => "custom-button", :form_class =>"inline"%>
 	</div>
 
-    <div class="align-right">
-    <a href="<%="#{RELATIVE_URL}/review_dashboard/#{params[:user]}"%>" class="back-to-dashboard"><button class='custom-button primary'>Return to the User's Page</button></a>
-	</div>
-
+    <div class="align-center">
+        <% if current_user.progress_status.include? "after"%>
+            <a href="<%="#{RELATIVE_URL}/review_dashboard/#{params[:user]}/before"%>"><button class='custom-button primary'>Before the Mobility</button></a>
+            <a href="<%="#{RELATIVE_URL}/review_dashboard/#{params[:user]}/during"%>"><button class='custom-button primary'>During the Mobility</button></a>
+            <a href="<%="#{RELATIVE_URL}/review_dashboard/#{params[:user]}/after"%>"><button class='custom-button primary'>After the Mobility</button></a>
+        <% elsif current_user.progress_status.include? "during"%>%>
+            <a href="<%="#{RELATIVE_URL}/review_dashboard/#{params[:user]}/before"%>"><button class='custom-button primary'>Before the Mobility</button></a>
+            <a href="<%="#{RELATIVE_URL}/review_dashboard/#{params[:user]}/during"%>"><button class='custom-button primary'>During the Mobility</button></a>
+            <a href="<%="#{RELATIVE_URL}/review_dashboard/#{params[:user]}/after"%>"><button class='custom-button primary' disabled>After the Mobility</button></a>
+        <% else%>
+            <a href="<%="#{RELATIVE_URL}/review_dashboard/#{params[:user]}/before"%>"><button class='custom-button primary'>Before the Mobility</button></a>
+            <a href="<%="#{RELATIVE_URL}/review_dashboard/#{params[:user]}/during"%>"><button class='custom-button primary' disabled>During the Mobility</button></a>
+            <a href="<%="#{RELATIVE_URL}/review_dashboard/#{params[:user]}/after"%>"><button class='custom-button primary' disabled>After the Mobility</button></a>
+        <% end %>
+    </div>
+	<br>
 	<h1 class="title"> You are reviewing <%= current_user.first_name %>'s application</h1>
+	<div class="align-center"><h1 class="title"> Before the Mobility </h1></div>
 
 	<% settings = ProjectSettings.first_or_create! %>
 
@@ -95,51 +108,51 @@
 				</div>
 			</div>
 
-			<%= render partial: "users/user_dashboard_panel", :locals => {
+			<%= render partial: "users/user_dashboard_before_panel", :locals => {
 					:admin => true,
 					:name => :learning_agreement,
 					:current_user => current_user,
 					:content => current_user.learning_agreement,
 					:file_name => current_user.learning_agreement_file_name,
 					:label => "Learning Agreement"}  %>
-			<%= render partial: "users/user_dashboard_panel", :locals => {
+			<%= render partial: "users/user_dashboard_before_panel", :locals => {
 					:admin => true,
 					:name => :motivation_letter,
 					:content => current_user.motivation_letter,
 					:file_name => current_user.motivation_letter_file_name,
 					:label => "Motivation Letter" } %>
-			<%= render partial: "users/user_dashboard_panel", :locals => {
+			<%= render partial: "users/user_dashboard_before_panel", :locals => {
 					:admin => true,
 					:name => :curriculum_vitae,
 					:content => current_user.curriculum_vitae,
 					:file_name => current_user.curriculum_vitae_file_name,
 					:label => "Curriculum Vitae"}  %>
-			<%= render partial: "users/user_dashboard_panel", :locals => {
+			<%= render partial: "users/user_dashboard_before_panel", :locals => {
 					:admin => true,
 					:name => :transcript_of_records,
 					:content => current_user.transcript_of_records,
 					:file_name => current_user.transcript_of_records_file_name,
 					:label => "Transcript of Records"}  %>
 
-			<%= render partial: "users/user_dashboard_panel", :locals => {
+			<%= render partial: "users/user_dashboard_before_panel", :locals => {
 					:admin => true,
 					:name => :valid_insurance_policy,
 					:content => current_user.valid_insurance_policy,
 					:file_name => current_user.valid_insurance_policy_file_name,
 					:label => "Valid Insurance Policy"}  %>
-			<%= render partial: "users/user_dashboard_panel", :locals => {
+			<%= render partial: "users/user_dashboard_before_panel", :locals => {
 					:admin => true,
 					:name => :ni_passport,
 					:content => current_user.ni_passport,
 					:file_name => current_user.ni_passport_file_name,
 					:label => "Identity card / Passport"}  %>
-			<%= render partial: "users/user_dashboard_panel", :locals => {
+			<%= render partial: "users/user_dashboard_before_panel", :locals => {
 					:admin => true,
 					:name => :english_test_score,
 					:content => current_user.english_test_score,
 					:file_name => current_user.english_test_score_file_name,
 					:label => "English Language Certificate"}  %>
-			<%= render partial: "users/user_dashboard_panel", :locals => {
+			<%= render partial: "users/user_dashboard_before_panel", :locals => {
 					:admin => true,
 					:name => :spanish_test_score,
 					:content => current_user.spanish_test_score,
@@ -147,19 +160,19 @@
 					:label => "Spanish Language Certificate"}  %>
 			<%if current_user.seeking_degree %>
 				<div id="degree-seeking" class="<%= current_user.seeking_degree ? "" : "hidden" %>">
-					<%= render partial: "users/user_dashboard_panel", :locals => {
+					<%= render partial: "users/user_dashboard_before_panel", :locals => {
 							:admin => true,
 							:name => :recommendation_letter_1,
 							:content => current_user.recommendation_letter_1,
 							:file_name => current_user.recommendation_letter_1_file_name,
 							:label => "Recommendation letter 1"}  %>
-					<%= render partial: "users/user_dashboard_panel", :locals => {
+					<%= render partial: "users/user_dashboard_before_panel", :locals => {
 							:admin => true,
 							:name => :recommendation_letter_2,
 							:content => current_user.recommendation_letter_2,
 							:file_name => current_user.recommendation_letter_2_file_name,
 							:label => "Recommendation letter 2"}  %>
-					<%= render partial: "users/user_dashboard_panel", :locals => {
+					<%= render partial: "users/user_dashboard_before_panel", :locals => {
 							:admin => true,
 							:name => :official_gpa,
 							:content => current_user.official_gpa,

@@ -48,7 +48,7 @@
         <% users.each_with_index do |user, index| %>
           <div class="registered-item"  >
             <div data-name="<%= (defined? user.family_name ? user.family_name : "").split(" ").join("") %>" class="user-<%= user.id %>-id flex-table-cell flex-table-email">
-              <span class="big-hidden">Email:</span><a href="<%= RELATIVE_URL %>/review_dashboard_before/<%=user.id%>"><span class="email"><%= user.family_name %>, <%= user.first_name %> </span></a>
+              <span class="big-hidden">Email:</span><a href="<%= RELATIVE_URL %>/review_dashboard/<%=user.id%>/before"><span class="email"><%= user.family_name %>, <%= user.first_name %> </span></a>
             </div>
             <div data-uni="<%= user.student_application_form.inst_sending_name %>" class="user-<%= user.id %>-id flex-table-cell flex-table-univ">
               <span class="big-hidden">University: </span>
