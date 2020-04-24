@@ -45,7 +45,12 @@ class UserController < ApplicationController
 	end
 
 	def user_dashboard_during
-		render "users/user_dashboard_during"
+		if current_user.progress_status != "during_initial"
+			dm_version = params[:dm_version]
+			render "users/user_dashboard_during", locals: {:dm_version => dm_version}
+		else
+			render "users/user_dashboard_during"	
+		end
 	end
 
 	def user_dashboard_after
@@ -70,7 +75,12 @@ class UserController < ApplicationController
 
 	def review_dashboard_during
 		current_user = User.find(params[:user])
-		render "users/review_dashboard_during"
+		if current_user.progress_status == "during_initial"
+			render "users/review_dashboard_during"
+		else
+			dm_version = params[:dm_version]
+			render "users/review_dashboard_during", locals: {:dm_version => dm_version}
+		end
 	end
 
 	def review_dashboard_after
@@ -91,8 +101,8 @@ class UserController < ApplicationController
 	end
 
 	def finish_app_form
-	    if user.role == "user" && user.progress_status == "in_process" && user.percentage_num.to_i == 100
-	      user.progress_status = :finished
+	    if user.role == "user" && user.progress_status == "before_in_process" && user.percentage_num.to_i == 100
+	      user.progress_status = :before_finished
 	     begin
 	     	url = request.base_url + RELATIVE_URL
 	      	UserMailer.finished_application_mail_to_admins(url, current_user).deliver_now
@@ -200,6 +210,36 @@ class UserController < ApplicationController
 		render :json => {  }
 	end
 
+	def submit_dm
+		unless params[:user].blank?
+			unless params[:user][:learning_agreement_subjects].blank?
+				current_user.learning_agreement_subjects.destroy_all
+				subjects = params[:user][:learning_agreement_subjects]
+				subjects.each do |subject|
+					if !subject[:subject].blank? and !subject[:code].blank? and !subject[:degree].blank? and !subject[:ects].blank?
+						sj = LearningAgreementSubject.new
+						sj.subject = subject[:subject]
+						sj.code = subject[:code]
+						sj.degree = subject[:degree]
+						sj.semester = subject[:semester]
+						sj.ects = subject[:ects]
+						current_user.learning_agreement_subjects << sj
+						sj.save!
+					end
+				end
+
+			end
+			unless current_user.save
+				head :forbidden
+				return
+			end
+		else
+			head :forbidden
+			return
+		end
+		render :json => {  }
+	end
+
 	def file_upload_ajax
 		url = ""
 		unless params[:user].blank?
@@ -261,8 +301,28 @@ class UserController < ApplicationController
 		else
 			flash[:error] = "There was an error"
 		end
-
 		redirect_to user_dashboard_path
+		
+	end
+
+	def file_delete_admin
+		user_to_edit = User.find(params[:id]);
+		case params[:attachment]
+		when "tor"
+			user_to_edit.tor = nil
+			user_to_edit.save!
+		when "attendance_certificate"
+			user_to_edit.attendance_certificate = nil
+			user_to_edit.save!
+		else
+			flash[:error] = "There was an error"
+		end
+		if params[:attachment] == "tor" || params[:attachment] == "attendance_certificate"
+			user_to_edit.progress_status = "after_pending"
+			redirect_back(fallback_location:"review_dashboard/:user/after")
+		else
+			redirect_back(fallback_location:"review_dashboard/:user/during")
+		end
 	end
 
 	def download_all_files
@@ -410,6 +470,28 @@ class UserController < ApplicationController
 		user = User.find_by :id => params[:user]
 		user.destroy!
 		redirect_to admin_dashboard_path
+	end
+
+	def during_dm_create
+		current_user.progress_status = "during_user_editing"
+		dm_version = current_user.during_la.maximum("during_la_version")
+		if dm_version == nil 
+			dm_version = 1
+		end
+		current_user.during_la.create(:during_la_version => dm_version, :user_id => current_user.id)
+		redirect_to "users/user_dashboard_during/:dm_version", dm_version: dm_version
+	end
+	
+	def change_status_during
+		user = User.find_by :id => params[:user]
+		user.progress_status = "during_initial";
+		redirect_to review_dashboard_during_path, locals: {:user => user};
+	end
+	
+	def change_status_after
+		user = User.find_by :id => params[:user]
+		user.progress_status = "after_pending";
+		redirect_to review_dashboard_after_path, locals: {:user => user};
 	end
 end
 

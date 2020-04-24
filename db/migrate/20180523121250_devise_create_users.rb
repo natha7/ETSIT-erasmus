@@ -59,6 +59,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.2]
       t.integer :ni_type
       t.integer :role
       t.integer :progress_status
+      
 
 
       t.timestamps null: false

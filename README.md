@@ -160,6 +160,10 @@ Rename 'database.yml.example' to 'database.yml'
 ```
 rake db:drop db:create db:migrate db:populate
 ```
+It might ask you to execute the following command before:
+```
+bin/rails db:environment:set RAILS_ENV=development
+```
 
 **Create an admin user:**
 

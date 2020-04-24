@@ -8,7 +8,7 @@
 <%else%>
 	<% admin = current_user %>
 	<% current_user = User.find(params[:user]) %>
-	<div class="align-right">
+    <div class="align-right">
 		<%= button_to "User Contact", "mailto:"+current_user.email , :method=> :get, :class => "custom-button primary",:form_class =>"inline"%>
 		<%= button_to "Dashboard", admin_dashboard_path, :method=> :get, :class => "custom-button primary",:form_class =>"inline"%>
 		<%= button_to "Log out", destroy_user_session_path, :method=> :delete, :class => "custom-button", :form_class =>"inline"%>
@@ -34,5 +34,61 @@
 	<h1 class="title"> You are reviewing <%= current_user.first_name %>'s application</h1>
 	<div class="align-center"><h1 class="title"> During the Mobility </h1></div>
 
-	<% settings = ProjectSettings.first_or_create! %>
-<%end%>
+	<div class="dashboard-container">
+		<div class="left-column">
+			<div class="picture-container">
+				<img class="picture tiny" src="<%=admin.photo.url == "/erasmus/images/placeholder.png" ? ActionController::Base.helpers.image_path('placeholder.png') : admin.photo %>"/>
+				<p><%= admin.first_name.blank? ? "Administrator" : (admin.first_name + " " + admin.family_name) %></p>
+			</div>
+			<div class="picture-container">
+				<img class="picture" src="<%= current_user.photo.url == "/erasmus/images/placeholder.png" ? ActionController::Base.helpers.image_path('placeholder.png') : current_user.photo %>"/>
+				<p><%= current_user.first_name %> <%= current_user.family_name %></p>
+			</div>
+		</div>
+        <div class="right-column">
+			<% if current_user.progress_status == "during_initial"%>
+				<p class="no-results">This user has not yet requested a LA modification.</p>
+			<% else %>
+                <% dm_version = params[:dm_version]%>
+                <% current_dm = current_user.during_la.where(:user_id => current_user.id, :during_la_version => dm_version)%>
+                <%= render partial: "users/user_dashboard_before_panel", :locals => {
+						:admin => true,
+						:name => :during_la,
+						:current_user => current_user,
+						:content => current_dm.during_la_signed_student,
+						:file_name => current_dm.during_la_signed_student_file_name,
+						:label => "DM-LA proposal"}  %>
+            <% end %>
+            <% if current_user.progress_status == "during_accepted_pending_admin"%>
+                <%= render partial: "users/review_dashboard_panel", :locals => {
+                                    :admin => true,
+                                    :user => current_user,
+                                    :name => :payment_slip,
+                                    :content => current_dm.during_la_signed_home,
+                                    :file_name => current_dm.during_la_signed_home_file_name,
+                                    :label => "DM-LA signed by home institution" } %>
+                <%= render partial: "users/review_dashboard_panel", :locals => {
+                                    :admin => true,
+                                    :user => current_user,
+                                    :name => :payment_slip,
+                                    :content => current_dm.payment_slip,
+                                    :file_name => current_dm.payment_slip_file_name,
+                                    :label => "Payment slip" } %>
+            <% elsif current_user.progress_status == "during_accepted_pending_student"%>
+                <%= render partial: "users/review_dashboard_panel", :locals => {
+                                    :admin => true,
+                                    :user => current_user,
+                                    :name => :during_la_signed_all,
+                                    :content => current_dm.during_la_signed_all,
+                                    :file_name => current_dm.during_la_signed_all_file_name,
+                                    :label => "DM-LA signed by three parties" } %>
+            <% end %>
+        </div>
+        <% if current_user.progress_status =="during_initial"%>
+            <p class="intro-paragraph  footer-paragraph s12">
+            <div class="align-right">
+                <%= button_to "Change status to: After the Mobility", user_change_status_after_path, :method=> :post, :class => "custom-button primary",:form_class =>"inline", params: {user: current_user}%>
+            </div>
+            </p>
+        <% end %>
+<% end %>

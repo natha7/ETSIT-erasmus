@@ -25,6 +25,15 @@
 						:file_name => file_name,
 						:label => "Learning Agreement"}  %>
 			<%end %>
+			<% if name === :during_la %>
+				<%= render partial: "users/during_la_panel", :locals => {
+						:admin => admin,
+						:name => name,
+						:current_user => current_user,
+						:content => content,
+						:file_name => file_name,
+						:label => "During the Mobility LA"}  %>
+			<%end %>
 			<div class="align-right">
 				<div class="file-name"><i class="mdi mdi-file"></i> <span class=""> <%= link_to  file_name,  content.url %></span></div>
 				<%unless admin === true  %>

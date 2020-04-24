@@ -6,7 +6,7 @@ class User < ApplicationRecord
   enum ni_type: [:id, :passport]
   attr_accessor :signed_student_application_form_name, :signed_student_application_form_content_type, :signed_student_application_form_file_size, :isigned_student_application_form_updated_at
 
-  enum progress_status: [:in_process, :finished, :rejected, :accepted, :renounce,:after_finished]
+  enum progress_status: [:before_in_process, :before_finished, :rejected, :accepted, :renounce, :during_initial, :during_user_editing, :during_review_pending, :during_user_reviewing, :during_accepted_pending_admin, :during_accepted_pending_student, :after_pending, :after_finished]
   before_create :set_default_role
   before_create :set_default_progress_status
 
@@ -20,7 +20,7 @@ class User < ApplicationRecord
   has_one :student_application_form
   has_many :learning_agreement_subjects
   #during
-
+  has_many :during_la
   #after
   has_one :tor
   has_one :attendance_certificate
@@ -40,7 +40,7 @@ class User < ApplicationRecord
   has_attached_file :english_test_score, :url=> "/erasmus/attachment/ets/:id/:basename.:extension"
   has_attached_file :spanish_test_score, :url=> "/erasmus/attachment/sts/:id/:basename.:extension"
   has_attached_file :tor, :url=> "/erasmus/attachment/tor/:id/:basename.:extension"
-  has_attached_file :attendance_certificate, :url=> "/erasmus/attachment/alh/:id/:basename.:extension"
+  has_attached_file :attendance_certificate, :url=> "/erasmus/attachment/ac/:id/:basename.:extension"
 
   before_create :create_student_application_form
   after_validation :clean_paperclip_errors
@@ -135,7 +135,7 @@ class User < ApplicationRecord
   end
 
   def set_default_progress_status
-    self.progress_status ||= :in_process
+    self.progress_status ||= :before_in_process
   end
 
   def create_student_application_form

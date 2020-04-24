@@ -1,0 +1,76 @@
+<div class="align-right">
+
+	<a href="mailto:international@etsit.upm.es" class="inline"><button class="custom-button primary">OI Contact</button></a>
+	<%= button_to "Log out", destroy_user_session_path, :method=> :delete, :class => "custom-button ", :form_class => "inline" %>
+</div>
+<% settings = ProjectSettings.first_or_create! %>
+<% unless current_user.role != 'admin'%>
+	<br/><br/>
+	<p class="no-results">You do not have permission to access this page</p>
+<% else %>
+	<div class="align-center">
+        <% if current_user.progress_status.include? "after"%>
+            <a href="<%="#{RELATIVE_URL}/user_dashboard/before"%>"><button class='custom-button primary'>Before the Mobility</button></a>
+            <a href="<%="#{RELATIVE_URL}/user_dashboard/during"%>"><button class='custom-button primary'>During the Mobility</button></a>
+            <a href="<%="#{RELATIVE_URL}/user_dashboard/after"%>"><button class='custom-button primary'>After the Mobility</button></a>
+        <% elsif current_user.progress_status.include? "during"%>%>
+            <a href="<%="#{RELATIVE_URL}/user_dashboard/before"%>"><button class='custom-button primary'>Before the Mobility</button></a>
+            <a href="<%="#{RELATIVE_URL}/user_dashboard/during"%>"><button class='custom-button primary'>During the Mobility</button></a>
+            <a href="<%="#{RELATIVE_URL}/user_dashboard/after"%>"><button class='custom-button primary' disabled>After the Mobility</button></a>
+        <% else%>
+            <a href="<%="#{RELATIVE_URL}/user_dashboard/before"%>"><button class='custom-button primary'>Before the Mobility</button></a>
+            <a href="<%="#{RELATIVE_URL}/user_dashboard/during"%>"><button class='custom-button primary' disabled>During the Mobility</button></a>
+            <a href="<%="#{RELATIVE_URL}/user_dashboard/after"%>"><button class='custom-button primary' disabled>After the Mobility</button></a>
+        <% end %>
+    </div>
+	<h1 class="section-title"> During the mobility </h1>
+	<h1 class="welcome-title"> Hi, <%= current_user.first_name %></h1>
+    <div class="dashboard-container">
+			<div class="left-column">
+				<div class="picture-container">
+				<img class="picture" src="<%= current_user.photo.url == "/erasmus/images/placeholder.png" ? ActionController::Base.helpers.image_path('placeholder.png') : current_user.photo %>"/>
+				<p><%= current_user.first_name %> <%= current_user.family_name %></p>
+			</div>
+            </div>
+            <div class="right-column">
+            <% if current_user.progress_status == "during_initial"%>
+                <%= button_to "Modify Learning Agreement", user_dm_create_path, :method=> :post, :class => "custom-button ", :form_class => "inline" %>
+            <% end %>
+            <% if current_user.progress_status == "during_user_editing"%>
+                <%= render partial: "users/user_dashboard_before_panel", :locals => {
+						:admin => false,
+						:name => :during_la,
+						:current_user => current_user,
+						:content => current_user.during_la,
+						:file_name => current_user.during_la_signed_student_file_name,
+						:label => "During the Mobility LA"}  %>
+            <% end %>
+            <% if current_user.progress_status == "during_accepted_pending_admin"%>
+                <%= render partial: "users/user_dashboard_before_panel", :locals => {
+                                    :admin => false,
+                                    :user => current_user,
+                                    :name => :payment_slip,
+                                    :content => current_dm.during_la_signed_home,
+                                    :file_name => current_dm.during_la_signed_home_file_name,
+                                    :label => "DM-LA signed by home institution" } %>
+                <%= render partial: "users/user_dashboard_before_panel", :locals => {
+                                    :admin => false,
+                                    :user => current_user,
+                                    :name => :payment_slip,
+                                    :content => current_dm.payment_slip,
+                                    :file_name => current_dm.payment_slip_file_name,
+                                    :label => "Payment slip" } %>
+            <% elsif current_user.progress_status == "during_accepted_pending_student"%>
+                <%= render partial: "users/user_dashboard_before_panel", :locals => {
+                                    :admin => false,
+                                    :user => current_user,
+                                    :name => :during_la_signed_all,
+                                    :content => current_dm.during_la_signed_all,
+                                    :file_name => current_dm.during_la_signed_all_file_name,
+                                    :label => "DM-LA signed by three parties" } %>
+            <% end %>
+        </div>
+    <% if current_user.progress_status == "during_initial"%>
+        <%= button_to 'Iniciar solicitud', during_request_create_path, method: :post %>
+    <% end %>
+<% end %>

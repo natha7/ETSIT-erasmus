@@ -29,10 +29,12 @@ Rails.application.routes.draw do
     get 'user_dashboard', to: "user#user_dashboard"
     get 'user_dashboard/before', to: "user#user_dashboard_before"
     get 'user_dashboard/during', to: "user#user_dashboard_during"
+    get 'user_dashboard/during/:dm_version', to: "user#user_dashboard_during"
     get 'user_dashboard/after', to: "user#user_dashboard_after"
     get 'review_dashboard/:user', to: "user#review_dashboard"
     get 'review_dashboard/:user/before', to: "user#review_dashboard_before", as: "review_dashboard_before"
     get 'review_dashboard/:user/during', to: "user#review_dashboard_during", as: "review_dashboard_during"
+    get 'review_dashboard/:user/during/:dm_version', to: "user#review_dashboard_during"
     get 'review_dashboard/:user/after', to: "user#review_dashboard_after", as: "review_dashboard_after"
     get 'admin_dashboard', to: "user#admin_dashboard"
     get 'massive_email', to: "user#massive_email"
@@ -69,8 +71,15 @@ Rails.application.routes.draw do
     post 'set_user_status', to: "user#set_user_status"
     post 'user/file_upload_ajax', to: "user#file_upload_ajax"
     post 'user/submit_la', to: "user#submit_la"
+    post '/user/submit_dm', to: "user#submit_dm"
     post 'update_settings', to: "user#update_settings"
     delete 'user/file_delete', to: "user#file_delete"
+    delete 'user/file_delete_admin', to: "user#file_delete_admin"
     get "*erasmus/", to: "home#filter_double_erasmus"
+
+    post 'change_status/during/:user', to: "user#change_status_during", as: "user_change_status_during"
+    post 'change_status/after/:user', to: "user#change_status_after", as: "user_change_status_after"
+
+    post 'during/dm_create', to: "user#during_dm_create"
   end
 end

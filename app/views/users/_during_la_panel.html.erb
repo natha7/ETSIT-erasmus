@@ -1,0 +1,117 @@
+<%= form_for current_user, url: RELATIVE_URL + "/user/submit_dm", html: { id: "dm-form" }, :method => :POST do |form| %>
+  <% unless admin %>
+    <p class="intro-paragraph alert">
+      The following table must include all the educational components to be carried out at ETSIT. Please, fill in the table below with the same subjects that you have included in your Learning Agreement - During the Mobility pdf. You must also upload a copy of this document signed by you.
+    </p>
+  <%end%>
+<div class="learning-agreement-transcription">
+  <div class="la-row la-header">
+    <label class="la-degree">Degree <i class="info-icon mdi mdi-information-outline"></i></label>
+    <label class="la-code">Code</label>
+    <label class="la-name">Name</label>
+    <label class="la-semester"><span style="display:inline-block; width: -20px;"></span>Semester</label>
+    <label class="la-ects">ECTS</label>
+    <% unless admin %>
+     <label class=""></label>
+    <%end%>
+  </div>
+  <%total = 0 %>
+  <% if !current_user.during_la.during_la_subjects.blank? %>
+    <% current_user.during_la.during_la_subjects.each do |subject|%>
+      <% total += subject.ects %>
+      <div class="la-row la-form-row la-subject-existing" lang="en-US">
+        <select class="la-degree" name="user[learning_agreement_subjects][][degree]" value="<%= subject.degree %>" <%= admin ? "disabled":"" %>>
+          <option value="" disabled required ></option>
+          <option value="GITST" <%= subject.degree == "GITST" ? "selected" : "" %>>GITST</option>
+          <option value="GIB" <%= subject.degree == "GIB" ? "selected" : "" %>>GIB</option>
+          <option value="MUIT" <%= subject.degree == "MUIT" ? "selected" : "" %>>MUIT</option>
+          <option value="MUIB" <%= subject.degree == "MUIB" ? "selected" : "" %>>MUIB</option>
+          <option value="MUSTC" <%= subject.degree == "MUSTC" ? "selected" : "" %>>MUSTC</option>
+          <option value="MUCS" <%= subject.degree == "MUCS" ? "selected" : "" %>>MUCS</option>
+          <option value="MUESFV" <%= subject.degree == "MUESFV" ? "selected" : "" %>>MUESFV</option>
+          <option value="MUISE" <%= subject.degree == "MUISE" ? "selected" : "" %>>MUISE</option>
+          <option value="MUIRST" <%= subject.degree == "MUIRST" ? "selected" : "" %>>MUIRST</option>
+          <option value="MUTECI" <%= subject.degree == "MUTECI" ? "selected" : "" %>>MUTECI</option>
+          <option value="MUIF" <%= subject.degree == "MUIF" ? "selected" : "" %>>MUIF</option>
+          <option value="Other" <%= subject.degree == "Other" ? "selected" : "" %>>Other</option>
+        </select>
+        <input class="la-code" name="user[during_la][during_la_subjects][][code]" value="<%= subject.code %>" <%= admin ? "disabled":"" %> />
+        <input class="la-name" name="user[during_la][during_la_subjects][][subject]" value="<%= subject.subject %>" <%= admin ? "disabled":"" %> />
+        <select class="la-semester" name="user[during_la][during_la_subjects][][semester]" value="<%= subject.semester %>" <%= admin ? "disabled":"" %>>
+          <option selected="selected" value="" disabled required ></option>
+          <option value="Fall" <%= subject.semester == "Fall" ? "selected" : "" %>>Fall</option>
+          <option value="Spring" <%= subject.semester == "Spring" ? "selected" : "" %>>Spring</option>
+        </select>
+        <input class="la-ects" name="user[during_la][during_la_subjects][][ects]" value="<%= subject.ects %>" type="number" min="0" step="any" max="400" <%= admin ? "disabled":"" %> />
+        <% unless admin %>
+          <button class="delete-la-button transparent-button small-button secondary" type="button"><i class="mdi mdi-close"></i></button>
+        <% end %>
+      </div>
+    <%end %>
+  <%end %>
+  <%unless admin %>
+  <div class="la-row la-form-row" lang="en-US" id="la-subject-new">
+    <select class="la-degree" name="user[during_la][during_la_subjects][][degree]">
+      <option value="" disabled selected required></option>
+      <option value="GITST">GITST</option>
+      <option value="GIB">GIB</option>
+      <option value="MUIT">MUIT</option>
+      <option value="MUIB">MUIB</option>
+      <option value="MUSTC">MUSTC</option>
+      <option value="MUCS">MUCS</option>
+      <option value="MUESFV">MUESFV</option>
+      <option value="MUISE">MUISE</option>
+      <option value="MUIRST">MUIRST</option>
+      <option value="MUTECI">MUTECI</option>
+      <option value="MUIF">MUIF</option>
+      <option value="Other">Other</option>
+    </select>
+    <input class="la-code" name="user[during_la][during_la_subjects][][code]" />
+    <input class="la-name" name="user[during_la][during_la_subjects][][subject]" />
+    <select class="la-semester" name="user[during_la][during_la_subjects][][semester]" <%= admin ? "disabled":"" %>>
+          <option value="" disabled required ></option>
+          <option value="Fall" >Fall</option>
+          <option value="Spring">Spring</option>
+    </select>
+    <input class="la-ects" name="user[during_la][during_la_subjects][][ects]" type="number" min="0" step="any"  max="400"  />
+    <button class="delete-la-button transparent-button small-button secondary" type="button"><i class="mdi mdi-close"></i></button>
+  </div>
+    <%end %>
+</div>
+
+  <div class="la-total ">
+    <%unless admin %>
+      <button class="custom-button primary" id="add-dm-subject" type="button"><i class="mdi mdi-plus"></i></button>
+      <%= form.submit "Save", :class => "custom-button primary" %>
+      <label id="la-server-msg"></label>
+  <%end %>
+    <% if admin and current_user.during_la.during_la_subjects.length == 0 %>
+      <center class="intro-paragraph"><em>No subjects selected</em></center>
+    <%else %>
+      <span class="right la-total-label">Total: &nbsp;  <b><span id="total-ects"><%= total.round(2) %></span></b> &nbsp;ECTS</span>
+    <% end %>
+  </div>
+
+<br/>
+
+<% end %>
+
+<div id="info-degrees-dialog" >
+  <h2 class="title">What to study at ETSIT</h2>
+  <button class="transparent-button action-button right close" id="info-degrees-dialog-close"><i class="mdi mdi-close"></i></button>
+  <ul>
+    <li class="info-degree"><a target="_blank" href="http://www.etsit.upm.es/estudios/grado-en-ingenieria-de-tecnologias-y-servicios-de-telecomunicacion.html">Grado en Ingeniería de Tecnologías y Servicios de Telecomunicación (GITST)</a> </li>
+    <li class="info-degree"><a target="_blank" href="http://www.etsit.upm.es/estudios/grado-en-ingenieria-biomedica.html">Grado en Ingeniería Biomédica (GIB)</a> </li>
+    <li class="info-degree"><a target="_blank" href="http://www.etsit.upm.es/estudios/master-universitario-en-ingenieria-de-telecomunicacion.html">Máster Universitario en Ingeniería de Telecomunicación (MUIT)</a> </li>
+    <li class="info-degree"><a target="_blank" href="http://www.etsit.upm.es/estudios/masteres-oficiales/programas-ofertados/master-u-ciberseguridad.html">Máster Universitario en Ciberseguridad (MUCS)</a> </li>
+    <li class="info-degree"><a target="_blank" href="http://www.etsit.upm.es/estudios/masteres-oficiales/programas-ofertados/master-u-energia-solar-fotovoltaica.html">Máster Universitario en Energía Solar Fotovoltaica (MUESFV)</a> </li>
+    <li class="info-degree"><a target="_blank" href="http://www.etsit.upm.es/estudios/masteres-oficiales/programas-ofertados/master-u-ingenieria-biomedica.html">Máster Universitario en Ingeniería Biomédica (MUIB)</a> </li>
+    <li class="info-degree"><a target="_blank" href="http://www.etsit.upm.es/estudios/masteres-oficiales/programas-ofertados/master-u-ingenieria-de-redes-y-servicios-telematicos.html">Máster Universitario en Ingeniería de Redes y Servicios Telemáticos (MUIRST)</a> </li>
+    <li class="info-degree"><a target="_blank" href="http://www.etsit.upm.es/estudios/masteres-oficiales/programas-ofertados/master-u-ingenieria-de-sistemas-electronicos.html">Máster Universitario en Ingeniería de Sistemas Electrónicos (MUISE)</a> </li>
+    <li class="info-degree"><a target="_blank" href="http://www.etsit.upm.es/?id=2074">Máster Universitario en Ingeniería Fotónica (MUIF)</a> </li>
+    <li class="info-degree"><a target="_blank" href="http://www.etsit.upm.es/estudios/masteres-oficiales/programas-ofertados/master-u-tratamiento-estadistico-computacional-de-la-informacion.html">Máster Universitario en Tratamiento Estadístico-Computacional de la Información (MUTECI)</a> </li>
+    <li class="info-degree"><a target="_blank" href="http://www.etsit.upm.es/?id=2077">Master of Science in Signal Theory and Communications (MUSTC)</a> </li>
+  </ul>
+  <br/>
+  <p class="more-info">More degrees available at <b><a target="_blank" href="http://upm.es">upm.es</a></b>.</p>
+</div>

@@ -1335,7 +1335,7 @@ var data = [
         "degree": "MUCS",
         "code": 93001012,
         "name": "",
-        "nombre": "DISEÑO DE ESTRATEGIAS CORPORATIVAS DE CIBERSEGURIDAD",
+        "nombre": "DISEÃ‘O DE ESTRATEGIAS CORPORATIVAS DE CIBERSEGURIDAD",
         "ects": 3,
         "acron": "",
         "year": 1
@@ -2165,7 +2165,7 @@ var data = [
         "name": "MEDICAL IMAGES AND SIGNALS",
         "nombre": "SENALES E IMAGENES MEDICAS",
         "ects": 6,
-        "acron": "SÑIM",
+        "acron": "SÃ‘IM",
         "year": 2
     },
     {
@@ -2406,7 +2406,7 @@ var data = [
         "degree": "MUISE",
         "code": 93001023,
         "name": "",
-        "nombre": "DISEÑO ELECTRONICO ORIENTADO A PRODUCTO",
+        "nombre": "DISEÃ‘O ELECTRONICO ORIENTADO A PRODUCTO",
         "ects": 4,
         "acron": "DEOP",
         "year": ""

@@ -19,7 +19,7 @@
 			<div class="align-right">
 				<div class="file-name"><i class="mdi mdi-file"></i> <span class=""> <%= link_to  file_name,  content.url %></span></div>
 				<%if admin === true  %>
-					<%= button_to "Delete", user_file_delete_url(:id => current_user.id, :attachment => name), :method=> :delete, :class => "custom-button" , :form_class =>   "deletion" %>
+					<%= button_to "Delete", user_file_delete_admin_url(:id => current_user.id, :attachment => name), :method=> :delete, :class => "custom-button" , :form_class =>   "deletion" %>
 			<%end%>
 				<a href="<%=  content.url%>" download="<%=  file_name %>"><button class="custom-button primary">Download</button></a>
 			</div>

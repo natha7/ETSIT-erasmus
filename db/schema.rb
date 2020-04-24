@@ -10,11 +10,45 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_07_064000) do
+ActiveRecord::Schema.define(version: 2020_04_09_103800) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "unaccent"
+
+  create_table "during_la", force: :cascade do |t|
+    t.string "payment_letter_file_name"
+    t.string "payment_letter_content_type"
+    t.integer "payment_letter_file_size"
+    t.datetime "payment_letter_updated_at"
+    t.string "during_la_signed_student_file_name"
+    t.string "during_la_signed_student_content_type"
+    t.integer "during_la_signed_student_file_size"
+    t.datetime "during_la_signed_student_updated_at"
+    t.string "during_la_signed_home_file_name"
+    t.string "during_la_signed_home_content_type"
+    t.integer "during_la_signed_home_file_size"
+    t.datetime "during_la_signed_home_updated_at"
+    t.string "during_la_signed_all_file_name"
+    t.string "during_la_signed_all_content_type"
+    t.integer "during_la_signed_all_file_size"
+    t.datetime "during_la_signed_all_updated_at"
+    t.bigint "user_id"
+    t.integer "during_la_version"
+    t.index ["user_id", "during_la_version"], name: "index_during_la_docs_on_user_id_and_version"
+  end
+
+  create_table "during_la_subjects", force: :cascade do |t|
+    t.integer "code"
+    t.string "subject"
+    t.string "degree"
+    t.string "semester"
+    t.float "ects"
+    t.boolean "accepted"
+    t.bigint "user_id"
+    t.integer "during_la_version"
+    t.index ["user_id", "during_la_version"], name: "index_during_la_subjects_on_user_id_and_version"
+  end
 
   create_table "languages", force: :cascade do |t|
     t.string "name"
@@ -173,6 +207,7 @@ ActiveRecord::Schema.define(version: 2020_04_07_064000) do
     t.string "attendance_certificate_content_type"
     t.integer "attendance_certificate_file_size"
     t.datetime "attendance_certificate_updated_at"
+    t.integer "current_during_la_version"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
