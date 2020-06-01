@@ -19,7 +19,7 @@
             <a href="<%="#{RELATIVE_URL}/review_dashboard/#{params[:user]}/before"%>"><button class='custom-button primary'>Before the Mobility</button></a>
             <a href="<%="#{RELATIVE_URL}/review_dashboard/#{params[:user]}/during"%>"><button class='custom-button primary'>During the Mobility</button></a>
             <a href="<%="#{RELATIVE_URL}/review_dashboard/#{params[:user]}/after"%>"><button class='custom-button primary'>After the Mobility</button></a>
-        <% elsif current_user.progress_status.include? "during"%>%>
+        <% elsif current_user.progress_status.include? "during"%>
             <a href="<%="#{RELATIVE_URL}/review_dashboard/#{params[:user]}/before"%>"><button class='custom-button primary'>Before the Mobility</button></a>
             <a href="<%="#{RELATIVE_URL}/review_dashboard/#{params[:user]}/during"%>"><button class='custom-button primary'>During the Mobility</button></a>
             <a href="<%="#{RELATIVE_URL}/review_dashboard/#{params[:user]}/after"%>"><button class='custom-button primary' disabled>After the Mobility</button></a>
@@ -186,9 +186,8 @@
 </div>
 <p class="intro-paragraph  footer-paragraph s12">
 	<div class="align-right">
-		<%= button_to "Change status to: During the Mobility", user_change_status_during_path, :method=> :post, :class => "custom-button primary", params: {user: current_user}%>
 		<a download href="<%= "#{RELATIVE_URL}/download_all_files/#{current_user.id}" %>"><button class="custom-button primary">Download all files</button></a>
-		<!--	<%#if current_user.progress_status === "accepted" %><a download href="<%#= "#{RELATIVE_URL}/generate_acceptance_letter/#{current_user.id}" %>">
+		<!--	<%#if current_user.progress_status === "before_accepted" %><a download href="<%#= "#{RELATIVE_URL}/generate_acceptance_letter/#{current_user.id}" %>">
 			<button class="custom-button primary">Generate Acceptance Letter</button>
 		</a><%#end%>-->
 		<button id="acceptance-letter-dialog-button" class="custom-button primary">Generate Acceptance Letter</button>

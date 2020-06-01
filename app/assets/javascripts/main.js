@@ -546,6 +546,15 @@ $(document).on('turbolinks:load', function() {
     if (laCode && laCode.length > 0) {
         $("#la-subject-new .la-code").autocomplete(codeAutoComplete()).autocomplete( "instance" )._renderItem = renderFunction;
     }
+    $(".la-subject-existing .la-semester").each(function(i,e){
+        var $e=$(e);
+        var degree = $e.prev().val();
+        $e.autocomplete(codeAutoComplete(degree)).autocomplete( "instance" )._renderItem = renderFunction;
+    });
+    var laSemester = $("#la-subject-new .la-semester");
+    if (laSemester && laSemester.length > 0) {
+        $("#la-subject-new .la-semester").autocomplete(codeAutoComplete()).autocomplete( "instance" )._renderItem = renderFunction;
+    }
     var multiLa = $("#la-subject-new .la-name, #la-subject-new .la-code");
     if (multiLa && multiLa.length > 0){
         multiLa.data("ui-autocomplete")._trigger("change");
@@ -918,7 +927,7 @@ $(document).on('turbolinks:load', function() {
     $('.progressStatus').on('change', function(e){
         var newval=$(this).val();
         var confirmed = true;
-        if (newval === "accepted") {
+        if (newval === "before_accepted") {
             confirmed = confirm("This student will be accepted, and the application will send an email to welcoming him/her. Are you sure you want to change the status for this user?");
         }
         if (confirmed) {

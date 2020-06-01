@@ -10,11 +10,11 @@
 <% else %>
 	<div class="align-center">
         <% if current_user.progress_status.include? "after"%>
-            <a href="<%="#{RELATIVE_URL}/user_dashboard/before"%>"><button class='custom-button primary'>Before the Mobility</button></a>
-            <a href="<%="#{RELATIVE_URL}/user_dashboard/during"%>"><button class='custom-button primary'>During the Mobility</button></a>
+            <a href="<%="#{RELATIVE_URL}/user_dashboard/before"%>"><button class='custom-button primary'disabled>Before the Mobility</button></a>
+            <a href="<%="#{RELATIVE_URL}/user_dashboard/during"%>"><button class='custom-button primary' disabled>During the Mobility</button></a>
             <a href="<%="#{RELATIVE_URL}/user_dashboard/after"%>"><button class='custom-button primary'>After the Mobility</button></a>
-        <% elsif current_user.progress_status.include? "during"%>%>
-            <a href="<%="#{RELATIVE_URL}/user_dashboard/before"%>"><button class='custom-button primary'>Before the Mobility</button></a>
+        <% elsif current_user.progress_status.include? "during"%>
+            <a href="<%="#{RELATIVE_URL}/user_dashboard/before"%>"><button class='custom-button primary' disabled>Before the Mobility</button></a>
             <a href="<%="#{RELATIVE_URL}/user_dashboard/during"%>"><button class='custom-button primary'>During the Mobility</button></a>
             <a href="<%="#{RELATIVE_URL}/user_dashboard/after"%>"><button class='custom-button primary' disabled>After the Mobility</button></a>
         <% else%>
@@ -34,31 +34,46 @@
             </div>
             <div class="right-column">
             <% if current_user.progress_status == "during_initial"%>
-                <%= button_to "Modify Learning Agreement", user_dm_create_path, :method=> :post, :class => "custom-button ", :form_class => "inline" %>
+                <%= button_to "Modify Learning Agreement", user_dm_create_path, :method=> :post, :class => "custom-button", params: {current_dm_version: current_user.current_during_la_version}%>
+            <% else%>
+                <% current_dm = DuringLA.where(user_id: current_user.id, during_la_version: current_user.current_during_la_version).first %>
             <% end %>
             <% if current_user.progress_status == "during_user_editing"%>
                 <%= render partial: "users/user_dashboard_before_panel", :locals => {
 						:admin => false,
-						:name => :during_la,
-						:current_user => current_user,
-						:content => current_user.during_la,
-						:file_name => current_user.during_la_signed_student_file_name,
-						:label => "During the Mobility LA"}  %>
-            <% end %>
-            <% if current_user.progress_status == "during_accepted_pending_admin"%>
+						:name => :during_la_signed_student,
+                        :current_user => current_user,
+						:content => current_dm.during_la_signed_student,
+						:file_name => current_dm.during_la_signed_student_file_name,
+						:label => "During the Mobility LA (signed by student)"}  %>
+            <% elsif current_user.progress_status == "during_review_pending"%>
+                <h2> The International Office has been notified and they will get back to you soon. </h2>
+            <% elsif current_user.progress_status == "during_user_reviewing"%>
+                <p>These changes were not accepted. Please, make the following changes:</p>
+                <%= form_for current_user, url: RELATIVE_URL + "/during/submit_admin_review_comment", html: { id: "admin-review-comment-form" }, :method => :POST do |form| %>
+                    <textarea name="admin_review_comment" cols="110" rows="2" value="<%= current_dm.admin_review_comment %>" disabled/></textarea><br><br>
+                <%end %>
                 <%= render partial: "users/user_dashboard_before_panel", :locals => {
-                                    :admin => false,
+						:admin => false,
+						:name => :during_la_signed_student,
+                        :current_user => current_user,
+						:content => current_dm.during_la_signed_student,
+						:file_name => current_dm.during_la_signed_student_file_name,
+						:label => "During the Mobility LA (signed by student)"}  %>
+            <% elsif current_user.progress_status == "during_accepted_pending_admin"%>
+                <%= render partial: "users/user_dashboard_before_panel", :locals => {
+                                    :admin => true,
                                     :user => current_user,
-                                    :name => :payment_slip,
-                                    :content => current_dm.during_la_signed_home,
-                                    :file_name => current_dm.during_la_signed_home_file_name,
+                                    :name => :payment_letter,
+                                    :content => current_dm.during_la_signed_host,
+                                    :file_name => current_dm.during_la_signed_host_file_name,
                                     :label => "DM-LA signed by home institution" } %>
                 <%= render partial: "users/user_dashboard_before_panel", :locals => {
-                                    :admin => false,
+                                    :admin => true,
                                     :user => current_user,
-                                    :name => :payment_slip,
-                                    :content => current_dm.payment_slip,
-                                    :file_name => current_dm.payment_slip_file_name,
+                                    :name => :payment_letter,
+                                    :content => current_dm.payment_letter,
+                                    :file_name => current_dm.payment_letter_file_name,
                                     :label => "Payment slip" } %>
             <% elsif current_user.progress_status == "during_accepted_pending_student"%>
                 <%= render partial: "users/user_dashboard_before_panel", :locals => {
@@ -69,8 +84,10 @@
                                     :file_name => current_dm.during_la_signed_all_file_name,
                                     :label => "DM-LA signed by three parties" } %>
             <% end %>
+        <p class="intro-paragraph  footer-paragraph s12">
+            <% if current_user.role == "user" && (current_user.progress_status == "during_user_editing" || current_user.progress_status == "during_user_reviewing") && !current_dm.during_la_signed_student.blank?%>
+                   <%= button_to "Send LA Modifications", user_send_during_la_modifications_path, data: {confirm: "This action will submit your During LA modifications and send an email to notify the International Office, are you sure?" }, :method=> :post, :class => "custom-button primary ", :form_class => "finish_app", params: {:user => current_user, :current_dm_version => current_user.current_during_la_version} %>
+            <% end %>
+        </p>
         </div>
-    <% if current_user.progress_status == "during_initial"%>
-        <%= button_to 'Iniciar solicitud', during_request_create_path, method: :post %>
-    <% end %>
 <% end %>

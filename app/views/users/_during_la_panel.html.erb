@@ -1,4 +1,6 @@
+<% dm_subjects = DuringLASubject.where(user_id: current_user.id, during_la_version: dm_version)%>
 <%= form_for current_user, url: RELATIVE_URL + "/user/submit_dm", html: { id: "dm-form" }, :method => :POST do |form| %>
+  <%= hidden_field_tag :dm_version, dm_version %>
   <% unless admin %>
     <p class="intro-paragraph alert">
       The following table must include all the educational components to be carried out at ETSIT. Please, fill in the table below with the same subjects that you have included in your Learning Agreement - During the Mobility pdf. You must also upload a copy of this document signed by you.
@@ -16,11 +18,11 @@
     <%end%>
   </div>
   <%total = 0 %>
-  <% if !current_user.during_la.during_la_subjects.blank? %>
-    <% current_user.during_la.during_la_subjects.each do |subject|%>
+  <% if !dm_subjects.blank? %>
+    <% dm_subjects.each do |subject|%>
       <% total += subject.ects %>
       <div class="la-row la-form-row la-subject-existing" lang="en-US">
-        <select class="la-degree" name="user[learning_agreement_subjects][][degree]" value="<%= subject.degree %>" <%= admin ? "disabled":"" %>>
+        <select class="la-degree" name="user[during_la_subjects][][degree]" value="<%= subject.degree %>" <%= admin ? "disabled":"" %>>
           <option value="" disabled required ></option>
           <option value="GITST" <%= subject.degree == "GITST" ? "selected" : "" %>>GITST</option>
           <option value="GIB" <%= subject.degree == "GIB" ? "selected" : "" %>>GIB</option>
@@ -35,14 +37,14 @@
           <option value="MUIF" <%= subject.degree == "MUIF" ? "selected" : "" %>>MUIF</option>
           <option value="Other" <%= subject.degree == "Other" ? "selected" : "" %>>Other</option>
         </select>
-        <input class="la-code" name="user[during_la][during_la_subjects][][code]" value="<%= subject.code %>" <%= admin ? "disabled":"" %> />
-        <input class="la-name" name="user[during_la][during_la_subjects][][subject]" value="<%= subject.subject %>" <%= admin ? "disabled":"" %> />
-        <select class="la-semester" name="user[during_la][during_la_subjects][][semester]" value="<%= subject.semester %>" <%= admin ? "disabled":"" %>>
-          <option selected="selected" value="" disabled required ></option>
+        <input class="la-code" name="user[during_la_subjects][][code]" value="<%= subject.code %>" <%= admin ? "disabled":"" %> />
+        <input class="la-name" name="user[during_la_subjects][][subject]" value="<%= subject.subject %>" <%= admin ? "disabled":"" %> />
+        <select class="la-semester" name="user[during_la_subjects][][semester]" value="<%= subject.semester %>" <%= admin ? "disabled":"" %>>
+          <option value="" disabled required ></option>
           <option value="Fall" <%= subject.semester == "Fall" ? "selected" : "" %>>Fall</option>
           <option value="Spring" <%= subject.semester == "Spring" ? "selected" : "" %>>Spring</option>
         </select>
-        <input class="la-ects" name="user[during_la][during_la_subjects][][ects]" value="<%= subject.ects %>" type="number" min="0" step="any" max="400" <%= admin ? "disabled":"" %> />
+        <input class="la-ects" name="user[during_la_subjects][][ects]" value="<%= subject.ects %>" type="number" min="0" step="any" max="400" <%= admin ? "disabled":"" %> />
         <% unless admin %>
           <button class="delete-la-button transparent-button small-button secondary" type="button"><i class="mdi mdi-close"></i></button>
         <% end %>
@@ -51,7 +53,7 @@
   <%end %>
   <%unless admin %>
   <div class="la-row la-form-row" lang="en-US" id="la-subject-new">
-    <select class="la-degree" name="user[during_la][during_la_subjects][][degree]">
+    <select class="la-degree" name="user[during_la_subjects][][degree]">
       <option value="" disabled selected required></option>
       <option value="GITST">GITST</option>
       <option value="GIB">GIB</option>
@@ -66,26 +68,26 @@
       <option value="MUIF">MUIF</option>
       <option value="Other">Other</option>
     </select>
-    <input class="la-code" name="user[during_la][during_la_subjects][][code]" />
-    <input class="la-name" name="user[during_la][during_la_subjects][][subject]" />
-    <select class="la-semester" name="user[during_la][during_la_subjects][][semester]" <%= admin ? "disabled":"" %>>
-          <option value="" disabled required ></option>
+    <input class="la-code" name="user[during_la_subjects][][code]" />
+    <input class="la-name" name="user[during_la_subjects][][subject]" />
+    <select class="la-semester" name="user[during_la_subjects][][semester]" <%= admin ? "disabled":"" %>>
+          <option value="" disabled selected required ></option>
           <option value="Fall" >Fall</option>
           <option value="Spring">Spring</option>
     </select>
-    <input class="la-ects" name="user[during_la][during_la_subjects][][ects]" type="number" min="0" step="any"  max="400"  />
+    <input class="la-ects" name="user[during_la_subjects][][ects]" type="number" min="0" step="any"  max="400"  />
     <button class="delete-la-button transparent-button small-button secondary" type="button"><i class="mdi mdi-close"></i></button>
   </div>
-    <%end %>
+    <% end %>
 </div>
 
   <div class="la-total ">
     <%unless admin %>
-      <button class="custom-button primary" id="add-dm-subject" type="button"><i class="mdi mdi-plus"></i></button>
+      <button class="custom-button primary" id="add-la-subject" type="button"><i class="mdi mdi-plus"></i></button>
       <%= form.submit "Save", :class => "custom-button primary" %>
       <label id="la-server-msg"></label>
   <%end %>
-    <% if admin and current_user.during_la.during_la_subjects.length == 0 %>
+    <% if !admin and dm_subjects.empty? %>
       <center class="intro-paragraph"><em>No subjects selected</em></center>
     <%else %>
       <span class="right la-total-label">Total: &nbsp;  <b><span id="total-ects"><%= total.round(2) %></span></b> &nbsp;ECTS</span>

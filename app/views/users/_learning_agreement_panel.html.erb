@@ -38,7 +38,7 @@
         <input class="la-code" name="user[learning_agreement_subjects][][code]" value="<%= subject.code %>" <%= admin ? "disabled":"" %> />
         <input class="la-name" name="user[learning_agreement_subjects][][subject]" value="<%= subject.subject %>" <%= admin ? "disabled":"" %> />
         <select class="la-semester" name="user[learning_agreement_subjects][][semester]" value="<%= subject.semester %>" <%= admin ? "disabled":"" %>>
-          <option selected="selected" value="" disabled required ></option>
+          <option value="" disabled required ></option>
           <option value="Fall" <%= subject.semester == "Fall" ? "selected" : "" %>>Fall</option>
           <option value="Spring" <%= subject.semester == "Spring" ? "selected" : "" %>>Spring</option>
         </select>

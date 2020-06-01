@@ -16,28 +16,6 @@ ActiveRecord::Schema.define(version: 2020_04_09_103800) do
   enable_extension "plpgsql"
   enable_extension "unaccent"
 
-  create_table "during_la", force: :cascade do |t|
-    t.string "payment_letter_file_name"
-    t.string "payment_letter_content_type"
-    t.integer "payment_letter_file_size"
-    t.datetime "payment_letter_updated_at"
-    t.string "during_la_signed_student_file_name"
-    t.string "during_la_signed_student_content_type"
-    t.integer "during_la_signed_student_file_size"
-    t.datetime "during_la_signed_student_updated_at"
-    t.string "during_la_signed_home_file_name"
-    t.string "during_la_signed_home_content_type"
-    t.integer "during_la_signed_home_file_size"
-    t.datetime "during_la_signed_home_updated_at"
-    t.string "during_la_signed_all_file_name"
-    t.string "during_la_signed_all_content_type"
-    t.integer "during_la_signed_all_file_size"
-    t.datetime "during_la_signed_all_updated_at"
-    t.bigint "user_id"
-    t.integer "during_la_version"
-    t.index ["user_id", "during_la_version"], name: "index_during_la_docs_on_user_id_and_version"
-  end
-
   create_table "during_la_subjects", force: :cascade do |t|
     t.integer "code"
     t.string "subject"
@@ -48,6 +26,29 @@ ActiveRecord::Schema.define(version: 2020_04_09_103800) do
     t.bigint "user_id"
     t.integer "during_la_version"
     t.index ["user_id", "during_la_version"], name: "index_during_la_subjects_on_user_id_and_version"
+  end
+
+  create_table "during_las", force: :cascade do |t|
+    t.string "payment_letter_file_name"
+    t.string "payment_letter_content_type"
+    t.integer "payment_letter_file_size"
+    t.datetime "payment_letter_updated_at"
+    t.string "during_la_signed_student_file_name"
+    t.string "during_la_signed_student_content_type"
+    t.integer "during_la_signed_student_file_size"
+    t.datetime "during_la_signed_student_updated_at"
+    t.string "during_la_signed_host_file_name"
+    t.string "during_la_signed_host_content_type"
+    t.integer "during_la_signed_host_file_size"
+    t.datetime "during_la_signed_host_updated_at"
+    t.string "during_la_signed_all_file_name"
+    t.string "during_la_signed_all_content_type"
+    t.integer "during_la_signed_all_file_size"
+    t.datetime "during_la_signed_all_updated_at"
+    t.string "admin_review_comment"
+    t.bigint "user_id"
+    t.integer "during_la_version"
+    t.index ["user_id", "during_la_version"], name: "index_during_la_docs_on_user_id_and_version"
   end
 
   create_table "languages", force: :cascade do |t|

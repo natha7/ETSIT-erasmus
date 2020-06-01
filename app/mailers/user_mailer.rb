@@ -6,8 +6,34 @@ class UserMailer < ApplicationMailer
 	 	@url = url
 	 	admins = User.where(:role => "admin")
 	 	emails = admins.collect(&:email).join(",")
-	 	mail(to: emails , subject: @user.first_name +  ' has finished its application', encrypt: true)
+	 	mail(to: emails , subject: @user.first_name +  ' has finished their application', encrypt: true)
 	 end
+
+	 def send_during_la_modifications_mail_to_admins(url, user)
+		@user = user
+		@url = url
+		admins = User.where(:role => "admin")
+		emails = admins.collect(&:email).join(",")
+		mail(to: emails , subject: @user.first_name +  ' has uploaded their During LA modifications', encrypt: true)
+	end
+
+	def accept_during_la_modifications_mail(url, user)
+		@user = user
+		@url = url
+		mail(to: @user.email , subject: 'Your During LA modifications have been accepted. We shall upload your documents soon', encrypt: true)
+	end
+
+	def reject_during_la_modifications_mail(url, user)
+		@user = user
+		@url = url
+		mail(to: @user.email , subject: 'Your During LA modifications have been rejected. Please review the International Office\'s comments and change them accordingly', encrypt: true)
+	end
+
+	def admin_notify_uploaded_during(url, user)
+		@user = user
+		@url = url
+		mail(to: @user.email , subject: 'Your During LA documents have been uploaded. You can now login to review and download them.', encrypt: true)
+	end
 
 	def reviewed_application_mail(url, user)
 		@url = url

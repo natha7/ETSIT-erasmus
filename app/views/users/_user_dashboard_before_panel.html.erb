@@ -25,21 +25,15 @@
 						:file_name => file_name,
 						:label => "Learning Agreement"}  %>
 			<%end %>
-			<% if name === :during_la %>
-				<%= render partial: "users/during_la_panel", :locals => {
-						:admin => admin,
-						:name => name,
-						:current_user => current_user,
-						:content => content,
-						:file_name => file_name,
-						:label => "During the Mobility LA"}  %>
-			<%end %>
 			<div class="align-right">
 				<div class="file-name"><i class="mdi mdi-file"></i> <span class=""> <%= link_to  file_name,  content.url %></span></div>
 				<%unless admin === true  %>
+					<% if current_user.progress_status.include? "during" %>
+						<%= button_to "Delete", user_file_delete_url(:user => current_user.id, :attachment => name, :current_dm_version => current_user.current_during_la_version), :method=> :delete, :class => "custom-button" , :form_class =>   "deletion" %>
+					<% else %>
 					<%= button_to "Delete", user_file_delete_url(:id => current_user.id, :attachment => name), :method=> :delete, :class => "custom-button" , :form_class =>   "deletion" %>
-
-			<%end%>
+					<% end%>
+				<%end%>
 				<a href="<%=  content.url%>" download="<%=  file_name %>"><button class="custom-button primary">Download</button></a>
 			</div>
 		</div>
@@ -55,27 +49,43 @@
 						:label => "Learning Agreement"}  %>
 			<%end %>
 			<%unless admin === true  %>
-				<%= form_for current_user, url: user_file_upload_path, html: { multipart: true , }, :method => :POST do |form| %>
-					<% if name === :ni_passport %>
-						<div class="ni_selection">
-							<p><b> Type of document:</b></p>
-							<%= form.radio_button :ni_type, 'id', :checked => current_user["ni_type"] == "id", :required=>true%>
-							<%= form.label :ni_type, 'Identity card', :value => :id %> &nbsp;
-							<%= form.radio_button :ni_type, 'passport', :checked => current_user["ni_type"] == "passport",  :required=>true%>
-							<%= form.label :ni_type, 'Passport',  :value => :passport %>
+				<% if if current_user.progress_status.include? "during" %>
+					<% current_dm = DuringLA.where(user_id: current_user.id, during_la_version: current_user.current_during_la_version).first %>
+					<%= form_for :current_dm, url: user_file_upload_path, html: { multipart: true }, :method => :POST do |form| %>
+						<div class="align-right">
+							<div class="file-name">
+								<%= form.file_field name %>
+							<%= form.submit "Upload", :class => "custom-button primary" %>
+						</div>
+					<% end %>
+				<% else %>
+					<%= form_for current_user, url: user_file_upload_path, html: { multipart: true }, :method => :POST do |form| %>
+						<% if name === :ni_passport %>
+							<div class="ni_selection">
+								<p><b> Type of document:</b></p>
+								<%= form.radio_button :ni_type, 'id', :checked => current_user["ni_type"] == "id", :required=>true%>
+								<%= form.label :ni_type, 'Identity card', :value => :id %> &nbsp;
+								<%= form.radio_button :ni_type, 'passport', :checked => current_user["ni_type"] == "passport",  :required=>true%>
+								<%= form.label :ni_type, 'Passport',  :value => :passport %>
 							</div>
-					<%end %>
-				<div class="align-right">
-					<div class="file-name">
-						<%= form.file_field name %>
-					</div>
-					<%= form.submit "Upload", :class => "custom-button primary" %>
-				</div>
+						<% end %>
+						<div class="align-right">
+							<div class="file-name">
+								<%= form.file_field name %>
+							</div>
+							<%= form.submit "Upload", :class => "custom-button primary" %>
+						</div>
 
+					<% end %>
 				<% end %>
 			<%else%>
 				<p class="no-results">Not yet uploaded</p>
-			<%end%>	
+			<%end%>
+			<p class="intro-paragraph  footer-paragraph s12">
+                <% if current_user.role == "admin" && current_user.progress_status == "during_review_pending" && !current_dm.during_la_signed_student.blank?%>
+                    <%= button_to "Accept During LA modifications", user_accept_during_la_modifications_path, data: {confirm: "This action will accept this student's LA modifications, are you sure?" }, :method=> :post, :class => "custom-button primary ", :form_class => "finish_app", params: {:user => current_user} %>
+                <% end %>
+            </p>
 		</div>
-	<%end%>
+	<% end %>
 </div>

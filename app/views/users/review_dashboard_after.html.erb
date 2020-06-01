@@ -19,7 +19,7 @@
             <a href="<%="#{RELATIVE_URL}/review_dashboard/#{params[:user]}/before"%>"><button class='custom-button primary'>Before the Mobility</button></a>
             <a href="<%="#{RELATIVE_URL}/review_dashboard/#{params[:user]}/during"%>"><button class='custom-button primary'>During the Mobility</button></a>
             <a href="<%="#{RELATIVE_URL}/review_dashboard/#{params[:user]}/after"%>"><button class='custom-button primary'>After the Mobility</button></a>
-        <% elsif current_user.progress_status.include? "during"%>%>
+        <% elsif current_user.progress_status.include? "during"%>
             <a href="<%="#{RELATIVE_URL}/review_dashboard/#{params[:user]}/before"%>"><button class='custom-button primary'>Before the Mobility</button></a>
             <a href="<%="#{RELATIVE_URL}/review_dashboard/#{params[:user]}/during"%>"><button class='custom-button primary'>During the Mobility</button></a>
             <a href="<%="#{RELATIVE_URL}/review_dashboard/#{params[:user]}/after"%>"><button class='custom-button primary' disabled>After the Mobility</button></a>
