@@ -29,12 +29,12 @@ Rails.application.routes.draw do
     get 'user_dashboard', to: "user#user_dashboard"
     get 'user_dashboard/before', to: "user#user_dashboard_before"
     get 'user_dashboard/during', to: "user#user_dashboard_during"
-    get 'user_dashboard/during/:dm_version', to: "user#user_dashboard_during", as: "user_dashboard_during_version"
+    get 'user_dashboard/during/history', to: "user#user_dashboard_during_history"
     get 'user_dashboard/after', to: "user#user_dashboard_after"
     get 'review_dashboard/:user', to: "user#review_dashboard"
     get 'review_dashboard/:user/before', to: "user#review_dashboard_before", as: "review_dashboard_before"
     get 'review_dashboard/:user/during', to: "user#review_dashboard_during", as: "review_dashboard_during"
-    get 'review_dashboard/:user/during/:dm_version', to: "user#review_dashboard_during", as: "review_dashboard_during_version"
+    get 'review_dashboard/:user/during/history', to: "user#review_dashboard_during_history", as: "review_dashboard_during_history"
     get 'review_dashboard/:user/after', to: "user#review_dashboard_after", as: "review_dashboard_after"
     get 'admin_dashboard', to: "user#admin_dashboard"
     get 'massive_email', to: "user#massive_email"
@@ -70,6 +70,8 @@ Rails.application.routes.draw do
     post 'user/accept_during_la_modifications', to: "user#accept_during_la_modifications", as: "user_accept_during_la_modifications"
     post 'user/reject_during_la_modifications', to: "user#reject_during_la_modifications", as: "user_reject_during_la_modifications"
     post 'user/admin_notify_uploaded_during', to: "user#admin_notify_uploaded_during", as: "user_admin_notify_uploaded_during"
+    post 'user/user_notify_uploaded_during', to: "user#user_notify_uploaded_during", as: "user_notify_uploaded_during"
+    post 'user/admin_notify_closed_during', to: "user#admin_notify_closed_during", as: "user_admin_notify_closed_during"
     post 'user/file_upload', to: "user#file_upload"
     post 'user/review/file_upload/after', to: "user#review_file_upload_after"
     post 'user/review/file_upload/during', to: "user#review_file_upload_during"
@@ -83,6 +85,7 @@ Rails.application.routes.draw do
     get "*erasmus/", to: "home#filter_double_erasmus"
 
     post 'during/dm_create', to: "user#dm_create", as: "user_dm_create"
+    post 'during/dm_cancel', to: "user#dm_cancel", as: "user_dm_cancel"
     post 'during/submit_admin_review_comment', to: "user#submit_admin_review_comment"
   end
 end

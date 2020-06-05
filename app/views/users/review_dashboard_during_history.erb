@@ -1,0 +1,84 @@
+<% unless User.exists?(id: params[:user], role: "user")  %>
+	<div class="align-right">
+		<%= button_to "Dashboard", admin_dashboard_path, :method=> :get, :class => "custom-button primary",:form_class =>"inline"%>
+		<%= button_to "Log out", destroy_user_session_path, :method=> :delete, :class => "custom-button", :form_class =>"inline"%>
+	</div>
+	<br/><br/>
+	<p class="no-results">The selected user does not exist</p>
+<%else%>
+	<% admin = current_user %>
+	<% current_user = User.find(params[:user]) %>
+    <div class="align-right">
+		<%= button_to "User Contact", "mailto:"+current_user.email , :method=> :get, :class => "custom-button primary",:form_class =>"inline"%>
+		<%= button_to "Dashboard", admin_dashboard_path, :method=> :get, :class => "custom-button primary",:form_class =>"inline"%>
+		<%= button_to "Log out", destroy_user_session_path, :method=> :delete, :class => "custom-button", :form_class =>"inline"%>
+	</div>
+
+    <div class="align-center">
+        <% if current_user.progress_status.include? "after"%>
+            <a href="<%="#{RELATIVE_URL}/review_dashboard/#{params[:user]}/before"%>"><button class='custom-button primary'>Before the Mobility</button></a>
+            <a href="<%="#{RELATIVE_URL}/review_dashboard/#{params[:user]}/during"%>"><button class='custom-button primary'>During the Mobility</button></a>
+            <a href="<%="#{RELATIVE_URL}/review_dashboard/#{params[:user]}/after"%>"><button class='custom-button primary'>After the Mobility</button></a>
+        <% elsif current_user.progress_status.include? "during"%>
+            <a href="<%="#{RELATIVE_URL}/review_dashboard/#{params[:user]}/before"%>"><button class='custom-button primary'>Before the Mobility</button></a>
+            <a href="<%="#{RELATIVE_URL}/review_dashboard/#{params[:user]}/during"%>"><button class='custom-button primary'>During the Mobility</button></a>
+            <a href="<%="#{RELATIVE_URL}/review_dashboard/#{params[:user]}/after"%>"><button class='custom-button primary' disabled>After the Mobility</button></a>
+        <% else%>
+            <a href="<%="#{RELATIVE_URL}/review_dashboard/#{params[:user]}/before"%>"><button class='custom-button primary'>Before the Mobility</button></a>
+            <a href="<%="#{RELATIVE_URL}/review_dashboard/#{params[:user]}/during"%>"><button class='custom-button primary' disabled>During the Mobility</button></a>
+            <a href="<%="#{RELATIVE_URL}/review_dashboard/#{params[:user]}/after"%>"><button class='custom-button primary' disabled>After the Mobility</button></a>
+        <% end %>
+    </div>
+
+	<br>
+	<h1 class="title"> You are reviewing <%= current_user.first_name %>'s application</h1>
+	<div class="align-center"><h1 class="title"> During the Mobility </h1></div>
+
+	<div class="dashboard-container">
+		<div class="left-column">
+			<div class="picture-container">
+				<img class="picture tiny" src="<%=admin.photo.url == "/erasmus/images/placeholder.png" ? ActionController::Base.helpers.image_path('placeholder.png') : admin.photo %>"/>
+				<p><%= admin.first_name.blank? ? "Administrator" : (admin.first_name + " " + admin.family_name) %></p>
+			</div>
+			<div class="picture-container">
+				<img class="picture" src="<%= current_user.photo.url == "/erasmus/images/placeholder.png" ? ActionController::Base.helpers.image_path('placeholder.png') : current_user.photo %>"/>
+				<p><%= current_user.first_name %> <%= current_user.family_name %></p>
+			</div>
+		</div>
+        <div class="right-column">
+			<% during_las = DuringLA.where(user_id: current_user.id).order(during_la_version: :desc) %>
+                <% during_las.each do |current_dm| %>
+                <h1 class="welcome-title">Version <%= current_dm.during_la_version %></h1>
+                    <%= render partial: "users/user_dashboard_before_panel", :locals => {
+                            :admin => true,
+                            :name => :during_la_signed_student,
+                            :current_user => current_user,
+                            :content => current_dm.during_la_signed_student,
+                            :file_name => current_dm.during_la_signed_student_file_name,
+                            :label => "During the Mobility LA (signed by student)"}  %>
+                    <%= render partial: "users/user_dashboard_before_panel", :locals => {
+                            :admin => true,
+                            :user => current_user,
+                            :name => :payment_letter,
+                            :content => current_dm.during_la_signed_host,
+                            :file_name => current_dm.during_la_signed_host_file_name,
+                            :label => "DM-LA signed by home institution" } %>
+                    <%= render partial: "users/user_dashboard_before_panel", :locals => {
+                            :admin => true,
+                            :user => current_user,
+                            :name => :payment_letter,
+                            :content => current_dm.payment_letter,
+                            :file_name => current_dm.payment_letter_file_name,
+                            :label => "Payment slip" } %>
+                    <%= render partial: "users/user_dashboard_before_panel", :locals => {
+                            :admin => true,
+                            :user => current_user,
+                            :name => :during_la_signed_all,
+                            :content => current_dm.during_la_signed_all,
+                            :file_name => current_dm.during_la_signed_all_file_name,
+                            :label => "DM-LA signed by three parties" } %>
+                    <br>
+                <% end %>
+            <%= button_to "Back", review_dashboard_during_path, :method=> :get, :class => "custom-button", :form_class => "finish_app", params: {:user => current_user} %>
+        </div>
+<% end %>

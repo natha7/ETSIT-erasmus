@@ -49,12 +49,13 @@
 						:label => "Learning Agreement"}  %>
 			<%end %>
 			<%unless admin === true  %>
-				<% if if current_user.progress_status.include? "during" %>
+				<% if current_user.progress_status.include? "during" %>
 					<% current_dm = DuringLA.where(user_id: current_user.id, during_la_version: current_user.current_during_la_version).first %>
 					<%= form_for :current_dm, url: user_file_upload_path, html: { multipart: true }, :method => :POST do |form| %>
 						<div class="align-right">
 							<div class="file-name">
 								<%= form.file_field name %>
+							</div>
 							<%= form.submit "Upload", :class => "custom-button primary" %>
 						</div>
 					<% end %>
@@ -75,7 +76,6 @@
 							</div>
 							<%= form.submit "Upload", :class => "custom-button primary" %>
 						</div>
-
 					<% end %>
 				<% end %>
 			<%else%>
@@ -85,7 +85,7 @@
                 <% if current_user.role == "admin" && current_user.progress_status == "during_review_pending" && !current_dm.during_la_signed_student.blank?%>
                     <%= button_to "Accept During LA modifications", user_accept_during_la_modifications_path, data: {confirm: "This action will accept this student's LA modifications, are you sure?" }, :method=> :post, :class => "custom-button primary ", :form_class => "finish_app", params: {:user => current_user} %>
                 <% end %>
-            </p>
+			</p>
 		</div>
 	<% end %>
 </div>

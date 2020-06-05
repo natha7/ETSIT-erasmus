@@ -71,7 +71,7 @@
                         </div>
                 <%end %>
             <% elsif current_user.progress_status == "during_user_reviewing"%>
-                <h2> The following user has not uploaded their reviewed LA modifications yet.</h2>
+                <p class="no-results"> The following user has not uploaded their reviewed LA modifications yet.</p>
             <% elsif current_user.progress_status == "during_accepted_pending_admin"%>
                 <%= render partial: "users/review_dashboard_panel", :locals => {
                                     :admin => true,
@@ -87,7 +87,9 @@
                                     :content => current_dm.payment_letter,
                                     :file_name => current_dm.payment_letter_file_name,
                                     :label => "Payment letter" } %>
-            <% elsif current_user.progress_status == "during_accepted_pending_student"%>
+            <% elsif current_user.progress_status == "during_accepted_pending_user"%>
+                <p class="no-results">This user has not uploaded the document yet.</p>
+            <% elsif current_user.progress_status == "during_accepted_pending_closure"%>
                 <%= render partial: "users/user_dashboard_before_panel", :locals => {
                                     :admin => true,
                                     :user => current_user,
@@ -104,11 +106,14 @@
                     <% end %>
                 <% end %>
                 <% if current_user.role == "user" && current_user.progress_status == "during_accepted_pending_admin" && !current_dm.during_la_signed_host.blank? && !current_dm.payment_letter.blank?%>
-                    <%= button_to "Accept LA Modifications", user_accept_during_la_modifications_path, data: {confirm: "This action will accept these During LA modifications and send an email to notify the student, are you sure?" }, :method=> :post, :class => "custom-button primary ", :form_class => "finish_app", params: {:user => current_user, :dm_version => current_user.current_during_la_version} %>
-                    <% if  !current_dm.admin_review_comment.blank?%>
-                        <%= button_to "Send documents to student", user_admin_notify_uploaded_during_path, data: {confirm: "This action will reject these During LA modifications and send an email to notify the student, are you sure?" }, :method=> :post, :class => "custom-button", :form_class => "finish_app", params: {:user => current_user, :dm_version => current_user.current_during_la_version} %>
-                    <% end %>
+                    <%= button_to "Send documents to student", user_admin_notify_uploaded_during_path, data: {confirm: "This action will reject these During LA modifications and send an email to notify the student, are you sure?" }, :method=> :post, :class => "custom-button primary", :form_class => "finish_app", params: {:user => current_user, :dm_version => current_user.current_during_la_version} %>
                 <% end %>
+                <% if current_user.role == "user" && current_user.progress_status == "during_accepted_pending_closure"%>
+                    <%= button_to "Accept document and close DM request", user_admin_notify_closed_during_path, data: {confirm: "This action will close this During LA modifications request and send an email to notify the student, are you sure?" }, :method=> :post, :class => "custom-button primary", :form_class => "finish_app", params: {:user => current_user, :dm_version => current_user.current_during_la_version} %>
+                <% end %>
+                <% if current_user.current_during_la_version <= 2 %>
+					<%= button_to "View modifications history", review_dashboard_during_history_path, :method=> :get, :class => "custom-button", :form_class => "finish_app", params: {:user => current_user} %>
+				<% end %>
             </p>
         </div>
 <% end %>

@@ -53,18 +53,23 @@ class UserController < ApplicationController
 		end
 	end
 
+	def user_dashboard_during_history
+		render "users/user_dashboard_during_history"
+	end
+
 	def user_dashboard_after
 		render "users/user_dashboard_after"
 	end
 
 	def review_dashboard
-		admin = current.user
-		if current_user.progress_status.include? "after"
-			redirect_to user_review_dashboard_after_path
-		elsif current_user.progress_status.include? "during"
-			redirect_to user_review_dashboard_during_path
+		admin = current_user
+		user = User.find_by :id => params[:user]
+		if user.progress_status.include? "after"
+			redirect_to review_dashboard_after_path
+		elsif user.progress_status.include? "during"
+			redirect_to review_dashboard_during_path
 		else
-			redirect_to user_review_dashboard_before_path
+			redirect_to review_dashboard_before_path
 		end
 	end
 
@@ -81,6 +86,11 @@ class UserController < ApplicationController
 			dm_version = params[:dm_version]
 			render "users/review_dashboard_during", locals: {:dm_version => dm_version}
 		end
+	end
+
+	def review_dashboard_during_history
+		current_user = User.find(params[:user])
+		render "users/review_dashboard_during_history"
 	end
 
 	def review_dashboard_after
@@ -106,7 +116,7 @@ class UserController < ApplicationController
 	      user.progress_status = :before_finished
 	     begin
 	     	url = request.base_url + RELATIVE_URL
-	      	UserMailer.finished_application_mail_to_admins(url, current_user).deliver_now
+	      	UserMailer.finished_application_mail_to_admins(url, user).deliver_now
       	rescue
 	      	flash[:error] = (flash[:error].blank? ?  "" : (flash[:error] + "\n" )) + "E-mail to admins could not be sent"
         end
@@ -126,7 +136,7 @@ class UserController < ApplicationController
 		  end
 	     begin
 	     	url = request.base_url + RELATIVE_URL
-	      	UserMailer.send_during_la_modifications_mail_to_admins(url, current_user).deliver_now
+	      	UserMailer.send_during_la_modifications_mail_to_admins(url, user).deliver_now
       	rescue
 	      	flash[:error] = (flash[:error].blank? ?  "" : (flash[:error] + "\n" )) + "E-mail to admins could not be sent"
         end
@@ -142,13 +152,13 @@ class UserController < ApplicationController
 	      user.progress_status = :during_accepted_pending_admin
 	     begin
 	     	url = request.base_url + RELATIVE_URL
-	      	UserMailer.accept_during_la_modifications_mail(url, current_user).deliver_now
+	      	UserMailer.accept_during_la_modifications_mail(url, user).deliver_now
       	rescue
-	      	flash[:error] = (flash[:error].blank? ?  "" : (flash[:error] + "\n" )) + "E-mail to #{current_user.email} could not be sent"
+	      	flash[:error] = (flash[:error].blank? ?  "" : (flash[:error] + "\n" )) + "E-mail to #{user.email} could not be sent"
         end
 	      user.save!
 	    end
-	    redirect_back(fallback_location: "users/review_dashboard/:user/during/:dm_version")
+	    redirect_back(fallback_location: "users/review_dashboard/:user/during")
 	end
 	  
 	def reject_during_la_modifications
@@ -159,32 +169,63 @@ class UserController < ApplicationController
 		  current_dm.during_la_signed_student = nil
 	     begin
 	     	url = request.base_url + RELATIVE_URL
-	      	UserMailer.reject_during_la_modifications_mail(url, current_user).deliver_now
+	      	UserMailer.reject_during_la_modifications_mail(url, user).deliver_now
       	rescue
-	      	flash[:error] = (flash[:error].blank? ?  "" : (flash[:error] + "\n" )) + "E-mail to #{current_user.email} could not be sent"
+	      	flash[:error] = (flash[:error].blank? ?  "" : (flash[:error] + "\n" )) + "E-mail to #{user.email} could not be sent"
 		end
 		  current_dm.save!
 	      user.save!
 	    end
-	    redirect_back(fallback_location: "users/review_dashboard/:user/during/:dm_version")
+	    redirect_back(fallback_location: "users/review_dashboard/:user/during")
 	end
 	  
-	 def admin_notify_uploaded_during
+	def admin_notify_uploaded_during
 		user = User.find_by :id => params[:user]
 		current_dm = DuringLA.where(user_id: user.id, during_la_version: user.current_during_la_version).first
 	    if user.role == "user" && user.progress_status == "during_accepted_pending_admin" && !current_dm.during_la_signed_host.blank? && !current_dm.payment_letter.blank?
 		  user.progress_status = :during_accepted_pending_user
 	     begin
 	     	url = request.base_url + RELATIVE_URL
-	      	UserMailer.admin_notify_uploaded_during(url, current_user).deliver_now
+	      	UserMailer.admin_notify_uploaded_during(url, user).deliver_now
       	rescue
-	      	flash[:error] = (flash[:error].blank? ?  "" : (flash[:error] + "\n" )) + "E-mail to #{current_user.email} could not be sent"
+	      	flash[:error] = (flash[:error].blank? ?  "" : (flash[:error] + "\n" )) + "E-mail to #{user.email} could not be sent"
 		end
 		  current_dm.save!
 	      user.save!
 	    end
-	    redirect_back(fallback_location: "users/review_dashboard/:user/during/:dm_version")
-  	end
+	    redirect_back(fallback_location: "users/review_dashboard/:user/during")
+	end
+	
+	def user_notify_uploaded_during
+		current_dm = DuringLA.where(user_id: current_user.id, during_la_version: current_user.current_during_la_version).first
+	    if current_user.progress_status == "during_accepted_pending_user" && !current_dm.during_la_signed_all.blank?
+		  current_user.progress_status = :during_accepted_pending_closure
+	     begin
+	     	url = request.base_url + RELATIVE_URL
+	      	UserMailer.user_notify_uploaded_during(url, current_user).deliver_now
+      	rescue
+	      	flash[:error] = (flash[:error].blank? ?  "" : (flash[:error] + "\n" )) + "E-mail to admins could not be sent"
+		end
+		  current_dm.save!
+	      current_user.save!
+	    end
+	    redirect_back(fallback_location: "users/review_dashboard/:user/during")
+	end
+	  
+	def admin_notify_closed_during
+		user = User.find_by :id => params[:user]
+	    if user.role == "user" && user.progress_status == "during_accepted_pending_closure"
+		  user.progress_status = :during_initial
+	     begin
+	     	url = request.base_url + RELATIVE_URL
+	      	UserMailer.admin_notify_closed_during(url, user).deliver_now
+      	rescue
+	      	flash[:error] = (flash[:error].blank? ?  "" : (flash[:error] + "\n" )) + "E-mail to #{user.email} could not be sent"
+		end
+	      user.save!
+	    end
+	    redirect_back(fallback_location: "users/review_dashboard/:user/during")
+	end
 
 	def update_personal_data
 		current_user.assign_attributes(params.require(:user).permit(
@@ -216,7 +257,6 @@ class UserController < ApplicationController
 
 	def file_upload
 		if current_user.progress_status.include? "during"
-			current_user = User.find_by :id => params[:user_id]
 			unless params[:current_dm].blank?
 				keys = params[:current_dm].keys
 				if keys.length == 1
@@ -612,16 +652,24 @@ class UserController < ApplicationController
 	def dm_create
 		current_dm_version = params[:current_dm_version]
 		if current_dm_version != nil || current_dm_version != 0 || current_dm_version != ""
-			during_las = DuringLA.where(user_id: current_user.id)
-			dm_version = current_dm_version
+			dm_version = current_dm_version.to_i + 1
 		else 
 			dm_version = 1
-			current_user.current_during_la_version = dm_version;
 		end
+		current_user.current_during_la_version = dm_version
 		DuringLA.create(:during_la_version => dm_version, :user_id => current_user.id)
 		current_user.progress_status = :during_user_editing
 		current_user.save!
-		redirect_back(fallback_location:"users/user_dashboard_during/:dm_version")
+		redirect_back(fallback_location:"users/user_dashboard_during")
+	end
+
+	def dm_cancel
+		user = User.find_by :id => params[:user]
+		DuringLA.where(user_id: user.id, during_la_version: user.current_during_la_version).first.destroy!
+		user.progress_status = :during_initial
+		user.current_during_la_version = user.current_during_la_version - 1
+		user.save!
+		redirect_back(fallback_location:"users/user_dashboard_during")
 	end
 
 	def submit_admin_review_comment
@@ -629,7 +677,7 @@ class UserController < ApplicationController
 		current_dm = DuringLA.where(user_id: params[:user_id], during_la_version: user.current_during_la_version).first
 		current_dm.admin_review_comment = params[:admin_review_comment]
 		current_dm.save!
-		redirect_back(fallback_location: "users/review_dashboard/:user/during/:dm_version")
+		redirect_back(fallback_location: "users/review_dashboard/:user/during")
 	end
 
 	def download_tor
