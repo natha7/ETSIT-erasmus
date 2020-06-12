@@ -31,7 +31,7 @@ Rails.application.routes.draw do
     get 'user_dashboard/during', to: "user#user_dashboard_during"
     get 'user_dashboard/during/history', to: "user#user_dashboard_during_history"
     get 'user_dashboard/after', to: "user#user_dashboard_after"
-    get 'review_dashboard/:user', to: "user#review_dashboard"
+    get 'review_dashboard/:user', to: "user#review_dashboard", as: "review_dashboard"
     get 'review_dashboard/:user/before', to: "user#review_dashboard_before", as: "review_dashboard_before"
     get 'review_dashboard/:user/during', to: "user#review_dashboard_during", as: "review_dashboard_during"
     get 'review_dashboard/:user/during/history', to: "user#review_dashboard_during_history", as: "review_dashboard_during_history"
@@ -40,7 +40,7 @@ Rails.application.routes.draw do
     get 'massive_email', to: "user#massive_email"
     get 'download_all_files/:user', to: "user#download_all_files"
     get 'download_tor/', to: "user#download_tor"
-    get 'download_acceptance_letter/', to: "user#download_acceptance_letter"
+    get 'download_attendance_certificate/', to: "user#download_attendance_certificate"
     post 'create_nominee', to: "nominated_user#create_nominee"
     post 'create_nominee_multiple', to: "nominated_user#create_nominee_multiple"
     post 'resend_email', to: "nominated_user#resend_email"
@@ -66,6 +66,7 @@ Rails.application.routes.draw do
     get 'review_student_application_form/:user/:step', to:"student_application_form#review_step"
 
     post 'user/finish_application_form', to: "user#finish_app_form"
+    post 'user/admin_notify_uploaded_before', to: "user#admin_notify_uploaded_before", as: "user_admin_notify_uploaded_before"
     post 'user/send_during_la_modifications', to: "user#send_during_la_modifications", as: "user_send_during_la_modifications"
     post 'user/accept_during_la_modifications', to: "user#accept_during_la_modifications", as: "user_accept_during_la_modifications"
     post 'user/reject_during_la_modifications', to: "user#reject_during_la_modifications", as: "user_reject_during_la_modifications"
@@ -86,6 +87,7 @@ Rails.application.routes.draw do
 
     post 'during/dm_create', to: "user#dm_create", as: "user_dm_create"
     post 'during/dm_cancel', to: "user#dm_cancel", as: "user_dm_cancel"
+    post 'during/dm_wrong_info', to: "user#dm_wrong_info", as: "user_dm_wrong_info"
     post 'during/submit_admin_review_comment', to: "user#submit_admin_review_comment"
   end
 end

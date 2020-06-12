@@ -789,9 +789,6 @@ module ApplicationHelper
         "learning_agreement" => [
             "user[learning_agreement_subjects][subject]",
         ],
-        "during_la" => [
-            "user[during_la_subjects][subject]"
-        ],
         "application_form" => [
           "user[student_application_form][inst_sending_name]",
           "user[student_application_form][erasmus_code]",

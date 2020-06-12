@@ -1,7 +1,5 @@
 class DuringLA < ApplicationRecord
     belongs_to :user
-    
-    has_many :during_la_subject
 
     has_attached_file :during_la_signed_student, :url=> "/erasmus/attachment/dm_student/:id/:basename.:extension"
     has_attached_file :during_la_signed_host, :url=> "/erasmus/attachment/dm_host/:id/:basename.:extension"

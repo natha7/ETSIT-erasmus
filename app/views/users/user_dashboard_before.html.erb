@@ -182,6 +182,25 @@
 								:content => current_user.official_gpa,
 								:file_name => current_user.official_gpa_file_name,
 								:label => "Official GPA"}  %>
+					<% if current_user.progress_status == "before_accepted"%>
+						<% if current_user.valid_insurance_policy.blank? %>
+							<%= render partial: "users/user_dashboard_before_panel", :locals => {
+								:admin => false,
+								:name => :valid_insurance_policy,
+								:content => current_user.valid_insurance_policy,
+								:file_name => current_user.valid_insurance_policy_file_name,
+								:label => "Valid Insurance Policy"}  %>
+						<% end %>
+						<% if !current_user.acceptance_letter.blank? %>
+							<%= render partial: "users/user_dashboard_before_panel", :locals => {
+										:admin => true,
+										:name => :acceptance_letter,
+										:current_user => current_user,
+										:content => current_user.acceptance_letter,
+										:file_name => current_user.acceptance_letter_file_name,
+										:label => "Acceptance Letter"}  %>
+						<% end %>
+					<% end %>
 					</div>
 				<% end %>
 			</div>
@@ -211,13 +230,47 @@
 
 
 	<% elsif current_user.progress_status == "before_finished" %>
-		<h2> The intenational office has been notified and they will get back to you soon. </h2>
+		<h2> The International Office has been notified and they will get back to you soon. </h2>
 	<% elsif current_user.progress_status == "before_accepted" %>
-		<h2> Your request was successfully completed and accepted. </h2>
+		<% if current_user.acceptance_letter.blank?%>
+			<h2> Your request was successfully completed and accepted. You will be able to download your signed Learning Agreement and your acceptance letter very soon.</h2>
+		<% else %>
+			<h2> Congratulations! Your request has been accepted and your Acceptance Letter is now available for download.</h2>
+		<% end %>
+		<div class="dashboard-container">
+			<div class="left-column">
+				<div class="picture-container">
+				    <img class="picture" src="<%= current_user.photo.url == "/erasmus/images/placeholder.png" ? ActionController::Base.helpers.image_path('placeholder.png') : current_user.photo %>"/>
+				    <p><%= current_user.first_name %> <%= current_user.family_name %></p>
+			    </div>
+            </div>
+            <div class="right-column">
+		<div class="collapsible big show">
+					<%= render partial: "users/user_dashboard_before_panel", :locals => {
+								:admin => false,
+								:name => :valid_insurance_policy,
+								:content => current_user.valid_insurance_policy,
+								:file_name => current_user.valid_insurance_policy_file_name,
+								:label => "Valid Insurance Policy"}  %>
+				<% if !current_user.acceptance_letter.blank? %>
+					<%= render partial: "users/user_dashboard_before_panel", :locals => {
+								:admin => true,
+								:name => :acceptance_letter,
+								:current_user => current_user,
+								:content => current_user.acceptance_letter,
+								:file_name => current_user.acceptance_letter_file_name,
+								:label => "Acceptance Letter"}  %>
+				<% end %>
+		</div>
+		</div>
+		</div>
+		<!-- Acceptance letter download feature hidden as requested by the International Office-->
+		<!--
 		<a href="<%= "#{RELATIVE_URL}/generate_acceptance_letter/#{current_user.id}.pdf"%>" download>
 			<button id="acceptance_letter_button" class="custom-button primary">Download acceptance letter</button>
 		</a>
 		<iframe id="acceptance_letter" src="<%= "#{RELATIVE_URL}/generate_acceptance_letter/#{current_user.id}"%>"/>
+		-->
 	<% elsif current_user.progress_status == "before_rejected" %>
 		<h1> Your request has been rejected </h1>
 	<%else%>

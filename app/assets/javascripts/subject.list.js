@@ -6,7 +6,8 @@ var data = [
         "nombre": "TRABAJO DE FIN DE GRADO",
         "ects": 12,
         "acron": "TFG",
-        "year": ""
+        "year": 4,
+        "semester": ""
     },
     {
         "degree": "GIB",
@@ -15,7 +16,8 @@ var data = [
         "nombre": "MATEMATICAS I",
         "ects": 6,
         "acron": "MAT1",
-        "year": 1
+        "year": 1,
+        "semester": "Autumn"
     },
     {
         "degree": "GIB",
@@ -24,7 +26,8 @@ var data = [
         "nombre": "FISICA",
         "ects": 6,
         "acron": "FISC",
-        "year": 1
+        "year": 1,
+        "semester": "Autumn"
     },
     {
         "degree": "GIB",
@@ -33,7 +36,8 @@ var data = [
         "nombre": "QUIMICA",
         "ects": 6,
         "acron": "QUIM",
-        "year": 1
+        "year": 1,
+        "semester": "Autumn"
     },
     {
         "degree": "GIB",
@@ -42,7 +46,8 @@ var data = [
         "nombre": "BIOLOGIA",
         "ects": 6,
         "acron": "BIOL",
-        "year": 1
+        "year": 1,
+        "semester": "Autumn"
     },
     {
         "degree": "GIB",
@@ -51,7 +56,8 @@ var data = [
         "nombre": "ESTADISTICA",
         "ects": 6,
         "acron": "ESTD",
-        "year": 1
+        "year": 1,
+        "semester": "Spring"
     },
     {
         "degree": "GIB",
@@ -60,7 +66,8 @@ var data = [
         "nombre": "MATEMATICAS II",
         "ects": 6,
         "acron": "MAT2",
-        "year": 1
+        "year": 1,
+        "semester": "Spring"
     },
     {
         "degree": "GIB",
@@ -69,7 +76,8 @@ var data = [
         "nombre": "BIOQUIMICA ESTRUCTURAL",
         "ects": 6,
         "acron": "BQST",
-        "year": 1
+        "year": 1,
+        "semester": "Spring"
     },
     {
         "degree": "GIB",
@@ -78,7 +86,8 @@ var data = [
         "nombre": "BIOLOGIA CELULAR Y TISULAR",
         "ects": 6,
         "acron": "BICT",
-        "year": 1
+        "year": 1,
+        "semester": "Spring"
     },
     {
         "degree": "GIB",
@@ -87,7 +96,8 @@ var data = [
         "nombre": "FUNDAMENTOS DE PROGRAMACION",
         "ects": 6,
         "acron": "FPRG",
-        "year": 1
+        "year": 1,
+        "semester": "Autumn"
     },
     {
         "degree": "GIB",
@@ -96,7 +106,8 @@ var data = [
         "nombre": "FUNDAMENTOS DE BIOMECANICA",
         "ects": 6,
         "acron": "FBMC",
-        "year": 1
+        "year": 2,
+        "semester": "Autumn"
     },
     {
         "degree": "GIB",
@@ -105,7 +116,8 @@ var data = [
         "nombre": "USO PROFESIONAL DE LA LENGUA INGLESA",
         "ects": 6,
         "acron": "UPLI",
-        "year": 2
+        "year": 2,
+        "semester": "Spring"
     },
     {
         "degree": "GIB",
@@ -114,7 +126,8 @@ var data = [
         "nombre": "ANALISIS INSTRUMENTAL",
         "ects": 6,
         "acron": "AINS",
-        "year": 2
+        "year": 2,
+        "semester": "Autumn"
     },
     {
         "degree": "GIB",
@@ -123,7 +136,8 @@ var data = [
         "nombre": "BIOMECANICA DE MEDIOS CONTINUOS",
         "ects": 6,
         "acron": "BIMC",
-        "year": 2
+        "year": 2,
+        "semester": "Spring"
     },
     {
         "degree": "GIB",
@@ -132,7 +146,8 @@ var data = [
         "nombre": "MATEMATICAS III",
         "ects": 6,
         "acron": "MAT3",
-        "year": 2
+        "year": 2,
+        "semester": "Autumn"
     },
     {
         "degree": "GIB",
@@ -141,7 +156,8 @@ var data = [
         "nombre": "FISICA II",
         "ects": 6,
         "acron": "FIS2",
-        "year": 1
+        "year": 1,
+        "semester": "Spring"
     },
     {
         "degree": "GIB",
@@ -150,7 +166,9 @@ var data = [
         "nombre": "FUNDAMENTOS DE ELECTRONICA",
         "ects": 6,
         "acron": "FELT",
-        "year": 2
+        "year": 2,
+        "semester": "Autumn"
+
     },
     {
         "degree": "GIB",
@@ -159,7 +177,8 @@ var data = [
         "nombre": "FISIOLOGIA DE SISTEMAS",
         "ects": 6,
         "acron": "FSIT",
-        "year": 2
+        "year": 2,
+        "semester": "Spring"
     },
     {
         "degree": "GIB",
@@ -168,7 +187,8 @@ var data = [
         "nombre": "ECONOMIA Y GESTION DE EMPRESAS",
         "ects": 6,
         "acron": "ECON",
-        "year": 2
+        "year": 2,
+        "semester": "Autumn"
     },
     {
         "degree": "GIB",
@@ -177,7 +197,8 @@ var data = [
         "nombre": "SISTEMAS Y SENALES",
         "ects": 6,
         "acron": "SSIT",
-        "year": 2
+        "year": 2,
+        "semester": "Spring"
     },
     {
         "degree": "GIB",
@@ -186,7 +207,8 @@ var data = [
         "nombre": "SISTEMAS ELECTRONICOS",
         "ects": 6,
         "acron": "SELC",
-        "year": 2
+        "year": 2,
+        "semester": "Spring"
     },
     {
         "degree": "GIB",
@@ -195,7 +217,8 @@ var data = [
         "nombre": "SENALES BIOMEDICAS",
         "ects": 6,
         "acron": "SBIO",
-        "year": 3
+        "year": 3,
+        "semester": "Autumn"
     },
     {
         "degree": "GIB",
@@ -204,7 +227,8 @@ var data = [
         "nombre": "FISIOPATOLOGIA HUMANA",
         "ects": 6,
         "acron": "FISH",
-        "year": 3
+        "year": 3,
+        "semester": "Autumn"
     },
     {
         "degree": "GIB",
@@ -213,7 +237,8 @@ var data = [
         "nombre": "MODELOS NUMERICOS EN BIOMEDICINA",
         "ects": 6,
         "acron": "MNUB",
-        "year": 3
+        "year": 3,
+        "semester": "Autumn"
     },
     {
         "degree": "GIB",
@@ -222,7 +247,8 @@ var data = [
         "nombre": "BASES DE DATOS",
         "ects": 6,
         "acron": "BBDD",
-        "year": 3
+        "year": 3,
+        "semester": "Spring"
     },
     {
         "degree": "GIB",
@@ -231,7 +257,8 @@ var data = [
         "nombre": "BIOINSTRUMENTACION",
         "ects": 6,
         "acron": "BINS",
-        "year": 3
+        "year": 3,
+        "semester": "Spring"
     },
     {
         "degree": "GIB",
@@ -240,7 +267,8 @@ var data = [
         "nombre": "IMAGENES BIOMEDICAS",
         "ects": 6,
         "acron": "IMAG",
-        "year": 3
+        "year": 3,
+        "semester": "Spring"
     },
     {
         "degree": "GIB",
@@ -249,7 +277,8 @@ var data = [
         "nombre": "BIOMATERIALES",
         "ects": 6,
         "acron": "BMAT",
-        "year": 3
+        "year": 3,
+        "semester": "Spring"
     },
     {
         "degree": "GIB",
@@ -258,7 +287,8 @@ var data = [
         "nombre": "REDES DE COMUNICACIONES",
         "ects": 6,
         "acron": "RCOM",
-        "year": 3
+        "year": 3,
+        "semester": "Autumn"
     },
     {
         "degree": "GIB",
@@ -267,7 +297,18 @@ var data = [
         "nombre": "ARQUITECTURAS DE COMPUTADORES Y SSOO",
         "ects": 6,
         "acron": "ARSO",
-        "year": 3
+        "year": 3,
+        "semester": "Spring"
+    },
+    {
+        "degree": "GIB",
+        "code": 95000130,
+        "name": "ALGORITHMS AND DATA STRUCTURES",
+        "nombre": "ALGORITMOS Y ESTRUCTURA DE DATOS",
+        "ects": 6,
+        "acron": "ALED",
+        "year": 3,
+        "semester": "Autumn"
     },
     {
         "degree": "GIB",
@@ -276,7 +317,8 @@ var data = [
         "nombre": "LABORATORIO DE IMAGENES BIOMEDICAS",
         "ects": 4,
         "acron": "LIM",
-        "year": 4
+        "year": 4,
+        "semester": "Autumn"
     },
     {
         "degree": "GIB",
@@ -285,7 +327,8 @@ var data = [
         "nombre": "INGENIERIA CLINICA Y DE GESTION",
         "ects": 4,
         "acron": "ICL",
-        "year": 4
+        "year": 4,
+        "semester": "Autumn"
     },
     {
         "degree": "GIB",
@@ -294,7 +337,8 @@ var data = [
         "nombre": "MODELADO Y SIMULACION DINAMICA APLICADA A LA BIOMEDICINA",
         "ects": 4,
         "acron": "MOD",
-        "year": 4
+        "year": 4,
+        "semester": "Autumn"
     },
     {
         "degree": "GIB",
@@ -303,7 +347,8 @@ var data = [
         "nombre": "LABORATORIO DE SENALES BIOMEDICAS",
         "ects": 4,
         "acron": "LSB",
-        "year": 4
+        "year": 4,
+        "semester": "Autumn"
     },
     {
         "degree": "GIB",
@@ -312,7 +357,8 @@ var data = [
         "nombre": "LABORATORIO DE BIOINSTRUMENTACION",
         "ects": 4,
         "acron": "LBI",
-        "year": 4
+        "year": 4,
+        "semester": "Autumn"
     },
     {
         "degree": "GIB",
@@ -321,7 +367,8 @@ var data = [
         "nombre": "INGENIERIA DE TEJIDOS",
         "ects": 4,
         "acron": "ITDC",
-        "year": 4
+        "year": 4,
+        "semester": "Autumn"
     },
     {
         "degree": "GIB",
@@ -330,7 +377,8 @@ var data = [
         "nombre": "LABORATORIO DE MATERIALES BIOLOGICOS Y BIOMATERIALES",
         "ects": 4,
         "acron": "LMBB",
-        "year": 4
+        "year": 4,
+        "semester": "Spring"
     },
     {
         "degree": "GIB",
@@ -339,7 +387,8 @@ var data = [
         "nombre": "BIOSENSORES",
         "ects": 4,
         "acron": "BSENS",
-        "year": 4
+        "year": 4,
+        "semester": "Spring"
     },
     {
         "degree": "GIB",
@@ -348,7 +397,8 @@ var data = [
         "nombre": "DESARROLLO DE DISPOSITIVOS MEDICOS",
         "ects": 4,
         "acron": "DDIS",
-        "year": 4
+        "year": 4,
+        "semester": "Spring"
     },
     {
         "degree": "GIB",
@@ -357,7 +407,8 @@ var data = [
         "nombre": "LABORATORIO DE BIOMECANICA",
         "ects": 4,
         "acron": "LBMC",
-        "year": 4
+        "year": 4,
+        "semester": "Spring"
     },
     {
         "degree": "GIB",
@@ -366,7 +417,8 @@ var data = [
         "nombre": "HISTORIAS CLINICAS, TERMINOLOGIAS Y ESTANDARES",
         "ects": 4,
         "acron": "HCTE",
-        "year": 4
+        "year": 4,
+        "semester": "Spring"
     },
     {
         "degree": "GIB",
@@ -375,7 +427,8 @@ var data = [
         "nombre": "SISTEMAS DE INFORMACION BIOMEDICA",
         "ects": 4,
         "acron": "SIBA",
-        "year": 4
+        "year": 4,
+        "semester": "Autumn"
     },
     {
         "degree": "GIB",
@@ -384,7 +437,8 @@ var data = [
         "nombre": "SISTEMAS DE AYUDA A LA DECISION",
         "ects": 4,
         "acron": "SAD",
-        "year": 4
+        "year": 4,
+        "semester": "Spring"
     },
     {
         "degree": "GIB",
@@ -393,7 +447,8 @@ var data = [
         "nombre": "TELEMEDICINA",
         "ects": 4,
         "acron": "TLM",
-        "year": 4
+        "year": 4,
+        "semester": "Spring"
     },
     {
         "degree": "GIB",
@@ -402,7 +457,8 @@ var data = [
         "nombre": "REDES Y SERVICIOS",
         "ects": 4,
         "acron": "RSER",
-        "year": 4
+        "year": 4,
+        "semester": "Autumn"
     },
     {
         "degree": "GIB",
@@ -411,7 +467,8 @@ var data = [
         "nombre": "TRATAMIENTO DIGITAL DE IMAGENES BIOMEDICAS",
         "ects": 4,
         "acron": "TDI",
-        "year": 4
+        "year": 4,
+        "semester": "Autumn"
     },
     {
         "degree": "GIB",
@@ -420,7 +477,8 @@ var data = [
         "nombre": "INTERFACES HOMBRE-MAQUINA",
         "ects": 4,
         "acron": "IHM",
-        "year": 4
+        "year": 4,
+        "semester": "Autumn"
     },
     {
         "degree": "GIB",
@@ -429,7 +487,8 @@ var data = [
         "nombre": "LABORATORIO DE TELEMEDICINA",
         "ects": 4,
         "acron": "LTLM",
-        "year": 4
+        "year": 4,
+        "semester": "Spring"
     },
     {
         "degree": "GIB",
@@ -438,7 +497,8 @@ var data = [
         "nombre": "INGENIERIA NEUROSENSORIAL",
         "ects": 4,
         "acron": "INS",
-        "year": 4
+        "year": 4,
+        "semester": "Spring"
     },
     {
         "degree": "GIB",
@@ -447,7 +507,8 @@ var data = [
         "nombre": "IMAGENES BIOMEDICAS AVANZADAS - I",
         "ects": 4,
         "acron": "IBA",
-        "year": 4
+        "year": 4,
+        "semester": "Autumn"
     },
     {
         "degree": "GIB",
@@ -456,7 +517,8 @@ var data = [
         "nombre": "SIMULACION Y PLANIFICACION QUIRURGICA",
         "ects": 4,
         "acron": "SIP",
-        "year": 4
+        "year": 4,
+        "semester": "Spring"
     },
     {
         "degree": "GIB",
@@ -465,7 +527,8 @@ var data = [
         "nombre": "IMAGENES BIOMEDICAS AVANZADAS - II",
         "ects": 4,
         "acron": "IMA2",
-        "year": 4
+        "year": 4,
+        "semester": "Spring"
     },
     {
         "degree": "GIB",
@@ -474,7 +537,8 @@ var data = [
         "nombre": "BIOFOTONICA",
         "ects": 4,
         "acron": "BFT",
-        "year": 4
+        "year": 4,
+        "semester": "Spring"
     },
     {
         "degree": "GITST",
@@ -483,7 +547,8 @@ var data = [
         "nombre": "ALGEBRA",
         "ects": 6,
         "acron": "ALG",
-        "year": 1
+        "year": 1,
+        "semester": "Autumn"
     },
     {
         "degree": "GITST",
@@ -492,7 +557,8 @@ var data = [
         "nombre": "CALCULO",
         "ects": 6,
         "acron": "CALC",
-        "year": 1
+        "year": 1,
+        "semester": "Autumn"
     },
     {
         "degree": "GITST",
@@ -501,7 +567,8 @@ var data = [
         "nombre": "FISICA GENERAL 1",
         "ects": 6,
         "acron": "FIS1",
-        "year": 1
+        "year": 1,
+        "semester": "Autumn"
     },
     {
         "degree": "GITST",
@@ -510,7 +577,8 @@ var data = [
         "nombre": "INTRODUCCION A LA INGENIERIA DE TELECOMUNICACION",
         "ects": 3,
         "acron": "IING",
-        "year": 1
+        "year": 1,
+        "semester": "Autumn"
     },
     {
         "degree": "GITST",
@@ -519,7 +587,8 @@ var data = [
         "nombre": "FUNDAMENTOS DE LOS SISTEMAS TELEMATICOS",
         "ects": 4.5,
         "acron": "FTEL",
-        "year": 1
+        "year": 1,
+        "semester": "Autumn"
     },
     {
         "degree": "GITST",
@@ -528,7 +597,8 @@ var data = [
         "nombre": "FISICA GENERAL 2",
         "ects": 4.5,
         "acron": "FIS2",
-        "year": 1
+        "year": 1,
+        "semester": "Spring"
     },
     {
         "degree": "GITST",
@@ -537,7 +607,8 @@ var data = [
         "nombre": "ANALISIS VECTORIAL",
         "ects": 6,
         "acron": "AVEC",
-        "year": 1
+        "year": 1,
+        "semester": "Spring"
     },
     {
         "degree": "GITST",
@@ -546,7 +617,8 @@ var data = [
         "nombre": "INTRODUCCION AL ANALISIS DE CIRCUITOS",
         "ects": 4.5,
         "acron": "IACR",
-        "year": 1
+        "year": 1,
+        "semester": "Autumn"
     },
     {
         "degree": "GITST",
@@ -555,7 +627,8 @@ var data = [
         "nombre": "INTRODUCCION A LA ELECTRONICA",
         "ects": 4.5,
         "acron": "INEL",
-        "year": 1
+        "year": 1,
+        "semester": "Spring"
     },
     {
         "degree": "GITST",
@@ -564,7 +637,8 @@ var data = [
         "nombre": "PROGRAMACION",
         "ects": 6,
         "acron": "PRG",
-        "year": 1
+        "year": 1,
+        "semester": "Spring"
     },
     {
         "degree": "GITST",
@@ -573,7 +647,8 @@ var data = [
         "nombre": "INGLES I",
         "ects": 3,
         "acron": "IGL1",
-        "year": 2
+        "year": 2,
+        "semester": "Autumn"
     },
     {
         "degree": "GITST",
@@ -582,7 +657,8 @@ var data = [
         "nombre": "FUNDAMENTOS DE GESTION EMPRESARIAL",
         "ects": 4.5,
         "acron": "FGST",
-        "year": 1
+        "year": 1,
+        "semester": "Spring"
     },
     {
         "degree": "GITST",
@@ -591,7 +667,8 @@ var data = [
         "nombre": "ELECTROMAGNETISMO",
         "ects": 4.5,
         "acron": "ELMG",
-        "year": 2
+        "year": 2,
+        "semester": "Autumn"
     },
     {
         "degree": "GITST",
@@ -600,7 +677,8 @@ var data = [
         "nombre": "ELECTRONICA E INSTRUMENTACION BASICAS",
         "ects": 4.5,
         "acron": "EINB",
-        "year": 2
+        "year": 2,
+        "semester": "Autumn"
     },
     {
         "degree": "GITST",
@@ -609,7 +687,8 @@ var data = [
         "nombre": "SENALES Y SISTEMAS",
         "ects": 6,
         "acron": "SSIT",
-        "year": 2
+        "year": 2,
+        "semester": "Autumn"
     },
     {
         "degree": "GITST",
@@ -618,7 +697,8 @@ var data = [
         "nombre": "SENALES ALEATORIAS",
         "ects": 4.5,
         "acron": "SALT",
-        "year": 2
+        "year": 2,
+        "semester": "Autumn"
     },
     {
         "degree": "GITST",
@@ -627,7 +707,8 @@ var data = [
         "nombre": "INGLES II",
         "ects": 3,
         "acron": "IGL2",
-        "year": 2
+        "year": 2,
+        "semester": "Spring"
     },
     {
         "degree": "GITST",
@@ -636,7 +717,8 @@ var data = [
         "nombre": "ELECTRONICA DIGITAL",
         "ects": 3,
         "acron": "EDIG",
-        "year": 2
+        "year": 2,
+        "semester": "Autumn"
     },
     {
         "degree": "GITST",
@@ -645,7 +727,8 @@ var data = [
         "nombre": "METODOS MATEMATICOS",
         "ects": 4.5,
         "acron": "MMAT",
-        "year": 1
+        "year": 1,
+        "semester": "Spring"
     },
     {
         "degree": "GITST",
@@ -654,7 +737,8 @@ var data = [
         "nombre": "ELECTRONICA ANALOGICA",
         "ects": 3,
         "acron": "ELAN",
-        "year": 2
+        "year": 2,
+        "semester": "Spring"
     },
     {
         "degree": "GITST",
@@ -663,7 +747,8 @@ var data = [
         "nombre": "TEORIA DE LA COMUNICACION",
         "ects": 6,
         "acron": "TECM",
-        "year": 2
+        "year": 2,
+        "semester": "Spring"
     },
     {
         "degree": "GITST",
@@ -672,7 +757,8 @@ var data = [
         "nombre": "CAMPOS Y ONDAS EN TELECOMUNICACION",
         "ects": 4.5,
         "acron": "COTE",
-        "year": 2
+        "year": 2,
+        "semester": "Spring"
     },
     {
         "degree": "GITST",
@@ -681,7 +767,8 @@ var data = [
         "nombre": "REDES Y SERVICIOS DE TELECOMUNICACION",
         "ects": 6,
         "acron": "RSTC",
-        "year": 2
+        "year": 2,
+        "semester": "Spring"
     },
     {
         "degree": "GITST",
@@ -690,7 +777,8 @@ var data = [
         "nombre": "ANALISIS Y DISENO DEL SOFTWARE",
         "ects": 4.5,
         "acron": "ADS",
-        "year": 2
+        "year": 2,
+        "semester": "Spring"
     },
     {
         "degree": "GITST",
@@ -699,7 +787,8 @@ var data = [
         "nombre": "CIRCUITOS ELECTRONICOS",
         "ects": 3,
         "acron": "CELT",
-        "year": 3
+        "year": 3,
+        "semester": "Autumn"
     },
     {
         "degree": "GITST",
@@ -708,7 +797,8 @@ var data = [
         "nombre": "SISTEMAS DIGITALES I",
         "ects": 4.5,
         "acron": "SDG1",
-        "year": 3
+        "year": 3,
+        "semester": "Autumn"
     },
     {
         "degree": "GITST",
@@ -717,7 +807,8 @@ var data = [
         "nombre": "TEORIA DE LA INFORMACION",
         "ects": 4.5,
         "acron": "TINF",
-        "year": 3
+        "year": 3,
+        "semester": "Autumn"
     },
     {
         "degree": "GITST",
@@ -726,7 +817,8 @@ var data = [
         "nombre": "TRATAMIENTO DIGITAL DE SENALES",
         "ects": 6,
         "acron": "TDSN",
-        "year": 3
+        "year": 3,
+        "semester": "Autumn"
     },
     {
         "degree": "GITST",
@@ -735,7 +827,8 @@ var data = [
         "nombre": "ANALISIS Y DISENO DE CIRCUITOS",
         "ects": 3,
         "acron": "ADCT",
-        "year": 2
+        "year": 2,
+        "semester": "Spring"
     },
     {
         "degree": "GITST",
@@ -744,7 +837,8 @@ var data = [
         "nombre": "SISTEMAS DE TRANSMISION",
         "ects": 4.5,
         "acron": "STRA",
-        "year": 3
+        "year": 3,
+        "semester": "Autumn"
     },
     {
         "degree": "GITST",
@@ -753,7 +847,8 @@ var data = [
         "nombre": "REDES DE ORDENADORES",
         "ects": 4.5,
         "acron": "RDOR",
-        "year": 3
+        "year": 3,
+        "semester": "Autumn"
     },
     {
         "degree": "GITST",
@@ -762,7 +857,8 @@ var data = [
         "nombre": "ORGANIZACION DE EMPRESAS",
         "ects": 4.5,
         "acron": "ORGE",
-        "year": 3
+        "year": 3,
+        "semester": "Spring"
     },
     {
         "degree": "GITST",
@@ -771,7 +867,8 @@ var data = [
         "nombre": "SISTEMAS DIGITALES II",
         "ects": 3,
         "acron": "SDG2",
-        "year": 3
+        "year": 3,
+        "semester": "Spring"
     },
     {
         "degree": "GITST",
@@ -780,7 +877,8 @@ var data = [
         "nombre": "SISTEMAS DE ENERGIA",
         "ects": 4.5,
         "acron": "ENRG",
-        "year": 3
+        "year": 3,
+        "semester": "Spring"
     },
     {
         "degree": "GITST",
@@ -789,7 +887,8 @@ var data = [
         "nombre": "RADIACION Y PROPAGACION",
         "ects": 4.5,
         "acron": "RDPR",
-        "year": 3
+        "year": 3,
+        "semester": "Autumn"
     },
     {
         "degree": "GITST",
@@ -798,7 +897,18 @@ var data = [
         "nombre": "COMUNICACIONES OPTICAS",
         "ects": 4.5,
         "acron": "COPT",
-        "year": 3
+        "year": 3,
+        "semester": "Autumn"
+    },
+    {
+        "degree": "GITST",
+        "code": 95000036,
+        "name": "OPTICAL COMMUNICATIONS",
+        "nombre": "COMUNICACIONES OPTICAS",
+        "ects": 4.5,
+        "acron": "COPT",
+        "year": 3,
+        "semester": "Spring"
     },
     {
         "degree": "GITST",
@@ -807,7 +917,8 @@ var data = [
         "nombre": "ELECTRONICA DE COMUNICACIONES",
         "ects": 4.5,
         "acron": "ECOM",
-        "year": 3
+        "year": 3,
+        "semester": "Spring"
     },
     {
         "degree": "GITST",
@@ -816,7 +927,8 @@ var data = [
         "nombre": "COMPUTACION EN RED",
         "ects": 4.5,
         "acron": "CORE",
-        "year": 3
+        "year": 3,
+        "semester": "Spring"
     },
     {
         "degree": "GITST",
@@ -825,7 +937,8 @@ var data = [
         "nombre": "MICROONDAS",
         "ects": 4.5,
         "acron": "MICR",
-        "year": 4
+        "year": 4,
+        "semester": "Autumn"
     },
     {
         "degree": "GITST",
@@ -834,7 +947,8 @@ var data = [
         "nombre": "RADIOCOMUNICACIONES",
         "ects": 6,
         "acron": "RCOM",
-        "year": 4
+        "year": 4,
+        "semester": "Autumn"
     },
     {
         "degree": "GITST",
@@ -843,7 +957,8 @@ var data = [
         "nombre": "TRANSMISION DIGITAL",
         "ects": 6,
         "acron": "TRDG",
-        "year": 4
+        "year": 4,
+        "semester": "Autumn"
     },
     {
         "degree": "GITST",
@@ -852,7 +967,8 @@ var data = [
         "nombre": "ANTENAS",
         "ects": 4.5,
         "acron": "ANTE",
-        "year": 4
+        "year": 4,
+        "semester": "Autumn"
     },
     {
         "degree": "GITST",
@@ -861,16 +977,18 @@ var data = [
         "nombre": "COMUNICACIONES MOVILES",
         "ects": 6,
         "acron": "CMOV",
-        "year": 4
+        "year": 4,
+        "semester": "Spring"
     },
     {
         "degree": "GITST",
         "code": 95000045,
-        "name": "RADIO FREQUENCY  SUBSYSTEMS",
+        "name": "RADIODETERMINATION SYSTEMS",
         "nombre": "SISTEMAS DE RADIODETERMINACION",
         "ects": 4.5,
         "acron": "RDET",
-        "year": 4
+        "year": 4,
+        "semester": "Spring"
     },
     {
         "degree": "GITST",
@@ -879,16 +997,18 @@ var data = [
         "nombre": "SISTEMAS DE TELECOMUNICACION",
         "ects": 6,
         "acron": "STEL",
-        "year": 4
+        "year": 4,
+        "semester": "Autumn"
     },
     {
         "degree": "GITST",
         "code": 95000047,
-        "name": "RADIODETERMINATION SYSTEMS",
+        "name": "RADIO FREQUENCY  SUBSYSTEMS",
         "nombre": "SUBSISTEMAS DE RADIOFRECUENCIA",
         "ects": 4.5,
         "acron": "SURF",
-        "year": 4
+        "year": 4,
+        "semester": "Spring"
     },
     {
         "degree": "GITST",
@@ -897,7 +1017,8 @@ var data = [
         "nombre": "REDES CORPORATIVAS",
         "ects": 6,
         "acron": "RECO",
-        "year": 4
+        "year": 4,
+        "semester": "Autumn"
     },
     {
         "degree": "GITST",
@@ -906,7 +1027,8 @@ var data = [
         "nombre": "SEGURIDAD EN SISTEMAS Y REDES DE TELECOMUNICACION",
         "ects": 4.5,
         "acron": "SEGU",
-        "year": 4
+        "year": 4,
+        "semester": "Autumn"
     },
     {
         "degree": "GITST",
@@ -915,7 +1037,8 @@ var data = [
         "nombre": "REDES DE COMUNICACIONES MOVILES",
         "ects": 6,
         "acron": "RCMO",
-        "year": 4
+        "year": 4,
+        "semester": "Autumn"
     },
     {
         "degree": "GITST",
@@ -924,7 +1047,8 @@ var data = [
         "nombre": "INGENIERIA WEB",
         "ects": 6,
         "acron": "IWEB",
-        "year": 4
+        "year": 4,
+        "semester": "Autumn"
     },
     {
         "degree": "GITST",
@@ -933,7 +1057,8 @@ var data = [
         "nombre": "CENTROS DE DATOS Y DE PROVISION DE SERVICIOS",
         "ects": 4.5,
         "acron": "CDPS",
-        "year": 4
+        "year": 4,
+        "semester": "Autumn"
     },
     {
         "degree": "GITST",
@@ -942,7 +1067,8 @@ var data = [
         "nombre": "REDES Y SERVICIOS DE RADIO",
         "ects": 4.5,
         "acron": "RSRD",
-        "year": 4
+        "year": 4,
+        "semester": "Spring"
     },
     {
         "degree": "GITST",
@@ -951,7 +1077,8 @@ var data = [
         "nombre": "DIMENSIONADO Y OPERACION DE REDES",
         "ects": 6,
         "acron": "DORE",
-        "year": 4
+        "year": 4,
+        "semester": "Spring"
     },
     {
         "degree": "GITST",
@@ -960,7 +1087,8 @@ var data = [
         "nombre": "INGENIERIA DE SISTEMAS Y SERVICIOS TELEMATICOS",
         "ects": 4.5,
         "acron": "ISST",
-        "year": 4
+        "year": 4,
+        "semester": "Spring"
     },
     {
         "degree": "GITST",
@@ -969,7 +1097,8 @@ var data = [
         "nombre": "DISENO DE SISTEMAS ELECTRONICOS DIGITALES",
         "ects": 6,
         "acron": "DSED",
-        "year": 4
+        "year": 4,
+        "semester": "Autumn"
     },
     {
         "degree": "GITST",
@@ -978,7 +1107,8 @@ var data = [
         "nombre": "ARQUITECTURA DE PROCESADORES",
         "ects": 4.5,
         "acron": "ARQU",
-        "year": 4
+        "year": 4,
+        "semester": "Autumn"
     },
     {
         "degree": "GITST",
@@ -987,7 +1117,8 @@ var data = [
         "nombre": "FABRICACION DE EQUIPOS ELECTRONICOS",
         "ects": 4.5,
         "acron": "FEEL",
-        "year": 4
+        "year": 4,
+        "semester": "Autumn"
     },
     {
         "degree": "GITST",
@@ -996,7 +1127,8 @@ var data = [
         "nombre": "SISTEMAS ELECTRONICOS ANALOGICOS MIXTOS",
         "ects": 6,
         "acron": "SEAM",
-        "year": 4
+        "year": 4,
+        "semester": "Autumn"
     },
     {
         "degree": "GITST",
@@ -1005,7 +1137,8 @@ var data = [
         "nombre": "INSTRUMENTACION ELECTRONICA",
         "ects": 6,
         "acron": "IELE",
-        "year": 4
+        "year": 4,
+        "semester": "Autumn"
     },
     {
         "degree": "GITST",
@@ -1014,7 +1147,8 @@ var data = [
         "nombre": "INGENIERIA DE SISTEMAS ELECTRONICOS",
         "ects": 4.5,
         "acron": "ISEL",
-        "year": 4
+        "year": 4,
+        "semester": "Spring"
     },
     {
         "degree": "GITST",
@@ -1023,7 +1157,8 @@ var data = [
         "nombre": "SISTEMAS ELECTRONICOS DE CONTROL",
         "ects": 4.5,
         "acron": "SECO",
-        "year": 4
+        "year": 4,
+        "semester": "Spring"
     },
     {
         "degree": "GITST",
@@ -1032,7 +1167,8 @@ var data = [
         "nombre": "SISTEMAS PARA CONECTIVIDAD",
         "ects": 3,
         "acron": "SCON",
-        "year": 4
+        "year": 4,
+        "semester": "Spring"
     },
     {
         "degree": "GITST",
@@ -1041,7 +1177,8 @@ var data = [
         "nombre": "ELECTRONICA DE CONSUMO",
         "ects": 3,
         "acron": "ELCO",
-        "year": 4
+        "year": 4,
+        "semester": "Spring"
     },
     {
         "degree": "GITST",
@@ -1050,7 +1187,8 @@ var data = [
         "nombre": "TRATAMIENTO DIGITAL DE VOZ Y AUDIO",
         "ects": 6,
         "acron": "TDVA",
-        "year": 4
+        "year": 4,
+        "semester": "Autumn"
     },
     {
         "degree": "GITST",
@@ -1059,7 +1197,8 @@ var data = [
         "nombre": "TRATAMIENTO DIGITAL DE IMAGENES Y VIDEO",
         "ects": 6,
         "acron": "TDIV",
-        "year": 4
+        "year": 4,
+        "semester": "Autumn"
     },
     {
         "degree": "GITST",
@@ -1068,7 +1207,8 @@ var data = [
         "nombre": "EQUIPOS Y SISTEMAS AUDIOVISUALES",
         "ects": 6,
         "acron": "EQSA",
-        "year": 4
+        "year": 4,
+        "semester": "Autumn"
     },
     {
         "degree": "GITST",
@@ -1077,7 +1217,8 @@ var data = [
         "nombre": "DIFUSION Y SERVICIOS DE RED",
         "ects": 6,
         "acron": "DSRE",
-        "year": 4
+        "year": 4,
+        "semester": "Spring"
     },
     {
         "degree": "GITST",
@@ -1086,7 +1227,8 @@ var data = [
         "nombre": "COMUNICACIONES AUDIOVISUALES",
         "ects": 6,
         "acron": "CMAV",
-        "year": 4
+        "year": 4,
+        "semester": "Spring"
     },
     {
         "degree": "GITST",
@@ -1095,7 +1237,8 @@ var data = [
         "nombre": "TELEVISION",
         "ects": 6,
         "acron": "TV",
-        "year": 4
+        "year": 4,
+        "semester": "Autumn"
     },
     {
         "degree": "GITST",
@@ -1104,7 +1247,8 @@ var data = [
         "nombre": "PRODUCCION MULTIMEDIA",
         "ects": 6,
         "acron": "PROD",
-        "year": 4
+        "year": 4,
+        "semester": "Spring"
     },
     {
         "degree": "GITST",
@@ -1113,16 +1257,18 @@ var data = [
         "nombre": "HERRAMIENTAS PARA LA COMPUTACION Y VISUALIZACION",
         "ects": 4.5,
         "acron": "HCOV",
-        "year": 2
+        "year": 2,
+        "semester": "Autumn"
     },
     {
         "degree": "GITST",
-        "code": 95000078,
-        "name": "STRUCTURE OF MATTER",
-        "nombre": "ESTRUCTURA DE LA MATERIA",
+        "code": 95000077,
+        "name": "TOOLS FOR COMPUTATION AND VISUALIZATION",
+        "nombre": "HERRAMIENTAS PARA LA COMPUTACION Y VISUALIZACION",
         "ects": 4.5,
-        "acron": "ESMT",
-        "year": 2
+        "acron": "HCOV",
+        "year": 2,
+        "semester": "Spring"
     },
     {
         "degree": "GITST",
@@ -1131,7 +1277,8 @@ var data = [
         "nombre": "DIBUJO POR ORDENADOR",
         "ects": 4.5,
         "acron": "DBOR",
-        "year": 2
+        "year": 2,
+        "semester": "Autumn"
     },
     {
         "degree": "GITST",
@@ -1140,7 +1287,8 @@ var data = [
         "nombre": "SISTEMAS DE CALCULO SIMBOLICO",
         "ects": 4.5,
         "acron": "SCAS",
-        "year": 2
+        "year": 2,
+        "semester": "Autumn"
     },
     {
         "degree": "GITST",
@@ -1149,7 +1297,8 @@ var data = [
         "nombre": "TRABAJO DE FIN DE GRADO",
         "ects": 12,
         "acron": "TFG",
-        "year": 4
+        "year": 4,
+        "semester": ""
     },
     {
         "degree": "GITST",
@@ -1158,7 +1307,8 @@ var data = [
         "nombre": "TECNOLOGIAS WEB DE CLIENTE",
         "ects": 4.5,
         "acron": "TEWC",
-        "year": 2
+        "year": 2,
+        "semester": "Spring"
     },
     {
         "degree": "GITST",
@@ -1167,7 +1317,8 @@ var data = [
         "nombre": "FOTONICA DE CONSUMO",
         "ects": 4.5,
         "acron": "FOCO",
-        "year": 2
+        "year": 2,
+        "semester": "Autumn"
     },
     {
         "degree": "GITST",
@@ -1176,7 +1327,8 @@ var data = [
         "nombre": "LABORATORIO DE TECNICAS ELECTRO-TERMOQUIMICAS",
         "ects": 4.5,
         "acron": "LTET",
-        "year": 2
+        "year": 2,
+        "semester": "Spring"
     },
     {
         "degree": "GITST",
@@ -1185,7 +1337,8 @@ var data = [
         "nombre": "INSTALACIONES ELECTRICAS",
         "ects": 4.5,
         "acron": "INSE",
-        "year": 3
+        "year": 3,
+        "semester": "Autumn"
     },
     {
         "degree": "GITST",
@@ -1194,7 +1347,8 @@ var data = [
         "nombre": "INTRODUCCION A LA ROBOTICA INTELIGENTE",
         "ects": 4.5,
         "acron": "IRIN",
-        "year": 3
+        "year": 3,
+        "semester": "Spring"
     },
     {
         "degree": "GITST",
@@ -1203,7 +1357,8 @@ var data = [
         "nombre": "NANOTECNOLOGIA PARA LA INFORMACION Y LAS COMUNICACIONES",
         "ects": 4.5,
         "acron": "NTIC",
-        "year": 3
+        "year": 3,
+        "semester": "Autumn"
     },
     {
         "degree": "GITST",
@@ -1212,7 +1367,8 @@ var data = [
         "nombre": "INGENIERIA DE TELECOMUNICACION EN COOPERACION PARA EL DESARROLLO",
         "ects": 4.5,
         "acron": "ITDC",
-        "year": 3
+        "year": 3,
+        "semester": "Spring"
     },
     {
         "degree": "GITST",
@@ -1221,7 +1377,8 @@ var data = [
         "nombre": "BIOINGENIERIA Y TELECOMUNICACION",
         "ects": 4.5,
         "acron": "BITC",
-        "year": 3
+        "year": 3,
+        "semester": "Spring"
     },
     {
         "degree": "GITST",
@@ -1230,16 +1387,18 @@ var data = [
         "nombre": "SISTEMAS DE INFORMACION GEOGRAFICA Y TERRITORIAL",
         "ects": 4.5,
         "acron": "SIGT",
-        "year": 3
+        "year": 3,
+        "semester": "Spring"
     },
     {
         "degree": "GITST",
         "code": 95000098,
-        "name": "",
+        "name": "INTRODUCTION TO AMBIENT INTELLIGENCE",
         "nombre": "INTRODUCCION A LOS ENTORNOS INTELIGENTES",
         "ects": 4.5,
         "acron": "IEIN",
-        "year": 2
+        "year": 2,
+        "semester": "Spring"
     },
     {
         "degree": "GITST",
@@ -1248,7 +1407,18 @@ var data = [
         "nombre": "GESTION EFICAZ DE EQUIPOS DE TRABAJO",
         "ects": 3,
         "acron": "GEET",
-        "year": 4
+        "year": 4,
+        "semester": "Autumn"
+    },
+    {
+        "degree": "GITST",
+        "code": 95000190,
+        "name": "EFFECTIVE TEAMWORK MANAGEMENT",
+        "nombre": "GESTION EFICAZ DE EQUIPOS DE TRABAJO",
+        "ects": 3,
+        "acron": "GEET",
+        "year": 4,
+        "semester": "Spring"
     },
     {
         "degree": "GITST",
@@ -1257,7 +1427,18 @@ var data = [
         "nombre": "DESARROLLO PERSONAL Y GESTION DE LA CARRERA",
         "ects": 3,
         "acron": "DPGC",
-        "year": 4
+        "year": 4,
+        "semester": "Autumn"
+    },
+    {
+        "degree": "GITST",
+        "code": 95000191,
+        "name": "PERSONAL DEVELOPMENT AND CAREER MANAGEMENT",
+        "nombre": "DESARROLLO PERSONAL Y GESTION DE LA CARRERA",
+        "ects": 3,
+        "acron": "DPGC",
+        "year": 4,
+        "semester": "Spring"
     },
     {
         "degree": "GITST",
@@ -1266,7 +1447,8 @@ var data = [
         "nombre": "CREATIVIDAD E INNOVACION",
         "ects": 3,
         "acron": "CRIN",
-        "year": 4
+        "year": 4,
+        "semester": "Spring"
     },
     {
         "degree": "GITST",
@@ -1275,7 +1457,8 @@ var data = [
         "nombre": "INFRAESTRUCTURA DE DATOS ESPACIALES",
         "ects": 4.5,
         "acron": "IDE",
-        "year": 2
+        "year": 2,
+        "semester": "Spring"
     },
     {
         "degree": "GITST",
@@ -1284,7 +1467,8 @@ var data = [
         "nombre": "SISTEMAS BASADOS EN APRENDIZAJE AUTOMATICO",
         "ects": 3,
         "acron": "SIBA",
-        "year": 4
+        "year": 4,
+        "semester": "Autumn"
     },
     {
         "degree": "GITST",
@@ -1293,7 +1477,8 @@ var data = [
         "nombre": "INGENIERIA DE LA MUSICA",
         "ects": 3,
         "acron": "IMUS",
-        "year": 4
+        "year": 4,
+        "semester": "Autumn"
     },
     {
         "degree": "MUCS",
@@ -1301,8 +1486,29 @@ var data = [
         "name": "",
         "nombre": "CIBERSEGURIDAD: CONTEXTO Y AMENAZAS",
         "ects": 6,
-        "acron": "",
-        "year": 1
+        "acron": "CSCA",
+        "year": 1,
+        "semester": "Autumn"
+    },
+    {
+        "degree": "MUCS",
+        "code": 93001003,
+        "name": "",
+        "nombre": "AUDITORÃA TÃ‰CNICA DE SEGURIDAD",
+        "ects": 3,
+        "acron": "AUTS",
+        "year": 1,
+        "semester": "Autumn"
+    },
+    {
+        "degree": "MUCS",
+        "code": 93001004,
+        "name": "",
+        "nombre": "EVIDENCIAS FORENSES",
+        "ects": 3,
+        "acron": "EVFO",
+        "year": 1,
+        "semester": "Spring"
     },
     {
         "degree": "MUCS",
@@ -1310,8 +1516,9 @@ var data = [
         "name": "",
         "nombre": "SERVICIOS DE CONTROL DE ACCESO",
         "ects": 4.5,
-        "acron": "",
-        "year": 1
+        "acron": "SECA",
+        "year": 1,
+        "semester": "Autumn"
     },
     {
         "degree": "MUCS",
@@ -1319,8 +1526,49 @@ var data = [
         "name": "",
         "nombre": "SERVICIOS DE SEGURIDAD EN RED",
         "ects": 3,
-        "acron": "",
-        "year": 1
+        "acron": "SESR",
+        "year": 1,
+        "semester": "Autumn"
+    },
+    {
+        "degree": "MUCS",
+        "code": 93001007,
+        "name": "",
+        "nombre": "PROTECCIÃ“N DE SISTEMAS Y SERVICIOS",
+        "ects": 4.5,
+        "acron": "PRSS",
+        "year": 1,
+        "semester": "Autumn"
+    },
+    {
+        "degree": "MUCS",
+        "code": 93001008,
+        "name": "",
+        "nombre": "PROTECCIÃ“N DE LA INFORMACIÃ“N",
+        "ects": 3,
+        "acron": "PRIN",
+        "year": 1,
+        "semester": "Autumn"
+    },
+    {
+        "degree": "MUCS",
+        "code": 93001009,
+        "name": "",
+        "nombre": "SEGURIDAD EN EL DESARROLLO SOFTWARE",
+        "ects": 3,
+        "acron": "SEDS",
+        "year": 1,
+        "semester": "Spring"
+    },
+    {
+        "degree": "MUCS",
+        "code": 93001010,
+        "name": "",
+        "nombre": "INGENIERÃA INVERSA Y ANÃLISIS DE MALWARE",
+        "ects": 6,
+        "acron": "IIAM",
+        "year": 1,
+        "semester": "Autumn"
     },
     {
         "degree": "MUCS",
@@ -1328,8 +1576,9 @@ var data = [
         "name": "",
         "nombre": "GESTION DE RIESGOS Y OPERACIONES EN CIBERSEGURIDAD",
         "ects": 6,
-        "acron": "",
-        "year": 1
+        "acron": "GROC",
+        "year": 1,
+        "semester": "Spring"
     },
     {
         "degree": "MUCS",
@@ -1337,8 +1586,9 @@ var data = [
         "name": "",
         "nombre": "DISEÃ‘O DE ESTRATEGIAS CORPORATIVAS DE CIBERSEGURIDAD",
         "ects": 3,
-        "acron": "",
-        "year": 1
+        "acron": "DECC",
+        "year": 1,
+        "semester": "Spring"
     },
     {
         "degree": "MUCS",
@@ -1346,53 +1596,70 @@ var data = [
         "name": "",
         "nombre": "SISTEMAS DE GESTION DE SEGURIDAD DE LA INFORMACION",
         "ects": 3,
-        "acron": "",
-        "year": 1
+        "acron": "SGSI",
+        "year": 1,
+        "semester": "Spring"
     },
     {
         "degree": "MUCS",
-        "code": 1,
+        "code": 93001014,
+        "name": "",
+        "nombre": "SEGURIDAD FÃSICA Y CONVERGENCIA",
+        "ects": 3,
+        "acron": "SEFC",
+        "year": 1,
+        "semester": "Spring"
+    },
+    {
+        "degree": "MUCS",
+        "code": 93001015,
         "name": "",
         "nombre": "PRACTICAS EN EMPRESAS",
         "ects": 6,
-        "acron": "",
-        "year": 1
+        "acron": "PE",
+        "year": 1,
+        "semester": ""
+        
     },
     {
         "degree": "MUCS",
-        "code": 2,
-        "name": "",
+        "code": 93001016,
+        "name": "MASTER THESIS",
         "nombre": "TRABAJO FIN DE MASTER",
         "ects": 12,
-        "acron": "",
-        "year": 1
+        "acron": "TFM",
+        "year": 1,
+        "semester": ""
     },
     {
         "degree": "MUESFV",
         "code": 93001034,
         "name": "FUNDAMENTALS OF SOLAR CELLS",
-        "nombre": "",
+        "nombre": "FUNDAMENTOS DE LAS CÃ‰LULAS SOLATES",
         "ects": 4,
         "acron": "FCS",
-        "year": 1
+        "year": 1,
+        "semester": "Autumn"
     },
     {
         "degree": "MUESFV",
         "code": 93001035,
         "name": "ENERGY & SOCIETY",
-        "nombre": "",
+        "nombre": "ENERGÃA Y SOCIEDAD",
         "ects": 5,
         "acron": "EYS",
-        "year": 1
+        "year": 1,
+        "semester": "Autumn"
     },
     {
         "degree": "MUESFV",
         "code": 93001036,
         "name": "LABORATORY OF SOLAR CELL CHARACTERIZATION",
-        "nombre": "",
+        "nombre": "LABORATORIO DE CARACTERIZACIÃ“N DE CÃ‰LULAS SOLARES",
         "ects": 4,
         "acron": "LCCS",
-        "year": 1
+        "year": 1,
+        "semester": "Autumn"
     },
     {
         "degree": "MUESFV",
@@ -1401,7 +1668,8 @@ var data = [
         "nombre": "INGENIERIA DE LOS SISTEMAS FOTOVOLTAICOS",
         "ects": 4,
         "acron": "IESFV",
-        "year": 1
+        "year": 1,
+        "semester": "Autumn"
     },
     {
         "degree": "MUESFV",
@@ -1410,16 +1678,18 @@ var data = [
         "nombre": "INGENIERIA ELECTRICA DE LOS SISTEMAS FOTOVOLTAICOS",
         "ects": 4,
         "acron": "ISFV",
-        "year": 1
+        "year": 1,
+        "semester": "Autumn"
     },
     {
         "degree": "MUESFV",
         "code": 93001039,
         "name": "LABORATORY OF SOLAR CELL TECHNOLOGY",
-        "nombre": "",
+        "nombre": "LABORATORIO DE TECNOLOGÃA DE CÃ‰LULAS SOLARES",
         "ects": 5,
         "acron": "LTCS",
-        "year": 1
+        "year": 1,
+        "semester": "Autumn"
     },
     {
         "degree": "MUESFV",
@@ -1428,16 +1698,18 @@ var data = [
         "nombre": "FISICA DE LOS MATERIALES FOTOVOLTAICOS",
         "ects": 4,
         "acron": "FMFV",
-        "year": 1
+        "year": 1,
+        "semester": "Autumn"
     },
     {
         "degree": "MUESFV",
         "code": 93001041,
         "name": "OPTICAL ENGINEERING",
-        "nombre": "",
+        "nombre": "INGENIERÃA Ã“PTICA",
         "ects": 4,
         "acron": "IO",
-        "year": 1
+        "year": 1,
+        "semester": "Autumn"
     },
     {
         "degree": "MUESFV",
@@ -1446,16 +1718,18 @@ var data = [
         "nombre": "SEMINARIO DE ACTUALIDAD ENERGETICA",
         "ects": 4,
         "acron": "SAE",
-        "year": 1
+        "year": 1,
+        "semester": "Autumn"
     },
     {
         "degree": "MUESFV",
         "code": 93001044,
-        "name": "",
+        "name": "LABORATORY OF PHOTOVOLTAIC MODULES AND SYSTEMS",
         "nombre": "LABORATORIO DE MODULOS E INSTALACIONES FOTOVOLTAICAS",
         "ects": 4,
         "acron": "LMIFV",
-        "year": 1
+        "year": 1,
+        "semester": "Spring"
     },
     {
         "degree": "MUESFV",
@@ -1464,7 +1738,8 @@ var data = [
         "nombre": "SISTEMAS CONECTADOS A LA RED ELECTRICA",
         "ects": 4,
         "acron": "SCRE",
-        "year": 1
+        "year": 1,
+        "semester": "Spring"
     },
     {
         "degree": "MUESFV",
@@ -1473,16 +1748,28 @@ var data = [
         "nombre": "CELULAS SOLARES DE NUEVA GENERACION",
         "ects": 3,
         "acron": "CSNG",
-        "year": 1
+        "year": 1,
+        "semester": "Spring"
     },
     {
         "degree": "MUESFV",
         "code": 93001047,
         "name": "",
         "nombre": "INTEGRACION ARQUITECTONICA DE LA ESFV",
-        "ects": 3,
+        "ects": 4,
         "acron": "IA",
-        "year": 1
+        "year": 1,
+        "semester": "Spring"
+    },
+    {
+        "degree": "MUESFV",
+        "code": 93001048,
+        "name": "LABORATORY OF PHOTOVOLTAIC ELECTRICTY CONCENTRATION SYSTEMS",
+        "nombre": "LABORATORIO DE SISTEMAS FV DE CONCENTRACION",
+        "ects": 4,
+        "acron": "LSFVC",
+        "year": 1,
+        "semester": "Spring"
     },
     {
         "degree": "MUESFV",
@@ -1491,16 +1778,18 @@ var data = [
         "nombre": "LABORATORIO DE SIMULACION DE CELULAS Y SISTEMAS",
         "ects": 4,
         "acron": "LSCS",
-        "year": 1
+        "year": 1,
+        "semester": "Spring"
     },
     {
         "degree": "MUESFV",
         "code": 93001050,
-        "name": "",
+        "name": "LABORATORY OD PHOTOVOLTAIC ELECTRICITY ENGINEERING",
         "nombre": "LABORATORIO DE INGENIERIA ELECTRICA FOTOVOLTAICA",
         "ects": 4,
         "acron": "LIEFV",
-        "year": 1
+        "year": 1,
+        "semester": "Spring"
     },
     {
         "degree": "MUESFV",
@@ -1509,25 +1798,18 @@ var data = [
         "nombre": "SEMINARIO SOBRE MERCADO FV, FINANCIACION Y GESTION",
         "ects": 4,
         "acron": "SM",
-        "year": 1
+        "year": 1,
+        "semester": "Spring"
     },
     {
         "degree": "MUESFV",
         "code": 93001052,
-        "name": "",
+        "name": "COMPUTING LABORATORY OF PHOTOCOLTAIC MATERIALS",
         "nombre": "LABORATORIO COMPUTACIONAL DE MATERIALES FV",
         "ects": 4,
         "acron": "LCMFV",
-        "year": 1
-    },
-    {
-        "degree": "MUESFV",
-        "code": "",
-        "name": "",
-        "nombre": "LABORATORIO DE SISTEMAS FV DE CONCENTRACION",
-        "ects": 4,
-        "acron": "LSFVC",
-        "year": 1
+        "year": 1,
+        "semester": "Spring"
     },
     {
         "degree": "MUESFV",
@@ -1536,214 +1818,308 @@ var data = [
         "nombre": "TRABAJO DE FIN DE MASTER",
         "ects": 15,
         "acron": "TFM",
-        "year": 1
+        "year": 1, 
+        "semester": ""
     },
     {
         "degree": "MUIB",
         "code": 93000960,
         "name": "HEALTH TECHNOLOGY BUSINESS MANAGEMENT",
-        "nombre": "",
+        "nombre": "ORGANIZACIÃ“N DE EMPRESAS DE TECNOLOGÃA MÃ‰DICA",
         "ects": 3,
         "acron": "OETM",
-        "year": 1
+        "year": 1,
+        "semester": "Autumn"
     },
     {
         "degree": "MUIB",
         "code": 93000961,
-        "name": "BIOMEDICAL TECHNOLOGIES DESGIN",
-        "nombre": "",
+        "name": "BIOMEDICAL TECHNOLOGIES DESIGN",
+        "nombre": "DISEÃ‘O DE TECNOLOGÃAS BIOMÃ‰DICAS",
         "ects": 3,
         "acron": "DTB",
-        "year": 1
+        "year": 1,
+        "semester": "Autumn"
     },
     {
         "degree": "MUIB",
         "code": 93000962,
         "name": "BIOMEDICAL ENGINEERING RESEARCH AND DEVELOPMENT PROJECTS",
-        "nombre": "",
+        "nombre": "PROYECTOS DE INESTIGACIÃ“N Y DESARROLLO DE INGENIERÃA BIOMÃ‰DICA",
         "ects": 3,
         "acron": "PID",
-        "year": 1
+        "year": 1,
+        "semester": "Autumn"
     },
     {
         "degree": "MUIB",
         "code": 93000963,
         "name": "BIOMEDICAL ENGINEERING PROFESSIONAL PROJECTS",
-        "nombre": "",
+        "nombre": "PROYECTOS PROFESIONALES EN INGENIERÃA BIOMÃ‰DICA",
         "ects": 3,
-        "acron": "",
-        "year": 1
+        "acron": "PPIB",
+        "year": 1,
+        "semester": "Spring"
     },
     {
         "degree": "MUIB",
         "code": 93000964,
         "name": "TELEMEDICINE",
-        "nombre": "",
+        "nombre": "TELEMEDICINA",
         "ects": 3,
         "acron": "TEL",
-        "year": 1
+        "year": 1,
+        "semester": "Autumn"
     },
     {
         "degree": "MUIB",
         "code": 93000965,
         "name": "BIOSYSTEMS MODELLING AND SIMULATION",
-        "nombre": "",
+        "nombre": "MODELADO DE SISTEMAS BIOMÃ‰DICOS",
         "ects": 3,
         "acron": "MOD",
-        "year": 1
+        "year": 1,
+        "semester": "Autumn"
     },
     {
         "degree": "MUIB",
         "code": 93000966,
         "name": "BIOINSTRUMENTATION",
-        "nombre": "",
+        "nombre": "BIOINSTRUMETACIÃ“N",
         "ects": 3,
         "acron": "BINS",
-        "year": 1
+        "year": 1,
+        "semester": "Autumn"
     },
     {
         "degree": "MUIB",
         "code": 93000967,
         "name": "BIOMEDICAL IMAGES",
-        "nombre": "",
+        "nombre": "IMÃGENES MÃ‰DICAS",
         "ects": 3,
         "acron": "IBIO",
-        "year": 1
+        "year": 1,
+        "semester": "Autumn"
     },
     {
         "degree": "MUIB",
         "code": 93000968,
         "name": "BIOMEDICAL SIGNALS",
-        "nombre": "",
+        "nombre": "SEÃ‘ALES BIOMÃ‰DICAS",
         "ects": 3,
         "acron": "SBIO",
-        "year": 1
+        "year": 1,
+        "semester": "Autumn"
     },
     {
         "degree": "MUIB",
         "code": 93000969,
         "name": "BIOMECHANICS",
-        "nombre": "",
+        "nombre": "BIOMECÃNICA",
         "ects": 3,
         "acron": "BMEC",
-        "year": 1
+        "year": 1,
+        "semester": "Autumn"
     },
     {
         "degree": "MUIB",
         "code": 93000970,
         "name": "ENTREPRENEURSHIP AND INNOVATION IN BIOMEDICAL ENGINEERING",
-        "nombre": "",
+        "nombre": "GESTIÃ“N E INNOVACIÃ“N EMPRESARIAL EN INGEIERÃA BIOMÃ‰DICA",
         "ects": 3,
         "acron": "GEIB",
-        "year": 1
+        "year": 1,
+        "semester": "Autumn"
     },
     {
         "degree": "MUIB",
         "code": 93000971,
         "name": "MEDICAL DATA INTELLIGENT ANALYSIS",
-        "nombre": "",
+        "nombre": "ANÃLISIS INTELIGENTE DE DATOS MÃ‰DICOS",
         "ects": 3,
         "acron": "AIDM",
-        "year": 1
+        "year": 1,
+        "semester": "Autumn"
     },
     {
         "degree": "MUIB",
         "code": 93000972,
         "name": "CONTROL AND ROBOTICS IN MEDICINE",
-        "nombre": "",
+        "nombre": "CONTROL Y ROBÃ“TICA EN MEDICINA",
         "ects": 3,
         "acron": "ROB",
-        "year": 1
+        "year": 1,
+        "semester": "Autumn"
     },
     {
         "degree": "MUIB",
         "code": 93000973,
         "name": "PERSONALIZED MEDICINE",
-        "nombre": "",
+        "nombre": "MEDICINA PERSONALIZADA",
         "ects": 3,
         "acron": "MPE",
-        "year": 1
+        "year": 1,
+        "semester": "Autumn"
     },
     {
         "degree": "MUIB",
         "code": 93000974,
         "name": "ADVANCE METHODS IN SIGNAL AND MEDICAL IMAGES",
-        "nombre": "",
+        "nombre": "TEMAS AVANZADOS EN SEÃ‘ALES E IMÃGEES MÃ‰DICAS",
         "ects": 3,
         "acron": "TSIM",
-        "year": 1
+        "year": 1,
+        "semester": "Autumn"
     },
     {
         "degree": "MUIB",
         "code": 93000975,
         "name": "NANOMEDICINE TECHNOLOGIES",
-        "nombre": "",
+        "nombre": "TECNOLOGÃAS PARA NANOMEDICINA",
         "ects": 3,
         "acron": "NANO",
-        "year": 1
+        "year": 1,
+        "semester": "Autumn"
+    },
+    {
+        "degree": "MUIB",
+        "code": 930009756,
+        "name": "",
+        "nombre": "CIRUGÃA GUIADA POR IMAGEN",
+        "ects": 3,
+        "acron": "CGI",
+        "year": 1,
+        "semester": "Spring"
     },
     {
         "degree": "MUIB",
         "code": 93000977,
         "name": "ADVANCE METHODS IN BIOMEDICAL IMAGES",
-        "nombre": "",
+        "nombre": "TEMAS AVANZADOS DE IMÃGENES BIOMÃ‰DICAS",
         "ects": 3,
-        "acron": "",
-        "year": 1
+        "acron": "TAIM",
+        "year": 1,
+        "semester": "Spring"
     },
     {
         "degree": "MUIB",
         "code": 93000978,
         "name": "BIOMEDICAL SIGNALS LABORATORY",
-        "nombre": "",
+        "nombre": "LABORATORIO DE SEÃ‘ALES BIOMÃ‰DICAS",
         "ects": 3,
-        "acron": "",
-        "year": 1
+        "acron": "LSEN",
+        "year": 1,
+        "semester": "Spring"
     },
     {
         "degree": "MUIB",
         "code": 93000979,
         "name": "MEDICAL IMAGING LABORATORY",
-        "nombre": "",
+        "nombre": "LABORATORIO DE IMÃGENES MÃ‰DICAS",
         "ects": 3,
-        "acron": "",
-        "year": 1
+        "acron": "LIM",
+        "year": 1,
+        "semester": "Spring"
     },
     {
         "degree": "MUIB",
         "code": 93000980,
         "name": "AMBIENT INTELLIGENCE",
-        "nombre": "",
+        "nombre": "INTELIGENCIA AMBIENTAL",
         "ects": 3,
-        "acron": "",
-        "year": 1
+        "acron": "INAM",
+        "year": 1,
+        "semester": "Spring"
     },
     {
         "degree": "MUIB",
         "code": 93000981,
         "name": "ASSISTIVE TECHNOLOGIES",
-        "nombre": "",
+        "nombre": "TECNOLOGÃAS ASISTIVAS",
         "ects": 3,
-        "acron": "",
-        "year": 1
+        "acron": "TEAS",
+        "year": 1,
+        "semester": "Spring"
     },
     {
         "degree": "MUIB",
         "code": 93000982,
         "name": "TELEMEDICINE LABORATORY",
-        "nombre": "",
+        "nombre": "LABORATORIO DE TELEMEDICINA",
         "ects": 3,
-        "acron": "",
-        "year": 1
+        "acron": "LTEL",
+        "year": 1,
+        "semester": "Spring"
+    },
+    {
+        "degree": "MUIB",
+        "code": 93000983,
+        "name": "BIOPHOTONICS",
+        "nombre": "BIOFOTÃ“NICA",
+        "ects": 3,
+        "acron": "BIOF",
+        "year": 1,
+        "semester": "Spring"
+    },
+    {
+        "degree": "MUIB",
+        "code": 93000984,
+        "name": "",
+        "nombre": "BIOELECTROMAGNETISMO",
+        "ects": 3,
+        "acron": "BEMG",
+        "year": 1,
+        "semester": "Spring"
+    },
+    {
+        "degree": "MUIB",
+        "code": 93000985,
+        "name": "BIOINSTRUMENTATION LABORATORY",
+        "nombre": "LABORATORIO DE BIOINSTRUMENTACIÃ“N",
+        "ects": 3,
+        "acron": "LINS",
+        "year": 1,
+        "semester": "Spring"
+    },
+    {
+        "degree": "MUIB",
+        "code": 93000986,
+        "name": "NUMERICAL MODELS FOR TISSUE AND BLOOD FLOW BIOMECHANICS",
+        "nombre": "MODELOS NUMÃ‰RICOS PARA BIOMECÃNICA DE TEJIDOS Y DEL FLUJO SANGUÃNEO",
+        "ects": 3,
+        "acron": "MNUB",
+        "year": 1,
+        "semester": "Spring"
+    },
+    {
+        "degree": "MUIB",
+        "code": 93000987,
+        "name": "",
+        "nombre": "LABORATORIO DE BIOMECÃNICA",
+        "ects": 3,
+        "acron": "LMEC",
+        "year": 1,
+        "semester": "Spring"
+    },
+    {
+        "degree": "MUIB",
+        "code": 93000988,
+        "name": "REGENERATIVE MEDICINE",
+        "nombre": "MEDICINA REGENERATIVA",
+        "ects": 3,
+        "acron": "MERE",
+        "year": 1,
+        "semester": "Spring"
     },
     {
         "degree": "MUIB",
         "code": 93000990,
         "name": "CLINICAL SEMINARS",
-        "nombre": "",
+        "nombre": "SEMINARIOS CLÃNICOS",
         "ects": 3,
         "acron": "SEM",
-        "year": 1
+        "year": 1,
+        "semester": "Autumn"
     },
     {
         "degree": "MUIRST",
@@ -1751,8 +2127,9 @@ var data = [
         "name": "",
         "nombre": "REDES DEFINIDAS POR SOFTWARE Y VIRTUALIZACION DE REDES",
         "ects": 6,
-        "acron": "",
-        "year": 1
+        "acron": "SDNV",
+        "year": 1,
+        "semester": "Autumn"
     },
     {
         "degree": "MUIRST",
@@ -1760,8 +2137,9 @@ var data = [
         "name": "",
         "nombre": "GESTION Y OPERACION DE LA CIBERSEGURIDAD Y PRIVACIDAD",
         "ects": 6,
-        "acron": "",
-        "year": 1
+        "acron": "GOCI",
+        "year": 1,
+        "semester": "Spring"
     },
     {
         "degree": "MUIRST",
@@ -1769,8 +2147,9 @@ var data = [
         "name": "",
         "nombre": "INGENIERIA DE SERVICIOS TELEMATICOS",
         "ects": 6,
-        "acron": "",
-        "year": 1
+        "acron": "ISTE",
+        "year": 1,
+        "semester": "Autumn"
     },
     {
         "degree": "MUIRST",
@@ -1778,8 +2157,9 @@ var data = [
         "name": "",
         "nombre": "ANALITICA DE BIG DATA",
         "ects": 6,
-        "acron": "",
-        "year": 1
+        "acron": "ABID",
+        "year": 1,
+        "semester": "Spring"
     },
     {
         "degree": "MUIRST",
@@ -1787,8 +2167,9 @@ var data = [
         "name": "",
         "nombre": "EVOLUCION DE REDES INALAMBRICAS I (5G, VSAT, DTN, IOT)",
         "ects": 3,
-        "acron": "",
-        "year": 1
+        "acron": "ERI1",
+        "year": 1,
+        "semester": "Autumn"
     },
     {
         "degree": "MUIRST",
@@ -1796,8 +2177,9 @@ var data = [
         "name": "",
         "nombre": "EVOLUCION DE REDES INALAMBRICAS II (5G, VSAT, DTN, IOT)",
         "ects": 3,
-        "acron": "",
-        "year": 1
+        "acron": "ERI2",
+        "year": 1,
+        "semester": "Spring"
     },
     {
         "degree": "MUIRST",
@@ -1805,8 +2187,9 @@ var data = [
         "name": "",
         "nombre": "SIMULACION DE REDES DE COMUNICACIONES",
         "ects": 3,
-        "acron": "",
-        "year": 1
+        "acron": "SIRC",
+        "year": 1,
+        "semester": "Autumn"
     },
     {
         "degree": "MUIRST",
@@ -1814,8 +2197,9 @@ var data = [
         "name": "",
         "nombre": "TECNOLOGIAS PARA APLICACIONES Y SERVICIOS DE INTERNET",
         "ects": 3,
-        "acron": "",
-        "year": 1
+        "acron": "TASI",
+        "year": 1,
+        "semester": "Spring"
     },
     {
         "degree": "MUIRST",
@@ -1823,8 +2207,9 @@ var data = [
         "name": "",
         "nombre": "FUNDAMENTOS DE BIG DATA",
         "ects": 3,
-        "acron": "",
-        "year": 1
+        "acron": "FBID",
+        "year": 1,
+        "semester": "Autumn"
     },
     {
         "degree": "MUIRST",
@@ -1832,8 +2217,9 @@ var data = [
         "name": "",
         "nombre": "SISTEMAS DE INFORMACION Y BASES DE DATOS",
         "ects": 3,
-        "acron": "",
-        "year": 1
+        "acron": "SIBD",
+        "year": 1,
+        "semester": "Autumn"
     },
     {
         "degree": "MUIRST",
@@ -1842,7 +2228,8 @@ var data = [
         "nombre": "BLOCKCHAIN: DESARROLLO DE APLICACIONES",
         "ects": 3,
         "acron": "BCDA",
-        "year": 1
+        "year": 1,
+        "semester": "Autumn"
     },
     {
         "degree": "MUIRST",
@@ -1850,8 +2237,9 @@ var data = [
         "name": "",
         "nombre": "FUNDAMENTOS DE LA COMPUTACION EN LA NUBE",
         "ects": 3,
-        "acron": "",
-        "year": 1
+        "acron": "FCON",
+        "year": 1,
+        "semester": "Autumn"
     },
     {
         "degree": "MUIRST",
@@ -1859,8 +2247,9 @@ var data = [
         "name": "",
         "nombre": "ARQUITECTURA DE SERVICIOS PARA IOT",
         "ects": 3,
-        "acron": "",
-        "year": 1
+        "acron": "ASIT",
+        "year": 1,
+        "semester": "Spring"
     },
     {
         "degree": "MUIRST",
@@ -1869,34 +2258,38 @@ var data = [
         "nombre": "BLOCKCHAIN: FUNDAMENTOS Y ARQUITECTURAS",
         "ects": 3,
         "acron": "BCFA",
-        "year": 1
+        "year": 1,
+        "semester": "Spring"
     },
     {
         "degree": "MUIRST",
         "code": 93001097,
-        "name": "",
+        "name": "Proffesional seminars",
         "nombre": "SEMINARIOS PROFESIONALES",
         "ects": 3,
-        "acron": "",
-        "year": 1
+        "acron": "SPRO",
+        "year": 1,
+        "semester": "Spring"
     },
     {
         "degree": "MUIRST",
         "code": 93001098,
-        "name": "",
+        "name": "Mini-projects",
         "nombre": "MINI-PROYECTOS",
         "ects": 3,
-        "acron": "",
-        "year": 1
+        "acron": "MPRO",
+        "year": 1,
+        "semester": "Spring"
     },
     {
         "degree": "MUIRST",
         "code": 93001099,
-        "name": "",
+        "name": "MASTER THESIS",
         "nombre": "TRABAJO FIN DE MASTER",
         "ects": 12,
         "acron": "TFM",
-        "year": 1
+        "year": 1,
+        "semester": ""
     },
     {
         "degree": "MUIT",
@@ -1905,7 +2298,18 @@ var data = [
         "nombre": "SISTEMAS DE COMUNICACIONES",
         "ects": 6,
         "acron": "SCOM",
-        "year": 1
+        "year": 1,
+        "semester": "Autumn"
+    },
+    {
+        "degree": "MUIT",
+        "code": 93000791,
+        "name": "COMMUNICATION SYSTEMS",
+        "nombre": "SISTEMAS DE COMUNICACIONES",
+        "ects": 6,
+        "acron": "SCOM",
+        "year": 1,
+        "semester": "Spring"
     },
     {
         "degree": "MUIT",
@@ -1914,7 +2318,18 @@ var data = [
         "nombre": "ANALISIS DE SENAL PARA COMUNICACIONES",
         "ects": 6,
         "acron": "ASEC",
-        "year": 1
+        "year": 1,
+        "semester": "Autumn"
+    },
+    {
+        "degree": "MUIT",
+        "code": 93000792,
+        "name": "SIGNAL ANALYSIS FOR COMMUNICATIONS",
+        "nombre": "ANALISIS DE SENAL PARA COMUNICACIONES",
+        "ects": 6,
+        "acron": "ASEC",
+        "year": 1,
+        "semester": "Spring"
     },
     {
         "degree": "MUIT",
@@ -1923,7 +2338,18 @@ var data = [
         "nombre": "TECNOLOGIAS DE ACCESO RADIO",
         "ects": 3,
         "acron": "TACR",
-        "year": 1
+        "year": 1,
+        "semester": "Autumn"
+    },
+    {
+        "degree": "MUIT",
+        "code": 93000793,
+        "name": "RADIO ACCESS TECHNOLOGIES",
+        "nombre": "TECNOLOGIAS DE ACCESO RADIO",
+        "ects": 3,
+        "acron": "TACR",
+        "year": 1,
+        "semester": "Spring"
     },
     {
         "degree": "MUIT",
@@ -1932,7 +2358,18 @@ var data = [
         "nombre": "SISTEMAS Y SERVICIOS MULTIMEDIA",
         "ects": 6,
         "acron": "SSMM",
-        "year": 1
+        "year": 1,
+        "semester": "Autumn"
+    },
+    {
+        "degree": "MUIT",
+        "code": 93000794,
+        "name": "MULTIMEDIA SYSTEMS AND SERVICES",
+        "nombre": "SISTEMAS Y SERVICIOS MULTIMEDIA",
+        "ects": 6,
+        "acron": "SSMM",
+        "year": 1,
+        "semester": "Spring"
     },
     {
         "degree": "MUIT",
@@ -1941,7 +2378,18 @@ var data = [
         "nombre": "EQUIPOS Y TERMINALES DE USUARIO",
         "ects": 6,
         "acron": "EYTU",
-        "year": 1
+        "year": 1,
+        "semester": "Autumn"
+    },
+    {
+        "degree": "MUIT",
+        "code": 93000795,
+        "name": "USER EQUIPMENT AND TERMINALS",
+        "nombre": "EQUIPOS Y TERMINALES DE USUARIO",
+        "ects": 6,
+        "acron": "EYTU",
+        "year": 1,
+        "semester": "Spring"
     },
     {
         "degree": "MUIT",
@@ -1950,7 +2398,18 @@ var data = [
         "nombre": "INGENIERIA DE SISTEMAS DE INSTRUMENTACION",
         "ects": 6,
         "acron": "ISIN",
-        "year": 1
+        "year": 1,
+        "semester": "Autumn"
+    },
+    {
+        "degree": "MUIT",
+        "code": 93000796,
+        "name": "INSTRUMENTATION SYSTEMS ENGINEERING",
+        "nombre": "INGENIERIA DE SISTEMAS DE INSTRUMENTACION",
+        "ects": 6,
+        "acron": "ISIN",
+        "year": 1,
+        "semester": "Spring"
     },
     {
         "degree": "MUIT",
@@ -1959,7 +2418,8 @@ var data = [
         "nombre": "REDES DE COMUNICACIONES",
         "ects": 6,
         "acron": "RECM",
-        "year": 1
+        "year": 1,
+        "semester": "Spring"
     },
     {
         "degree": "MUIT",
@@ -1968,7 +2428,8 @@ var data = [
         "nombre": "APLICACIONES Y SERVICIOS",
         "ects": 6,
         "acron": "APSV",
-        "year": 1
+        "year": 1,
+        "semester": "Autumn"
     },
     {
         "degree": "MUIT",
@@ -1977,7 +2438,8 @@ var data = [
         "nombre": "INTEGRACION DE REDES , APLICACIONES Y CONTENIDOS",
         "ects": 6,
         "acron": "IRAC",
-        "year": 1
+        "year": 1,
+        "semester": "Spring"
     },
     {
         "degree": "MUIT",
@@ -1986,7 +2448,8 @@ var data = [
         "nombre": "GESTION DE PROYECTOS",
         "ects": 6,
         "acron": "GPRO",
-        "year": 1
+        "year": 1,
+        "semester": "Autumn"
     },
     {
         "degree": "MUIT",
@@ -1995,16 +2458,28 @@ var data = [
         "nombre": "VISION ESTRATEGICA DE LA INTEGRACION DE TECNOLOGIAS Y SISTEMAS EN EL SECTOR TIC",
         "ects": 3,
         "acron": "VETIC",
-        "year": 1
+        "year": 1,
+        "semester": "Autumn"
+    },
+    {
+        "degree": "MUIT",
+        "code": 93000801,
+        "name": "STRATEGIC VISION OF TECHNOLOGIES AND SYSTEMS INTEGRATION IN ICT SECTOR",
+        "nombre": "VISION ESTRATEGICA DE LA INTEGRACION DE TECNOLOGIAS Y SISTEMAS EN EL SECTOR TIC",
+        "ects": 3,
+        "acron": "VETIC",
+        "year": 1,
+        "semester": "Spring"
     },
     {
         "degree": "MUIT",
         "code": 93000803,
         "name": "ADVANCED TOPICS ON ANTENNA TECHNOLOGIES",
-        "nombre": "",
+        "nombre": "TEMAS AVANZADOS EN TECNOLOGÃA DE ANTENAS",
         "ects": 6,
         "acron": "ATAT",
-        "year": 2
+        "year": 2,
+        "semester": "Autumn"
     },
     {
         "degree": "MUIT",
@@ -2013,16 +2488,18 @@ var data = [
         "nombre": "CIRCUITOS DE ALTA FRECUENCIA",
         "ects": 6,
         "acron": "CAFR",
-        "year": 2
+        "year": 2,
+        "semester": "Autumn"
     },
     {
         "degree": "MUIT",
         "code": 93000806,
         "name": "MEDIA DATA SYSTEM DESIGN",
-        "nombre": "",
+        "nombre": "DiseÃ±o del sistema de datos",
         "ects": 6,
-        "acron": "MDSD",
-        "year": 2
+        "acron": "MEDS",
+        "year": 2,
+        "semester": "Spring"
     },
     {
         "degree": "MUIT",
@@ -2031,16 +2508,18 @@ var data = [
         "nombre": "COMUNICACIONES POR SATELITE",
         "ects": 6,
         "acron": "CSAT",
-        "year": 2
+        "year": 2,
+        "semester": "Autumn"
     },
     {
         "degree": "MUIT",
         "code": 93000812,
         "name": "ADVANCED TOPICS ON OPTICAL COMMUNICATIONS",
-        "nombre": "",
+        "nombre": "Temas avanzados sobre comunicaciones Ã³pticas",
         "ects": 6,
         "acron": "ATOC",
-        "year": 2
+        "year": 2,
+        "semester": "Autumn"
     },
     {
         "degree": "MUIT",
@@ -2049,25 +2528,28 @@ var data = [
         "nombre": "SISTEMAS RADAR",
         "ects": 6,
         "acron": "SRAD",
-        "year": 2
+        "year": 2,
+        "semester": "Autumn"
     },
     {
         "degree": "MUIT",
         "code": 93000819,
         "name": "DEEP LEARNING FOR ACOUSTIC SIGNAL PROCESSING",
-        "nombre": "",
+        "nombre": "Deep Learning para el procesamiento de seÃ±ales acÃºsticas",
         "ects": 6,
         "acron": "DLAS",
-        "year": 2
+        "year": 2,
+        "semester": "Spring"
     },
     {
         "degree": "MUIT",
         "code": 93000820,
         "name": "VISION ANALYSIS AND DEEP LEARNING",
-        "nombre": "",
+        "nombre": "AnÃ¡lsis de visiÃ³n y deep learning",
         "ects": 6,
         "acron": "VADL",
-        "year": 2
+        "year": 2,
+        "semester": "Autumn"
     },
     {
         "degree": "MUIT",
@@ -2076,7 +2558,8 @@ var data = [
         "nombre": "CIENCIA DE DATOS Y APRENDIZAJE AUTOMATICO EN LA WEB DE DATOS",
         "ects": 6,
         "acron": "CDAW",
-        "year": 2
+        "year": 2,
+        "semester": "Spring"
     },
     {
         "degree": "MUIT",
@@ -2085,7 +2568,8 @@ var data = [
         "nombre": "CIBERSEGURIDAD Y PRIVACIDAD: GESTION Y OPERACION",
         "ects": 6,
         "acron": "CPGO",
-        "year": 2
+        "year": 2,
+        "semester": "Spring"
     },
     {
         "degree": "MUIT",
@@ -2094,7 +2578,8 @@ var data = [
         "nombre": "COMPUTACION EN NUBE Y VIRTUALIZACION DE REDES Y SERVICIOS",
         "ects": 6,
         "acron": "CNVR",
-        "year": 2
+        "year": 2,
+        "semester": "Autumn"
     },
     {
         "degree": "MUIT",
@@ -2103,7 +2588,8 @@ var data = [
         "nombre": "REDES DEFINIDAS POR SOFTWARE, VIRTUALIZACION Y SERVICIOS AVANZADOS DE RED",
         "ects": 6,
         "acron": "RDSV",
-        "year": 2
+        "year": 2,
+        "semester": "Autumn"
     },
     {
         "degree": "MUIT",
@@ -2112,7 +2598,8 @@ var data = [
         "nombre": "INGENIERIA DE SISTEMAS CON PROCESADORES",
         "ects": 6,
         "acron": "ISPR",
-        "year": 2
+        "year": 2,
+        "semester": "Spring"
     },
     {
         "degree": "MUIT",
@@ -2121,7 +2608,8 @@ var data = [
         "nombre": "DISENO MICROELECTRONICO",
         "ects": 6,
         "acron": "DMEL",
-        "year": 2
+        "year": 2,
+        "semester": "Autumn"
     },
     {
         "degree": "MUIT",
@@ -2130,7 +2618,8 @@ var data = [
         "nombre": "TECNOLOGIA MICROELECTRONICA",
         "ects": 6,
         "acron": "TMEL",
-        "year": 2
+        "year": 2,
+        "semester": "Spring"
     },
     {
         "degree": "MUIT",
@@ -2139,7 +2628,8 @@ var data = [
         "nombre": "ENERGIA SOLAR FOTOVOLTAICA",
         "ects": 6,
         "acron": "ESFV",
-        "year": 2
+        "year": 2,
+        "semester": "Autumn"
     },
     {
         "degree": "MUIT",
@@ -2148,7 +2638,8 @@ var data = [
         "nombre": "NANOELECTRONICA",
         "ects": 6,
         "acron": "NELC",
-        "year": 2
+        "year": 2,
+        "semester": "Spring"
     },
     {
         "degree": "MUIT",
@@ -2157,7 +2648,8 @@ var data = [
         "nombre": "FUNDAMENTOS DE BIOINGENIERIA",
         "ects": 6,
         "acron": "FBIO",
-        "year": 2
+        "year": 2,
+        "semester": "Autumn"
     },
     {
         "degree": "MUIT",
@@ -2166,7 +2658,8 @@ var data = [
         "nombre": "SENALES E IMAGENES MEDICAS",
         "ects": 6,
         "acron": "SÃ‘IM",
-        "year": 2
+        "year": 2,
+        "semester": "Autumn"
     },
     {
         "degree": "MUIT",
@@ -2175,7 +2668,8 @@ var data = [
         "nombre": "TELEMEDICINA",
         "ects": 6,
         "acron": "TMED",
-        "year": 2
+        "year": 2,
+        "semester": "Autumn"
     },
     {
         "degree": "MUIT",
@@ -2184,7 +2678,8 @@ var data = [
         "nombre": "INGENIERIA NEUROSENSORIAL",
         "ects": 6,
         "acron": "INRS",
-        "year": 2
+        "year": 2,
+        "semester": "Autumn"
     },
     {
         "degree": "MUIT",
@@ -2193,7 +2688,8 @@ var data = [
         "nombre": "BIOSENSORES",
         "ects": 6,
         "acron": "BIOS",
-        "year": 2
+        "year": 2,
+        "semester": "Spring"
     },
     {
         "degree": "MUIT",
@@ -2202,7 +2698,8 @@ var data = [
         "nombre": "DIRECCION Y ADMINISTRACION DE EMPRESAS",
         "ects": 4.5,
         "acron": "DAEM",
-        "year": 2
+        "year": 2,
+        "semester": "Autumn"
     },
     {
         "degree": "MUIT",
@@ -2210,8 +2707,9 @@ var data = [
         "name": "INFORMATION SYSTEMS FOR BUSINESS MANAGEMENT I",
         "nombre": "SISTEMAS DE INFORMACION PARA LA GESTION EMPRESARIAL",
         "ects": 4.5,
-        "acron": "SIG1",
-        "year": 2
+        "acron": "SIGE",
+        "year": 2,
+        "semester": "Autumn"
     },
     {
         "degree": "MUIT",
@@ -2220,7 +2718,8 @@ var data = [
         "nombre": "INNOVACION TECNOLOGICA Y DE NEGOCIO",
         "ects": 4.5,
         "acron": "INTN",
-        "year": 2
+        "year": 2,
+        "semester": "Autumn"
     },
     {
         "degree": "MUIT",
@@ -2229,7 +2728,8 @@ var data = [
         "nombre": "ESTRATEGIAS Y TECNICAS PARA LA TOMA DE DECISIONES",
         "ects": 4.5,
         "acron": "ETTD",
-        "year": 2
+        "year": 2,
+        "semester": "Autumn"
     },
     {
         "degree": "MUIT",
@@ -2238,16 +2738,18 @@ var data = [
         "nombre": "POLITICAS Y REGULACION DE LOS MERCADOS TIC",
         "ects": 3,
         "acron": "RTIC",
-        "year": 2
+        "year": 2,
+        "semester": "Spring"
     },
     {
         "degree": "MUIT",
         "code": 93000852,
         "name": "DIGITAL BUSINESS",
-        "nombre": "",
+        "nombre": "Negocio digital",
         "ects": 3,
         "acron": "DBUS",
-        "year": 2
+        "year": 2,
+        "semester": "Spring"
     },
     {
         "degree": "MUIT",
@@ -2256,7 +2758,8 @@ var data = [
         "nombre": "ANALISIS DE DATOS E INTELIGENCIA DE NEGOCIO",
         "ects": 3,
         "acron": "ADIN",
-        "year": 2
+        "year": 2,
+        "semester": "Spring"
     },
     {
         "degree": "MUIT",
@@ -2265,7 +2768,8 @@ var data = [
         "nombre": "ANALISIS DEL NEGOCIO TIC",
         "ects": 3,
         "acron": "NTIC",
-        "year": 2
+        "year": 2,
+        "semester": "Spring"
     },
     {
         "degree": "MUIT",
@@ -2274,7 +2778,8 @@ var data = [
         "nombre": "TRABAJO DE FIN DE MASTER",
         "ects": 30,
         "acron": "TFM",
-        "year": 2
+        "year": 2,
+        "semester": ""
     },
     {
         "degree": "MUIT",
@@ -2283,7 +2788,8 @@ var data = [
         "nombre": "BIG DATA: FUNDAMENTOS E INFRAESTRUCTURA",
         "ects": 6,
         "acron": "BDFI",
-        "year": 2
+        "year": 2,
+        "semester": "Autumn"
     },
     {
         "degree": "MUIT",
@@ -2292,34 +2798,38 @@ var data = [
         "nombre": "FROM ARRAY PROCESSING TO MIMO COMMUNICATIONS",
         "ects": 6,
         "acron": "APMC",
-        "year": 2
+        "year": 2,
+        "semester": "Spring"
     },
     {
         "degree": "MUIT",
         "code": 93001070,
         "name": "PREDICTIVE AND DESCRIPTIVE LEARNING",
-        "nombre": "",
+        "nombre": "APRENDIZAJE PREDICTIVO Y DESCRIPTIVO",
         "ects": 6,
         "acron": "PRDL",
-        "year": 2
+        "year": 2,
+        "semester": "Autumn"
     },
     {
         "degree": "MUIT",
         "code": 93001071,
         "name": "DATA SCIENCE FOUNDATIONS AND APPLICATIONS",
-        "nombre": "",
+        "nombre": "CIENCIA DE LOS DATOS Y APLICACIONES",
         "ects": 2,
         "acron": "DSFA",
-        "year": 2
+        "year": 2,
+        "semester": "Autumn"
     },
     {
         "degree": "MUIT",
         "code": 93001072,
         "name": "MACHINE LEARNING LAB",
-        "nombre": "",
+        "nombre": "LABORATORIO DE TÃ‰CNICAS DE APRENDIZAJE AUTOMÃTICO",
         "ects": 4.5,
         "acron": "MLLB",
-        "year": 2
+        "year": 2,
+        "semester": "Autumn"
     },
     {
         "degree": "MUIT",
@@ -2328,7 +2838,8 @@ var data = [
         "nombre": "BLOCKCHAIN: DESARROLLO DE APLICACIONES",
         "ects": 3,
         "acron": "BCDA",
-        "year": 2
+        "year": 2,
+        "semester": "Autumn"
     },
     {
         "degree": "MUIT",
@@ -2337,339 +2848,457 @@ var data = [
         "nombre": "BLOCKCHAIN: FUNDAMENTOS Y ARQUITECTURAS",
         "ects": 3,
         "acron": "BCFA",
-        "year": 2
+        "year": 2,
+        "semester": "Spring"
+    },
+    {
+        "degree": "MUIT",
+        "code": 93001103,
+        "name": "ELECTRONIC SYSTEMS INTELLIGENCE",
+        "nombre": "INTELIGENCIA EN SISTEMAS ELECTRÃ“NICOS",
+        "ects": 4,
+        "acron": "INSE",
+        "year": 2,
+        "semester": "Autumn"
+    },
+    {
+        "degree": "MUIT",
+        "code": 93001104,
+        "name": "ELECTRONIC SYSTEMS FOR IoT",
+        "nombre": "SISTEMAS ELECTRÃ“NICOS PARA IoT",
+        "ects": 4,
+        "acron": "SEIOT",
+        "year": 2,
+        "semester": "Autumn"
+    },
+    {
+        "degree": "MUIT",
+        "code": 93001105,
+        "name": "ELECTRONIC INTERFACE FOR IoT",
+        "nombre": "INTERFACES ELECTRÃ“NICAS PARA IoT",
+        "ects": 4,
+        "acron": "IEIOT",
+        "year": 2,
+        "semester": "Spring"
     },
     {
         "degree": "RESEARCH PROJECT/TRAINEESHIP",
-        "code": 0,
+        "code": 905000006,
         "name": "RESEARCH PROJECT/TRAINEESHIP",
         "nombre": "PROYECTO DE INVESTIGACION/PRACTICAS",
         "ects": 0,
+	"semester": "",
+        "acron": "",
+        "year": 1
+    },
+    {
+        "degree": "RESEARCH PROJECT/TRAINEESHIP",
+        "code": 905000003,
+        "name": "INTERNSHIP/TRAINEESHIP (ERASMUS)",
+        "nombre": "PRACTICAS ERASMUS",
+        "ects": 0,
+	"semester": "",
+        "acron": "",
+        "year": 1
+    },
+    {
+        "degree": "RESEARCH PROJECT/TRAINEESHIP",
+        "code": 905000004,
+        "name": "INTERNSHIP/TRAINEESHIP (BILATERAL AGREEMENT)",
+        "nombre": "PRACTICAS ACUERDO BILATERAL",
+        "ects": 0,
+	"semester": "",
         "acron": "",
         "year": 1
     },
     {
         "degree": "MUISE",
         "code": 93001017,
-        "name": "",
+        "name": "Engineering of Analogical and Digital Systems",
         "nombre": "INGENIERIA DE SISTEMAS ELECTRONICOS ANALOGICOS Y DIGITALES",
         "ects": 6,
         "acron": "SEAD",
-        "year": ""
+        "year": 1,
+        "semester": "Autumn"
     },
     {
         "degree": "MUISE",
         "code": 93001018,
-        "name": "",
+        "name": "Laboratory of Electronic Circuits and Systems",
         "nombre": "LABORATORIO DE CIRCUITOS Y SISTEMAS ELECTRONICOS",
         "ects": 4,
         "acron": "LCSE",
-        "year": ""
+        "year": 1,
+        "semester": "Autumn"
     },
     {
         "degree": "MUISE",
         "code": 93001019,
-        "name": "",
+        "name": "Methodology, Quality and Personal Abilities",
         "nombre": "METODOLOGIA, CALIDAD Y HABILIDADES PERSONALES",
         "ects": 5,
         "acron": "MCHP",
-        "year": ""
+        "year": 1,
+        "semester": "Annual"
     },
     {
         "degree": "MUISE",
         "code": 93001020,
-        "name": "",
+        "name": "Advances in Electronic Systems Engineering",
         "nombre": "AVANCES EN INGENIERIA DE SISTEMAS ELECTRONICOS",
         "ects": 3,
         "acron": "SEMN",
-        "year": ""
+        "year": 1,
+        "semester": "Annual"
     },
     {
         "degree": "MUISE",
         "code": 93001021,
-        "name": "",
+        "name": "Embedded Systems",
         "nombre": "SISTEMAS EMPOTRADOS",
         "ects": 4,
         "acron": "SEMP",
-        "year": ""
+        "year": 1,
+        "semester": "Autumn"
     },
     {
         "degree": "MUISE",
         "code": 93001022,
-        "name": "",
+        "name": "Analogical Systems",
         "nombre": "SISTEMAS ANALOGICOS",
         "ects": 4,
         "acron": "SEAN",
-        "year": ""
+        "year": 1,
+        "semester": "Spring"
     },
     {
         "degree": "MUISE",
         "code": 93001023,
-        "name": "",
+        "name": "Product Oriented Electronic Design ",
         "nombre": "DISEÃ‘O ELECTRONICO ORIENTADO A PRODUCTO",
         "ects": 4,
         "acron": "DEOP",
-        "year": ""
+        "year": 1,
+        "semester": "Spring"
     },
     {
         "degree": "MUISE",
         "code": 93001024,
-        "name": "",
+        "name": "Electronic Systems Laboratory",
         "nombre": "LABORATORIO DE SISTEMAS ELECTRONICOS",
         "ects": 3,
         "acron": "LSEL",
-        "year": ""
+        "year": 1,
+        "semester": "Spring"
     },
     {
         "degree": "MUISE",
         "code": 93001025,
-        "name": "",
+        "name": "MicroelectrÃ³nics",
         "nombre": "MICROELECTRONICA",
         "ects": 4,
         "acron": "MCRE",
-        "year": ""
+        "year": 1,
+        "semester": "Autumn"
     },
     {
         "degree": "MUISE",
         "code": 93001026,
-        "name": "",
+        "name": "Power and Control",
         "nombre": "POTENCIA Y CONTROL",
         "ects": 4,
         "acron": "POTC",
-        "year": ""
+        "year": 1,
+        "semester": "Spring"
     },
     {
         "degree": "MUISE",
         "code": 93001027,
-        "name": "",
+        "name": "Advanced Embedded Systems",
         "nombre": "SISTEMAS EMPOTRADOS AVANZADOS",
         "ects": 4,
         "acron": "SEMA",
-        "year": ""
+        "year": 1,
+        "semester": "Spring"
     },
     {
         "degree": "MUISE",
         "code": 93001028,
-        "name": "",
+        "name": "Advanced Digital Architectures",
         "nombre": "ARQUITECTURAS DIGITALES AVANZADAS",
         "ects": 4,
         "acron": "ADAV",
-        "year": ""
+        "year": 1,
+        "semester": "Spring"
     },
     {
         "degree": "MUISE",
         "code": 93001029,
-        "name": "",
+        "name": "Intelligents Electronical Systems",
         "nombre": "INTELIGENCIA EN SISTEMAS ELECTRONICOS",
         "ects": 4,
         "acron": "INSE",
-        "year": ""
+        "year": 1,
+        "semester": "Autumn"
     },
     {
         "degree": "MUISE",
         "code": 93001030,
-        "name": "",
+        "name": "MASTER THESIS",
         "nombre": "TRABAJO FIN DE MASTER",
         "ects": 15,
         "acron": "TFM",
-        "year": ""
+        "year": 1,
+        "semester": ""
     },
     {
         "degree": "MUSTC",
         "code": 93000920,
         "name": "OPTIMIZATION FUNDAMENTALS",
-        "nombre": "",
+        "nombre": "FUNDAMENTOS DE OPTIMIZACIÃ“N",
         "ects": 3,
-        "acron": "",
-        "year": ""
+        "acron": "OPTF",
+        "year": 1,
+        "semester": "Autumn"
     },
     {
         "degree": "MUSTC",
         "code": 93000921,
         "name": "RADIOFREQUENCY OPTIMIZATION TECHNIQUES",
-        "nombre": "",
+        "nombre": "TÃ‰CNICAS DE OPTIMIZACIÃ“N EN RADIOFRECUENCIA",
         "ects": 3,
-        "acron": "",
-        "year": ""
+        "acron": "RFOT",
+        "year": 1,
+        "semester": "Autumn"
     },
     {
         "degree": "MUSTC",
         "code": 93000922,
         "name": "RADIOFREQUENCY TECHNOLOGIES",
-        "nombre": "",
+        "nombre": "TECNOLOGÃAS DE RADIOFRECUENCIA",
         "ects": 6,
-        "acron": "",
-        "year": ""
+        "acron": "RFTC",
+        "year": 1,
+        "semester": "Autumn"
     },
     {
         "degree": "MUSTC",
         "code": 93000923,
         "name": "ADVANCED TOPICS ON ANTENNA TECHNOLOGIES",
-        "nombre": "",
+        "nombre": "TEMAS AVANZADOS EN TECNOLOGÃA DE ANTENAS",
         "ects": 6,
-        "acron": "",
-        "year": ""
+        "acron": "ATAT",
+        "year": 1,
+        "semester": "Autumn"
     },
     {
         "degree": "MUSTC",
         "code": 93000924,
         "name": "MOBILE COMMUNICATIONS: 4G AND BEYOND",
-        "nombre": "",
+        "nombre": "COMUNICACIONES MÃ“VILES: 4G Y MÃS ALLÃ",
         "ects": 3,
-        "acron": "",
-        "year": ""
+        "acron": "MC4G",
+        "year": 1,
+        "semester": "Autumn"
     },
     {
         "degree": "MUSTC",
         "code": 93000925,
         "name": "DESIGN OF COMMUNICATION SYSTEMS AND EQUIPMENT",
-        "nombre": "",
+        "nombre": "DISEÃ‘O DE SISTEMAS Y EQUIPOS DE COMUNICACIONES",
         "ects": 6,
-        "acron": "",
-        "year": ""
+        "acron": "DCSE",
+        "year": 1,
+        "semester": "Autumn"
     },
     {
         "degree": "MUSTC",
         "code": 93000926,
         "name": "FROM ARRAY PROCESSING TO MIMO COMMUNICATIONS",
-        "nombre": "",
+        "nombre": "DEL PROCESADO EN ARRAY A LAS COMUNICACIONES MIMO",
         "ects": 6,
-        "acron": "",
-        "year": ""
+        "acron": "APMC",
+        "year": 1,
+        "semester": "Spring"
     },
     {
         "degree": "MUSTC",
         "code": 93000927,
         "name": "SECURE RF COMMUNICATIONS",
-        "nombre": "",
+        "nombre": "COMUNICACIONES RF SEGURAS",
         "ects": 3,
-        "acron": "",
-        "year": ""
+        "acron": "SRFC",
+        "year": 1,
+        "semester": "Spring"
     },
     {
         "degree": "MUSTC",
         "code": 93000928,
         "name": "LABORATORY COURSE ON RF COMMUNICATIONS",
-        "nombre": "",
+        "nombre": "LABORATORIO DE MEDIDAS DE RF",
         "ects": 6,
-        "acron": "",
-        "year": ""
+        "acron": "LRFM",
+        "year": 1,
+        "semester": "Spring"
+    },
+    {
+        "degree": "MUSTC",
+        "code": 93000929,
+        "name": "COMPUTING ELECTROMAGNETISM",
+        "nombre": "ELECTROMAGNETISMO COMPUTACIONAL",
+        "ects": 6,
+        "acron": "COEM",
+        "year": 1,
+        "semester": "Spring"
     },
     {
         "degree": "MUSTC",
         "code": 93000938,
         "name": "OPTIMIZATION TECHNIQUES FOR BIG-DATA ANALYSIS",
-        "nombre": "",
+        "nombre": "TÃ‰CNICAS DE OPTIMIZACIÃ“N PARA ANÃLISIS DE DATOS MASIVOS",
         "ects": 3,
-        "acron": "",
-        "year": ""
-    },
-    {
-        "degree": "MUSTC",
-        "code": 93000938,
-        "name": "STATISTICAL MODELING",
-        "nombre": "",
-        "ects": 3,
-        "acron": "",
-        "year": ""
+        "acron": "OTBD",
+        "year": 1,
+        "semester": "Autumn"
     },
     {
         "degree": "MUSTC",
         "code": 93000939,
-        "name": "TIME SERIES ANALYSIS",
-        "nombre": "",
-        "ects": 4.5,
-        "acron": "",
-        "year": ""
+        "name": "STATISTICAL MODELING",
+        "nombre": "ANÃLISIS ESTADÃSTICO",
+        "ects": 3,
+        "acron": "STMO",
+        "year": 1,
+        "semester": "Autumn"
     },
     {
         "degree": "MUSTC",
         "code": 93000940,
-        "name": "PREDICTIVE AND DESCRIPTIVE LEARNING",
-        "nombre": "",
-        "ects": 6,
-        "acron": "",
-        "year": ""
+        "name": "TIME SERIES ANALYSIS",
+        "nombre": "SERIES TEMPORALES",
+        "ects": 4.5,
+        "acron": "TSAN",
+        "year": 1,
+        "semester": "Autumn"
     },
     {
         "degree": "MUSTC",
         "code": 93000941,
-        "name": "DATA SCIENCE FOUNDATIONS AND APPLICATIONS",
-        "nombre": "",
-        "ects": 2,
-        "acron": "",
-        "year": ""
+        "name": "PREDICTIVE AND DESCRIPTIVE LEARNING",
+        "nombre": "APRENDIZAJE PREDICTIVO Y DESCRIPTIVO",
+        "ects": 6,
+        "acron": "PRDL",
+        "year": 1,
+        "semester": "Autumn"
     },
     {
         "degree": "MUSTC",
         "code": 93000942,
-        "name": "MACHINE LEARNING LAB",
-        "nombre": "",
-        "ects": 4.5,
-        "acron": "",
-        "year": ""
+        "name": "DATA SCIENCE FOUNDATIONS AND APPLICATIONS",
+        "nombre": "CIENCIA DE LOS DATOS Y APLICACIONES",
+        "ects": 2,
+        "acron": "DSFA",
+        "year": 1,
+        "semester": "Autumn"
     },
     {
         "degree": "MUSTC",
         "code": 93000943,
-        "name": "LARGE SCALE MEDIA ANALYTICS",
-        "nombre": "",
-        "ects": 4,
-        "acron": "",
-        "year": ""
+        "name": "MACHINE LEARNING LAB",
+        "nombre": "LABORATORIO DE TÃ‰CNICAS DE APRENDIZAJE AUTOMÃTICO",
+        "ects": 4.5,
+        "acron": "MLLB",
+        "year": 1,
+        "semester": "Autumn"
     },
     {
         "degree": "MUSTC",
         "code": 93000944,
-        "name": "SIGNAL PROCESSING FOR BIG DATA",
-        "nombre": "",
+        "name": "LARGE SCALE MEDIA ANALYTICS",
+        "nombre": "ANALÃTICA DE CONTENIDOS MULTIMEDIA A GRAN ESCALA",
         "ects": 4,
-        "acron": "",
-        "year": ""
+        "acron": "LSMA",
+        "year": 1,
+        "semester": "Spring"
     },
     {
         "degree": "MUSTC",
         "code": 93000945,
-        "name": "BIG DATA FOR IMAGE AND VIDEO SIGNALS",
-        "nombre": "",
+        "name": "SIGNAL PROCESSING FOR BIG DATA",
+        "nombre": "TRATAMIENTO DE SEÃ‘AL PARA DATOS MASIVOS",
         "ects": 4,
-        "acron": "",
-        "year": ""
+        "acron": "SPBD",
+        "year": 1,
+        "semester": "Spring"
     },
     {
         "degree": "MUSTC",
         "code": 93000946,
-        "name": "BIO-INSPIRED LEARNING",
-        "nombre": "",
-        "ects": 3,
-        "acron": "",
-        "year": ""
+        "name": "BIG DATA FOR IMAGE AND VIDEO SIGNALS",
+        "nombre": "TÃ‰CNICAS DE TRATAMIENTO DE DATOS MASIVOS PARA IMAGEN Y VÃDEO",
+        "ects": 4,
+        "acron": "BDIVS",
+        "year": 1,
+        "semester": "Spring"
     },
     {
         "degree": "MUSTC",
         "code": 93000947,
-        "name": "REINFORCEMENT LEARNING",
-        "nombre": "",
+        "name": "BIO-INSPIRED LEARNING",
+        "nombre": "APRENDIZAJE BIO-INSPIRADO",
         "ects": 3,
-        "acron": "",
-        "year": ""
+        "acron": "BINL",
+        "year": 1,
+        "semester": "Spring"
     },
     {
         "degree": "MUSTC",
         "code": 93000948,
+        "name": "REINFORCEMENT LEARNING",
+        "nombre": "APRENDIZAJE DE REFUERZO",
+        "ects": 3,
+        "acron": "REIL",
+        "year": 1,
+        "semester": "Spring"
+    },
+    {
+        "degree": "MUSTC",
+        "code": 93000949,
         "name": "APPLICATION PROJECTS",
-        "nombre": "",
+        "nombre": "PROYECTOS DE APLICACIÃ“N",
         "ects": 4,
-        "acron": "",
-        "year": ""
+        "acron": "APPR",
+        "year": 1,
+        "semester": "Spring"
     },
     {
         "degree": "MUSTC",
         "code": 2,
         "name": "MASTER THESIS",
-        "nombre": "",
+        "nombre": "TRABAJO FIN DE MASTER",
         "ects": 12,
+        "acron": "TFM",
+        "year": 1,
+        "semester": ""
+    },
+    {
+        "degree": "Other",
+        "code": 0,
+        "name": "REGULAR SPANISH COURSE",
+        "nombre": "CURSO DE ESPAÑOL ESTANDAR",
+        "ects": 3,
         "acron": "",
-        "year": ""
+        "year": 1,
+        "semester": ""
+    },
+    {
+        "degree": "Other",
+        "code": 0,
+        "name": "INTENSIVE SPANISH COURSE",
+        "nombre": "CURSO DE ESPAÑOL INTENSIVO",
+        "ects": 5,
+        "acron": "",
+        "year": 1,
+        "semester": ""
     }
 ]

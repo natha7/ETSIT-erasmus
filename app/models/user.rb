@@ -41,6 +41,7 @@ class User < ApplicationRecord
   has_attached_file :spanish_test_score, :url=> "/erasmus/attachment/sts/:id/:basename.:extension"
   has_attached_file :tor, :url=> "/erasmus/attachment/tor/:id/:basename.:extension"
   has_attached_file :attendance_certificate, :url=> "/erasmus/attachment/ac/:id/:basename.:extension"
+  has_attached_file :acceptance_letter, :url=> "/erasmus/attachment/ac/:id/:basename.:extension"
 
   before_create :create_student_application_form
   after_validation :clean_paperclip_errors
@@ -61,6 +62,7 @@ class User < ApplicationRecord
   validates_attachment_content_type :spanish_test_score, :content_type => ["application/pdf", "application/doc", "application/docx", "image/jpeg", "image/gif", "image/png", "image/jpg", "image/bmp"]
   validates_attachment_content_type :tor, :content_type => ["application/pdf", "application/doc", "application/docx", "image/jpeg", "image/gif", "image/png", "image/jpg", "image/bmp"]
   validates_attachment_content_type :attendance_certificate, :content_type => ["application/pdf", "application/doc", "application/docx", "image/jpeg", "image/gif", "image/png", "image/jpg", "image/bmp"]
+  validates_attachment_content_type :acceptance_letter, :content_type => ["application/pdf", "application/doc", "application/docx", "image/jpeg", "image/gif", "image/png", "image/jpg", "image/bmp"]
 
   validates_attachment_size :signed_student_application_form, :less_than => 4.megabytes
   validates_attachment_size :motivation_letter, :less_than => 4.megabytes
@@ -77,6 +79,7 @@ class User < ApplicationRecord
   validates_attachment_size :spanish_test_score, :less_than => 4.megabytes
   validates_attachment_size :tor, :less_than => 4.megabytes
   validates_attachment_size :attendance_certificate, :less_than => 4.megabytes
+  validates_attachment_size :acceptance_letter, :less_than => 4.megabytes
 
   validates_presence_of :first_name, message: 'You must provide your first name.', if: :not_admin?
   validates_presence_of :family_name, message: 'You must provide your family name.', if: :not_admin?
@@ -168,6 +171,7 @@ class User < ApplicationRecord
     errors.delete(:email)
     errors.delete(:tor)
     errors.delete(:attendance_certificate)
+    errors.delete(:acceptance_letter)
   end
   
 end

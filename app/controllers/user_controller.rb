@@ -15,15 +15,22 @@ class UserController < ApplicationController
 	end
 	def set_user_status
 		user = User.find(params[:user][:id])
-		user.progress_status = params[:user][:progress_status]
+		if params[:user][:progress_status].include?("during") && params[:user][:progress_status] != "during_initial" && user.current_during_la_version == 0
+			flash[:error] = "Status was not updated as the user does not have any active DM - LA modifications requests."
+		else
+			user.progress_status = params[:user][:progress_status]
+		end
 		if user.progress_status == "before_accepted"
-	  	begin
-	     	#UserMailer.reviewed_application_mail(current_user).deliver_now
-	     	url = request.base_url + RELATIVE_URL
-	     	UserMailer.reviewed_application_mail(url, user).deliver_now
-		rescue
-	     	flash[:error] = "E-mail to #{user.email} could not be sent"
-	    end
+			if user.current_during_la_version == nil
+				user.current_during_la_version = 0
+			end
+			begin
+				#UserMailer.reviewed_application_mail(current_user).deliver_now
+				url = request.base_url + RELATIVE_URL
+				UserMailer.reviewed_application_mail(url, user).deliver_now
+			rescue
+				flash[:error] = "E-mail to #{user.email} could not be sent"
+			end
 		end
 		user.save!
 		redirect_to admin_dashboard_path
@@ -41,24 +48,38 @@ class UserController < ApplicationController
 	end
 
 	def user_dashboard_before
-		render "users/user_dashboard_before"
+		if current_user.progress_status.include? "before"
+			render "users/user_dashboard_before"
+		else
+			redirect_to user_dashboard_path
+		end
 	end
 
 	def user_dashboard_during
 		if current_user.progress_status != "during_initial"
 			dm_version = params[:dm_version]
 			render "users/user_dashboard_during", locals: {:dm_version => dm_version}
+		elsif current_user.progress_status.include? "during"
+			render "users/user_dashboard_during"
 		else
-			render "users/user_dashboard_during"	
+			redirect_to user_dashboard_path
 		end
 	end
 
 	def user_dashboard_during_history
-		render "users/user_dashboard_during_history"
+		if current_user.progress_status.include? "during"
+			render "users/user_dashboard_during_history"
+		else
+			redirect_to user_dashboard_path
+		end
 	end
 
 	def user_dashboard_after
-		render "users/user_dashboard_after"
+		if current_user.progress_status.include? "after"
+			render "users/user_dashboard_after"
+		else
+			redirect_to user_dashboard_path
+		end
 	end
 
 	def review_dashboard
@@ -80,22 +101,34 @@ class UserController < ApplicationController
 
 	def review_dashboard_during
 		current_user = User.find(params[:user])
-		if current_user.progress_status == "during_initial"
-			render "users/review_dashboard_during"
+		if !current_user.progress_status.include? "before"
+			if current_user.progress_status == "during_initial"
+				render "users/review_dashboard_during"
+			else
+				dm_version = params[:dm_version]
+				render "users/review_dashboard_during", locals: {:dm_version => dm_version}
+			end
 		else
-			dm_version = params[:dm_version]
-			render "users/review_dashboard_during", locals: {:dm_version => dm_version}
+			redirect_to review_dashboard_path
 		end
 	end
 
 	def review_dashboard_during_history
 		current_user = User.find(params[:user])
-		render "users/review_dashboard_during_history"
+		if !current_user.progress_status.include? "before"
+			render "users/review_dashboard_during_history"
+		else
+			redirect_to review_dashboard_path
+		end
 	end
 
 	def review_dashboard_after
 		current_user = User.find(params[:user])
-		render "users/review_dashboard_after"
+		if current_user.progress_status.include? "after"
+			render "users/review_dashboard_after"
+		else
+			redirect_to review_dashboard_path
+		end
 	end
 
 	def register_with_email_and_password
@@ -123,7 +156,20 @@ class UserController < ApplicationController
 	      user.save!
 	    end
 	    redirect_to user_dashboard_path
-  	end
+	end
+	  
+	def admin_notify_uploaded_before
+		user = User.find_by :id => params[:user]
+	    if user.role == "user" && user.progress_status == "before_accepted" && !current_user.acceptance_letter.blank?
+	     begin
+	     	url = request.base_url + RELATIVE_URL
+	      	UserMailer.admin_notify_uploaded_before(url, user).deliver_now
+      	rescue
+	      	flash[:error] = (flash[:error].blank? ?  "" : (flash[:error] + "\n" )) + "E-mail to #{user.email} could not be sent"
+		end
+	    end
+	    redirect_back(fallback_location: "users/review_dashboard/:user/before")
+	end
 
 	def send_during_la_modifications
 		user = User.find_by :id => params[:user]
@@ -310,8 +356,6 @@ class UserController < ApplicationController
 			keys = params[:user].keys
 			if keys.length == 1
 				user_to_edit.assign_attributes({keys[0] => params[:user][keys[0]]})
-			elsif keys.length == 2 and keys[0] == "ni_type"
-				user_to_edit.assign_attributes({keys[0] => params[:user][keys[0]], keys[1] => params[:user][keys[1]]})
 			end
 			unless user_to_edit.save
 				flash[:error] = user_to_edit.errors.full_messages.to_sentence
@@ -322,7 +366,11 @@ class UserController < ApplicationController
 		else 
 			flash[:error] = "File not valid"
 		end
-		redirect_back(fallback_location:"review_dashboard/:user/after")
+		if current_user.progress_status == "before_accepted"
+			redirect_back(fallback_location:"review_dashboard/:user/before")
+		else
+			redirect_back(fallback_location:"review_dashboard/:user/after")
+		end
 	end
 
 	def submit_la
@@ -339,40 +387,6 @@ class UserController < ApplicationController
 						sj.semester = subject[:semester]
 						sj.ects = subject[:ects]
 						current_user.learning_agreement_subjects << sj
-						sj.save!
-					end
-				end
-
-			end
-			unless current_user.save
-				head :forbidden
-				return
-			end
-		else
-			head :forbidden
-			return
-		end
-		render :json => {  }
-	end
-
-	def submit_dm
-		unless params[:user].blank?
-			unless params[:user][:during_la_subjects].blank?
-				dm_version = params[:dm_version]
-				dm_subjects = DuringLASubject.where(user_id: current_user.id, during_la_version: dm_version)
-				current_dm = DuringLA.where(user_id: current_user.id, during_la_version: dm_version).first
-				dm_subjects.destroy_all
-				subjects = params[:user][:during_la_subjects]
-				subjects.each do |subject|
-					if !subject[:subject].blank? and !subject[:code].blank? and !subject[:degree].blank? and !subject[:ects].blank?
-						sj = DuringLASubject.new
-						sj.during_la_version = dm_version
-						sj.subject = subject[:subject]
-						sj.code = subject[:code]
-						sj.degree = subject[:degree]
-						sj.semester = subject[:semester]
-						sj.ects = subject[:ects]
-						current_dm.during_la_subject << sj
 						sj.save!
 					end
 				end
@@ -470,8 +484,8 @@ class UserController < ApplicationController
 
 	def file_delete_admin
 		user_to_edit = User.find(params[:id]);
-		if current_user.progress_status.include? "during"
-			current_dm = DuringLA.where(user_id: current_user.id, during_la_version: params[:current_dm_version]).first
+		if user_to_edit.progress_status.include? "during"
+			current_dm = DuringLA.where(user_id: user_to_edit.id, during_la_version: params[:current_dm_version]).first
 			case params[:attachment]
 			when "during_la_signed_host"
 				current_dm.during_la_signed_host = nil
@@ -482,6 +496,9 @@ class UserController < ApplicationController
 			end
 		else
 			case params[:attachment]
+			when "acceptance_letter"
+				user_to_edit.acceptance_letter = nil
+				user_to_edit.save!
 			when "tor"
 				user_to_edit.tor = nil
 				user_to_edit.save!
@@ -495,6 +512,8 @@ class UserController < ApplicationController
 		if params[:attachment] == "tor" || params[:attachment] == "attendance_certificate"
 			user_to_edit.progress_status = "after_pending"
 			redirect_back(fallback_location:"review_dashboard/:user/after")
+		elsif params[:attachment] == "acceptance_letter"
+			redirect_back(fallback_location:"review_dashboard/:user/before")
 		else
 			redirect_back(fallback_location:"review_dashboard/:user/during")
 		end
@@ -560,7 +579,7 @@ class UserController < ApplicationController
 				# csv << [user.id, user.email, user.student_application_form.inst_sending_name, user.student_application_form.academic_year, user.student_application_form.programme, s.subject, s.code, s.degree, user.created_at.in_time_zone("Madrid").strftime("%d-%m-%Y %r"), user.updated_at.in_time_zone("Madrid").strftime("%d-%m-%Y %r")]
 			end
 		end
-		send_data csv_string , :filename => 'students.csv'
+		send_data "\uFEFF" + csv_string , :filename => 'students.csv'
 	end
 
 	def generate_acceptance_letter
@@ -669,13 +688,32 @@ class UserController < ApplicationController
 		user.progress_status = :during_initial
 		user.current_during_la_version = user.current_during_la_version - 1
 		user.save!
+		begin
+			url = request.base_url + RELATIVE_URL
+			UserMailer.dm_cancel_mail_to_admins(url, user).deliver_now
+		rescue
+			flash[:error] = "E-mail to admins could not be sent"
+		end
+		redirect_back(fallback_location:"users/user_dashboard_during")
+	end
+
+	def dm_wrong_info
+		user = User.find_by :id => params[:user]
+		user.progress_status = :during_accepted_pending_admin
+		user.save!
+		begin
+			url = request.base_url + RELATIVE_URL
+			UserMailer.dm_wrong_info_mail_to_admins(url, user).deliver_now
+		rescue
+			flash[:error] = "E-mail to admins could not be sent"
+		end
 		redirect_back(fallback_location:"users/user_dashboard_during")
 	end
 
 	def submit_admin_review_comment
-		user = User.find_by :id => params[:user_id]
-		current_dm = DuringLA.where(user_id: params[:user_id], during_la_version: user.current_during_la_version).first
-		current_dm.admin_review_comment = params[:admin_review_comment]
+		user = User.find_by :id => params[:user]
+		current_dm = DuringLA.where(user_id: user.id, during_la_version: user.current_during_la_version).first
+		current_dm.admin_review_comment = params[:during_la][:admin_review_comment]
 		current_dm.save!
 		redirect_back(fallback_location: "users/review_dashboard/:user/during")
 	end
@@ -684,7 +722,7 @@ class UserController < ApplicationController
 		send_file user.tor, :disposition => 'attachment'
 	end
 
-	def download_acceptance_letter
+	def download_attendance_certificate
 		send_file user.attendance_certificate, :disposition => 'attachment'
 	end
 end

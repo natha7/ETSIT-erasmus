@@ -62,8 +62,8 @@
 						:file_name => current_dm.during_la_signed_student_file_name,
 						:label => "During the Mobility LA (signed by student)"}  %>
                         <p>Insert a comment here in case you do not wish to accept these changes:</p>
-                <%= form_for current_user, url: "#{RELATIVE_URL}/during/submit_admin_review_comment", html: { id: "admin-review-comment-form"}, :method => :POST do |form| %>
-                    <textarea name="admin_review_comment" cols="110" rows="10"></textarea><br>
+                <%= form_for current_dm, url: "#{RELATIVE_URL}/during/submit_admin_review_comment", html: { id: "admin-review-comment-form"}, :method => :POST do |form| %>
+                    <%= form.text_area :admin_review_comment, :cols=>110, :rows=>5, :placeholder=> current_dm.admin_review_comment %><br>
                     <%= hidden_field_tag :user, current_user.id%>
                     <%= hidden_field_tag :dm_version, current_user.current_during_la_version%>
                     <div class="align-left">
@@ -111,7 +111,7 @@
                 <% if current_user.role == "user" && current_user.progress_status == "during_accepted_pending_closure"%>
                     <%= button_to "Accept document and close DM request", user_admin_notify_closed_during_path, data: {confirm: "This action will close this During LA modifications request and send an email to notify the student, are you sure?" }, :method=> :post, :class => "custom-button primary", :form_class => "finish_app", params: {:user => current_user, :dm_version => current_user.current_during_la_version} %>
                 <% end %>
-                <% if current_user.current_during_la_version <= 2 %>
+                <% if current_user.current_during_la_version >= 1 %>
 					<%= button_to "View modifications history", review_dashboard_during_history_path, :method=> :get, :class => "custom-button", :form_class => "finish_app", params: {:user => current_user} %>
 				<% end %>
             </p>

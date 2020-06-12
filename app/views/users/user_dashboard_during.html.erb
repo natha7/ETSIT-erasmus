@@ -49,9 +49,9 @@
                 <% elsif current_user.progress_status == "during_review_pending"%>
                     <h2> The International Office has been notified and they will get back to you soon. </h2>
                 <% elsif current_user.progress_status == "during_user_reviewing"%>
-                    <p>These changes were not accepted. Please, make the following changes:</p>
+                    <p>These changes were not accepted. The International Office made the following comments:</p>
                     <%= form_for current_user, url: RELATIVE_URL + "/during/submit_admin_review_comment", html: { id: "admin-review-comment-form" }, :method => :POST do |form| %>
-                        <textarea name="admin_review_comment" cols="110" rows="2" value="<%= current_dm.admin_review_comment %>" disabled/></textarea><br><br>
+                        <%= form.text_area :admin_review_comment, :cols=>110, :rows=>2, :value=> current_dm.admin_review_comment, disabled: true %><br><br>
                     <%end %>
                     <%= render partial: "users/user_dashboard_before_panel", :locals => {
                             :admin => false,
@@ -63,7 +63,7 @@
                 <% elsif current_user.progress_status == "during_accepted_pending_admin"%>
                     <p class="no-results">The International Office has not uploaded the documents yet.</p>
                 <% elsif current_user.progress_status == "during_accepted_pending_user"%>
-                    <p>The International Office has uploaded these two documents:</p>
+                    <p>The International Office has uploaded these two documents. Please, revise them and make sure the information matches the changes you made.</p>
                     <%= render partial: "users/user_dashboard_before_panel", :locals => {
                                         :admin => true,
                                         :user => current_user,
@@ -78,6 +78,7 @@
                                         :content => current_dm.payment_letter,
                                         :file_name => current_dm.payment_letter_file_name,
                                         :label => "Payment slip" } %>
+                    <%= button_to "The information in the documents is wrong", user_dm_wrong_info_path, :method=> :post, :class => "custom-button", :form_class => "finish_app", params: {:user => current_user} %>
                     <p>Please, upload the following:</p>
                     <%= render partial: "users/user_dashboard_before_panel", :locals => {
                                         :admin => false,

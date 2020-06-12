@@ -33,6 +33,9 @@
 			</div>
             </div>
             <div class="right-column">
+                <% if current_user.current_during_la_version == 0 %>
+                    <p class="no-results"> You have not made any During LA Modifications requests yet!</p>
+                <% end %>
                 <% during_las = DuringLA.where(user_id: current_user.id).order(during_la_version: :desc) %>
                 <% during_las.each do |current_dm| %>
                 <h1 class="welcome-title">Version <%= current_dm.during_la_version %></h1>
