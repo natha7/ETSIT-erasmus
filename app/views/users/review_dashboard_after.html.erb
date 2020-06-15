@@ -59,5 +59,29 @@
                                 :content => current_user.attendance_certificate,
                                 :file_name => current_user.attendance_certificate_file_name,
                                 :label => "Attendance Certificate" } %>
+        <% if current_user.role == "user" && current_user.progress_status == "after_pending" && !current_user.tor.blank? && !current_user.attendance_certificate.blank?%>
+                    <%= button_to "Notify student", user_admin_notify_uploaded_after_path, data: {confirm: "This action will send an email to notify the student, are you sure?" }, :method=> :post, :class => "custom-button primary", :form_class => "finish_app", params: {:user => current_user, :dm_version => current_user.current_during_la_version} %>
+                <% end %>
+        <p class="intro-paragraph  footer-paragraph s12">
+            <button class="custom-button" id="delete-user">Delete user</button>
+            <br/>
+            <span class="registered_at"><b>Registered</b>: <%=current_user.created_at.in_time_zone("Madrid").strftime("%d-%m-%Y %r") %>. &nbsp; &nbsp;  &nbsp; <b>Last updated:</b>  <%=current_user.updated_at.in_time_zone("Madrid").strftime("%d-%m-%Y %r") %></span>
+        </p>
         </div>
 <% end %>
+
+<div id="delete-user-dialog" >
+	<h2 class="title">Delete user</h2>
+	<button class="transparent-button action-button right close" id="delete-user-dialog-close"><i class="mdi mdi-close"></i></button>
+	<div class="flex-container">
+		<% if current_user.archived %>
+			<p>Would you like to restore this user or delete it permanently?</p>
+		<% else %>
+			<p>Would you like to archive this user in order to keep the data or delete it permanently?</p>
+		<% end %>
+        <div class="align-right">
+			<%= button_to current_user.archived ? "Restore user":"Archive user", "#{RELATIVE_URL}/users/archive/#{current_user.id}", :method=> :put, :class => "custom-button", :form_class =>"inline", params: {'archived' => !current_user.archived}%>
+			<%= button_to "Delete permanently", "#{RELATIVE_URL}/users/delete/#{current_user.id}", :method=> :delete,  data: { confirm: "This action is permanent. Are you sure you want to delete this user?" }, :class => "custom-button red-button", :form_class =>"inline"%>
+		</div>
+	</div>
+</div>

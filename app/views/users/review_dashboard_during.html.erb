@@ -106,7 +106,7 @@
                     <% end %>
                 <% end %>
                 <% if current_user.role == "user" && current_user.progress_status == "during_accepted_pending_admin" && !current_dm.during_la_signed_host.blank? && !current_dm.payment_letter.blank?%>
-                    <%= button_to "Send documents to student", user_admin_notify_uploaded_during_path, data: {confirm: "This action will reject these During LA modifications and send an email to notify the student, are you sure?" }, :method=> :post, :class => "custom-button primary", :form_class => "finish_app", params: {:user => current_user, :dm_version => current_user.current_during_la_version} %>
+                    <%= button_to "Notify student", user_admin_notify_uploaded_during_path, data: {confirm: "This action will reject these During LA modifications and send an email to notify the student, are you sure?" }, :method=> :post, :class => "custom-button primary", :form_class => "finish_app", params: {:user => current_user, :dm_version => current_user.current_during_la_version} %>
                 <% end %>
                 <% if current_user.role == "user" && current_user.progress_status == "during_accepted_pending_closure"%>
                     <%= button_to "Accept document and close DM request", user_admin_notify_closed_during_path, data: {confirm: "This action will close this During LA modifications request and send an email to notify the student, are you sure?" }, :method=> :post, :class => "custom-button primary", :form_class => "finish_app", params: {:user => current_user, :dm_version => current_user.current_during_la_version} %>

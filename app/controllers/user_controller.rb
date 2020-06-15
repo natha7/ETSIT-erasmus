@@ -20,7 +20,7 @@ class UserController < ApplicationController
 		else
 			user.progress_status = params[:user][:progress_status]
 		end
-		if user.progress_status == "before_accepted"
+		if params[:user][:progress_status] == "before_accepted"
 			if user.current_during_la_version == nil
 				user.current_during_la_version = 0
 			end
@@ -160,7 +160,7 @@ class UserController < ApplicationController
 	  
 	def admin_notify_uploaded_before
 		user = User.find_by :id => params[:user]
-	    if user.role == "user" && user.progress_status == "before_accepted" && !current_user.acceptance_letter.blank?
+	    if user.role == "user" && user.progress_status == "before_accepted" && !user.acceptance_letter.blank?
 	     begin
 	     	url = request.base_url + RELATIVE_URL
 	      	UserMailer.admin_notify_uploaded_before(url, user).deliver_now
@@ -168,6 +168,21 @@ class UserController < ApplicationController
 	      	flash[:error] = (flash[:error].blank? ?  "" : (flash[:error] + "\n" )) + "E-mail to #{user.email} could not be sent"
 		end
 	    end
+	    redirect_back(fallback_location: "users/review_dashboard/:user/before")
+	end
+
+	def admin_notify_uploaded_after
+		user = User.find_by :id => params[:user]
+	    if user.role == "user" && user.progress_status == "after_pending" && !user.tor.blank? && !user.attendance_certificate.blank?
+	     begin
+	     	url = request.base_url + RELATIVE_URL
+			  UserMailer.admin_notify_uploaded_after(url, user).deliver_now
+			  user.progress_status = "after_finished"
+      	rescue
+	      	flash[:error] = (flash[:error].blank? ?  "" : (flash[:error] + "\n" )) + "E-mail to #{user.email} could not be sent"
+		end
+		end
+		user.save!
 	    redirect_back(fallback_location: "users/review_dashboard/:user/before")
 	end
 
@@ -360,9 +375,6 @@ class UserController < ApplicationController
 			unless user_to_edit.save
 				flash[:error] = user_to_edit.errors.full_messages.to_sentence
 			end
-			if user_to_edit.tor.blank? == false && user_to_edit.attendance_certificate.blank? == false
-				user_to_edit.progress_status = "after_finished"
-			end
 		else 
 			flash[:error] = "File not valid"
 		end
@@ -511,6 +523,7 @@ class UserController < ApplicationController
 		end
 		if params[:attachment] == "tor" || params[:attachment] == "attendance_certificate"
 			user_to_edit.progress_status = "after_pending"
+			user_to_edit.save!
 			redirect_back(fallback_location:"review_dashboard/:user/after")
 		elsif params[:attachment] == "acceptance_letter"
 			redirect_back(fallback_location:"review_dashboard/:user/before")

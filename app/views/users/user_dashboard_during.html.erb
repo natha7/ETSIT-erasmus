@@ -34,7 +34,7 @@
             </div>
             <div class="right-column">
                 <% if current_user.progress_status == "during_initial"%>
-                    <%= button_to "Modify Learning Agreement", user_dm_create_path, :method=> :post, :class => "custom-button", params: {current_dm_version: current_user.current_during_la_version}%>
+                    <%= button_to "Modify Learning Agreement", user_dm_create_path, :method=> :post, :class => "custom-button primary", params: {current_dm_version: current_user.current_during_la_version}%>
                 <% else%>
                     <% current_dm = DuringLA.where(user_id: current_user.id, during_la_version: current_user.current_during_la_version).first %>
                 <% end %>
@@ -78,7 +78,7 @@
                                         :content => current_dm.payment_letter,
                                         :file_name => current_dm.payment_letter_file_name,
                                         :label => "Payment slip" } %>
-                    <%= button_to "The information in the documents is wrong", user_dm_wrong_info_path, :method=> :post, :class => "custom-button", :form_class => "finish_app", params: {:user => current_user} %>
+                    <%= button_to "The information in these documents is wrong", user_dm_wrong_info_path, :method=> :post, :class => "custom-button", :form_class => "finish_app", params: {:user => current_user} %>
                     <p>Please, upload the following:</p>
                     <%= render partial: "users/user_dashboard_before_panel", :locals => {
                                         :admin => false,
@@ -100,7 +100,7 @@
                     <% if current_user.progress_status == "during_initial" && current_user.current_during_la_version <= 2%>
 					    <%= button_to "View modifications history", user_dashboard_during_history_path, :method=> :get, :class => "custom-button", :form_class => "finish_app", params: {:user => current_user} %>
 				    <% end %>
-                    <% if current_user.progress_status != "during_initial" %>
+                    <% if current_user.progress_status == "during_user_editing" || current_user.progress_status == "during_user_reviewing" || current_user.progress_status == "during_review_pending" %>
                         <%= button_to "Cancel LA modifications request", user_dm_cancel_path, :method=> :post, :class => "custom-button", :form_class => "finish_app", params: {:user => current_user} %>
                     <% end %>
                 </p>

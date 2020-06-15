@@ -191,23 +191,21 @@
 					:file_name => current_user.acceptance_letter_file_name,
 					:label => "Acceptance Letter"}  %>
 				<% if !current_user.acceptance_letter.blank?%>
-					<%= button_to "Notify student", user_admin_notify_uploaded_before_path, data: {confirm: "This will send an email to notify the student, are you sure?" }, :method=> :post, :class => "custom-button primary", :form_class => "finish_app", params: {:user => current_user} %>
+					<%= button_to "Notify student", user_admin_notify_uploaded_before_path, data: {confirm: "This will send an email to notify the student, are you sure?" }, :method=> :post, :class => "custom-button", :form_class => "finish_app", params: {:user => current_user} %>
 				<% end %>
 			<% end %>
 		</div>
 <%end%>
 </div>
 <p class="intro-paragraph  footer-paragraph s12">
-	<div class="align-right">
 		<a download href="<%= "#{RELATIVE_URL}/download_all_files/#{current_user.id}" %>"><button class="custom-button primary">Download all files</button></a>
 		<!--	<%#if current_user.progress_status === "before_accepted" %><a download href="<%#= "#{RELATIVE_URL}/generate_acceptance_letter/#{current_user.id}" %>">
 			<button class="custom-button primary">Generate Acceptance Letter</button>
 		</a><%#end%>-->
 		<button id="acceptance-letter-dialog-button" class="custom-button primary">Generate Acceptance Letter</button>
-		<button class="custom-button primary" id="delete-user">Delete user</button>
+		<button class="custom-button" id="delete-user">Delete user</button>
 		<br/>
 		<span class="registered_at"><b>Registered</b>: <%=current_user.created_at.in_time_zone("Madrid").strftime("%d-%m-%Y %r") %>. &nbsp; &nbsp;  &nbsp; <b>Last updated:</b>  <%=current_user.updated_at.in_time_zone("Madrid").strftime("%d-%m-%Y %r") %></span>
-	</div>
 </p>
 
 <div id="acceptance-letter-dialog" >
@@ -232,4 +230,20 @@
 			<button type="submit" class="custom-button primary">Download</button>
 		</p>
 	</form>
+</div>
+
+<div id="delete-user-dialog" >
+	<h2 class="title">Delete user</h2>
+	<button class="transparent-button action-button right close" id="delete-user-dialog-close"><i class="mdi mdi-close"></i></button>
+	<div class="flex-container">
+		<% if current_user.archived %>
+			<p>Would you like to restore this user or delete it permanently?</p>
+		<% else %>
+			<p>Would you like to archive this user in order to keep the data or delete it permanently?</p>
+		<% end %>
+        <div class="align-right">
+			<%= button_to current_user.archived ? "Restore user":"Archive user", "#{RELATIVE_URL}/users/archive/#{current_user.id}", :method=> :put, :class => "custom-button", :form_class =>"inline", params: {'archived' => !current_user.archived}%>
+			<%= button_to "Delete permanently", "#{RELATIVE_URL}/users/delete/#{current_user.id}", :method=> :delete,  data: { confirm: "This action is permanent. Are you sure you want to delete this user?" }, :class => "custom-button red-button", :form_class =>"inline"%>
+		</div>
+	</div>
 </div>

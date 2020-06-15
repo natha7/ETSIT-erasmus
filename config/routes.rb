@@ -73,6 +73,7 @@ Rails.application.routes.draw do
     post 'user/admin_notify_uploaded_during', to: "user#admin_notify_uploaded_during", as: "user_admin_notify_uploaded_during"
     post 'user/user_notify_uploaded_during', to: "user#user_notify_uploaded_during", as: "user_notify_uploaded_during"
     post 'user/admin_notify_closed_during', to: "user#admin_notify_closed_during", as: "user_admin_notify_closed_during"
+    post 'user/admin_notify_uploaded_after', to: "user#admin_notify_uploaded_after", as: "user_admin_notify_uploaded_after"
     post 'user/file_upload', to: "user#file_upload"
     post 'user/review/file_upload/after', to: "user#review_file_upload_after"
     post 'user/review/file_upload/during', to: "user#review_file_upload_during"
