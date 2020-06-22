@@ -930,6 +930,9 @@ $(document).on('turbolinks:load', function() {
         if (newval === "before_accepted") {
             confirmed = confirm("This student will be accepted, and the application will send an email to welcoming him/her. Are you sure you want to change the status for this user?");
         }
+        if (newval === "before_rejected") {
+            confirmed = confirm("This student will be rejected, and the application will send an email to notify them. Are you sure you want to change the status for this user?");
+        }
         if (confirmed) {
             this.form.submit();
         } else {

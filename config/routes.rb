@@ -66,6 +66,8 @@ Rails.application.routes.draw do
     get 'review_student_application_form/:user/:step', to:"student_application_form#review_step"
 
     post 'user/finish_application_form', to: "user#finish_app_form"
+    post 'before/:user/accept', to: "user#accept_user", as: "accept_user"
+    post 'before/:user/reject', to: "user#reject_user", as: "reject_user"
     post 'user/admin_notify_uploaded_before', to: "user#admin_notify_uploaded_before", as: "user_admin_notify_uploaded_before"
     post 'user/send_during_la_modifications', to: "user#send_during_la_modifications", as: "user_send_during_la_modifications"
     post 'user/accept_during_la_modifications', to: "user#accept_during_la_modifications", as: "user_accept_during_la_modifications"
@@ -88,6 +90,7 @@ Rails.application.routes.draw do
 
     post 'during/dm_create', to: "user#dm_create", as: "user_dm_create"
     post 'during/dm_cancel', to: "user#dm_cancel", as: "user_dm_cancel"
+    post 'during/submit_student_error_comment', to: "user#submit_student_error_comment"
     post 'during/dm_wrong_info', to: "user#dm_wrong_info", as: "user_dm_wrong_info"
     post 'during/submit_admin_review_comment', to: "user#submit_admin_review_comment"
   end

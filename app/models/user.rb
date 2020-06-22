@@ -6,7 +6,7 @@ class User < ApplicationRecord
   enum ni_type: [:id, :passport]
   attr_accessor :signed_student_application_form_name, :signed_student_application_form_content_type, :signed_student_application_form_file_size, :isigned_student_application_form_updated_at
 
-  enum progress_status: [:before_in_process, :before_finished, :before_rejected, :before_accepted, :before_renounce, :during_initial, :during_user_editing, :during_review_pending, :during_user_reviewing, :during_accepted_pending_admin, :during_accepted_pending_user, :during_accepted_pending_closure, :after_pending, :after_finished]
+  enum progress_status: [:before_in_process, :before_finished, :before_rejected, :before_accepted, :before_renounce, :during_initial, :during_user_editing, :during_review_pending, :during_user_reviewing, :during_accepted_pending_admin, :during_accepted_pending_user, :during_accepted_pending_admin_wrong, :during_accepted_pending_closure, :after_pending, :after_finished]
   before_create :set_default_role
   before_create :set_default_progress_status
 
@@ -42,6 +42,7 @@ class User < ApplicationRecord
   has_attached_file :tor, :url=> "/erasmus/attachment/tor/:id/:basename.:extension"
   has_attached_file :attendance_certificate, :url=> "/erasmus/attachment/ac/:id/:basename.:extension"
   has_attached_file :acceptance_letter, :url=> "/erasmus/attachment/ac/:id/:basename.:extension"
+  has_attached_file :signed_la, :url=> "/erasmus/attachment/ac/:id/:basename.:extension"
 
   before_create :create_student_application_form
   after_validation :clean_paperclip_errors
@@ -63,6 +64,7 @@ class User < ApplicationRecord
   validates_attachment_content_type :tor, :content_type => ["application/pdf", "application/doc", "application/docx", "image/jpeg", "image/gif", "image/png", "image/jpg", "image/bmp"]
   validates_attachment_content_type :attendance_certificate, :content_type => ["application/pdf", "application/doc", "application/docx", "image/jpeg", "image/gif", "image/png", "image/jpg", "image/bmp"]
   validates_attachment_content_type :acceptance_letter, :content_type => ["application/pdf", "application/doc", "application/docx", "image/jpeg", "image/gif", "image/png", "image/jpg", "image/bmp"]
+  validates_attachment_content_type :signed_la, :content_type => ["application/pdf", "application/doc", "application/docx", "image/jpeg", "image/gif", "image/png", "image/jpg", "image/bmp"]
 
   validates_attachment_size :signed_student_application_form, :less_than => 4.megabytes
   validates_attachment_size :motivation_letter, :less_than => 4.megabytes
@@ -80,6 +82,7 @@ class User < ApplicationRecord
   validates_attachment_size :tor, :less_than => 4.megabytes
   validates_attachment_size :attendance_certificate, :less_than => 4.megabytes
   validates_attachment_size :acceptance_letter, :less_than => 4.megabytes
+  validates_attachment_size :signed_la, :less_than => 4.megabytes
 
   validates_presence_of :first_name, message: 'You must provide your first name.', if: :not_admin?
   validates_presence_of :family_name, message: 'You must provide your family name.', if: :not_admin?
@@ -112,8 +115,6 @@ class User < ApplicationRecord
       :recommendation_letter_2_file_name,
       :official_gpa_file_name,
       :english_test_score_file_name
-
-
      ])
    end
    app_form_pctg = self.student_application_form.completed_percentage_num(!self.signed_student_application_form.blank?)
@@ -152,8 +153,6 @@ class User < ApplicationRecord
       role != "admin"
   end
 
- 
-
   def clean_paperclip_errors
     errors.delete(:signed_student_application_form)
     errors.delete(:motivation_letter)
@@ -172,6 +171,7 @@ class User < ApplicationRecord
     errors.delete(:tor)
     errors.delete(:attendance_certificate)
     errors.delete(:acceptance_letter)
+    errors.delete(:signed_la)
   end
   
 end

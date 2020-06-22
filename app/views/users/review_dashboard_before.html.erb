@@ -181,7 +181,11 @@
 
 				</div>
 			<% end %>
-			<% if current_user.progress_status=="before_accepted"%>
+			<% if current_user.progress_status == "before_finished" %>
+				<%= button_to "Accept application", accept_user_path, data: {confirm: "This will accept the student and send an email to notify them, are you sure?" }, :method=> :post, :class => "custom-button primary", :form_class => "finish_app", params: {:user => current_user} %>
+				<%= button_to "Reject application", reject_user_path, data: {confirm: "This will reject the student and send an email to notify them, are you sure?" }, :method=> :post, :class => "custom-button", :form_class => "finish_app", params: {:user => current_user} %>
+			<% end %>
+			<% if current_user.progress_status=="before_accepted" || current_user.archived == true%>
 				<p>Please, upload the following documents:</p>
 				<%= render partial: "users/review_dashboard_panel", :locals => {
 					:admin => true,
@@ -190,8 +194,15 @@
 					:content => current_user.acceptance_letter,
 					:file_name => current_user.acceptance_letter_file_name,
 					:label => "Acceptance Letter"}  %>
-				<% if !current_user.acceptance_letter.blank?%>
-					<%= button_to "Notify student", user_admin_notify_uploaded_before_path, data: {confirm: "This will send an email to notify the student, are you sure?" }, :method=> :post, :class => "custom-button", :form_class => "finish_app", params: {:user => current_user} %>
+				<%= render partial: "users/review_dashboard_panel", :locals => {
+					:admin => true,
+					:name => :signed_la,
+					:current_user => current_user,
+					:content => current_user.signed_la,
+					:file_name => current_user.signed_la_file_name,
+					:label => "Signed Learning Agreement"}  %>
+				<% if !current_user.acceptance_letter.blank? && !current_user.signed_la.blank? %>
+					<%= button_to "Notify student", user_admin_notify_uploaded_before_path, data: {confirm: "This will send an email to notify the student, are you sure?" }, :method=> :post, :class => "custom-button primary", :form_class => "finish_app", params: {:user => current_user} %>
 				<% end %>
 			<% end %>
 		</div>

@@ -3,7 +3,7 @@
 <%end%>
 <div class="row">
 	<span class="dashboard-section" id="motivation-letter-tab">
-		<%unless admin === false %>
+		<%unless admin === false || name == :attendance_certificate%>
 				<span class="red">*</span>
 		<%else %>
 				<span class="red">&nbsp; </span>

@@ -34,11 +34,14 @@
             </div>
             <div class="right-column">
                 <% if current_user.progress_status == "during_initial"%>
-                    <%= button_to "Modify Learning Agreement", user_dm_create_path, :method=> :post, :class => "custom-button primary", params: {current_dm_version: current_user.current_during_la_version}%>
+                    <div class="align-center">
+                        <%= button_to "Modify Learning Agreement", user_dm_create_path, :method=> :post, :class => "custom-button primary", params: {current_dm_version: current_user.current_during_la_version}%>
+                    </div>
                 <% else%>
                     <% current_dm = DuringLA.where(user_id: current_user.id, during_la_version: current_user.current_during_la_version).first %>
                 <% end %>
                 <% if current_user.progress_status == "during_user_editing"%>
+                    <p>Please upload your modified Learning Agreement signed by you:</p>
                     <%= render partial: "users/user_dashboard_before_panel", :locals => {
                             :admin => false,
                             :name => :during_la_signed_student,
@@ -53,6 +56,7 @@
                     <%= form_for current_user, url: RELATIVE_URL + "/during/submit_admin_review_comment", html: { id: "admin-review-comment-form" }, :method => :POST do |form| %>
                         <%= form.text_area :admin_review_comment, :cols=>110, :rows=>2, :value=> current_dm.admin_review_comment, disabled: true %><br><br>
                     <%end %>
+                    <p> Please, upload a new version of your modified Learning Agreement signed by you:
                     <%= render partial: "users/user_dashboard_before_panel", :locals => {
                             :admin => false,
                             :name => :during_la_signed_student,
@@ -60,7 +64,7 @@
                             :content => current_dm.during_la_signed_student,
                             :file_name => current_dm.during_la_signed_student_file_name,
                             :label => "During the Mobility LA (signed by student)"}  %>
-                <% elsif current_user.progress_status == "during_accepted_pending_admin"%>
+                <% elsif current_user.progress_status.include?("during_accepted_pending_admin") %>
                     <p class="no-results">The International Office has not uploaded the documents yet.</p>
                 <% elsif current_user.progress_status == "during_accepted_pending_user"%>
                     <p>The International Office has uploaded these two documents. Please, revise them and make sure the information matches the changes you made.</p>
@@ -78,8 +82,21 @@
                                         :content => current_dm.payment_letter,
                                         :file_name => current_dm.payment_letter_file_name,
                                         :label => "Payment slip" } %>
-                    <%= button_to "The information in these documents is wrong", user_dm_wrong_info_path, :method=> :post, :class => "custom-button", :form_class => "finish_app", params: {:user => current_user} %>
-                    <p>Please, upload the following:</p>
+                    <p>If the information is not correct, write your comments down, save them and then press the "Wrong information" button that appears to notify the International Office.
+                    <%= form_for current_dm, url: "#{RELATIVE_URL}/during/submit_student_error_comment", html: { id: "user-error-comment-form"}, :method => :POST do |form| %>
+                    <%= form.text_area :student_error_comment, :cols=>110, :rows=>5, :placeholder=> current_dm.student_error_comment %><br>
+                    <%= hidden_field_tag :user, current_user.id%>
+                    <%= hidden_field_tag :dm_version, current_user.current_during_la_version%>
+                    <div class="align-left">
+                        <%= form.submit "Save", :class => "custom-button primary" %>
+                        </div>
+                <%end %>
+                    <div class="align-center">
+                        <% if !current_dm.student_error_comment.blank? %>
+                            <%= button_to "Wrong information", user_dm_wrong_info_path, :method=> :post, :class => "custom-button", :form_class => "finish_app", params: {:user => current_user} %>
+                        <% end %>
+                    </div>
+                    <p>If there are no mistakes in the documents, please upload the Learning Agreement signed by your home institution:</p>
                     <%= render partial: "users/user_dashboard_before_panel", :locals => {
                                         :admin => false,
                                         :user => current_user,
@@ -97,7 +114,7 @@
                     <% if current_user.progress_status == "during_accepted_pending_user" && !current_dm.during_la_signed_all.blank?%>
                         <%= button_to "Notify the International Office", user_notify_uploaded_during_path, data: {confirm: "This action will submit the signed document and send an email to notify the International Office, are you sure?" }, :method=> :post, :class => "custom-button primary ", :form_class => "finish_app", params: {:user => current_user, :current_dm_version => current_user.current_during_la_version} %>
                     <% end %>
-                    <% if current_user.progress_status == "during_initial" && current_user.current_during_la_version <= 2%>
+                    <% if (current_user.progress_status == "during_initial" && current_user.current_during_la_version <= 2) || current_user.archived == true %>
 					    <%= button_to "View modifications history", user_dashboard_during_history_path, :method=> :get, :class => "custom-button", :form_class => "finish_app", params: {:user => current_user} %>
 				    <% end %>
                     <% if current_user.progress_status == "during_user_editing" || current_user.progress_status == "during_user_reviewing" || current_user.progress_status == "during_review_pending" %>

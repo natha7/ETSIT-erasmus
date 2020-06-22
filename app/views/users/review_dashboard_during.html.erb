@@ -71,8 +71,15 @@
                         </div>
                 <%end %>
             <% elsif current_user.progress_status == "during_user_reviewing"%>
-                <p class="no-results"> The following user has not uploaded their reviewed LA modifications yet.</p>
-            <% elsif current_user.progress_status == "during_accepted_pending_admin"%>
+                <p class="no-results"> The following user have not uploaded their reviewed LA modifications yet.</p>
+            <% elsif current_user.progress_status.include?("during_accepted_pending_admin") %>
+                <% if current_user.progress_status == "during_accepted_pending_admin_wrong" %>
+                    <p> The user requested that you review the following documents as the information in them is wrong: </p>
+                    <%= form_for current_user, url: RELATIVE_URL + "/during/submit_student_error_comment", html: { id: "user-error-comment-form" }, :method => :POST do |form| %>
+                        <%= form.text_area :student_error_comment, :cols=>110, :rows=>2, :value=> current_dm.student_error_comment, disabled: true %><br><br>
+                    <%end %>
+                    <br>
+                <% end %>
                 <%= render partial: "users/review_dashboard_panel", :locals => {
                                     :admin => true,
                                     :user => current_user,
@@ -105,7 +112,7 @@
                         <%= button_to "Reject LA Modifications", user_reject_during_la_modifications_path, data: {confirm: "This action will reject these During LA modifications and send an email to notify the student, are you sure?" }, :method=> :post, :class => "custom-button", :form_class => "finish_app", params: {:user => current_user, :dm_version => current_user.current_during_la_version} %>
                     <% end %>
                 <% end %>
-                <% if current_user.role == "user" && current_user.progress_status == "during_accepted_pending_admin" && !current_dm.during_la_signed_host.blank? && !current_dm.payment_letter.blank?%>
+                <% if current_user.role == "user" && current_user.progress_status.include?("during_accepted_pending_admin") && !current_dm.during_la_signed_host.blank? && !current_dm.payment_letter.blank?%>
                     <%= button_to "Notify student", user_admin_notify_uploaded_during_path, data: {confirm: "This action will reject these During LA modifications and send an email to notify the student, are you sure?" }, :method=> :post, :class => "custom-button primary", :form_class => "finish_app", params: {:user => current_user, :dm_version => current_user.current_during_la_version} %>
                 <% end %>
                 <% if current_user.role == "user" && current_user.progress_status == "during_accepted_pending_closure"%>

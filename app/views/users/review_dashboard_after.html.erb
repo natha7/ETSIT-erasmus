@@ -59,7 +59,7 @@
                                 :content => current_user.attendance_certificate,
                                 :file_name => current_user.attendance_certificate_file_name,
                                 :label => "Attendance Certificate" } %>
-        <% if current_user.role == "user" && current_user.progress_status == "after_pending" && !current_user.tor.blank? && !current_user.attendance_certificate.blank?%>
+        <% if current_user.role == "user" && current_user.progress_status == "after_pending" && !current_user.tor.blank?%>
                     <%= button_to "Notify student", user_admin_notify_uploaded_after_path, data: {confirm: "This action will send an email to notify the student, are you sure?" }, :method=> :post, :class => "custom-button primary", :form_class => "finish_app", params: {:user => current_user, :dm_version => current_user.current_during_la_version} %>
                 <% end %>
         <p class="intro-paragraph  footer-paragraph s12">

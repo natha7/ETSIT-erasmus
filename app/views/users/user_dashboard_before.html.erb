@@ -182,25 +182,6 @@
 								:content => current_user.official_gpa,
 								:file_name => current_user.official_gpa_file_name,
 								:label => "Official GPA"}  %>
-					<% if current_user.progress_status == "before_accepted"%>
-						<% if current_user.valid_insurance_policy.blank? %>
-							<%= render partial: "users/user_dashboard_before_panel", :locals => {
-								:admin => false,
-								:name => :valid_insurance_policy,
-								:content => current_user.valid_insurance_policy,
-								:file_name => current_user.valid_insurance_policy_file_name,
-								:label => "Valid Insurance Policy"}  %>
-						<% end %>
-						<% if !current_user.acceptance_letter.blank? %>
-							<%= render partial: "users/user_dashboard_before_panel", :locals => {
-										:admin => true,
-										:name => :acceptance_letter,
-										:current_user => current_user,
-										:content => current_user.acceptance_letter,
-										:file_name => current_user.acceptance_letter_file_name,
-										:label => "Acceptance Letter"}  %>
-						<% end %>
-					<% end %>
 					</div>
 				<% end %>
 			</div>
@@ -232,10 +213,10 @@
 	<% elsif current_user.progress_status == "before_finished" %>
 		<h2> The International Office has been notified and they will get back to you soon. </h2>
 	<% elsif current_user.progress_status == "before_accepted" %>
-		<% if current_user.acceptance_letter.blank?%>
+		<% if current_user.acceptance_letter.blank? && current_user.signed_la.blank? %>
 			<h2> Your request was successfully completed and accepted. You will be able to download your signed Learning Agreement and your acceptance letter very soon.</h2>
 		<% else %>
-			<h2> Congratulations! Your request has been accepted and your Acceptance Letter is now available for download.</h2>
+			<h2> Congratulations! Your request has been accepted and your documents are now available for download.</h2>
 		<% end %>
 		<div class="dashboard-container">
 			<div class="left-column">
@@ -246,13 +227,7 @@
             </div>
             <div class="right-column">
 		<div class="collapsible big show">
-					<%= render partial: "users/user_dashboard_before_panel", :locals => {
-								:admin => false,
-								:name => :valid_insurance_policy,
-								:content => current_user.valid_insurance_policy,
-								:file_name => current_user.valid_insurance_policy_file_name,
-								:label => "Valid Insurance Policy"}  %>
-				<% if !current_user.acceptance_letter.blank? %>
+				<% if !current_user.acceptance_letter.blank? && !current_user.signed_la.blank?%>
 					<%= render partial: "users/user_dashboard_before_panel", :locals => {
 								:admin => true,
 								:name => :acceptance_letter,
@@ -260,7 +235,21 @@
 								:content => current_user.acceptance_letter,
 								:file_name => current_user.acceptance_letter_file_name,
 								:label => "Acceptance Letter"}  %>
+					<%= render partial: "users/user_dashboard_before_panel", :locals => {
+								:admin => true,
+								:name => :acceptance_letter,
+								:current_user => current_user,
+								:content => current_user.signed_la,
+								:file_name => current_user.signed_la_file_name,
+								:label => "Signed Learning Agreement"}  %>
 				<% end %>
+					<p> If you haven't already, please upload the following document to complete your aplication:</p>
+					<%= render partial: "users/user_dashboard_before_panel", :locals => {
+									:admin => false,
+									:name => :valid_insurance_policy,
+									:content => current_user.valid_insurance_policy,
+									:file_name => current_user.valid_insurance_policy_file_name,
+									:label => "Valid Insurance Policy"}  %>
 		</div>
 		</div>
 		</div>
@@ -272,7 +261,7 @@
 		<iframe id="acceptance_letter" src="<%= "#{RELATIVE_URL}/generate_acceptance_letter/#{current_user.id}"%>"/>
 		-->
 	<% elsif current_user.progress_status == "before_rejected" %>
-		<h1> Your request has been rejected </h1>
+		<h1> We are sorry to inform you that your request has been rejected. </h1>
 	<%else%>
 		<h1></h1>
 	<%end%>

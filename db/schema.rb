@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(version: 2020_04_09_103800) do
     t.integer "during_la_signed_all_file_size"
     t.datetime "during_la_signed_all_updated_at"
     t.string "admin_review_comment"
+    t.string "student_error_comment"
     t.bigint "user_id"
     t.integer "during_la_version"
     t.index ["user_id", "during_la_version"], name: "index_during_la_docs_on_user_id_and_version"
@@ -201,6 +202,10 @@ ActiveRecord::Schema.define(version: 2020_04_09_103800) do
     t.string "acceptance_letter_content_type"
     t.integer "acceptance_letter_file_size"
     t.datetime "acceptance_letter_updated_at"
+    t.string "signed_la_file_name"
+    t.string "signed_la_content_type"
+    t.integer "signed_la_file_size"
+    t.datetime "signed_la_updated_at"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

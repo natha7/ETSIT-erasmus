@@ -32,8 +32,46 @@ class UserController < ApplicationController
 				flash[:error] = "E-mail to #{user.email} could not be sent"
 			end
 		end
+		if params[:user][:progress_status] == "before_rejected"
+			begin
+				url = request.base_url + RELATIVE_URL
+				UserMailer.rejected_application_mail(url, user).deliver_now
+			rescue
+				flash[:error] = "E-mail to #{user.email} could not be sent"
+			end
+		end
 		user.save!
 		redirect_to admin_dashboard_path
+	end
+
+	def accept_user
+		user = User.find(params[:user])
+		if user.current_during_la_version == nil
+			user.current_during_la_version = 0
+		end
+		user.progress_status = "before_accepted"
+		begin
+			#UserMailer.reviewed_application_mail(current_user).deliver_now
+			url = request.base_url + RELATIVE_URL
+			UserMailer.reviewed_application_mail(url, user).deliver_now
+		rescue
+			flash[:error] = "E-mail to #{user.email} could not be sent"
+		end
+		user.save!
+		redirect_back(fallback_location: "users/review_dashboard/:user/before")
+	end
+
+	def reject_user
+		user = User.find(params[:user])
+		begin
+			#UserMailer.reviewed_application_mail(current_user).deliver_now
+			url = request.base_url + RELATIVE_URL
+			UserMailer.rejected_application_mail(url, user).deliver_now
+		rescue
+			flash[:error] = "E-mail to #{user.email} could not be sent"
+		end
+		user.save!
+		redirect_back(fallback_location: "users/review_dashboard/:user/before")
 	end
 
 	### USER
@@ -160,7 +198,7 @@ class UserController < ApplicationController
 	  
 	def admin_notify_uploaded_before
 		user = User.find_by :id => params[:user]
-	    if user.role == "user" && user.progress_status == "before_accepted" && !user.acceptance_letter.blank?
+	    if user.role == "user" && user.progress_status == "before_accepted" && !user.acceptance_letter.blank? && !user.signed_la.blank?
 	     begin
 	     	url = request.base_url + RELATIVE_URL
 	      	UserMailer.admin_notify_uploaded_before(url, user).deliver_now
@@ -173,7 +211,7 @@ class UserController < ApplicationController
 
 	def admin_notify_uploaded_after
 		user = User.find_by :id => params[:user]
-	    if user.role == "user" && user.progress_status == "after_pending" && !user.tor.blank? && !user.attendance_certificate.blank?
+	    if user.role == "user" && user.progress_status == "after_pending" && !user.tor.blank?
 	     begin
 	     	url = request.base_url + RELATIVE_URL
 			  UserMailer.admin_notify_uploaded_after(url, user).deliver_now
@@ -243,8 +281,12 @@ class UserController < ApplicationController
 	def admin_notify_uploaded_during
 		user = User.find_by :id => params[:user]
 		current_dm = DuringLA.where(user_id: user.id, during_la_version: user.current_during_la_version).first
-	    if user.role == "user" && user.progress_status == "during_accepted_pending_admin" && !current_dm.during_la_signed_host.blank? && !current_dm.payment_letter.blank?
+	    if user.role == "user" && user.progress_status.include?("during_accepted_pending_admin") && !current_dm.during_la_signed_host.blank? && !current_dm.payment_letter.blank?
 		  user.progress_status = :during_accepted_pending_user
+		  if !current_dm.student_error_comment.blank?
+			current_dm.student_error_comment = nil
+			current_dm.save!
+		  end
 	     begin
 	     	url = request.base_url + RELATIVE_URL
 	      	UserMailer.admin_notify_uploaded_during(url, user).deliver_now
@@ -511,6 +553,9 @@ class UserController < ApplicationController
 			when "acceptance_letter"
 				user_to_edit.acceptance_letter = nil
 				user_to_edit.save!
+			when "signed_la"
+				user_to_edit.signed_la = nil
+				user_to_edit.save!
 			when "tor"
 				user_to_edit.tor = nil
 				user_to_edit.save!
@@ -525,7 +570,7 @@ class UserController < ApplicationController
 			user_to_edit.progress_status = "after_pending"
 			user_to_edit.save!
 			redirect_back(fallback_location:"review_dashboard/:user/after")
-		elsif params[:attachment] == "acceptance_letter"
+		elsif params[:attachment] == "acceptance_letter" || params[:attachment] == "signed_la"
 			redirect_back(fallback_location:"review_dashboard/:user/before")
 		else
 			redirect_back(fallback_location:"review_dashboard/:user/during")
@@ -712,7 +757,7 @@ class UserController < ApplicationController
 
 	def dm_wrong_info
 		user = User.find_by :id => params[:user]
-		user.progress_status = :during_accepted_pending_admin
+		user.progress_status = :during_accepted_pending_admin_wrong
 		user.save!
 		begin
 			url = request.base_url + RELATIVE_URL
@@ -721,6 +766,14 @@ class UserController < ApplicationController
 			flash[:error] = "E-mail to admins could not be sent"
 		end
 		redirect_back(fallback_location:"users/user_dashboard_during")
+	end
+
+	def submit_student_error_comment
+		user = User.find_by :id => params[:user]
+		current_dm = DuringLA.where(user_id: user.id, during_la_version: user.current_during_la_version).first
+		current_dm.student_error_comment = params[:during_la][:student_error_comment]
+		current_dm.save!
+		redirect_back(fallback_location: "users/user_dashboard_during")
 	end
 
 	def submit_admin_review_comment

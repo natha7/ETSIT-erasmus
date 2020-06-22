@@ -12,13 +12,13 @@ class UserMailer < ApplicationMailer
 	def admin_notify_uploaded_before(url, user)
 		@user = user
 		@url = url
-		mail(to: @user.email , subject: 'Your Acceptance Letter has been uploaded. You can now login to review and download it.', encrypt: true)
+		mail(to: @user.email , subject: 'Your Acceptance Letter and signed Learning Agreement have been uploaded. You can now login to review and download them.', encrypt: true)
 	end
 
 	def admin_notify_uploaded_after(url, user)
 		@user = user
 		@url = url
-		mail(to: @user.email , subject: 'Your Attendance Certificate and Trancript of Records been uploaded. You can now login to review and download it.', encrypt: true)
+		mail(to: @user.email , subject: 'Your docuemnts been uploaded. You can now login to review and download them.', encrypt: true)
 	end
 
 	def send_during_la_modifications_mail_to_admins(url, user)
@@ -81,5 +81,11 @@ class UserMailer < ApplicationMailer
 		@url = url
 		@user = user
 		mail(to: @user.email , subject: 'Your application has been reviewed successfully. Welcome to ETSIT-UPM ', encrypt: true)
+	end
+
+	def rejected_application_mail(url, user)
+		@url = url
+		@user = user
+		mail(to: @user.email , subject: 'We are sorry to inform you that your application to ETSIT-UPM has been rejected ', encrypt: true)
 	end
 end
